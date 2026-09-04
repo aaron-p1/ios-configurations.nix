@@ -86,6 +86,8 @@ let
   iosVersion = config.targetData.version;
   isSupervised = config.targetData.isSupervised;
 
+  # Currently not checking keys that are attrs, because checking if empty is elaborate.
+  # This only causes the assertion message to be not as clear.
   genAssertionsSingleKey =
     {
       key,

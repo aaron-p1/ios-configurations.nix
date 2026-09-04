@@ -117,18 +117,6 @@ in
     assert hasInfix "<string>MyPassword</string>" plist;
     pkgs.runCommand "can-gen-airplay" { } "touch $out";
 
-  options-can-be-required =
-    let
-      config.profiles.airplay = {
-        enable = true;
-        Passwords = [ { DeviceName = "Name"; } ];
-      };
-      # this should throw an error because Password is required
-      result = tryEval (eval { inherit config; }).config.profiles.plist;
-    in
-    assert result.success == false;
-    pkgs.runCommand "options-can-be-required" { } "touch $out";
-
   can-gen-airprint =
     let
       config.profiles.airprint = {
@@ -176,3 +164,4 @@ in
     pkgs.runCommand "can-gen-apn-managed" { } "touch $out";
 }
 // (import ./assertions.nix { inherit eval pkgs lib; })
+// (import ./types.nix { inherit eval pkgs lib; })

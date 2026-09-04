@@ -211,6 +211,9 @@ def key_type_to_nix_type(payload_key, definitions, indent):
         case "<boolean>":
             return ([], "types.bool")
         case "<string>":
+            if payload_key.get("format"):
+                return ([], f'(types.strMatching "{payload_key["format"]}")')
+
             return ([], "types.str")
         case "<integer>":
             if payload_key.get("range"):
@@ -341,22 +344,22 @@ def to_nix_value(value):
     return f'"{value}"'
 
 
+def get_support_data(payload, prev_data={}):
+    return {
+        "minIos": payload.get("supportedOS", {})
+        .get("iOS", {})
+        .get("introduced", prev_data.get("minIos")),
+        "maxIos": payload.get("supportedOS", {})
+        .get("iOS", {})
+        .get("removed", prev_data.get("maxIos")),
+        "supervised": payload.get("supportedOS", {})
+        .get("iOS", {})
+        .get("supervised", prev_data.get("supervised")),
+    }
+
+
 def gen_payload_key_support_data(payload_key, definitions, global_values, prev_keys=[]):
-    min_ios = (
-        payload_key.get("supportedOS", {})
-        .get("iOS", {})
-        .get("introduced", global_values["minIos"])
-    )
-    max_ios = (
-        payload_key.get("supportedOS", {})
-        .get("iOS", {})
-        .get("removed", global_values["maxIos"])
-    )
-    supervised = (
-        payload_key.get("supportedOS", {})
-        .get("iOS", {})
-        .get("supervised", global_values["supervised"])
-    )
+    support_data = get_support_data(payload_key, global_values)
 
     template = """
         $key = {
@@ -375,13 +378,13 @@ def gen_payload_key_support_data(payload_key, definitions, global_values, prev_k
 
     cur_entry = Template(indented_template).substitute(
         key=key_path,
-        min_ios=to_nix_value(min_ios),
-        max_ios=to_nix_value(max_ios),
-        supervised=to_nix_value(supervised),
+        min_ios=to_nix_value(support_data["minIos"]),
+        max_ios=to_nix_value(support_data["maxIos"]),
+        supervised=to_nix_value(support_data["supervised"]),
     )
 
     return [cur_entry] + get_sub_key_support_data(
-        payload_key, definitions, global_values, prev_keys
+        payload_key, definitions, support_data, prev_keys
     )
 
 
@@ -417,12 +420,7 @@ def get_payload_keys_support_data(
 
 
 def gen_support_data(profile, definitions):
-    payload = profile["payload"]
-    global_values = {
-        "minIos": payload.get("supportedOS", {}).get("iOS", {}).get("introduced"),
-        "maxIos": payload.get("supportedOS", {}).get("iOS", {}).get("removed"),
-        "supervised": payload.get("supportedOS", {}).get("iOS", {}).get("supervised"),
-    }
+    global_values = get_support_data(profile["payload"])
 
     root_template = """
         enable = {

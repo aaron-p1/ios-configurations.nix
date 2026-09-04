@@ -9,7 +9,7 @@ let
       { ... }: {
         options = {
           "DeviceID" = mkProfileOpt {
-            type = types.str;
+            type = (types.strMatching "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$");
             description = ''
               The device ID of the AirPlay destination in the format
               `xx:xx:xx:xx:xx:xx`. This field isn't case-sensitive.
@@ -120,14 +120,14 @@ in
       supervised = true;
     };
     "AllowList"."*"."DeviceID" = {
-      minIos = "7.0";
+      minIos = "14.5";
       maxIos = null;
-      supervised = false;
+      supervised = true;
     };
     "AllowList"."*"."DeviceName" = {
       minIos = "18.0";
       maxIos = null;
-      supervised = false;
+      supervised = true;
     };
     "Passwords" = {
       minIos = "7.0";
@@ -152,12 +152,12 @@ in
     "Whitelist"."*"."DeviceID" = {
       minIos = "7.0";
       maxIos = null;
-      supervised = false;
+      supervised = true;
     };
     "Whitelist"."*"."DeviceName" = {
       minIos = "18.0";
       maxIos = null;
-      supervised = false;
+      supervised = true;
     };
   };
 }
