@@ -108,4 +108,56 @@ in
       required = false;
     };
   };
+  supportData = {
+    enable = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AllowList" = {
+      minIos = "14.5";
+      maxIos = null;
+      supervised = true;
+    };
+    "AllowList"."*"."DeviceID" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AllowList"."*"."DeviceName" = {
+      minIos = "18.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "Passwords" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "Passwords"."*"."DeviceName" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "Passwords"."*"."Password" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "Whitelist" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = true;
+    };
+    "Whitelist"."*"."DeviceID" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "Whitelist"."*"."DeviceName" = {
+      minIos = "18.0";
+      maxIos = null;
+      supervised = false;
+    };
+  };
 }

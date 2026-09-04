@@ -97,4 +97,51 @@ in
       required = true;
     };
   };
+  supportData = {
+    enable = {
+      minIos = "4.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "DefaultsData" = {
+      minIos = "4.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "DefaultsData"."apns" = {
+      minIos = "4.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "DefaultsData"."apns"."*"."apn" = {
+      minIos = "4.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "DefaultsData"."apns"."*"."username" = {
+      minIos = "4.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "DefaultsData"."apns"."*"."password" = {
+      minIos = "4.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "DefaultsData"."apns"."*"."proxy" = {
+      minIos = "4.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "DefaultsData"."apns"."*"."proxyPort" = {
+      minIos = "4.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "DefaultsDomainName" = {
+      minIos = "4.0";
+      maxIos = null;
+      supervised = false;
+    };
+  };
 }

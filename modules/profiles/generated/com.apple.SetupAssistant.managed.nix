@@ -32,4 +32,16 @@ in
       required = false;
     };
   };
+  supportData = {
+    enable = {
+      minIos = "14.0";
+      maxIos = null;
+      supervised = true;
+    };
+    "SkipSetupItems" = {
+      minIos = "14.0";
+      maxIos = null;
+      supervised = true;
+    };
+  };
 }

@@ -74,4 +74,36 @@ in
       required = true;
     };
   };
+  supportData = {
+    enable = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AirPrint" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AirPrint"."*"."IPAddress" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AirPrint"."*"."ResourcePath" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AirPrint"."*"."Port" = {
+      minIos = "11.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AirPrint"."*"."ForceTLS" = {
+      minIos = "11.0";
+      maxIos = null;
+      supervised = false;
+    };
+  };
 }

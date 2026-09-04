@@ -11,4 +11,4 @@ let
       modules = lib.toList modules;
     };
 in
-import ./profiles.nix { inherit eval pkgs lib; }
+import ./profiles { inherit eval pkgs lib; }

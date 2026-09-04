@@ -4,6 +4,7 @@
   lib,
 }:
 let
+  inherit (builtins) tryEval;
   inherit (lib) hasInfix;
 in
 {
@@ -123,7 +124,7 @@ in
         Passwords = [ { DeviceName = "Name"; } ];
       };
       # this should throw an error because Password is required
-      result = builtins.tryEval (eval { inherit config; }).config.profiles.plist;
+      result = tryEval (eval { inherit config; }).config.profiles.plist;
     in
     assert result.success == false;
     pkgs.runCommand "options-can-be-required" { } "touch $out";
@@ -174,3 +175,4 @@ in
     assert hasInfix "<integer>8080</integer>" plist;
     pkgs.runCommand "can-gen-apn-managed" { } "touch $out";
 }
+// (import ./assertions.nix { inherit eval pkgs lib; })

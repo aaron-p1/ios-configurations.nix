@@ -331,26 +331,126 @@ def flatten(obj):
             yield item
 
 
-def profile_to_module(profile, module_name):
-    definitions = profile["definitions"]
-    profile = profile["document"]
+def to_nix_value(value):
+    if value is None:
+        return "null"
+    elif value is True:
+        return "true"
+    elif value is False:
+        return "false"
+    return f'"{value}"'
 
-    name = module_name.replace("com.apple.", "")
-    payload_type = profile["payload"]["payloadtype"]
 
-    def_types_and_options = [
-        payload_key_to_option(payload_key, definitions, "    ")
-        for payload_key in profile.get("payloadkeys", [])
-        if payload_key_supports_ios(payload_key)
+def gen_payload_key_support_data(payload_key, definitions, global_values, prev_keys=[]):
+    min_ios = (
+        payload_key.get("supportedOS", {})
+        .get("iOS", {})
+        .get("introduced", global_values["minIos"])
+    )
+    max_ios = (
+        payload_key.get("supportedOS", {})
+        .get("iOS", {})
+        .get("removed", global_values["maxIos"])
+    )
+    supervised = (
+        payload_key.get("supportedOS", {})
+        .get("iOS", {})
+        .get("supervised", global_values["supervised"])
+    )
+
+    template = """
+        $key = {
+          minIos = $min_ios;
+          maxIos = $max_ios;
+          supervised = $supervised;
+        };
+    """
+
+    indented_template = (
+        textwrap.indent(textwrap.dedent(template), "    ").lstrip("\n").rstrip()
+    )
+
+    cur_key = payload_key.get("key", "unknown")
+    key_path = ".".join([to_nix_value(k) for k in prev_keys + [cur_key]])
+
+    cur_entry = Template(indented_template).substitute(
+        key=key_path,
+        min_ios=to_nix_value(min_ios),
+        max_ios=to_nix_value(max_ios),
+        supervised=to_nix_value(supervised),
+    )
+
+    return [cur_entry] + get_sub_key_support_data(
+        payload_key, definitions, global_values, prev_keys
+    )
+
+
+def get_sub_key_support_data(payload_key, definitions, global_values, prev_keys=[]):
+    subkeys = payload_key.get("subkeys", [])
+    if isinstance(subkeys, Ref):
+        subkeys = definitions.get(subkeys.name, [])
+
+    keys = prev_keys + [payload_key["key"]]
+
+    if payload_key["type"] == "<array>":
+        subkeys = subkeys[0].get("subkeys", [])
+        sub_entries = get_payload_keys_support_data(
+            subkeys, definitions, global_values, keys + ["*"]
+        )
+        return sub_entries
+
+    return get_payload_keys_support_data(subkeys, definitions, global_values, keys)
+
+
+def get_payload_keys_support_data(
+    payload_keys, definitions, global_values, prev_keys=[]
+):
+
+    ios_payload_keys = list(filter(payload_key_supports_ios, payload_keys))
+
+    support_data = [
+        gen_payload_key_support_data(payload_key, definitions, global_values, prev_keys)
+        for payload_key in ios_payload_keys
     ]
 
-    def_types = [def_type for def_type, _ in def_types_and_options]
-    var_def_list = define_definitions(definitions, list(flatten(def_types)))
-    var_definitions = textwrap.indent("\n".join(var_def_list), "  ")
-    var_definitions = "\n\n" + var_definitions if var_definitions else ""
+    return support_data
 
-    options = [option for _, option in def_types_and_options]
 
+def gen_support_data(profile, definitions):
+    payload = profile["payload"]
+    global_values = {
+        "minIos": payload.get("supportedOS", {}).get("iOS", {}).get("introduced"),
+        "maxIos": payload.get("supportedOS", {}).get("iOS", {}).get("removed"),
+        "supervised": payload.get("supportedOS", {}).get("iOS", {}).get("supervised"),
+    }
+
+    root_template = """
+        enable = {
+          minIos = $min_ios;
+          maxIos = $max_ios;
+          supervised = $supervised;
+        };
+    """
+
+    indented_root_template = (
+        textwrap.indent(textwrap.dedent(root_template), "    ").lstrip("\n").rstrip()
+    )
+
+    main_support_data_str = Template(indented_root_template).substitute(
+        min_ios=to_nix_value(global_values["minIos"]),
+        max_ios=to_nix_value(global_values["maxIos"]),
+        supervised=to_nix_value(global_values["supervised"]),
+    )
+
+    payload_keys = profile.get("payloadkeys", [])
+    support_data = get_payload_keys_support_data(
+        payload_keys, definitions, global_values
+    )
+
+    return "\n".join([main_support_data_str] + list(flatten(support_data)))
+
+
+def profile_to_module(profile, module_name):
     template = """
         # Generated from import-profiles.py. Do not edit.
         { lib, utils, ... }:
@@ -378,16 +478,43 @@ def profile_to_module(profile, module_name):
             };
             $options
           };
+          supportData = {
+            $support_data
+          };
         }
     """.removeprefix(
         "\n"
     )
+
+    definitions = profile["definitions"]
+    profile = profile["document"]
+
+    name = module_name.replace("com.apple.", "")
+    payload_type = profile["payload"]["payloadtype"]
+
+    ios_payload_keys = list(
+        filter(payload_key_supports_ios, profile.get("payloadkeys", []))
+    )
+
+    def_types_and_options = [
+        payload_key_to_option(payload_key, definitions, "    ")
+        for payload_key in ios_payload_keys
+    ]
+
+    def_types = [def_type for def_type, _ in def_types_and_options]
+    var_def_list = define_definitions(definitions, list(flatten(def_types)))
+    var_definitions = textwrap.indent("\n".join(var_def_list), "  ")
+    var_definitions = "\n\n" + var_definitions if var_definitions else ""
+
+    options = [option for _, option in def_types_and_options]
+    support_data_string = gen_support_data(profile, definitions)
 
     return Template(textwrap.dedent(template)).substitute(
         payload_type=payload_type,
         identifier=f"{PROFILE_IDENTIFIER_PREFIX}{name}",
         options="\n".join(options).strip(),
         var_definitions=var_definitions,
+        support_data=support_data_string.strip(),
     )
 
 
