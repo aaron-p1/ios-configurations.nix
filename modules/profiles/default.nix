@@ -20,6 +20,7 @@ let
     concatStringsSep
     flatten
     trim
+    isList
     ;
   inherit (utils) profileConfigToPlist;
 
@@ -27,6 +28,10 @@ let
     setupAssistant.managed = {
       name = "com.apple.SetupAssistant.managed";
       uuid = "a99ded28-9c3a-40f2-97f5-ab89b6b1b2c9";
+    };
+    airplay = {
+      name = "com.apple.airplay";
+      uuid = "abe2d54a-44a8-4263-92ab-0e58d83435db";
     };
   };
 
@@ -64,9 +69,11 @@ let
     config:
     pipe config [
       attrsToList
-      (filter ({ name, value }: !(elem name nonValueKeys) && value != null))
+      (filter ({ name, value }: !(elem name nonValueKeys) && !(valueIsEmpty value)))
       (values: values != [ ])
     ];
+
+  valueIsEmpty = value: if isList value then value == [ ] else value == null;
 
   # converts nested attrs to [{path = ["a", "b"]; value = ...;} ...]
   nestedAttrsToList = attrs: flatten (nestedAttrsToList' attrs [ ]);

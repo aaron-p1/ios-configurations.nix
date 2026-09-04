@@ -33,6 +33,22 @@ in
     assert hasInfix "PayloadVersion" plist;
     pkgs.runCommand "generates-boilerplate" { } "touch $out";
 
+  does-not-gen-empty-profile =
+    let
+      config.profiles.setupAssistant.managed = { };
+      plist = (eval { inherit config; }).config.profiles.plist;
+    in
+    assert !hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
+    pkgs.runCommand "does-not-gen-empty-profile" { } "touch $out";
+
+  empty-list-counts-as-empty-profile =
+    let
+      config.profiles.setupAssistant.managed.SkipSetupItems = [ ];
+      plist = (eval { inherit config; }).config.profiles.plist;
+    in
+    assert !hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
+    pkgs.runCommand "empty-list-counts-as-empty-profile" { } "touch $out";
+
   can-gen-setupassistant-managed =
     let
       config.profiles.setupAssistant.managed.SkipSetupItems = [ "SkipValue" ];
@@ -48,11 +64,37 @@ in
     assert hasInfix "<string>SkipValue</string>" plist;
     pkgs.runCommand "can-gen-setupassistant-managed" { } "touch $out";
 
-  does-not-gen-empty-profile =
+  can-gen-airplay =
     let
-      config.profiles.setupAssistant.managed = { };
+      config.profiles.airplay = {
+        AllowList = [
+          {
+            DeviceID = "00:11:22:33:44:55";
+            DeviceName = "My AirPlay Device";
+          }
+        ];
+        Passwords = [
+          {
+            DeviceName = "My AirPlay Device Password";
+            Password = "MyPassword";
+          }
+        ];
+      };
       plist = (eval { inherit config; }).config.profiles.plist;
     in
-    assert !hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
-    pkgs.runCommand "does-not-gen-empty-profile" { } "touch $out";
+    assert hasInfix "<string>com.apple.airplay</string>" plist;
+    assert hasInfix "<string>00:11:22:33:44:55</string>" plist;
+    assert hasInfix "<string>My AirPlay Device</string>" plist;
+    assert hasInfix "<string>My AirPlay Device Password</string>" plist;
+    assert hasInfix "<string>MyPassword</string>" plist;
+    pkgs.runCommand "can-gen-airplay" { } "touch $out";
+
+  options-can-be-required =
+    let
+      config.profiles.airplay.Passwords = [ { DeviceName = "Name"; } ];
+      # this should throw an error because Password is required
+      result = builtins.tryEval (eval { inherit config; }).config.profiles.plist;
+    in
+    assert result.success == false;
+    pkgs.runCommand "options-can-be-required" { } "touch $out";
 }

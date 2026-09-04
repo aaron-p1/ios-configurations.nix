@@ -8,19 +8,29 @@ let
     ;
   inherit (lib)
     attrsToList
+    optionalAttrs
+    trimWith
     isString
     isInt
     isList
+    isAttrs
     ;
 in
-{
+rec {
   mkProfileOpt =
-    { type, description }:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.nullOr type;
-      default = null;
-    };
+    {
+      type,
+      description,
+      required ? false,
+    }:
+    let
+      optionAttrs = {
+        inherit description;
+        type = if required then type else lib.types.nullOr type;
+      }
+      // (optionalAttrs (!required) { default = null; });
+    in
+    lib.mkOption optionAttrs;
 
   profileConfigToPlist =
     { config, indent }:
@@ -39,6 +49,16 @@ in
               [ "<integer>${toString value}</integer>" ]
             else if isList value then
               [ "<array>" ] ++ lib.concatMap value-to-plist-lines value ++ [ "</array>" ]
+            else if isAttrs value then
+              let
+                nestedLines = profileConfigToPlist {
+                  config = value;
+                  indent = indent + 2;
+                };
+
+                fixedNestedLines = trimWith { start = true; } nestedLines;
+              in
+              if nestedLines == null then [ "<dict/>" ] else [ fixedNestedLines ]
             else
               throw "Unsupported value type: ${toString value}";
         in

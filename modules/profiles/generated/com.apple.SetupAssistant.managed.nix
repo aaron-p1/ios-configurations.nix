@@ -28,6 +28,7 @@ in
         provides a list of valid strings and their meanings. Available
         in iOS 14 and later, and macOS 15 and later.
       '';
+      required = false;
     };
   };
 }
