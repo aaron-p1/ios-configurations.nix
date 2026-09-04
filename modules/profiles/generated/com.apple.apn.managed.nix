@@ -90,7 +90,11 @@ in
       required = true;
     };
     "DefaultsDomainName" = mkProfileOpt {
-      type = types.str;
+      type = (
+        types.enum [
+          "com.apple.managedCarrier"
+        ]
+      );
       description = ''
         The domain name.
       '';

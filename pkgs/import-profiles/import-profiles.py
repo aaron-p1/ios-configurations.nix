@@ -214,6 +214,16 @@ def key_type_to_nix_type(payload_key, definitions, indent):
             if payload_key.get("format"):
                 return ([], f'(types.strMatching "{payload_key["format"]}")')
 
+            if payload_key.get("rangelist"):
+                enum_values = map(lambda s: to_nix_value(s), payload_key["rangelist"])
+                value_lines = list(map(lambda s: "    " + s, enum_values))
+                lines_below = map(
+                    lambda l: indent + l,
+                    ["  types.enum ["] + value_lines + ["  ]", ")"],
+                )
+
+                return ([], f"(\n{'\n'.join(lines_below)}")
+
             return ([], "types.str")
         case "<integer>":
             if payload_key.get("range"):

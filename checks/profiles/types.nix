@@ -60,4 +60,19 @@ in
     assert result1.success == false;
     assert result2.success == true;
     pkgs.runCommand "checks-if-str-has-format" { } "touch $out";
+
+  checks-enum-values =
+    let
+      gen-config = name: {
+        profiles.apn.managed = {
+          enable = true;
+          DefaultsDomainName = name;
+        };
+      };
+      result1 = tryEvalGetPlist (gen-config "invalid-domain-name");
+      result2 = tryEvalGetPlist (gen-config "com.apple.managedCarrier");
+    in
+    assert result1.success == false;
+    assert result2.success == true;
+    pkgs.runCommand "checks-enum-values" { } "touch $out";
 }
