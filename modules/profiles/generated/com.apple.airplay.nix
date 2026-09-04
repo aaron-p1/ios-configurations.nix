@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
 { lib, utils, ... }:
 let
-  inherit (lib) types mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (lib) types mkEnableOption mkOption;
+  inherit (utils) mkProfileOpt plistDataType;
 
   type-id001 = types.listOf (
     types.submodule (
@@ -43,6 +43,7 @@ let
 in
 {
   options = {
+    enable = mkEnableOption "Enable the com.apple.airplay profile";
     PayloadType = mkOption {
       type = types.str;
       default = "com.apple.airplay";

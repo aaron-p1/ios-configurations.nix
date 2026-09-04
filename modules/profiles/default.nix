@@ -2,6 +2,7 @@
   lib,
   utils,
   config,
+  pkgs,
   ...
 }:
 let
@@ -10,6 +11,7 @@ let
     tail
     filter
     elem
+    removeAttrs
     ;
   inherit (lib)
     attrsToList
@@ -37,6 +39,10 @@ let
       name = "com.apple.airprint";
       uuid = "aa75f447-fea6-4427-8a28-4341b3c199e4";
     };
+    apn.managed = {
+      name = "com.apple.apn.managed";
+      uuid = "a9ace15f-ac9e-46ac-8ec7-bfc4cb39bda2";
+    };
   };
 
   profileOptions = mergeAttrsList (map (config: toNestedAttrs config.path config.options) configs);
@@ -50,34 +56,18 @@ let
   getProfileConfigValues = pconfig: attrByPath pconfig.path { } config.profiles;
   profileConfigPlists = pipe configs [
     (map (config: getProfileConfigValues config))
-    (filter hasAnyValueSet)
+    (filter (config: config.enable))
     (map (
       config:
       profileConfigToPlist {
-        inherit config;
+        inherit pkgs;
+        config = removeAttrs config [ "enable" ];
         indent = 3;
       }
     ))
     (map trim)
     (concatStringsSep "\n")
   ];
-
-  nonValueKeys = [
-    "PayloadType"
-    "PayloadIdentifier"
-    "PayloadUUID"
-    "PayloadVersion"
-  ];
-
-  hasAnyValueSet =
-    config:
-    pipe config [
-      attrsToList
-      (filter ({ name, value }: !(elem name nonValueKeys) && !(valueIsEmpty value)))
-      (values: values != [ ])
-    ];
-
-  valueIsEmpty = value: if isList value then value == [ ] else value == null;
 
   # converts nested attrs to [{path = ["a", "b"]; value = ...;} ...]
   nestedAttrsToList = attrs: flatten (nestedAttrsToList' attrs [ ]);

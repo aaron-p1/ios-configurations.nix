@@ -219,6 +219,8 @@ def key_type_to_nix_type(payload_key, definitions, indent):
                 return ([], f"(types.ints.between {range_min} {range_max})")
 
             return ([], "types.int")
+        case "<data>":
+            return ([], "plistDataType")
         case "<array>":
             subkeys = payload_key["subkeys"]
             if isinstance(subkeys, Ref):
@@ -353,11 +355,12 @@ def profile_to_module(profile, module_name):
         # Generated from import-profiles.py. Do not edit.
         { lib, utils, ... }:
         let
-          inherit (lib) types mkOption;
-          inherit (utils) mkProfileOpt;$var_definitions
+          inherit (lib) types mkEnableOption mkOption;
+          inherit (utils) mkProfileOpt plistDataType;$var_definitions
         in
         {
           options = {
+            enable = mkEnableOption "Enable the $payload_type profile";
             PayloadType = mkOption {
               type = types.str;
               default = "$payload_type";
@@ -411,7 +414,7 @@ def main():
 
     print(f"Found {len(profile_items)} profiles for iOS.")
 
-    for module_name, profile in profile_items[0:3]:
+    for module_name, profile in profile_items[0:4]:
         module_content = profile_to_module(profile, module_name)
         write_module(module_name, module_content)
         print(f"Generated module for {module_name}")

@@ -1,11 +1,12 @@
 # Generated from import-profiles.py. Do not edit.
 { lib, utils, ... }:
 let
-  inherit (lib) types mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (lib) types mkEnableOption mkOption;
+  inherit (utils) mkProfileOpt plistDataType;
 in
 {
   options = {
+    enable = mkEnableOption "Enable the com.apple.airprint profile";
     PayloadType = mkOption {
       type = types.str;
       default = "com.apple.airprint";

@@ -33,25 +33,51 @@ in
     assert hasInfix "PayloadVersion" plist;
     pkgs.runCommand "generates-boilerplate" { } "touch $out";
 
-  does-not-gen-empty-profile =
+  does-not-gen-disabled-profile =
     let
-      config.profiles.setupAssistant.managed = { };
+      config.profiles.setupAssistant.managed.enable = false;
       plist = (eval { inherit config; }).config.profiles.plist;
     in
     assert !hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
-    pkgs.runCommand "does-not-gen-empty-profile" { } "touch $out";
+    pkgs.runCommand "does-not-gen-disabled-profile" { } "touch $out";
 
-  empty-list-counts-as-empty-profile =
+  can-gen-enabled-empty-profile =
     let
-      config.profiles.setupAssistant.managed.SkipSetupItems = [ ];
+      config.profiles.setupAssistant.managed.enable = true;
       plist = (eval { inherit config; }).config.profiles.plist;
     in
-    assert !hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
-    pkgs.runCommand "empty-list-counts-as-empty-profile" { } "touch $out";
+    assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
+    pkgs.runCommand "can-gen-enabled-empty-profile" { } "touch $out";
+
+  does-not-set-empty-props =
+    let
+      config.profiles.setupAssistant.managed = {
+        enable = true;
+        SkipSetupItems = [ ];
+      };
+      plist = (eval { inherit config; }).config.profiles.plist;
+    in
+    assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
+    assert !hasInfix "SkipSetupItems" plist;
+    pkgs.runCommand "does-not-set-empty-props" { } "touch $out";
+
+  empty-list-counts-as-empty-prop =
+    let
+      config.profiles.setupAssistant.managed = {
+        enable = true;
+        SkipSetupItems = [ ];
+      };
+      plist = (eval { inherit config; }).config.profiles.plist;
+    in
+    assert !hasInfix "SkipSetupItems" plist;
+    pkgs.runCommand "empty-list-counts-as-empty-prop" { } "touch $out";
 
   can-gen-setupassistant-managed =
     let
-      config.profiles.setupAssistant.managed.SkipSetupItems = [ "SkipValue" ];
+      config.profiles.setupAssistant.managed = {
+        enable = true;
+        SkipSetupItems = [ "SkipValue" ];
+      };
       plist = (eval { inherit config; }).config.profiles.plist;
     in
     # test with indentation to not match the global keys
@@ -67,6 +93,7 @@ in
   can-gen-airplay =
     let
       config.profiles.airplay = {
+        enable = true;
         AllowList = [
           {
             DeviceID = "00:11:22:33:44:55";
@@ -91,7 +118,10 @@ in
 
   options-can-be-required =
     let
-      config.profiles.airplay.Passwords = [ { DeviceName = "Name"; } ];
+      config.profiles.airplay = {
+        enable = true;
+        Passwords = [ { DeviceName = "Name"; } ];
+      };
       # this should throw an error because Password is required
       result = builtins.tryEval (eval { inherit config; }).config.profiles.plist;
     in
@@ -101,6 +131,7 @@ in
   can-gen-airprint =
     let
       config.profiles.airprint = {
+        enable = true;
         AirPrint = [
           {
             IPAddress = "127.0.0.1";
@@ -118,4 +149,28 @@ in
     assert hasInfix "<integer>631</integer>" plist;
     assert hasInfix "<true/>" plist;
     pkgs.runCommand "can-gen-airprint" { } "touch $out";
+
+  can-gen-apn-managed =
+    let
+      config.profiles.apn.managed = {
+        enable = true;
+        DefaultsData.apns = [
+          {
+            apn = "internet";
+            username = "user";
+            password = "password";
+            proxy = "proxy.example.com";
+            proxyPort = 8080;
+          }
+        ];
+        DefaultsDomainName = "com.apple.managedCarrier";
+      };
+      plist = (eval { inherit config; }).config.profiles.plist;
+    in
+    assert hasInfix "<string>com.apple.apn.managed</string>" plist;
+    assert hasInfix "<string>internet</string>" plist;
+    assert hasInfix "<data>" plist;
+    assert hasInfix "cGFzc3dvcmQ=" plist;
+    assert hasInfix "<integer>8080</integer>" plist;
+    pkgs.runCommand "can-gen-apn-managed" { } "touch $out";
 }

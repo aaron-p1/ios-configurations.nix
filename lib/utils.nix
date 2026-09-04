@@ -9,7 +9,9 @@ let
   inherit (lib)
     attrsToList
     optionalAttrs
-    trimWith
+    trim
+    pipe
+    splitString
     isString
     isInt
     isList
@@ -32,10 +34,33 @@ rec {
     in
     lib.mkOption optionAttrs;
 
-  profileConfigToPlist =
-    { config, indent }:
+  plistDataType =
     let
-      filledOptions = filter ({ value, ... }: value != null) (attrsToList config);
+      tagData = value: {
+        __type = "data";
+        value = value;
+      };
+    in
+    lib.types.str
+    // {
+      name = "plist-data";
+      description = ''Written as string, read as { __type = "data", value = ... }'';
+      merge = loc: defs: tagData (lib.types.str.merge loc defs);
+    };
+
+  profileConfigToPlist = args: concatStringsSep "\n" (profileConfigToPlist' args);
+
+  profileConfigToPlist' =
+    {
+      config,
+      # needed for base64 encoding, because it builds a drv to encode the data
+      pkgs,
+      indent ? 0,
+    }:
+    let
+      valueIsEmpty = value: if isList value then value == [ ] else value == null;
+
+      filledOptions = filter ({ value, ... }: !valueIsEmpty value) (attrsToList config);
 
       gen-indent = n: concatStringsSep "" (genList (_: "  ") n);
 
@@ -53,16 +78,24 @@ rec {
               [ "<false/>" ]
             else if isList value then
               [ "<array>" ] ++ lib.concatMap value-to-plist-lines value ++ [ "</array>" ]
+            else if isAttrs value && (value ? __type) && value.__type == "data" then
+              let
+                data = pipe value.value [
+                  (toBase64 pkgs)
+                  (trim)
+                  (splitString "\n")
+                  (map (line: "${gen-indent 1}${line}"))
+                ];
+              in
+              [ "<data>" ] ++ data ++ [ "</data>" ]
             else if isAttrs value then
               let
-                nestedLines = profileConfigToPlist {
+                nestedLines = profileConfigToPlist' {
+                  inherit pkgs;
                   config = value;
-                  indent = indent + 2;
                 };
-
-                fixedNestedLines = trimWith { start = true; } nestedLines;
               in
-              if nestedLines == null then [ "<dict/>" ] else [ fixedNestedLines ]
+              if nestedLines == [ ] then [ "<dict/>" ] else nestedLines
             else
               throw "Unsupported value type: ${toString value}";
         in
@@ -78,5 +111,15 @@ rec {
         [ "<dict>" ] ++ option-plist-lines ++ [ "</dict>" ]
       );
     in
-    if filledOptions == [ ] then null else concatStringsSep "\n" plist-lines;
+    plist-lines;
+
+  toBase64 =
+    pkgs: value:
+    let
+      drv = pkgs.runCommandLocal "value.b64" {
+        inherit value;
+        passAsFile = [ "value" ];
+      } ''base64 < "$valuePath" > $out'';
+    in
+    builtins.readFile drv;
 }
