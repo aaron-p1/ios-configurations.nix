@@ -47,6 +47,10 @@ rec {
               [ "<string>${value}</string>" ]
             else if isInt value then
               [ "<integer>${toString value}</integer>" ]
+            else if value == true then
+              [ "<true/>" ]
+            else if value == false then
+              [ "<false/>" ]
             else if isList value then
               [ "<array>" ] ++ lib.concatMap value-to-plist-lines value ++ [ "</array>" ]
             else if isAttrs value then

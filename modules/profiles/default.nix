@@ -33,6 +33,10 @@ let
       name = "com.apple.airplay";
       uuid = "abe2d54a-44a8-4263-92ab-0e58d83435db";
     };
+    airprint = {
+      name = "com.apple.airprint";
+      uuid = "aa75f447-fea6-4427-8a28-4341b3c199e4";
+    };
   };
 
   profileOptions = mergeAttrsList (map (config: toNestedAttrs config.path config.options) configs);

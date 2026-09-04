@@ -97,4 +97,25 @@ in
     in
     assert result.success == false;
     pkgs.runCommand "options-can-be-required" { } "touch $out";
+
+  can-gen-airprint =
+    let
+      config.profiles.airprint = {
+        AirPrint = [
+          {
+            IPAddress = "127.0.0.1";
+            ResourcePath = "ipp/print";
+            Port = 631;
+            ForceTLS = true;
+          }
+        ];
+      };
+      plist = (eval { inherit config; }).config.profiles.plist;
+    in
+    assert hasInfix "<string>com.apple.airprint</string>" plist;
+    assert hasInfix "<string>127.0.0.1</string>" plist;
+    assert hasInfix "<string>ipp/print</string>" plist;
+    assert hasInfix "<integer>631</integer>" plist;
+    assert hasInfix "<true/>" plist;
+    pkgs.runCommand "can-gen-airprint" { } "touch $out";
 }

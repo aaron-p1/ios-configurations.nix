@@ -212,6 +212,13 @@ def key_type_to_nix_type(payload_key, definitions, indent):
             return ([], "types.bool")
         case "<string>":
             return ([], "types.str")
+        case "<integer>":
+            if payload_key.get("range"):
+                range_min = payload_key["range"]["min"]
+                range_max = payload_key["range"]["max"]
+                return ([], f"(types.ints.between {range_min} {range_max})")
+
+            return ([], "types.int")
         case "<array>":
             subkeys = payload_key["subkeys"]
             if isinstance(subkeys, Ref):
@@ -244,10 +251,12 @@ def payload_key_to_option(payload_key, definitions, indent):
 
     indented_template = textwrap.indent(textwrap.dedent(template), indent)
 
+    raw_description = payload_key.get("content", "")
+
     width = 80 - len(indent) - 4
-    description = textwrap.fill(
-        payload_key.get("content", ""), width=width, subsequent_indent=indent + "    "
-    )
+    wrapper = textwrap.TextWrapper(width=width)
+    description = "\n".join(wrapper.fill(line) for line in raw_description.split("\n"))
+    description = textwrap.indent(description, indent + "    ").strip()
 
     (def_types, nix_type) = key_type_to_nix_type(
         payload_key, definitions, indent + "  "
@@ -402,7 +411,7 @@ def main():
 
     print(f"Found {len(profile_items)} profiles for iOS.")
 
-    for module_name, profile in profile_items[0:2]:
+    for module_name, profile in profile_items[0:3]:
         module_content = profile_to_module(profile, module_name)
         write_module(module_name, module_content)
         print(f"Generated module for {module_name}")

@@ -13,23 +13,26 @@ let
             description = ''
               The device ID of the AirPlay destination in the format
               `xx:xx:xx:xx:xx:xx`. This field isn't case-sensitive.
-              The system limits the list of visible AirPlay
-              destinations to devices that are present in the
-              `AllowList` field of all installed AirPlay payloads.
-              Specifying the same MACAddress more than once, whether
-              in the same payload across different payloads, results
-              in undefined behavior.  As of tvOS 18, `DeviceID` isn't
-              supported.
+
+              The system limits the list of visible AirPlay destinations to
+              devices that are present in the `AllowList` field of all installed
+              AirPlay payloads.
+
+              Specifying the same MACAddress more than once, whether in the same
+              payload across different payloads, results in undefined behavior.
+
+              As of tvOS 18, `DeviceID` isn't supported.
             '';
             required = false;
           };
           "DeviceName" = mkProfileOpt {
             type = types.str;
             description = ''
-              The name of the AirPlay device.  The system limits the list of
-              visible AirPlay destinations to devices that are present
-              in the `AllowList` field of all installed AirPlay
-              payloads.
+              The name of the AirPlay device.
+
+              The system limits the list of visible AirPlay destinations to
+              devices that are present in the `AllowList` field of all installed
+              AirPlay payloads.
             '';
             required = false;
           };
@@ -89,9 +92,9 @@ in
       );
       description = ''
         If present, sets passwords for known AirPlay destinations. Using
-        multiple entries for the same destination, whether within the
-        same payload or across multiple installed payloads, is an error
-        and results in undefined behavior.
+        multiple entries for the same destination, whether within the same
+        payload or across multiple installed payloads, is an error and results
+        in undefined behavior.
       '';
       required = false;
     };

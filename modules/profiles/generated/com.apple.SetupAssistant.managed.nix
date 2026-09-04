@@ -25,8 +25,8 @@ in
       type = types.listOf types.str;
       description = ''
         An array of strings that describe the setup items to skip. `SkipKeys`
-        provides a list of valid strings and their meanings. Available
-        in iOS 14 and later, and macOS 15 and later.
+        provides a list of valid strings and their meanings. Available in iOS 14
+        and later, and macOS 15 and later.
       '';
       required = false;
     };
