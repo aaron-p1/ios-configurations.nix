@@ -36,6 +36,16 @@ rec {
     in
     lib.mkOption optionAttrs;
 
+  floatBetween =
+    lowest: highest:
+    assert lowest <= highest || throw "floatBetween: lowest must be smaller than highest";
+    lib.types.addCheck lib.types.float (x: x >= lowest && x <= highest)
+    // {
+      name = "floatBetween";
+      description = "floating point number between ${builtins.toJSON lowest} and ${builtins.toJSON highest} (both inclusive)";
+      descriptionClass = "noun";
+    };
+
   plistDataType =
     let
       tagData = value: {

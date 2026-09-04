@@ -2,7 +2,7 @@
 { lib, utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt plistDataType;
+  inherit (utils) mkProfileOpt;
 in
 {
   options = {

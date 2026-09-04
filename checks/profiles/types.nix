@@ -47,6 +47,34 @@ in
     assert result3.success == true;
     pkgs.runCommand "checks-if-int-in-range" { } "touch $out";
 
+  checks-if-float-in-range =
+    let
+      gen-config = value: {
+        profiles.cellularprivatenetwork.managed = {
+          enable = true;
+          Geofences = [
+            {
+              Longitude = value;
+              Latitude = 0.0;
+              Radius = 100.0;
+              GeofenceId = "geofence1";
+            }
+          ];
+          DataSetName = "Name";
+          VersionNumber = "1.0";
+        };
+      };
+      result1 = tryEvalGetPlist (gen-config (-1000.0));
+      result2 = tryEvalGetPlist (gen-config (-100.0));
+      result3 = tryEvalGetPlist (gen-config 100.0);
+      result4 = tryEvalGetPlist (gen-config 1000.0);
+    in
+    assert result1.success == false;
+    assert result2.success == true;
+    assert result3.success == true;
+    assert result4.success == false;
+    pkgs.runCommand "checks-if-float-in-range" { } "touch $out";
+
   checks-if-str-has-format =
     let
       gen-config = name: {

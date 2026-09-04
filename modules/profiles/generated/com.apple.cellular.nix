@@ -1,0 +1,331 @@
+# Generated from import-profiles.py. Do not edit.
+{ lib, utils, ... }:
+let
+  inherit (lib) types mkEnableOption mkOption;
+  inherit (utils) mkProfileOpt;
+in
+{
+  options = {
+    enable = mkEnableOption "Enable the com.apple.cellular profile";
+    PayloadType = mkOption {
+      type = types.str;
+      default = "com.apple.cellular";
+    };
+    PayloadIdentifier = mkOption {
+      type = types.str;
+      default = "com.example.manage-ios.cellular";
+    };
+    PayloadUUID = mkOption {
+      type = types.str;
+    };
+    PayloadVersion = mkOption {
+      type = types.int;
+      default = 1;
+    };
+    "AttachAPN" = mkProfileOpt {
+      type = (
+        types.submodule (
+          { ... }: {
+            options = {
+              "Name" = mkProfileOpt {
+                type = types.str;
+                description = ''
+                  The name for this configuration.
+                '';
+                required = true;
+              };
+              "AuthenticationType" = mkProfileOpt {
+                type = (
+                  types.enum [
+                    "CHAP"
+                    "PAP"
+                  ]
+                );
+                description = ''
+                  The authentication type.
+                '';
+                required = false;
+              };
+              "Username" = mkProfileOpt {
+                type = types.str;
+                description = ''
+                  The user name.
+                '';
+                required = false;
+              };
+              "Password" = mkProfileOpt {
+                type = types.str;
+                description = ''
+                  The password for the user.
+                '';
+                required = false;
+              };
+              "AllowedProtocolMask" = mkProfileOpt {
+                type = (
+                  types.enum [
+                    1
+                    2
+                    3
+                  ]
+                );
+                description = ''
+                  The Internet Protocol versions that the system supports.
+                  Allowed values:
+
+                  - `1`: IPv4
+                  - `2`: IPv6
+                  - `3`: Both
+                '';
+                required = false;
+              };
+            };
+          }
+        )
+      );
+      description = ''
+        A configuration dictionary.
+      '';
+      required = false;
+    };
+    "APNs" = mkProfileOpt {
+      type = types.listOf (
+        types.submodule (
+          { ... }: {
+            options = {
+              "Name" = mkProfileOpt {
+                type = types.str;
+                description = ''
+                  The name for this configuration.
+                '';
+                required = true;
+              };
+              "AuthenticationType" = mkProfileOpt {
+                type = (
+                  types.enum [
+                    "CHAP"
+                    "PAP"
+                  ]
+                );
+                description = ''
+                  The authentication type for logging in.
+                '';
+                required = false;
+              };
+              "Username" = mkProfileOpt {
+                type = types.str;
+                description = ''
+                  The user name for the APN.
+                '';
+                required = false;
+              };
+              "Password" = mkProfileOpt {
+                type = types.str;
+                description = ''
+                  The user's password for the APN.
+                '';
+                required = false;
+              };
+              "ProxyServer" = mkProfileOpt {
+                type = types.str;
+                description = ''
+                  The proxy server's address.
+                '';
+                required = false;
+              };
+              "ProxyPort" = mkProfileOpt {
+                type = types.int;
+                description = ''
+                  The proxy server's port number.
+                '';
+                required = false;
+              };
+              "DefaultProtocolMask" = mkProfileOpt {
+                type = (
+                  types.enum [
+                    1
+                    2
+                    3
+                  ]
+                );
+                description = ''
+                  The default Internet Protocol versions. Available in iOS
+                  10.3 but no longer used in iOS 11 and later. Allowed values:
+
+                  - `1`: IPv4
+                  - `2`: IPv6
+                  - `3`: Both
+                '';
+                required = false;
+              };
+              "AllowedProtocolMask" = mkProfileOpt {
+                type = (
+                  types.enum [
+                    1
+                    2
+                    3
+                  ]
+                );
+                description = ''
+                  The Internet Protocol versions that the system supports.
+                  Available in iOS 10.3 and later. Allowed values:
+
+                  - `1`: IPv4
+                  - `2`: IPv6
+                  - `3`: Both
+                '';
+                required = false;
+              };
+              "AllowedProtocolMaskInRoaming" = mkProfileOpt {
+                type = (
+                  types.enum [
+                    1
+                    2
+                    3
+                  ]
+                );
+                description = ''
+                  The Internet Protocol versions that the system supports
+                  while roaming. Available in iOS 10.3 and later. Allowed
+                  values:
+
+                  - `1`: IPv4
+                  - `2`: IPv6
+                  - `3`: Both
+                '';
+                required = false;
+              };
+              "AllowedProtocolMaskInDomesticRoaming" = mkProfileOpt {
+                type = (
+                  types.enum [
+                    1
+                    2
+                    3
+                  ]
+                );
+                description = ''
+                  The Internet Protocol versions that the system supports
+                  while roaming. Available in iOS 10.3 and later. Allowed
+                  values:
+
+                  - `1`: IPv4
+                  - `2`: IPv6
+                  - `3`: Both
+                '';
+                required = false;
+              };
+              "EnableXLAT464" = mkProfileOpt {
+                type = types.bool;
+                description = ''
+                  If `true`, the system enables XLAT464. Available in iOS 16
+                  and later and watchOS 9 and later.
+                '';
+                required = false;
+              };
+            };
+          }
+        )
+      );
+      description = ''
+        An array of access point name (APN) dictionaries.
+      '';
+      required = false;
+    };
+  };
+  supportData = {
+    enable = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AttachAPN" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AttachAPN"."Name" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AttachAPN"."AuthenticationType" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AttachAPN"."Username" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AttachAPN"."Password" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "AttachAPN"."AllowedProtocolMask" = {
+      minIos = "10.3";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."Name" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."AuthenticationType" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."Username" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."Password" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."ProxyServer" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."ProxyPort" = {
+      minIos = "7.0";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."DefaultProtocolMask" = {
+      minIos = "10.3";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."AllowedProtocolMask" = {
+      minIos = "10.3";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."AllowedProtocolMaskInRoaming" = {
+      minIos = "10.3";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."AllowedProtocolMaskInDomesticRoaming" = {
+      minIos = "10.3";
+      maxIos = null;
+      supervised = false;
+    };
+    "APNs"."*"."EnableXLAT464" = {
+      minIos = "16.0";
+      maxIos = null;
+      supervised = false;
+    };
+  };
+}

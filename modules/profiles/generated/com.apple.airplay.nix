@@ -2,7 +2,7 @@
 { lib, utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt plistDataType;
+  inherit (utils) mkProfileOpt;
 
   type-id001 = types.listOf (
     types.submodule (

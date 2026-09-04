@@ -58,7 +58,19 @@ let
     };
     caldav.account = {
       name = "com.apple.caldav.account";
-      uuid = "c5d7ebfb-4571-4359-bba0-8e170d52ef6c";
+      uuid = "ebffc740-0f3c-477f-be37-d16f92a56e93";
+    };
+    carddav.account = {
+      name = "com.apple.carddav.account";
+      uuid = "51468e28-f09e-4d80-a4fd-62704a04326f";
+    };
+    cellular = {
+      name = "com.apple.cellular";
+      uuid = "1350b652-696e-44e5-abf0-72755107aac2";
+    };
+    cellularprivatenetwork.managed = {
+      name = "com.apple.cellularprivatenetwork.managed";
+      uuid = "e12476cd-0f8b-4270-bc34-073e96f01a23";
     };
   };
 

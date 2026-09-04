@@ -2,7 +2,7 @@
 { lib, utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt plistDataType;
+  inherit (utils) mkProfileOpt;
 in
 {
   options = {
@@ -48,7 +48,7 @@ in
                           required = false;
                         };
                         "password" = mkProfileOpt {
-                          type = plistDataType;
+                          type = utils.plistDataType;
                           description = ''
                             The password for the user. For obfuscation purposes, the
                             system encodes the password. If missing, the device prompts

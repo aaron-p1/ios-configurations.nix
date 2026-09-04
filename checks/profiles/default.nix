@@ -209,6 +209,48 @@ in
     assert hasInfix "<string>com.example.manage-ios.caldav.account</string>" plist;
     assert hasInfix "<key>CalDAVHostName</key>" plist;
     pkgs.runCommand "can-gen-caldav-account" { } "touch $out";
+
+  can-gen-carddav-account =
+    let
+      config.profiles.carddav.account = {
+        enable = true;
+        CardDAVHostName = "carddav.example.com";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.carddav.account</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.carddav.account</string>" plist;
+    assert hasInfix "<key>CardDAVHostName</key>" plist;
+    pkgs.runCommand "can-gen-carddav-account" { } "touch $out";
+
+  can-gen-cellular =
+    let
+      config.profiles.cellular = {
+        enable = true;
+        AttachAPN.Name = "internet";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.cellular</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.cellular</string>" plist;
+    assert hasInfix "<key>AttachAPN</key>" plist;
+    assert hasInfix "<key>Name</key>" plist;
+    pkgs.runCommand "can-gen-cellular" { } "touch $out";
+
+  can-gen-cellularprivatenetwork-managed =
+    let
+      config.profiles.cellularprivatenetwork.managed = {
+        enable = true;
+        DataSetName = "Name";
+        VersionNumber = "1.0";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.cellularprivatenetwork.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.cellularprivatenetwork.managed</string>" plist;
+    assert hasInfix "<key>DataSetName</key>" plist;
+    assert hasInfix "<key>VersionNumber</key>" plist;
+    pkgs.runCommand "can-gen-cellularprivatenetwork.managed" { } "touch $out";
 }
 // (import ./assertions.nix { inherit eval pkgs lib; })
 // (import ./types.nix { inherit eval pkgs lib; })
