@@ -5,6 +5,7 @@ let
     concatLists
     genList
     concatStringsSep
+    toJSON
     ;
   inherit (lib)
     attrsToList
@@ -14,6 +15,7 @@ let
     splitString
     isString
     isInt
+    isFloat
     isList
     isAttrs
     ;
@@ -72,6 +74,9 @@ rec {
               [ "<string>${value}</string>" ]
             else if isInt value then
               [ "<integer>${toString value}</integer>" ]
+            else if isFloat value then
+              # toString has trailing 0s
+              [ "<real>${toJSON value}</real>" ]
             else if value == true then
               [ "<true/>" ]
             else if value == false then

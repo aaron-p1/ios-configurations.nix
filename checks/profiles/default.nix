@@ -111,6 +111,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.airplay</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.airplay</string>" plist;
     assert hasInfix "<string>00:11:22:33:44:55</string>" plist;
     assert hasInfix "<string>My AirPlay Device</string>" plist;
     assert hasInfix "<string>My AirPlay Device Password</string>" plist;
@@ -133,6 +134,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.airprint</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.airprint</string>" plist;
     assert hasInfix "<string>127.0.0.1</string>" plist;
     assert hasInfix "<string>ipp/print</string>" plist;
     assert hasInfix "<integer>631</integer>" plist;
@@ -157,6 +159,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.apn.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.apn.managed</string>" plist;
     assert hasInfix "<string>internet</string>" plist;
     assert hasInfix "<data>" plist;
     assert hasInfix "cGFzc3dvcmQ=" plist;
@@ -175,10 +178,24 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.app.lock</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.app.lock</string>" plist;
     assert hasInfix "<key>App</key>" plist;
     assert hasInfix "<key>Identifier</key>" plist;
     assert hasInfix "<key>EnableZoom</key>" plist;
     pkgs.runCommand "can-gen-app-lock" { } "touch $out";
+
+  can-gen-applicationaccess =
+    let
+      config.profiles.applicationaccess = {
+        enable = true;
+        allowAccountModification = true;
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.applicationaccess</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.applicationaccess</string>" plist;
+    assert hasInfix "<key>allowAccountModification</key>" plist;
+    pkgs.runCommand "can-gen-applicationaccess" { } "touch $out";
 }
 // (import ./assertions.nix { inherit eval pkgs lib; })
 // (import ./types.nix { inherit eval pkgs lib; })

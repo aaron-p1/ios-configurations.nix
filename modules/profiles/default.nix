@@ -52,6 +52,10 @@ let
       name = "com.apple.app.lock";
       uuid = "393b6d18-f734-47e7-87b1-c114bd60c1d7";
     };
+    applicationaccess = {
+      name = "com.apple.applicationaccess";
+      uuid = "1d287fe8-20d9-46a3-9e27-0a7f6a3375d4";
+    };
   };
 
   profileOptions = mergeAttrsList (map (config: toNestedAttrs config.path config.options) configs);

@@ -207,22 +207,22 @@ def dictionary_to_nix_submodule(subkeys, definitions, indent):
 
 
 def key_type_to_nix_type(payload_key, definitions, indent):
+    if payload_key.get("rangelist"):
+        enum_values = map(lambda s: to_nix_value(s), payload_key["rangelist"])
+        value_lines = list(map(lambda s: "    " + s, enum_values))
+        lines_below = map(
+            lambda l: indent + l,
+            ["  types.enum ["] + value_lines + ["  ]", ")"],
+        )
+
+        return ([], f"(\n{'\n'.join(lines_below)}")
+
     match payload_key["type"]:
         case "<boolean>":
             return ([], "types.bool")
         case "<string>":
             if payload_key.get("format"):
                 return ([], f'(types.strMatching "{payload_key["format"]}")')
-
-            if payload_key.get("rangelist"):
-                enum_values = map(lambda s: to_nix_value(s), payload_key["rangelist"])
-                value_lines = list(map(lambda s: "    " + s, enum_values))
-                lines_below = map(
-                    lambda l: indent + l,
-                    ["  types.enum ["] + value_lines + ["  ]", ")"],
-                )
-
-                return ([], f"(\n{'\n'.join(lines_below)}")
 
             return ([], "types.str")
         case "<integer>":
@@ -232,6 +232,8 @@ def key_type_to_nix_type(payload_key, definitions, indent):
                 return ([], f"(types.ints.between {range_min} {range_max})")
 
             return ([], "types.int")
+        case "<real>":
+            return ([], "types.float")
         case "<data>":
             return ([], "plistDataType")
         case "<array>":
@@ -351,6 +353,8 @@ def to_nix_value(value):
         return "true"
     elif value is False:
         return "false"
+    elif isinstance(value, (int, float)):
+        return str(value)
     return f'"{value}"'
 
 
@@ -549,7 +553,7 @@ def main():
 
     print(f"Found {len(profile_items)} profiles for iOS.")
 
-    for module_name, profile in profile_items[0:5]:
+    for module_name, profile in profile_items[0:6]:
         module_content = profile_to_module(profile, module_name)
         write_module(module_name, module_content)
         print(f"Generated module for {module_name}")

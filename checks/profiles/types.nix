@@ -5,6 +5,7 @@
 }:
 let
   inherit (builtins) tryEval;
+  inherit (lib) hasInfix;
 
   evalGetPlist = config: (eval { inherit config; }).config.profiles.plist;
   tryEvalGetPlist = config: tryEval (evalGetPlist config);
@@ -75,4 +76,118 @@ in
     assert result1.success == false;
     assert result2.success == true;
     pkgs.runCommand "checks-enum-values" { } "touch $out";
+
+  can-output-string =
+    let
+      config.profiles.apn.managed = {
+        enable = true;
+        DefaultsDomainName = "com.apple.managedCarrier";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.managedCarrier</string>" plist;
+    pkgs.runCommand "can-output-string" { } "touch $out";
+
+  can-output-int =
+    let
+      config.profiles.airprint = {
+        enable = true;
+        AirPrint = [
+          {
+            IPAddress = "127.0.0.1";
+            ResourcePath = "ipp/print";
+            Port = 631;
+          }
+        ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<integer>631</integer>" plist;
+    pkgs.runCommand "can-output-int" { } "touch $out";
+
+  can-output-float =
+    let
+      config.profiles.applicationaccess = {
+        enable = true;
+        safariAcceptCookies = 1.5;
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<real>1.5</real>" plist;
+    pkgs.runCommand "can-output-float" { } "touch $out";
+
+  can-output-bool =
+    let
+      gen-config = flag: {
+        profiles.airprint = {
+          enable = true;
+          AirPrint = [
+            {
+              IPAddress = "127.0.0.1";
+              ResourcePath = "ipp/print";
+              ForceTLS = flag;
+            }
+          ];
+        };
+      };
+      plist1 = evalGetPlist (gen-config true);
+      plist2 = evalGetPlist (gen-config false);
+    in
+    assert hasInfix "<true/>" plist1;
+    assert hasInfix "<false/>" plist2;
+    pkgs.runCommand "can-output-bool" { } "touch $out";
+
+  can-output-array =
+    let
+      config.profiles.setupAssistant.managed = {
+        enable = true;
+        SkipSetupItems = [
+          "Device1"
+          "Device2"
+        ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<array>" plist;
+    assert hasInfix "<string>Device1</string>" plist;
+    assert hasInfix "<string>Device2</string>" plist;
+    pkgs.runCommand "can-output-array" { } "touch $out";
+
+  can-output-data =
+    let
+      config.profiles.apn.managed = {
+        enable = true;
+        DefaultsData.apns = [
+          {
+            apn = "internet";
+            username = "user";
+            password = "password";
+          }
+        ];
+        DefaultsDomainName = "com.apple.managedCarrier";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<data>" plist;
+    assert hasInfix "cGFzc3dvcmQ=" plist; # base64 of "password"
+    pkgs.runCommand "can-output-data" { } "touch $out";
+
+  can-output-dictionary =
+    let
+      config.profiles.apn.managed = {
+        enable = true;
+        DefaultsData.apns = [
+          {
+            apn = "internet";
+            username = "user";
+            password = "password";
+          }
+        ];
+        DefaultsDomainName = "com.apple.managedCarrier";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<dict>" plist;
+    assert hasInfix "<key>apn</key>" plist;
+    pkgs.runCommand "can-output-dictionary" { } "touch $out";
 }
