@@ -56,6 +56,10 @@ let
       name = "com.apple.applicationaccess";
       uuid = "1d287fe8-20d9-46a3-9e27-0a7f6a3375d4";
     };
+    caldav.account = {
+      name = "com.apple.caldav.account";
+      uuid = "c5d7ebfb-4571-4359-bba0-8e170d52ef6c";
+    };
   };
 
   profileOptions = mergeAttrsList (map (config: toNestedAttrs config.path config.options) configs);

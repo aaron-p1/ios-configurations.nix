@@ -196,6 +196,19 @@ in
     assert hasInfix "<string>com.example.manage-ios.applicationaccess</string>" plist;
     assert hasInfix "<key>allowAccountModification</key>" plist;
     pkgs.runCommand "can-gen-applicationaccess" { } "touch $out";
+
+  can-gen-caldav-account =
+    let
+      config.profiles.caldav.account = {
+        enable = true;
+        CalDAVHostName = "caldav.example.com";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.caldav.account</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.caldav.account</string>" plist;
+    assert hasInfix "<key>CalDAVHostName</key>" plist;
+    pkgs.runCommand "can-gen-caldav-account" { } "touch $out";
 }
 // (import ./assertions.nix { inherit eval pkgs lib; })
 // (import ./types.nix { inherit eval pkgs lib; })
