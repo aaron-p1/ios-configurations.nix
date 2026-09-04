@@ -268,7 +268,7 @@ def payload_key_to_option(payload_key, definitions, indent):
 
     raw_description = payload_key.get("content", "")
 
-    width = 80 - len(indent) - 4
+    width = 60
     wrapper = textwrap.TextWrapper(width=width)
     description = "\n".join(wrapper.fill(line) for line in raw_description.split("\n"))
     description = textwrap.indent(description, indent + "    ").strip()
@@ -549,7 +549,7 @@ def main():
 
     print(f"Found {len(profile_items)} profiles for iOS.")
 
-    for module_name, profile in profile_items[0:4]:
+    for module_name, profile in profile_items[0:5]:
         module_content = profile_to_module(profile, module_name)
         write_module(module_name, module_content)
         print(f"Generated module for {module_name}")

@@ -4,8 +4,8 @@
   lib,
 }:
 let
-  inherit (builtins) tryEval;
   inherit (lib) hasInfix;
+  evalGetPlist = config: (eval { inherit config; }).config.profiles.plist;
 in
 {
   valid-xml =
@@ -23,7 +23,7 @@ in
 
   generates-boilerplate =
     let
-      plist = (eval { }).config.profiles.plist;
+      plist = evalGetPlist { };
     in
     assert hasInfix "PayloadContent" plist;
     assert hasInfix "PayloadDisplayName" plist;
@@ -37,7 +37,7 @@ in
   does-not-gen-disabled-profile =
     let
       config.profiles.setupAssistant.managed.enable = false;
-      plist = (eval { inherit config; }).config.profiles.plist;
+      plist = evalGetPlist config;
     in
     assert !hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
     pkgs.runCommand "does-not-gen-disabled-profile" { } "touch $out";
@@ -45,7 +45,7 @@ in
   can-gen-enabled-empty-profile =
     let
       config.profiles.setupAssistant.managed.enable = true;
-      plist = (eval { inherit config; }).config.profiles.plist;
+      plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
     pkgs.runCommand "can-gen-enabled-empty-profile" { } "touch $out";
@@ -56,7 +56,7 @@ in
         enable = true;
         SkipSetupItems = [ ];
       };
-      plist = (eval { inherit config; }).config.profiles.plist;
+      plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
     assert !hasInfix "SkipSetupItems" plist;
@@ -68,7 +68,7 @@ in
         enable = true;
         SkipSetupItems = [ ];
       };
-      plist = (eval { inherit config; }).config.profiles.plist;
+      plist = evalGetPlist config;
     in
     assert !hasInfix "SkipSetupItems" plist;
     pkgs.runCommand "empty-list-counts-as-empty-prop" { } "touch $out";
@@ -79,7 +79,7 @@ in
         enable = true;
         SkipSetupItems = [ "SkipValue" ];
       };
-      plist = (eval { inherit config; }).config.profiles.plist;
+      plist = evalGetPlist config;
     in
     # test with indentation to not match the global keys
     assert hasInfix "        <key>PayloadType</key>" plist;
@@ -108,7 +108,7 @@ in
           }
         ];
       };
-      plist = (eval { inherit config; }).config.profiles.plist;
+      plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.airplay</string>" plist;
     assert hasInfix "<string>00:11:22:33:44:55</string>" plist;
@@ -130,7 +130,7 @@ in
           }
         ];
       };
-      plist = (eval { inherit config; }).config.profiles.plist;
+      plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.airprint</string>" plist;
     assert hasInfix "<string>127.0.0.1</string>" plist;
@@ -154,7 +154,7 @@ in
         ];
         DefaultsDomainName = "com.apple.managedCarrier";
       };
-      plist = (eval { inherit config; }).config.profiles.plist;
+      plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.apn.managed</string>" plist;
     assert hasInfix "<string>internet</string>" plist;
@@ -162,6 +162,23 @@ in
     assert hasInfix "cGFzc3dvcmQ=" plist;
     assert hasInfix "<integer>8080</integer>" plist;
     pkgs.runCommand "can-gen-apn-managed" { } "touch $out";
+
+  can-gen-app-lock =
+    let
+      config.profiles.app.lock = {
+        enable = true;
+        App = {
+          Identifier = "com.apple.app.lock";
+          Options.EnableZoom = true;
+        };
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.app.lock</string>" plist;
+    assert hasInfix "<key>App</key>" plist;
+    assert hasInfix "<key>Identifier</key>" plist;
+    assert hasInfix "<key>EnableZoom</key>" plist;
+    pkgs.runCommand "can-gen-app-lock" { } "touch $out";
 }
 // (import ./assertions.nix { inherit eval pkgs lib; })
 // (import ./types.nix { inherit eval pkgs lib; })

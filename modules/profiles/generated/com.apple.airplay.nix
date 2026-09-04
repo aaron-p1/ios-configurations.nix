@@ -14,12 +14,13 @@ let
               The device ID of the AirPlay destination in the format
               `xx:xx:xx:xx:xx:xx`. This field isn't case-sensitive.
 
-              The system limits the list of visible AirPlay destinations to
-              devices that are present in the `AllowList` field of all installed
-              AirPlay payloads.
+              The system limits the list of visible AirPlay destinations
+              to devices that are present in the `AllowList` field of all
+              installed AirPlay payloads.
 
-              Specifying the same MACAddress more than once, whether in the same
-              payload across different payloads, results in undefined behavior.
+              Specifying the same MACAddress more than once, whether in
+              the same payload across different payloads, results in
+              undefined behavior.
 
               As of tvOS 18, `DeviceID` isn't supported.
             '';
@@ -30,9 +31,9 @@ let
             description = ''
               The name of the AirPlay device.
 
-              The system limits the list of visible AirPlay destinations to
-              devices that are present in the `AllowList` field of all installed
-              AirPlay payloads.
+              The system limits the list of visible AirPlay destinations
+              to devices that are present in the `AllowList` field of all
+              installed AirPlay payloads.
             '';
             required = false;
           };
@@ -62,8 +63,9 @@ in
     "AllowList" = mkProfileOpt {
       type = type-id001;
       description = ''
-        If present, only AirPlay destinations in this list are available to the
-        device. This allow list applies to supervised devices.
+        If present, only AirPlay destinations in this list are
+        available to the device. This allow list applies to
+        supervised devices.
       '';
       required = false;
     };
@@ -92,18 +94,18 @@ in
         )
       );
       description = ''
-        If present, sets passwords for known AirPlay destinations. Using
-        multiple entries for the same destination, whether within the same
-        payload or across multiple installed payloads, is an error and results
-        in undefined behavior.
+        If present, sets passwords for known AirPlay destinations.
+        Using multiple entries for the same destination, whether
+        within the same payload or across multiple installed
+        payloads, is an error and results in undefined behavior.
       '';
       required = false;
     };
     "Whitelist" = mkProfileOpt {
       type = type-id001;
       description = ''
-        Use `AllowList` instead. This key is deprecated in iOS 14.5 and macOS
-        11.3.
+        Use `AllowList` instead. This key is deprecated in iOS 14.5
+        and macOS 11.3.
       '';
       required = false;
     };

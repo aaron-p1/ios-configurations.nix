@@ -48,6 +48,10 @@ let
       name = "com.apple.apn.managed";
       uuid = "a9ace15f-ac9e-46ac-8ec7-bfc4cb39bda2";
     };
+    app.lock = {
+      name = "com.apple.app.lock";
+      uuid = "393b6d18-f734-47e7-87b1-c114bd60c1d7";
+    };
   };
 
   profileOptions = mergeAttrsList (map (config: toNestedAttrs config.path config.options) configs);

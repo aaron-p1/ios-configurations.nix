@@ -51,16 +51,16 @@ in
               "Port" = mkProfileOpt {
                 type = (types.ints.between 0 65535);
                 description = ''
-                  The listening port of the AirPrint destination. Available only
-                  in iOS 11 and later.
+                  The listening port of the AirPrint destination. Available
+                  only in iOS 11 and later.
                 '';
                 required = false;
               };
               "ForceTLS" = mkProfileOpt {
                 type = types.bool;
                 description = ''
-                  If `true`, AirPrint connections are secured by Transport Layer
-                  Security (TLS). Available only in iOS 11 and later.
+                  If `true`, AirPrint connections are secured by Transport
+                  Layer Security (TLS). Available only in iOS 11 and later.
                 '';
                 required = false;
               };
@@ -69,7 +69,8 @@ in
         )
       );
       description = ''
-        An array of AirPrint printers that are presented to the user.
+        An array of AirPrint printers that are presented to the
+        user.
       '';
       required = true;
     };

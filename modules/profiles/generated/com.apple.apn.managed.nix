@@ -42,18 +42,17 @@ in
                         "username" = mkProfileOpt {
                           type = types.str;
                           description = ''
-                            The user name. If missing, the device prompts for it
-                            during profile installation.
+                            The user name. If missing, the device prompts for it during
+                            profile installation.
                           '';
                           required = false;
                         };
                         "password" = mkProfileOpt {
                           type = plistDataType;
                           description = ''
-                            The password for the user. For obfuscation purposes,
-                            the system encodes the password. If missing, the
-                            device prompts for the password during profile
-                            installation.
+                            The password for the user. For obfuscation purposes, the
+                            system encodes the password. If missing, the device prompts
+                            for the password during profile installation.
                           '';
                           required = false;
                         };
