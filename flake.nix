@@ -15,7 +15,7 @@
     in
     {
       lib = import ./lib { inherit lib; };
-      manageiosModules = ./modules;
+      manageiosModules = import ./modules;
 
       checks = forAllSystems ({ pkgs }: import ./checks { inherit self pkgs lib; });
 

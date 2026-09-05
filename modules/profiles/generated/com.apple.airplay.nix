@@ -4,41 +4,47 @@ let
   inherit (lib) types mkEnableOption mkOption;
   inherit (utils) mkProfileOpt;
 
-  type-id001 = types.listOf (
-    utils.subopts {
-      "DeviceID" = mkProfileOpt {
-        type = (types.strMatching "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$");
-        description = ''
-          The device ID of the AirPlay destination in the format
-          `xx:xx:xx:xx:xx:xx`. This field isn't case-sensitive.
+  type-id001 =
+    _:
+    types.listOf (
+      utils.subopts {
+        "DeviceID" = mkProfileOpt {
+          type = (types.strMatching "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$");
+          description = ''
+            The device ID of the AirPlay destination in the format
+            `xx:xx:xx:xx:xx:xx`. This field isn't case-sensitive.
 
-          The system limits the list of visible AirPlay destinations
-          to devices that are present in the `AllowList` field of all
-          installed AirPlay payloads.
+            The system limits the list of visible AirPlay destinations
+            to devices that are present in the `AllowList` field of all
+            installed AirPlay payloads.
 
-          Specifying the same MACAddress more than once, whether in
-          the same payload across different payloads, results in
-          undefined behavior.
+            Specifying the same MACAddress more than once, whether in
+            the same payload across different payloads, results in
+            undefined behavior.
 
-          As of tvOS 18, `DeviceID` isn't supported.
-        '';
-        required = false;
-      };
-      "DeviceName" = mkProfileOpt {
-        type = types.str;
-        description = ''
-          The name of the AirPlay device.
+            As of tvOS 18, `DeviceID` isn't supported.
 
-          The system limits the list of visible AirPlay destinations
-          to devices that are present in the `AllowList` field of all
-          installed AirPlay payloads.
+            Requires: iOS >= 7.0; supervised device
+            Deprecated in iOS 18.0
+          '';
+          required = false;
+        };
+        "DeviceName" = mkProfileOpt {
+          type = types.str;
+          description = ''
+            The name of the AirPlay device.
 
-          Requires: iOS >= 18.0
-        '';
-        required = false;
-      };
-    }
-  );
+            The system limits the list of visible AirPlay destinations
+            to devices that are present in the `AllowList` field of all
+            installed AirPlay payloads.
+
+            Requires: iOS >= 18.0; supervised device
+          '';
+          required = false;
+        };
+      }
+    );
+
 in
 {
   options = {
@@ -59,7 +65,7 @@ in
       default = 1;
     };
     "AllowList" = mkProfileOpt {
-      type = type-id001;
+      type = (type-id001 { });
       description = ''
         If present, only AirPlay destinations in this list are
         available to the device. This allow list applies to
@@ -104,7 +110,7 @@ in
       required = false;
     };
     "Whitelist" = mkProfileOpt {
-      type = type-id001;
+      type = (type-id001 { });
       description = ''
         Use `AllowList` instead. This key is deprecated in iOS 14.5
         and macOS 11.3.

@@ -112,6 +112,14 @@ let
       name = "com.apple.globalethernet.managed";
       uuid = "0efdacde-25dd-4334-a2a2-e9cc2289d0c0";
     };
+    google-oauth = {
+      name = "com.apple.google-oauth";
+      uuid = "26b6a0d7-ae27-461a-8df3-89cca859015c";
+    };
+    homescreenlayout = {
+      name = "com.apple.homescreenlayout";
+      uuid = "8478fa79-7865-490f-a8d3-5454366b9db7";
+    };
   };
 
   profileOptions = mergeAttrsList (map (config: toNestedAttrs config.path config.options) configs);

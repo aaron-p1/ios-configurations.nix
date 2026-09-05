@@ -392,6 +392,49 @@ in
     assert hasInfix "<string>com.example.manage-ios.globalethernet.managed</string>" plist;
     assert hasInfix "<key>EthernetMACAddress</key>" plist;
     pkgs.runCommand "can-gen-globalethernet.managed" { } "touch $out";
+
+  can-gen-google-oauth =
+    let
+      config.profiles.google-oauth = {
+        enable = true;
+        EmailAddress = "test@example.com";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.google-oauth</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.google-oauth</string>" plist;
+    assert hasInfix "<key>EmailAddress</key>" plist;
+    pkgs.runCommand "can-gen-google-oauth" { } "touch $out";
+
+  can-gen-homescreenlayout =
+    let
+      config.profiles.homescreenlayout = {
+        enable = true;
+        Dock = [ { Type = "Folder"; } ];
+        Pages = [ ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.homescreenlayout</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.homescreenlayout</string>" plist;
+    assert hasInfix "<key>Dock</key>" plist;
+    pkgs.runCommand "can-gen-homescreenlayout" { } "touch $out";
+
+  stops-recursion-at-right-levels =
+    let
+      subOpts = opt: opt.type.getSubOptions [ ];
+      resolveNullOrListOf = type: type.nestedTypes.elemType.nestedTypes.elemType;
+
+      opts = (eval { }).options.profiles.homescreenlayout;
+      # one recursion for dock and one for folders
+      dockAny = (subOpts (subOpts opts.Dock).Pages).Pages.type;
+      # first Pages is not the same as other Pages
+      pagesAny = (subOpts (subOpts opts.Pages).Pages).Pages.type;
+    in
+    assert resolveNullOrListOf dockAny == lib.types.anything;
+    assert resolveNullOrListOf pagesAny == lib.types.anything;
+    pkgs.runCommand "stops-recursion-at-right-levels" { } "touch $out";
+
 }
 // (import ./assertions.nix { inherit eval pkgs lib; })
 // (import ./types.nix { inherit eval pkgs lib; })

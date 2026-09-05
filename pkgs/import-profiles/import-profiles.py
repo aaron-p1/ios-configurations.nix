@@ -12,6 +12,8 @@ PROFILE_IDENTIFIER_PREFIX = "com.example.manage-ios."
 
 CACHE_DIR = "tmp"
 
+GEN_OPTS = yaml.safe_load(open("pkgs/import-profiles/gen-options.yaml", "r"))
+
 
 def fetch_tarball():
     # if already in cache, return bytes
@@ -174,9 +176,28 @@ def is_array_definition(subkeys, key):
     return len(subkeys) == 1 and key == subkeys[0]["key"]
 
 
-def get_support_data_in_ref(payload_key, definitions, key_path, support_data):
-    if isinstance(payload_key, Ref):
-        payload_key = definitions[payload_key.name]
+def maybe_resolve_ref(payload, definitions, refs_seen, gen_opts):
+    if isinstance(payload, Ref):
+        name = payload.name
+        number_seen = refs_seen.get(payload.name, 0) + 1
+        max_depth = gen_opts.get("maxRecursionDepth", {}).get(name)
+        if max_depth is not None and number_seen > max_depth:
+            return (False, None, refs_seen)
+
+        payload = definitions[name]
+        refs_seen = {**refs_seen, name: number_seen}
+
+    return (True, payload, refs_seen)
+
+
+def get_support_data_in_ref(
+    payload_key, definitions, key_path, support_data, refs_seen, gen_opts
+):
+    (ok, payload_key, refs_seen) = maybe_resolve_ref(
+        payload_key, definitions, refs_seen, gen_opts
+    )
+    if not ok or not payload_key:
+        return []
 
     new_support_data = get_support_data(payload_key, support_data)
 
@@ -186,17 +207,25 @@ def get_support_data_in_ref(payload_key, definitions, key_path, support_data):
     nested_support_data_list = []
     if payload_key.get("type") == "<dictionary>":
         subkeys = payload_key.get("subkeys", [])
-        if isinstance(subkeys, Ref):
-            subkeys = definitions.get(subkeys.name, [])
+        (ok, subkeys, refs_seen) = maybe_resolve_ref(
+            subkeys, definitions, refs_seen, gen_opts
+        )
 
-        if len(subkeys) != 1 or subkeys[0]["key"] != "ANY":
+        if not ok or not subkeys:
+            nested_support_data_list = []
+        elif len(subkeys) != 1 or subkeys[0]["key"] != "ANY":
             nested_support_data_list = get_support_data_in_dict_ref(
-                subkeys, definitions, key_path, new_support_data
+                subkeys, definitions, key_path, new_support_data, refs_seen, gen_opts
             )
 
     if payload_key.get("type") == "<array>":
         nested_support_data_list = get_support_data_in_array_ref(
-            payload_key["subkeys"], definitions, key_path, new_support_data
+            payload_key["subkeys"],
+            definitions,
+            key_path,
+            new_support_data,
+            refs_seen,
+            gen_opts,
         )
 
     new_support_data_list = [{"path": key_path, "value": new_support_data}]
@@ -204,33 +233,63 @@ def get_support_data_in_ref(payload_key, definitions, key_path, support_data):
     return new_support_data_list + nested_support_data_list
 
 
-def get_support_data_in_dict_ref(subkeys, definitions, key_path, support_data):
-    if isinstance(subkeys, Ref):
-        subkeys = definitions[subkeys.name]
+def get_support_data_in_dict_ref(
+    subkeys, definitions, key_path, support_data, refs_seen, gen_opts
+):
+    (ok, subkeys, refs_seen) = maybe_resolve_ref(
+        subkeys, definitions, refs_seen, gen_opts
+    )
+    if not ok or not subkeys:
+        return []
 
     return [
-        get_support_data_in_ref(subkey, definitions, key_path, support_data)
+        get_support_data_in_ref(
+            subkey, definitions, key_path, support_data, refs_seen, gen_opts
+        )
         for subkey in subkeys
     ]
 
 
-def get_support_data_in_array_ref(subkeys, definitions, key_path, support_data):
-    if isinstance(subkeys, Ref):
-        subkeys = definitions[subkeys.name]
+def get_support_data_in_array_ref(
+    subkeys, definitions, key_path, support_data, refs_seen, gen_opts
+):
+    (ok, subkeys, refs_seen) = maybe_resolve_ref(
+        subkeys, definitions, refs_seen, gen_opts
+    )
+    if not ok or not subkeys:
+        return []
 
     subkey = subkeys[0]
+
+    if subkey.get("type") == "<array>":
+        return get_support_data_in_array_ref(
+            subkey["subkeys"],
+            definitions,
+            key_path,
+            support_data,
+            refs_seen,
+            gen_opts,
+        )
+
     if subkey.get("type") == "<dictionary>":
         return get_support_data_in_dict_ref(
-            subkey["subkeys"], definitions, key_path + ["*"], support_data
+            subkey["subkeys"],
+            definitions,
+            key_path + ["*"],
+            support_data,
+            refs_seen,
+            gen_opts,
         )
 
     return []
 
 
-def dictionary_to_nix_submodule(subkeys, definitions, key_path, support_data, indent):
+def dictionary_to_nix_submodule(
+    subkeys, definitions, key_path, support_data, indent, opts
+):
     if len(subkeys) == 1 and subkeys[0]["key"] == "ANY":
         nix_type = key_type_to_nix_type(
-            subkeys[0], definitions, key_path, support_data, indent + "  "
+            subkeys[0], definitions, key_path, support_data, indent + "  ", opts
         )[2]
         return ([], [], f"(types.attrsOf {nix_type})")
 
@@ -248,7 +307,7 @@ def dictionary_to_nix_submodule(subkeys, definitions, key_path, support_data, in
 
     new_indent = "    " + indent
     (def_types, support_data_list, options) = process_sub_keys(
-        subkeys, definitions, key_path, support_data, new_indent
+        subkeys, definitions, key_path, support_data, new_indent, opts
     )
 
     return (
@@ -258,7 +317,9 @@ def dictionary_to_nix_submodule(subkeys, definitions, key_path, support_data, in
     )
 
 
-def key_type_to_nix_type(payload_key, definitions, key_path, support_data, indent):
+def key_type_to_nix_type(
+    payload_key, definitions, key_path, support_data, indent, opts
+):
     def ret_type(nix_type):
         return ([], [], nix_type)
 
@@ -300,22 +361,33 @@ def key_type_to_nix_type(payload_key, definitions, key_path, support_data, inden
             subkeys = payload_key["subkeys"]
             if isinstance(subkeys, Ref):
                 support_data_list = get_support_data_in_array_ref(
-                    subkeys, definitions, key_path, support_data
+                    subkeys, definitions, key_path, support_data, {}, opts["gen_opts"]
                 )
+                decr_counter = opts.get("decr_var_counters", False)
 
                 return (
-                    [(subkeys.name, DefinitionType.ARRAY)],
+                    [(subkeys.name, DefinitionType.ARRAY, support_data)],
                     support_data_list,
-                    f"type-{subkeys.name}",
+                    ref_var_name(subkeys.name, decr_counter),
                 )
 
             (def_types, support_data_list, item_nix_type) = key_type_to_nix_type(
-                subkeys[0], definitions, key_path + ["*"], support_data, indent
+                subkeys[0],
+                definitions,
+                key_path + ["*"],
+                support_data,
+                indent,
+                opts,
             )
             return (def_types, support_data_list, f"types.listOf {item_nix_type}")
         case "<dictionary>":
             return dictionary_to_nix_submodule(
-                payload_key["subkeys"], definitions, key_path, support_data, indent
+                payload_key["subkeys"],
+                definitions,
+                key_path,
+                support_data,
+                indent,
+                opts,
             )
         case "<any>":
             return ret_type("types.anything")
@@ -345,7 +417,9 @@ def get_support_description(support_data):
     return result
 
 
-def payload_key_to_option(payload_key, definitions, key_path, support_data, indent):
+def payload_key_to_option(
+    payload_key, definitions, key_path, support_data, indent, opts
+):
     template = """
         "$key" = mkProfileOpt {
           type = $nix_type;
@@ -382,7 +456,7 @@ def payload_key_to_option(payload_key, definitions, key_path, support_data, inde
 
     key_path = key_path + [key]
     (def_types, nested_support_data_list, nix_type) = key_type_to_nix_type(
-        payload_key, definitions, key_path, new_support_data, indent + "  "
+        payload_key, definitions, key_path, new_support_data, indent + "  ", opts
     )
 
     if is_any:
@@ -406,9 +480,11 @@ def payload_key_to_option(payload_key, definitions, key_path, support_data, inde
     )
 
 
-def process_sub_keys(subkeys, definitions, key_path, support_data, indent):
+def process_sub_keys(subkeys, definitions, key_path, support_data, indent, opts):
     results = [
-        payload_key_to_option(payload_key, definitions, key_path, support_data, indent)
+        payload_key_to_option(
+            payload_key, definitions, key_path, support_data, indent, opts
+        )
         for payload_key in subkeys
         if payload_key_supports_ios(payload_key)
     ]
@@ -420,35 +496,132 @@ def process_sub_keys(subkeys, definitions, key_path, support_data, indent):
     return (def_types, support_data_list, options)
 
 
-def unique_by_key(pairs):
-    out = {}
-    for k, v in pairs:
-        if k in out and out[k] != v:
-            raise ValueError(f"conflict for {k!r}: {out[k]!r} != {v!r}")
-        out[k] = v
-    return list(out.items())
+
+def ref_var_name(name, decr_counter):
+    if decr_counter:
+        return f'(type-{name} (decrCounter "{name}"))'
+    return f"(type-{name} {{ }})"
 
 
-def define_definition(definitions, def_type):
+def define_definition(definitions, def_type, gen_opts):
+    name = def_type[0]
+    max_depth = gen_opts.get("maxRecursionDepth", {}).get(name, 10)
+
+    simple_template = """
+        $var_name =
+          _:
+          $nix_type;
+    """
+
+    indented_simple_template = textwrap.indent(textwrap.dedent(simple_template).lstrip(), "  ")
+
+    recursive_template = """
+        $var_name =
+          {
+            $counter_name ? $max_depth,
+            ...
+          }@args:
+          let
+            counters = args // {
+              inherit $counter_name;
+            };
+            decrCounter =
+              name:
+              if counters ? "counter-$${name}" then
+                counters // { "counter-$${name}" = counters."counter-$${name}" - 1; }
+              else
+                counters;
+          in
+          if counters ? $counter_name && counters.$counter_name <= 0 then
+            types.anything
+          else
+            $nix_type;
+    """
+
+    indented_rec_template = textwrap.dedent(recursive_template).lstrip()
+
+    new_def_types = []
+    nix_type = None
+
     match def_type:
-        case (name, DefinitionType.ARRAY):
+        case (name, DefinitionType.ARRAY, support_data):
             subkeys = definitions[name]
+            opts = {"gen_opts": gen_opts, "decr_var_counters": True}
             (new_def_types, _, nix_type) = key_type_to_nix_type(
-                subkeys[0], definitions, [], {}, ""
+                subkeys[0], definitions, [], support_data, "    ", opts
             )
-            var_name = f"type-{name}"
-            return (new_def_types, f"{var_name} = types.listOf {nix_type};")
+
+            nix_type = f"types.listOf {nix_type}"
         case _:
             raise ValueError(f"unknown definition type: {def_type}")
 
+    new_def_types = list(flatten(new_def_types))
+    template = indented_rec_template if new_def_types else indented_simple_template
 
-def define_definitions(definitions, def_types, prev_def_types=[]):
-    def_types = unique_by_key(def_types)
+    var_def = Template(template).substitute(
+        var_name=f"type-{name}",
+        counter_name=f"counter-{name}",
+        max_depth=max_depth,
+        nix_type=nix_type,
+    )
+
+    return (
+        new_def_types,
+        textwrap.dedent(var_def),
+    )
+
+def parse_version(v):
+    return tuple(int(x) for x in v.split("."))
+
+def merge_versions(v1, v2, fn):
+    if v1 is None:
+        return v2
+    if v2 is None:
+        return v1
+    if fn == "max":
+        if parse_version(v1) > parse_version(v2):
+            return v1
+        return v2
+    if fn == "min":
+        if parse_version(v1) < parse_version(v2):
+            return v1
+        return v2
+    if fn == "bool and":
+        return v1 and v2
+
+def merge_support_data(data1, data2):
+    return {
+        "minIos": merge_versions(data1.get("minIos"), data2.get("minIos"), "min"),
+        "deprecatedIos": None,
+        "maxIos": merge_versions(data1.get("maxIos"), data2.get("maxIos"), "max"),
+        "supervised": merge_versions(
+            data1.get("supervised"), data2.get("supervised"), "bool and"
+        ),
+    }
+
+def merge_def_types(support_data_list):
+    seen = {}
+    for name, atype, data in support_data_list:
+        if name in seen and seen[name][0] != atype:
+            raise ValueError(f"Conflicting definition types for {name}: {seen[name][0]} vs {atype}")
+        merged = merge_support_data(seen[name][1], data) if name in seen else data
+        seen[name] = (atype, merged)
+
+    return [(name, atype, data) for name, (atype, data) in seen.items()]
+
+
+def define_definitions(definitions, def_types, gen_opts, prev_def_types=[]):
+    def_types = merge_def_types(def_types)
     # check if no conflicts in prev_def_types
-    unique_by_key(def_types + prev_def_types)
+    merge_def_types(def_types + prev_def_types)
+
+    prev_names = set(name for name, _, _ in prev_def_types)
+    def_types = [
+        (name, def_type, support_data) for name, def_type, support_data in def_types if name not in prev_names
+    ]
 
     def_types_and_vars = [
-        define_definition(definitions, def_type) for def_type in def_types
+        define_definition(definitions, def_type, gen_opts) for def_type in def_types
     ]
 
     vars = [var for _, var in def_types_and_vars]
@@ -457,7 +630,10 @@ def define_definitions(definitions, def_types, prev_def_types=[]):
     if new_def_types:
         new_def_types = list(flatten(new_def_types))
         new_vars = define_definitions(
-            definitions, new_def_types, def_types + prev_def_types
+            definitions,
+            new_def_types,
+            gen_opts,
+            def_types + prev_def_types,
         )
         return vars + new_vars
 
@@ -570,6 +746,8 @@ def profile_to_module(profile, module_name):
         "\n"
     )
 
+    gen_opts = GEN_OPTS.get(module_name, {})
+
     definitions = profile["definitions"]
     profile = profile["document"]
 
@@ -581,11 +759,12 @@ def profile_to_module(profile, module_name):
     )
 
     global_support_data = get_support_data(profile["payload"])
+    opts = {"gen_opts": gen_opts}
     (def_types, support_data_list, options) = process_sub_keys(
-        ios_payload_keys, definitions, [], global_support_data, "    "
+        ios_payload_keys, definitions, [], global_support_data, "    ", opts
     )
 
-    var_def_list = define_definitions(definitions, list(flatten(def_types)))
+    var_def_list = define_definitions(definitions, list(flatten(def_types)), gen_opts)
     var_definitions = textwrap.indent("\n".join(var_def_list), "  ")
     var_definitions = "\n\n" + var_definitions if var_definitions else ""
 
@@ -625,7 +804,7 @@ def main():
 
     print(f"Found {len(profile_items)} profiles for iOS.")
 
-    for module_name, profile in profile_items[0:20]:
+    for module_name, profile in profile_items[0:22]:
         module_content = profile_to_module(profile, module_name)
         write_module(module_name, module_content)
         print(f"Generated module for {module_name}")
