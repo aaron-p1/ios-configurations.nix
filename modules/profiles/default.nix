@@ -209,9 +209,25 @@ let
       name = "com.apple.tvremote";
       uuid = "7960604e-6471-417d-9a06-abccfd7d7280";
     };
-    vpn.managed.applayer = {
+    vpn.managed-applayer = {
       name = "com.apple.vpn.managed.applayer";
       uuid = "6ed914ba-283f-462f-b697-93f56fe9f6f4";
+    };
+    vpn.managed = {
+      name = "com.apple.vpn.managed";
+      uuid = "efcc0043-14c8-49cc-9d8d-976a6a4ff093";
+    };
+    webclip.managed = {
+      name = "com.apple.webClip.managed";
+      uuid = "cb9d9ff1-255b-4d07-b7a0-04245c5bb511";
+    };
+    webcontent-filter = {
+      name = "com.apple.webcontent-filter";
+      uuid = "9c8d98a4-7f31-4425-9836-ef7112ef04b4";
+    };
+    wifi.managed = {
+      name = "com.apple.wifi.managed";
+      uuid = "3d3ddc64-1742-4a01-9cbc-8356ab5299c6";
     };
   };
 

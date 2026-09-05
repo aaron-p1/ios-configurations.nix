@@ -757,7 +757,7 @@ in
 
   can-gen-vpn-managed-applayer =
     let
-      config.profiles.vpn.managed.applayer = {
+      config.profiles.vpn.managed-applayer = {
         enable = true;
         VPNUUID = "fdeb9882-f3e1-4d13-8e03-b495eec1e5b7";
       };
@@ -767,6 +767,60 @@ in
     assert hasInfix "<string>com.example.manage-ios.vpn.managed.applayer</string>" plist;
     assert hasInfix "<key>VPNUUID</key>" plist;
     pkgs.runCommand "can-gen-vpn-managed-applayer" { } "touch $out";
+
+  can-gen-vpn-managed =
+    let
+      config.profiles.vpn.managed = {
+        enable = true;
+        VPNType = "L2TP";
+        UserDefinedName = "My VPN";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.vpn.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.vpn.managed</string>" plist;
+    assert hasInfix "<key>VPNType</key>" plist;
+    pkgs.runCommand "can-gen-vpn-managed" { } "touch $out";
+
+  can-gen-webclip-managed =
+    let
+      config.profiles.webclip.managed = {
+        enable = true;
+        URL = "https://example.com";
+        Label = "Example Web Clip";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.webClip.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.webClip.managed</string>" plist;
+    assert hasInfix "<key>URL</key>" plist;
+    pkgs.runCommand "can-gen-webClip-managed" { } "touch $out";
+
+  can-gen-webcontent-filter =
+    let
+      config.profiles.webcontent-filter = {
+        enable = true;
+        FilterType = "BuiltIn";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.webcontent-filter</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.webcontent-filter</string>" plist;
+    assert hasInfix "<key>FilterType</key>" plist;
+    pkgs.runCommand "can-gen-webcontent-filter" { } "touch $out";
+
+  can-gen-wifi-managed =
+    let
+      config.profiles.wifi.managed = {
+        enable = true;
+        SSID_STR = "MyWiFi";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.wifi.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.wifi.managed</string>" plist;
+    assert hasInfix "<key>SSID_STR</key>" plist;
+    pkgs.runCommand "can-gen-wifi-managed" { } "touch $out";
 }
 // (import ./assertions.nix { inherit eval pkgs lib; })
 // (import ./types.nix { inherit eval pkgs lib; })

@@ -165,6 +165,7 @@ from enum import Enum, auto
 
 class DefinitionType(Enum):
     ARRAY = auto()
+    DICTIONARY = auto()
 
 
 def payload_key_supports_ios(payload_key):
@@ -287,11 +288,33 @@ def get_support_data_in_array_ref(
 def dictionary_to_nix_submodule(
     subkeys, definitions, key_path, support_data, indent, opts
 ):
+    if isinstance(subkeys, Ref):
+        support_data_list = get_support_data_in_array_ref(
+            subkeys, definitions, key_path, support_data, {}, opts["gen_opts"]
+        )
+        decr_counter = opts.get("decr_var_counters", False)
+
+        return (
+            [(subkeys.name, DefinitionType.DICTIONARY, support_data)],
+            support_data_list,
+            ref_var_name(subkeys.name, decr_counter),
+        )
+
     if len(subkeys) == 1 and subkeys[0]["key"] == "ANY":
         nix_type = key_type_to_nix_type(
             subkeys[0], definitions, key_path, support_data, indent + "  ", opts
         )[2]
         return ([], [], f"(types.attrsOf {nix_type})")
+
+    smaller_template = """
+        (utils.subopts {
+          $options
+        })
+    """
+
+    indented_smaller_template = textwrap.indent(
+        textwrap.dedent(smaller_template), indent
+    ).strip()
 
     template = """
         (
@@ -305,15 +328,21 @@ def dictionary_to_nix_submodule(
 
     indented_template = textwrap.indent(textwrap.dedent(template), indent).lstrip()
 
-    new_indent = "    " + indent
+    use_smaller_template = opts.get("collapse_parentheses", False)
+    opts = {k: v for k, v in opts.items() if k != "collapse_parentheses"}
+
+    added_indent = "  " if use_smaller_template else "    "
+    new_indent = added_indent + indent
     (def_types, support_data_list, options) = process_sub_keys(
         subkeys, definitions, key_path, support_data, new_indent, opts
     )
 
+    template = indented_smaller_template if use_smaller_template else indented_template
+
     return (
         def_types,
         support_data_list,
-        Template(indented_template).substitute(options="\n".join(options).strip()),
+        Template(template).substitute(options="\n".join(options).strip()),
     )
 
 
@@ -356,10 +385,15 @@ def key_type_to_nix_type(
 
             return ret_type("types.str")
         case "<integer>":
-            if payload_key.get("range"):
-                range_min = payload_key["range"]["min"]
-                range_max = payload_key["range"]["max"]
-                return ret_type(f"(types.ints.between {range_min} {range_max})")
+            intRange = payload_key.get("range")
+            if intRange:
+                if intRange.get("min") is not None:
+                    if intRange.get("max") is not None:
+                        return ret_type(
+                            f"(types.ints.between {intRange['min']} {intRange['max']})"
+                        )
+                    return ret_type(f"(types.ints.min {intRange['min']})")
+                return ret_type(f"(types.ints.max {intRange['max']})")
 
             return ret_type("types.int")
         case "<real>":
@@ -521,6 +555,8 @@ def define_definition(definitions, def_type, gen_opts):
     name = def_type[0]
     max_depth = gen_opts.get("maxRecursionDepth", {}).get(name, 10)
 
+    single_line_template = textwrap.indent("$var_name = _: $nix_type;", "  ")
+
     simple_template = """
         $var_name =
           _:
@@ -528,7 +564,7 @@ def define_definition(definitions, def_type, gen_opts):
     """
 
     indented_simple_template = textwrap.indent(
-        textwrap.dedent(simple_template).lstrip(), "  "
+        textwrap.dedent(simple_template).lstrip(), ""
     )
 
     recursive_template = """
@@ -564,15 +600,35 @@ def define_definition(definitions, def_type, gen_opts):
             subkeys = definitions[name]
             opts = {"gen_opts": gen_opts, "decr_var_counters": True}
             (new_def_types, _, nix_type) = key_type_to_nix_type(
-                subkeys[0], definitions, [], support_data, "    ", opts
+                subkeys[0], definitions, [], support_data, "  ", opts
             )
+            new_def_types = list(flatten(new_def_types))
+
+            if new_def_types:
+                nix_type = textwrap.indent(nix_type, "  ").lstrip()
 
             nix_type = f"(types.listOf {nix_type})"
+        case (name, DefinitionType.DICTIONARY, support_data):
+            subkeys = definitions[name]
+            opts = {
+                "gen_opts": gen_opts,
+                "decr_var_counters": True,
+                "collapse_parentheses": True,
+            }
+            (new_def_types, _, nix_type) = dictionary_to_nix_submodule(
+                subkeys, definitions, [], support_data, "", opts
+            )
         case _:
             raise ValueError(f"unknown definition type: {def_type}")
 
+    template = indented_rec_template
+
     new_def_types = list(flatten(new_def_types))
-    template = indented_rec_template if new_def_types else indented_simple_template
+    if not new_def_types:
+        if "\n" in nix_type:
+            template = indented_simple_template
+        else:
+            template = single_line_template
 
     var_def = Template(template).substitute(
         var_name=f"type-{name}",
@@ -828,7 +884,7 @@ def main():
 
     print(f"Found {len(profile_items)} profiles for iOS.")
 
-    for module_name, profile in profile_items[0:40]:
+    for module_name, profile in profile_items:
         module_content = profile_to_module(profile, module_name)
         write_module(module_name, module_content)
         print(f"Generated module for {module_name}")

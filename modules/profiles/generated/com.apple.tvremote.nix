@@ -23,30 +23,32 @@ in
       default = 1;
     };
     "AllowedTVs" = mkProfileOpt {
-      type = types.listOf (
-        utils.subopts {
-          "TVDeviceID" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The MAC address of an Apple TV device that the system
-              permits this iOS device to control. Use the format
-              `xx:xx:xx:xx:xx:xx`, which isn't case-sensitive.
+      type = (
+        types.listOf (
+          utils.subopts {
+            "TVDeviceID" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The MAC address of an Apple TV device that the system
+                permits this iOS device to control. Use the format
+                `xx:xx:xx:xx:xx:xx`, which isn't case-sensitive.
 
-              Requires: iOS >= 11.3; supervised device
-            '';
-            required = true;
-          };
-          "TVDeviceName" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The name of an Apple TV device that the system permits this
-              iOS device to control.
+                Requires: iOS >= 11.3; supervised device
+              '';
+              required = true;
+            };
+            "TVDeviceName" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The name of an Apple TV device that the system permits this
+                iOS device to control.
 
-              Requires: iOS >= 15.0; supervised device
-            '';
-            required = false;
-          };
-        }
+                Requires: iOS >= 15.0; supervised device
+              '';
+              required = false;
+            };
+          }
+        )
       );
       description = ''
         The array of valid Apple TV identifiers that the remote can

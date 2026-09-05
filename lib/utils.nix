@@ -43,6 +43,9 @@ rec {
     in
     lib.mkOption optionAttrs;
 
+  intMin = lowest: types.addCheck types.int (x: x >= lowest);
+  intMax = highest: types.addCheck types.int (x: x <= highest);
+
   floatBetween =
     lowest: highest:
     assert lowest <= highest || throw "floatBetween: lowest must be smaller than highest";

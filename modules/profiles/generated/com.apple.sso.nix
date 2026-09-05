@@ -74,7 +74,7 @@ in
             required = true;
           };
           "URLPrefixMatches" = mkProfileOpt {
-            type = types.listOf types.str;
+            type = (types.listOf types.str);
             description = ''
               The list of URL prefixes to match in order to use this
               account for Kerberos authentication over HTTP. If this key
@@ -94,7 +94,7 @@ in
             required = false;
           };
           "AppIdentifierMatches" = mkProfileOpt {
-            type = types.listOf types.str;
+            type = (types.listOf types.str);
             description = ''
               The list of app identifiers that the system allows to use
               this login. If this field missing, the system matches all

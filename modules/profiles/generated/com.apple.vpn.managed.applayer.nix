@@ -43,7 +43,7 @@ in
       required = false;
     };
     "SafariDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array with entries that must each specify a domain that
         triggers the VPN connection in Safari. Each entry is in the
@@ -54,7 +54,7 @@ in
       required = false;
     };
     "MailDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array with entries that must each specify a domain that
         triggers this VPN connection in Mail. Each entry is in the
@@ -70,7 +70,7 @@ in
       required = false;
     };
     "CalendarDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array with entries that must each specify a domain that
         triggers this VPN connection in Calendar. Each entry is in
@@ -85,7 +85,7 @@ in
       required = false;
     };
     "ContactsDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array with entries that must each specify a domain that
         triggers this VPN connection in Contacts. Each entry is in
@@ -100,7 +100,7 @@ in
       required = false;
     };
     "AssociatedDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array with entries that must each specify a domain that
         triggers this VPN. The domains must also be part of the
@@ -114,7 +114,7 @@ in
       required = false;
     };
     "ExcludedDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array with entries that each specify a domain that
         doesn't trigger this VPN for connections to the domain.
@@ -141,7 +141,7 @@ in
       required = false;
     };
     "SMBDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of SMB domains that's accessible through this VPN
         connection.
