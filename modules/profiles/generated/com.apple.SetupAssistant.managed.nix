@@ -29,12 +29,14 @@ in
         `SkipKeys` provides a list of valid strings and their
         meanings. Available in iOS 14 and later, and macOS 15 and
         later.
+
+        Requires: iOS >= 14.0; supervised device
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "14.0";
       maxIos = null;
       supervised = true;

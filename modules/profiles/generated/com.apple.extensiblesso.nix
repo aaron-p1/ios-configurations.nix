@@ -27,6 +27,8 @@ in
       description = ''
         The bundle identifier of the app extension that performs SSO
         for the specified URLs.
+
+        Requires: iOS >= 13.0
       '';
       required = true;
     };
@@ -39,6 +41,8 @@ in
       );
       description = ''
         The type of SSO.
+
+        Requires: iOS >= 13.0
       '';
       required = true;
     };
@@ -48,6 +52,8 @@ in
         The realm name for `Credential` payloads. Use proper
         capitalization for this value. Ignored for `Redirect`
         payloads.
+
+        Requires: iOS >= 13.0
       '';
       required = false;
     };
@@ -56,6 +62,8 @@ in
       description = ''
         A dictionary of arbitrary data passed through to the app
         extension.
+
+        Requires: iOS >= 13.0
       '';
       required = false;
     };
@@ -76,6 +84,8 @@ in
         - Doesn't allow query parameters and URL fragments
         - Requires that the URLs of all installed Extensible SSO
         payloads are unique
+
+        Requires: iOS >= 13.0
       '';
       required = false;
     };
@@ -98,6 +108,8 @@ in
         > Host names that begin with a "." are wildcard suffixes
         that match all subdomains; otherwise the host name needs be
         an exact match.
+
+        Requires: iOS >= 13.0
       '';
       required = false;
     };
@@ -115,6 +127,8 @@ in
         apply to requests where `userInterfaceEnabled` is `false`,
         or for background `URLSession` requests. Available in iOS 15
         and later, and macOS 12 and later.
+
+        Requires: iOS >= 15.0
       '';
       required = false;
     };
@@ -124,12 +138,14 @@ in
         An array of bundle identifiers of apps that don't use SSO
         provided by this extension. Available in iOS 15 and later,
         and macOS 12 and later.
+
+        Requires: iOS >= 15.0
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "13.0";
       maxIos = null;
       supervised = false;

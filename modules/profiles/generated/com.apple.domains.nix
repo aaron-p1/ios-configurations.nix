@@ -29,6 +29,8 @@ in
         that lack a suffix matching any of these strings.
 
         Available in iOS 8 and later and macOS 10.10 and later.
+
+        Requires: iOS >= 8.0
       '';
       required = false;
     };
@@ -39,6 +41,8 @@ in
         patterns listed in this property managed.
 
         Available in iOS 9.3 and later.
+
+        Requires: iOS >= 8.0
       '';
       required = false;
     };
@@ -53,6 +57,8 @@ in
         enable saving passwords in Safari.
 
         Available in iOS 9.3 and later.
+
+        Requires: iOS >= 9.3; supervised device
       '';
       required = false;
     };
@@ -64,6 +70,8 @@ in
         prevention.
 
         Available in iOS 16.2 and later and macOS 13.1 and later.
+
+        Requires: iOS >= 16.2; supervised device
       '';
       required = false;
     };
@@ -77,12 +85,14 @@ in
         `CrossSiteTrackingPreventionRelaxedDomains`.
 
         Available in iOS 18 and later and macOS 15 and later.
+
+        Requires: iOS >= 18.0; supervised device
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "8.0";
       maxIos = null;
       supervised = false;

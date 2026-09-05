@@ -27,6 +27,8 @@ in
       description = ''
         The bundle identifier of the app containing the DNS proxy
         network extension.
+
+        Requires: iOS >= 11.0
       '';
       required = true;
     };
@@ -36,6 +38,8 @@ in
         The bundle identifier of the DNS proxy network extension to
         use. Declaring the bundle identifier is useful for apps that
         contain more than one DNS proxy extension.
+
+        Requires: iOS >= 11.0
       '';
       required = false;
     };
@@ -43,6 +47,8 @@ in
       type = (types.attrsOf types.anything);
       description = ''
         The dictionary of vendor-specific configuration items.
+
+        Requires: iOS >= 11.0
       '';
       required = false;
     };
@@ -53,12 +59,14 @@ in
         configuration. The proxy processes DNS lookups traffic for
         managed apps with the same `DNSProxyUUID` in their app
         attributes. This key is required for user enrollment.
+
+        Requires: iOS >= 16.0
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "11.0";
       maxIos = null;
       supervised = false;

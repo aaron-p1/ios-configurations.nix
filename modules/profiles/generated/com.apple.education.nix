@@ -30,6 +30,8 @@ in
         communicate with one another must have the same organization
         UUID, particularly if they originated from different Device
         Enrollment Programs.
+
+        Requires: iOS >= 9.3
       '';
       required = true;
     };
@@ -38,6 +40,8 @@ in
       description = ''
         The organization's display name. The system displays this
         name in the iOS login screen.
+
+        Requires: iOS >= 9.3
       '';
       required = true;
     };
@@ -50,6 +54,8 @@ in
 
         Required to configure Classroom. Has no effect on the
         configuration of the Shared iPad login screen.
+
+        Requires: iOS >= 9.3
       '';
       required = false;
     };
@@ -69,6 +75,8 @@ in
         Required when configuring a student device for Classroom,
         and ignored when configuring an instructor device. Has no
         effect on the configuration of the Shared iPad login screen.
+
+        Requires: iOS >= 9.3
       '';
       required = false;
     };
@@ -88,6 +96,8 @@ in
         Required when configuring a student device for Classroom,
         and ignored when configuring an instructor device. Has no
         effect on the configuration of the Shared iPad login screen.
+
+        Requires: iOS >= 9.3
       '';
       required = false;
     };
@@ -102,6 +112,8 @@ in
         If set, the system uses this key to configure both Classroom
         and the Shared iPad login screen. If not set, the system
         uses MDM client identity.
+
+        Requires: iOS >= 9.3
       '';
       required = false;
     };
@@ -113,6 +125,8 @@ in
 
         Don't set this value in payloads intended to configure the
         Shared iPad login screen.
+
+        Requires: iOS >= 9.3
       '';
       required = true;
     };
@@ -125,6 +139,8 @@ in
                 type = types.str;
                 description = ''
                   The display name of the department.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -133,6 +149,8 @@ in
                 description = ''
                   The group beacon identifiers that are members of this
                   department.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -145,6 +163,8 @@ in
         defines which departments the system displays in the Shared
         iPad login screen. If set, the system uses this key to
         configure both Classroom and the Shared iPad login screen.
+
+        Requires: iOS >= 9.3
       '';
       required = false;
     };
@@ -158,6 +178,8 @@ in
                 description = ''
                   An unsigned 16 bit integer specifying this group's unique
                   beacon ID.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -165,6 +187,8 @@ in
                 type = types.str;
                 description = ''
                   The display name of the group.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -172,6 +196,8 @@ in
                 type = types.str;
                 description = ''
                   The description of the group.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -180,6 +206,9 @@ in
                 description = ''
                   Deprecated in iOS 9.3.1 and later. The URL of an image for
                   the group.
+
+                  Requires: iOS >= 9.3
+                  Deprecated in iOS 9.3.1
                 '';
                 required = false;
               };
@@ -187,6 +216,8 @@ in
                 type = types.str;
                 description = ''
                   The source that provided this group, such as SIS, or MDM.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -194,6 +225,8 @@ in
                 type = types.listOf types.str;
                 description = ''
                   The user identifiers that are leaders of this group.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -202,6 +235,8 @@ in
                 description = ''
                   The entries in the Users array that are members of the
                   group.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -214,6 +249,8 @@ in
 
                   Has no effect on the configuration of the Shared iPad login
                   screen.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -231,6 +268,8 @@ in
 
         _For member/student profiles:_ The array of dictionaries
         that defines the groups where the user is a member.
+
+        Requires: iOS >= 9.3
       '';
       required = true;
     };
@@ -243,6 +282,8 @@ in
                 type = types.str;
                 description = ''
                   The unique identifier for a user in the organization.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -250,6 +291,8 @@ in
                 type = types.str;
                 description = ''
                   The name of the user.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -257,6 +300,8 @@ in
                 type = types.str;
                 description = ''
                   The given name of the user.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -264,6 +309,8 @@ in
                 type = types.str;
                 description = ''
                   The family name of the user.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -273,6 +320,8 @@ in
                   The user's phonetic given name. The system uses this name to
                   sort users in the Classroom app and the Shared iPad Login
                   Screen.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -282,6 +331,8 @@ in
                   The user's phonetic family name. The system uses this name
                   to sort users in the Classroom app and the Shared iPad login
                   screen.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -296,6 +347,8 @@ in
                   the `ResourcePayloadCertificateUUID` identity certificate or
                   the MDM client identity to perform authentication when
                   fetching the image.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -307,6 +360,9 @@ in
                   `ResourcePayloadCertificateUUID` identity certificate or the
                   MDM client identity to perform authentication when fetching
                   the specified resource.
+
+                  Requires: iOS >= 9.3
+                  Deprecated in iOS 9.3.1
                 '';
                 required = false;
               };
@@ -319,6 +375,8 @@ in
                   uses it.
 
                   Required to configure the Shared iPad login screen.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -333,6 +391,8 @@ in
                 description = ''
                   The type of passcode UI to show when the user is at the
                   Login Window.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = false;
               };
@@ -353,6 +413,8 @@ in
         in the `UserIdentifier` key. With one-to-one member devices,
         this key should include only the device user and the teacher
         but not other class members.
+
+        Requires: iOS >= 9.3
       '';
       required = true;
     };
@@ -366,6 +428,8 @@ in
                 description = ''
                   The unique identifier for the device group in the
                   organization.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -374,6 +438,8 @@ in
                 description = ''
                   The name of the device group, which must be unique in the
                   organization.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -381,6 +447,8 @@ in
                 type = types.listOf types.str;
                 description = ''
                   The serial numbers of the devices in the group.
+
+                  Requires: iOS >= 9.3
                 '';
                 required = true;
               };
@@ -392,6 +460,8 @@ in
         _For leader/teacher profiles:_ The array of dictionaries
         that defines which device groups the leader can assign
         devices to. Not included in member payloads.
+
+        Requires: iOS >= 9.3
       '';
       required = false;
     };
@@ -401,12 +471,14 @@ in
         If `true`, the system allows students enrolled in managed
         classes to modify their teacher's permissions for screen
         observation on their device.
+
+        Requires: iOS >= 10.3
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "9.3";
       maxIos = null;
       supervised = false;

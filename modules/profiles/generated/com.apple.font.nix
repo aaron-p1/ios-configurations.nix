@@ -36,6 +36,8 @@ in
         same font even if their contents differ. Installing two
         different fonts with the same PostScript name isn't
         supported, and the resulting behavior is undefined.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -43,12 +45,14 @@ in
       type = utils.plistDataType;
       description = ''
         The contents of the font file.
+
+        Requires: iOS >= 7.0
       '';
       required = true;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "7.0";
       maxIos = null;
       supervised = false;

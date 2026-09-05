@@ -37,6 +37,8 @@ in
                 description = ''
                   The encrypted transport protocol used to communicate with
                   the DNS server.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = true;
               };
@@ -50,6 +52,8 @@ in
                   provided, the system uses the hostname or address in the URL
                   to determine the server addresses. Required if `DNSProtocol`
                   is `HTTPS`.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -61,6 +65,8 @@ in
                   `ServerAddresses` are provided, the system uses the hostname
                   to determine the server addresses. This key must be present
                   only if the DNSProtocol is `TLS`.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -69,6 +75,8 @@ in
                 description = ''
                   An unordered list of DNS server IP address strings. These IP
                   addresses can be a mixture of IPv4 and IPv6 addresses.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -77,6 +85,8 @@ in
                 description = ''
                   If `true`, the device allows failover to the default system
                   DNS resolver.
+
+                  Requires: iOS >= 26.0
                 '';
                 required = false;
               };
@@ -86,6 +96,8 @@ in
                   The UUID that points to an identity certificate payload. The
                   system uses this identity to authenticate the user to the
                   DNS resolver.
+
+                  Requires: iOS >= 16.0
                 '';
                 required = false;
               };
@@ -101,6 +113,8 @@ in
                   `example.com` match against `mydomain.example.com` and
                   `your.domain.example.com`, but don't match against
                   `mydomain-example.com`.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -111,6 +125,8 @@ in
       description = ''
         A dictionary that defines a configuration for an encrypted
         DNS server.
+
+        Requires: iOS >= 14.0
       '';
       required = true;
     };
@@ -136,6 +152,8 @@ in
                   matches.
                   - `EvaluateConnection`: Apply DNS Settings with per-domain
                   exceptions when the dictionary matches.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = true;
               };
@@ -148,6 +166,8 @@ in
                           type = types.listOf types.str;
                           description = ''
                             The domains for which this evaluation applies.
+
+                            Requires: iOS >= 14.0
                           '';
                           required = true;
                         };
@@ -166,6 +186,8 @@ in
                             specified domains.
                             * 'ConnectIfNeeded': Allow using the DNS Settings for the
                             specified domains.
+
+                            Requires: iOS >= 14.0
                           '';
                           required = true;
                         };
@@ -177,6 +199,8 @@ in
                   An array of dictionaries that provide per-connection rules.
                   The system uses this array only for settings where the
                   `Action` value is `EvaluateConnection`.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -192,6 +216,8 @@ in
                   `example.com` match against `mydomain.example.com` and
                   `your.domain.example.com`, but don't match against
                   `mydomain-example.com`.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -205,6 +231,8 @@ in
                   The system supports matching with a single wildcard. For
                   example, `17.*` matches any DNS server in the 17.0.0.0/8
                   subnet.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -220,6 +248,8 @@ in
                   An interface type. If specified, this rule matches only if
                   the primary network interface hardware matches the specified
                   type.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -230,6 +260,8 @@ in
                   the network isn't a Wi-Fi network or if the SSID doesn't
                   appear in this array, the match fails. Omit this key and the
                   corresponding array to match against any SSID.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -239,6 +271,8 @@ in
                   A URL to probe. This rule matches if this URL is
                   successfully fetched and returns a 200 HTTP status code
                   without redirection.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -250,6 +284,8 @@ in
         An array of rules that define the DNS settings. If not set,
         the system always applies the DNS settings. These rules are
         identical to the `OnDemandRules` array in VPN payloads.
+
+        Requires: iOS >= 14.0
       '';
       required = false;
     };
@@ -258,12 +294,14 @@ in
       description = ''
         If `true`, the system prohibits users from disabling DNS
         settings. This key is only available on supervised devices.
+
+        Requires: iOS >= 14.0
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "14.0";
       maxIos = null;
       supervised = false;

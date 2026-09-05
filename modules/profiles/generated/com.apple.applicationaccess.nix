@@ -28,6 +28,8 @@ in
         If `false`, the system disables modification of accounts,
         such as Apple Accounts, and internet-based accounts, such as
         Mail, Contacts, and Calendar.
+
+        Requires: iOS >= 7.0; supervised device
       '';
       required = false;
     };
@@ -39,6 +41,8 @@ in
         with Managed Apple Accounts is deprecated. In a future
         release, this restriction will begin requiring supervision
         and will apply to personal Apple Accounts only.
+
+        Requires: iOS >= 8.0
       '';
       required = false;
     };
@@ -47,6 +51,8 @@ in
       description = ''
         If `false`, the system prohibits adding friends to Game
         Center. Requires a supervised device in iOS 13 and later.
+
+        Requires: iOS >= 4.2.1; supervised device
       '';
       required = false;
     };
@@ -54,6 +60,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables AirDrop.
+
+        Requires: iOS >= 7.0; supervised device
       '';
       required = false;
     };
@@ -61,6 +69,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables AirPrint.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -69,6 +79,8 @@ in
       description = ''
         If `false`, the system disables Keychain storage of user
         name and password for AirPrint.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -78,6 +90,8 @@ in
         If `false`, the system disables iBeacon discovery of
         AirPrint printers, which prevents spurious AirPrint
         Bluetooth beacons from phishing for network traffic.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -86,6 +100,8 @@ in
       description = ''
         If `false`, the system disables changing settings for
         cellular data usage for apps.
+
+        Requires: iOS >= 7.0; supervised device
       '';
       required = false;
     };
@@ -94,6 +110,8 @@ in
       description = ''
         If `false`, the system prevents a user from adding any App
         Clips, and removes any existing App Clips on the device.
+
+        Requires: iOS >= 14.0; supervised device
       '';
       required = false;
     };
@@ -109,6 +127,8 @@ in
         In iOS 10 and later, MDM commands can override this
         restriction. Requires a supervised device in iOS 13 and
         later.
+
+        Requires: iOS >= 4.0; supervised device
       '';
       required = false;
     };
@@ -116,6 +136,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables Apple Intelligence reports.
+
+        Requires: iOS >= 18.4; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -124,6 +147,8 @@ in
       description = ''
         If `false`, the system limits Apple personalized
         advertising.
+
+        Requires: iOS >= 14.0
       '';
       required = false;
     };
@@ -134,6 +159,8 @@ in
         device. This applies to App Store apps, marketplace apps,
         and locally installed apps (using Configurator, Xcode, and
         so forth).
+
+        Requires: iOS >= 4.2.1; supervised device
       '';
       required = false;
     };
@@ -143,6 +170,8 @@ in
         If `false`, disables the ability for the user to hide apps.
         It doesn't affect the user's ability to leave it in the App
         Library, while removing it from the Home Screen.
+
+        Requires: iOS >= 18.0; supervised device
       '';
       required = false;
     };
@@ -152,6 +181,8 @@ in
         If `false`, disables the ability for the user to lock apps.
         Because hiding apps also requires locking them, disallowing
         locking also disallows hiding.
+
+        Requires: iOS >= 18.0; supervised device
       '';
       required = false;
     };
@@ -159,6 +190,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables Siri.
+
+        Requires: iOS >= 5.0
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -167,6 +201,9 @@ in
       description = ''
         If `false`, the system prevents Siri from querying user-
         generated content from the web.
+
+        Requires: iOS >= 7.0; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -176,6 +213,9 @@ in
         If `false`, the system disables Siri when the device is
         locked. The system ignores this restriction if the device
         doesn't have a passcode set.
+
+        Requires: iOS >= 5.1
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -183,6 +223,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables keyboard autocorrection.
+
+        Requires: iOS >= 8.1.3; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -190,6 +233,8 @@ in
       type = types.bool;
       description = ''
         If `false`, disables auto dim on iPads with OLED displays.
+
+        Requires: iOS >= 17.4; supervised device
       '';
       required = false;
     };
@@ -199,6 +244,8 @@ in
         If `false`, the system prevents automatic downloading of
         apps purchased on other devices. This setting doesn't affect
         updates to existing apps.
+
+        Requires: iOS >= 9.0; supervised device
       '';
       required = false;
     };
@@ -207,6 +254,8 @@ in
       description = ''
         If `false`, the system disallows auto unlock. Support for
         this restriction on unsupervised devices is deprecated.
+
+        Requires: iOS >= 14.5
       '';
       required = false;
     };
@@ -215,6 +264,8 @@ in
       description = ''
         If `false`, the system prevents modification of Bluetooth
         settings.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -223,6 +274,8 @@ in
       description = ''
         If `false`, the system removes the Book Store tab from the
         Books app.
+
+        Requires: iOS >= 6.0; supervised device
       '';
       required = false;
     };
@@ -232,6 +285,8 @@ in
         If `false`, the system prevents the user from downloading
         Apple Books media that's tagged as erotica. Support for this
         restriction on unsupervised devices is deprecated.
+
+        Requires: iOS >= 6.0
       '';
       required = false;
     };
@@ -239,6 +294,8 @@ in
       type = types.bool;
       description = ''
         If `false`, disables call recording.
+
+        Requires: iOS >= 18.1; supervised device
       '';
       required = false;
     };
@@ -249,6 +306,8 @@ in
         icon from the Home Screen, and users are unable to take
         photographs. Support for this restriction on unsupervised
         devices is deprecated.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -258,6 +317,8 @@ in
         If `false`, the system prevents users from changing settings
         related to their cellular plan (available only on select
         carriers).
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -267,6 +328,8 @@ in
         If `false`, the system disables the use of iMessage with
         supervised devices. If the device supports text messaging,
         the user can still send and receive text messages.
+
+        Requires: iOS >= 5.0; supervised device
       '';
       required = false;
     };
@@ -276,6 +339,8 @@ in
         If `false`, the system disables backing up the device to
         iCloud. Support for this restriction on unsupervised devices
         is deprecated.
+
+        Requires: iOS >= 5.0
       '';
       required = false;
     };
@@ -287,6 +352,8 @@ in
         and later, and Shared iPad doesn't support it. Support for
         this restriction on unsupervised devices and with Managed
         Apple Accounts is deprecated.
+
+        Requires: iOS >= 5.0; supervised device
       '';
       required = false;
     };
@@ -297,6 +364,8 @@ in
         synchronization. Support for this restriction on
         unsupervised devices and with Managed Apple Accounts is
         deprecated.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -308,6 +377,8 @@ in
         fully downloaded from iCloud Photo Library to the device.
         Support for this restriction on unsupervised devices and
         with Managed Apple Accounts is deprecated.
+
+        Requires: iOS >= 9.0
       '';
       required = false;
     };
@@ -317,6 +388,8 @@ in
         If `false`, the system disables iCloud Private Relay.
         Support for this restriction on unsupervised devices and
         with Managed Apple Accounts is deprecated.
+
+        Requires: iOS >= 15.0; supervised device
       '';
       required = false;
     };
@@ -324,6 +397,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables QuickPath keyboard.
+
+        Requires: iOS >= 13.0; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -333,6 +409,8 @@ in
         If `false`, disables default browser preference
         modification. The MDM Settings command to set the default
         browser preference still works when applying this.
+
+        Requires: iOS >= 18.2; supervised device
       '';
       required = false;
     };
@@ -342,6 +420,8 @@ in
         If `false`, disables default calling app preference
         modification. The MDM Settings command to set the default
         calling app preference still works when applying this.
+
+        Requires: iOS >= 18.4; supervised device
       '';
       required = false;
     };
@@ -351,6 +431,8 @@ in
         If `false`, disables default messaging app preference
         modification. The MDM Settings command to set the default
         messaging app preference still works when applying this.
+
+        Requires: iOS >= 18.4; supervised device
       '';
       required = false;
     };
@@ -358,6 +440,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables definition lookup.
+
+        Requires: iOS >= 8.1.3; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -366,6 +451,8 @@ in
       description = ''
         If `false`, the system prevents the user from changing the
         device name.
+
+        Requires: iOS >= 9.0; supervised device
       '';
       required = false;
     };
@@ -374,6 +461,8 @@ in
       description = ''
         If `false`, the system prevents the device from
         automatically submitting diagnostic reports to Apple.
+
+        Requires: iOS >= 6.0
       '';
       required = false;
     };
@@ -383,6 +472,8 @@ in
         If `false`, the system disables changing the diagnostic
         submission and app analytics settings in the Diagnostics &
         Usage UI in Settings.
+
+        Requires: iOS >= 9.3.2; supervised device
       '';
       required = false;
     };
@@ -390,6 +481,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disallows dictation input.
+
+        Requires: iOS >= 10.3; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -403,6 +497,8 @@ in
         has no effect when the camera isn't restricted. Multiple
         payloads combine using an intersect operation. Requires a
         supervised device.
+
+        Requires: iOS >= 26.0; supervised device
       '';
       required = false;
     };
@@ -417,6 +513,9 @@ in
         combine using an intersect operation. This means the allowed
         set of workspace IDs can become the empty set if multiple
         payloads specify conflicting values.
+
+        Requires: iOS >= 18.3; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -428,6 +527,8 @@ in
         12 and later, the system disables the Enable ScreenTime
         option in the ScreenTime UI in Settings and disables
         ScreenTime if already enabled.
+
+        Requires: iOS >= 8.0; supervised device
       '';
       required = false;
     };
@@ -441,6 +542,8 @@ in
         developer accounts and enterprise app developers that aren't
         implicitly trusted by apps that install through MDM. This
         restriction doesn't revoke previously granted trust.
+
+        Requires: iOS >= 9.0
       '';
       required = false;
     };
@@ -448,6 +551,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables backup of Enterprise books.
+
+        Requires: iOS >= 8.0
       '';
       required = false;
     };
@@ -456,6 +561,8 @@ in
       description = ''
         If `false`, the system disables sync of Enterprise books,
         notes, and highlights.
+
+        Requires: iOS >= 8.0
       '';
       required = false;
     };
@@ -464,6 +571,8 @@ in
       description = ''
         If `false`, the system disables the Erase All Content and
         Settings option in the Reset UI.
+
+        Requires: iOS >= 8.0; supervised device
       '';
       required = false;
     };
@@ -471,6 +580,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables modifications of eSIMs.
+
+        Requires: iOS >= 12.1; supervised device
       '';
       required = false;
     };
@@ -479,6 +590,8 @@ in
       description = ''
         If `false`, prevents the transfer of an eSIM from the device
         on which the restriction is installed to a different device.
+
+        Requires: iOS >= 18.0; supervised device
       '';
       required = false;
     };
@@ -493,6 +606,8 @@ in
 
         Requires a supervised device in iOS 13 and later. Support
         for this restriction on unsupervised devices is deprecated.
+
+        Requires: iOS >= 4.0; supervised device
       '';
       required = false;
     };
@@ -504,6 +619,9 @@ in
         temporarily allowed on unsupervised and user enrollments. In
         a future release, this restriction will require supervision,
         and will be ignored on unsupervised devices.
+
+        Requires: iOS >= 18.2
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -514,6 +632,9 @@ in
         anonymous mode. If a user is already signed in to an
         external intelligence provider, applying this restriction
         signs them out when attempting the next request.
+
+        Requires: iOS >= 18.2
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -522,6 +643,8 @@ in
       description = ''
         If `false`, the system prevents connecting to network drives
         in the Files app.
+
+        Requires: iOS >= 13.1; supervised device
       '';
       required = false;
     };
@@ -530,6 +653,8 @@ in
       description = ''
         If `false`, the system prevents connecting to any connected
         USB devices in the Files app.
+
+        Requires: iOS >= 13.0; supervised device
       '';
       required = false;
     };
@@ -538,6 +663,8 @@ in
       description = ''
         If `false`, the system disables Find My Device in the Find
         My app.
+
+        Requires: iOS >= 13.0; supervised device
       '';
       required = false;
     };
@@ -546,6 +673,8 @@ in
       description = ''
         If `false`, the system disables Find My Friends in the Find
         My app.
+
+        Requires: iOS >= 13.0; supervised device
       '';
       required = false;
     };
@@ -553,6 +682,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables changes to Find My Friends.
+
+        Requires: iOS >= 7.0; supervised device
       '';
       required = false;
     };
@@ -562,6 +693,8 @@ in
         If `false`, the system prevents Touch ID, Face ID, or Optic
         ID from unlocking a device. Support for this restriction on
         unsupervised devices is deprecated.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -570,6 +703,8 @@ in
       description = ''
         If `false`, the system prevents the user from modifying
         Touch ID or Face ID.
+
+        Requires: iOS >= 8.3; supervised device
       '';
       required = false;
     };
@@ -578,6 +713,8 @@ in
       description = ''
         If `false`, the system disables Game Center, and the system
         removes its icon from the Home Screen.
+
+        Requires: iOS >= 6.0; supervised device
       '';
       required = false;
     };
@@ -585,6 +722,9 @@ in
       type = types.bool;
       description = ''
         If `false`, prohibits creating new Genmoji.
+
+        Requires: iOS >= 18.0; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -594,6 +734,8 @@ in
         If `false`, the system disables global background fetch
         activity when an iOS phone is roaming. Support for this
         restriction on unsupervised devices is deprecated.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -605,6 +747,8 @@ in
         supervision host certificate, the system disables all
         pairing. Host pairing lets the administrator control whether
         an iOS device can pair with a host Mac or PC.
+
+        Requires: iOS >= 7.0; supervised device
       '';
       required = false;
     };
@@ -612,6 +756,9 @@ in
       type = types.bool;
       description = ''
         If `false`, prohibits the use of image generation.
+
+        Requires: iOS >= 18.0; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -619,6 +766,9 @@ in
       type = types.bool;
       description = ''
         If `false`, prohibits the use of Image Wand.
+
+        Requires: iOS >= 18.0; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -627,6 +777,8 @@ in
       description = ''
         If `false`, the system prohibits in-app purchasing. Support
         for this restriction on unsupervised devices is deprecated.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -636,6 +788,8 @@ in
         If `false`, prohibits the use of iPhone Mirroring. In macOS,
         this prevents the Mac from mirroring any iPhone. In iOS,
         this prevents the iPhone from mirroring to any Mac.
+
+        Requires: iOS >= 18.0; supervised device
       '';
       required = false;
     };
@@ -644,6 +798,8 @@ in
       description = ''
         If `false`, the system disallows iPhone widgets on a Mac
         that signs in with the same Apple Account for iCloud.
+
+        Requires: iOS >= 17.0; supervised device
       '';
       required = false;
     };
@@ -654,6 +810,8 @@ in
         removes its icon from the Home Screen. Users can't preview,
         purchase, or download content. Requires a supervised device
         in iOS 13 and later.
+
+        Requires: iOS >= 4.0; supervised device
       '';
       required = false;
     };
@@ -661,6 +819,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables keyboard shortcuts.
+
+        Requires: iOS >= 9.0; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -672,6 +833,8 @@ in
         `com.apple.webapp` to allow all webclips. This applies to
         App Store apps, marketplace apps, and locally installed apps
         (using Configurator, Xcode, and so forth).
+
+        Requires: iOS >= 15.0; supervised device
       '';
       required = false;
     };
@@ -680,6 +843,8 @@ in
       description = ''
         If `false`, the system disables live voicemail on the
         device.
+
+        Requires: iOS >= 17.2; supervised device
       '';
       required = false;
     };
@@ -688,6 +853,8 @@ in
       description = ''
         If `false`, the system prevents Control Center from
         appearing on the Lock Screen.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -698,6 +865,8 @@ in
         view on the Lock Screen, so users can't view past
         notifications. However, they can still see notifications
         when they arrive.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -706,6 +875,8 @@ in
       description = ''
         If `false`, the system disables the Today view in
         Notification Center on the Lock Screen.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -714,6 +885,8 @@ in
       description = ''
         If `false`, the system disables Mail Privacy Protection on
         the device.
+
+        Requires: iOS >= 15.2; supervised device
       '';
       required = false;
     };
@@ -721,6 +894,9 @@ in
       type = types.bool;
       description = ''
         If `false`, disables smart replies in Mail.
+
+        Requires: iOS >= 18.4; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -730,6 +906,9 @@ in
         If `false`, disables the ability to create summaries of
         email messages manually. This doesn't affect automatic
         summary generation.
+
+        Requires: iOS >= 18.1; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -738,6 +917,8 @@ in
       description = ''
         If `false`, the system prevents managed apps from using
         iCloud sync.
+
+        Requires: iOS >= 8.0
       '';
       required = false;
     };
@@ -750,6 +931,8 @@ in
 
         > Important:
         > Use MDM to install profiles that contain this restriction.
+
+        Requires: iOS >= 12.0
       '';
       required = false;
     };
@@ -759,6 +942,8 @@ in
         If `false`, the system prevents installation of alternative
         marketplace apps from the web and prevents any installed
         alternative marketplace apps from installing apps.
+
+        Requires: iOS >= 17.4; supervised device
       '';
       required = false;
     };
@@ -766,6 +951,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system prohibits multiplayer gaming.
+
+        Requires: iOS >= 4.1; supervised device
       '';
       required = false;
     };
@@ -774,6 +961,8 @@ in
       description = ''
         If `false`, the system disables the Music service, and the
         Music app reverts to classic mode.
+
+        Requires: iOS >= 9.3; supervised device
       '';
       required = false;
     };
@@ -781,6 +970,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables News.
+
+        Requires: iOS >= 9.0; supervised device
       '';
       required = false;
     };
@@ -788,6 +979,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables NFC.
+
+        Requires: iOS >= 14.2; supervised device
       '';
       required = false;
     };
@@ -795,6 +988,9 @@ in
       type = types.bool;
       description = ''
         If `false`, disables transcription in Notes.
+
+        Requires: iOS >= 18.4; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -802,6 +998,9 @@ in
       type = types.bool;
       description = ''
         If `false`, disables transcription summarization in Notes.
+
+        Requires: iOS >= 18.3; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -810,6 +1009,8 @@ in
       description = ''
         If `false`, the system disables modification of notification
         settings.
+
+        Requires: iOS >= 9.3; supervised device
       '';
       required = false;
     };
@@ -818,6 +1019,8 @@ in
       description = ''
         If `false`, documents in managed apps and accounts open only
         in other managed apps and accounts.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -826,6 +1029,8 @@ in
       description = ''
         If `false`, documents in unmanaged apps and accounts open
         only in other unmanaged apps and accounts.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -835,6 +1040,8 @@ in
         If `false`, the system disables over-the-air PKI updates.
         Setting this restriction to `false` doesn't disable CRL and
         OCSP checks.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -844,6 +1051,8 @@ in
         If `false`, the system disables pairing with an Apple Watch,
         and the system unpairs any currently paired Apple Watch and
         erases its content.
+
+        Requires: iOS >= 9.0; supervised device
       '';
       required = false;
     };
@@ -852,6 +1061,8 @@ in
       description = ''
         If `false`, the system hides Passbook notifications from the
         Lock Screen.
+
+        Requires: iOS >= 6.0
       '';
       required = false;
     };
@@ -861,6 +1072,8 @@ in
         If `false`, the system prevents adding, changing, or
         removing the passcode. The system ignores this restriction
         on Shared iPad.
+
+        Requires: iOS >= 9.0; supervised device
       '';
       required = false;
     };
@@ -878,6 +1091,8 @@ in
 
         However, if `false`, the system doesn't prevent AutoFill for
         contact info and credit cards in Safari.
+
+        Requires: iOS >= 12.0; supervised device
       '';
       required = false;
     };
@@ -886,6 +1101,8 @@ in
       description = ''
         If `false`, the system disables requesting passwords from
         nearby devices.
+
+        Requires: iOS >= 12.0; supervised device
       '';
       required = false;
     };
@@ -894,6 +1111,8 @@ in
       description = ''
         If `false`, the system disables sharing passwords with the
         AirDrop passwords feature, or with the Passwords app.
+
+        Requires: iOS >= 12.0; supervised device
       '';
       required = false;
     };
@@ -902,6 +1121,8 @@ in
       description = ''
         If `false`, the system disables modifications of the
         personal hotspot setting.
+
+        Requires: iOS >= 12.2; supervised device
       '';
       required = false;
     };
@@ -910,6 +1131,9 @@ in
       description = ''
         If false, prevents the system from generating text in the
         user's handwriting.
+
+        Requires: iOS >= 18.0; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -917,6 +1141,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables Photo Stream.
+
+        Requires: iOS >= 5.0
+        Deprecated in iOS 17.0
       '';
       required = false;
     };
@@ -924,6 +1151,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables podcasts.
+
+        Requires: iOS >= 8.0; supervised device
       '';
       required = false;
     };
@@ -931,6 +1160,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables predictive keyboards.
+
+        Requires: iOS >= 8.1.3; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -940,6 +1172,8 @@ in
         If `false`, disables the prompt to set up new devices that
         are nearby. Starting with iOS 26.3, this also prevents
         exporting iOS data to set up new Android devices.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -947,6 +1181,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables Apple Music Radio.
+
+        Requires: iOS >= 9.3; supervised device
       '';
       required = false;
     };
@@ -955,6 +1191,9 @@ in
       description = ''
         If `false`, the system prohibits installation of Background
         Security Improvements.
+
+        Requires: iOS >= 16.0; supervised device
+        Deprecated in iOS 26.0
       '';
       required = false;
     };
@@ -963,6 +1202,9 @@ in
       description = ''
         If `false`, the system prohibits removal of Background
         Security Improvements.
+
+        Requires: iOS >= 16.0; supervised device
+        Deprecated in iOS 26.0
       '';
       required = false;
     };
@@ -970,6 +1212,8 @@ in
       type = types.bool;
       description = ''
         If `false`, prevents the use of RCS messaging.
+
+        Requires: iOS >= 18.1; supervised device
       '';
       required = false;
     };
@@ -982,6 +1226,8 @@ in
         Classroom app doesn't observe remote screens. Requires a
         supervised device until iOS 13 and macOS 10.15. Allowed for
         user enrollments in macOS 12 and later.
+
+        Requires: iOS >= 9.3
       '';
       required = false;
     };
@@ -992,6 +1238,8 @@ in
         and the system removes its icon from the Home Screen. This
         setting also prevents users from opening web clips. Requires
         a supervised device in iOS 13 and later.
+
+        Requires: iOS >= 4.0; supervised device
       '';
       required = false;
     };
@@ -1000,6 +1248,8 @@ in
       description = ''
         If `false`, the system disables the ability to clear
         browsing history in Safari.
+
+        Requires: iOS >= 26.0; supervised device
       '';
       required = false;
     };
@@ -1008,6 +1258,8 @@ in
       description = ''
         If `false`, the system disables the ability to use private
         browsing in Safari.
+
+        Requires: iOS >= 26.0; supervised device
       '';
       required = false;
     };
@@ -1016,6 +1268,9 @@ in
       description = ''
         If `false`, the system disables the ability to summarize
         content in Safari.
+
+        Requires: iOS >= 18.4; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -1024,6 +1279,8 @@ in
       description = ''
         If `false`, the system prohibits the connection to and use
         of satellite services.
+
+        Requires: iOS >= 18.2; supervised device
       '';
       required = false;
     };
@@ -1033,6 +1290,8 @@ in
         If `false`, the system disables saving a screenshot of the
         display and capturing a screen recording. It also disables
         the Classroom app from observing remote screens.
+
+        Requires: iOS >= 3.1
       '';
       required = false;
     };
@@ -1041,6 +1300,8 @@ in
       description = ''
         If `false`, the system makes temporary sessions unavailable
         on Shared iPad.
+
+        Requires: iOS >= 13.4; supervised device
       '';
       required = false;
     };
@@ -1049,6 +1310,8 @@ in
       description = ''
         If `false`, the system disables Shared Photo Stream. Support
         for this restriction on unsupervised devices is deprecated.
+
+        Requires: iOS >= 6.0
       '';
       required = false;
     };
@@ -1056,6 +1319,9 @@ in
       type = types.bool;
       description = ''
         If `false`, the system disables the keyboard spell checker.
+
+        Requires: iOS >= 8.1.3; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -1065,6 +1331,8 @@ in
         If `false`, the system disables Spotlight Internet search
         results in Siri Suggestions. Support for this restriction on
         unsupervised devices is deprecated.
+
+        Requires: iOS >= 8.0
       '';
       required = false;
     };
@@ -1073,6 +1341,8 @@ in
       description = ''
         If `false`, the system disables the removal of system apps
         from the device.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -1087,6 +1357,8 @@ in
 
         In iOS 10 and later, MDM commands can override this
         restriction.
+
+        Requires: iOS >= 9.0; supervised device
       '';
       required = false;
     };
@@ -1095,6 +1367,8 @@ in
       description = ''
         If `false`, the system prohibits the user from installing
         configuration profiles and certificates interactively.
+
+        Requires: iOS >= 6.0; supervised device
       '';
       required = false;
     };
@@ -1108,6 +1382,8 @@ in
 
         > Important:
         > Use MDM to install profiles that contain this restriction.
+
+        Requires: iOS >= 12.0
       '';
       required = false;
     };
@@ -1116,6 +1392,8 @@ in
       description = ''
         If `true`, the system allows unpaired devices to boot
         devices into recovery.
+
+        Requires: iOS >= 14.5; supervised device
       '';
       required = false;
     };
@@ -1124,6 +1402,8 @@ in
       description = ''
         If `false`, the system automatically rejects untrusted HTTPS
         certificates without prompting the user.
+
+        Requires: iOS >= 5.0
       '';
       required = false;
     };
@@ -1136,6 +1416,8 @@ in
         authorization. If the system has Lockdown mode enabled, it
         ignores this value. This restriction is not supported on the
         user channel.
+
+        Requires: iOS >= 11.4.1; supervised device
       '';
       required = false;
     };
@@ -1144,6 +1426,8 @@ in
       description = ''
         If `false`, the system hides the FaceTime app. Requires a
         supervised device in iOS 13 and later.
+
+        Requires: iOS >= 4.0; supervised device
       '';
       required = false;
     };
@@ -1152,6 +1436,8 @@ in
       description = ''
         If `false`, disables the ability for a remote FaceTime
         session to request control of the device.
+
+        Requires: iOS >= 18.4; supervised device
       '';
       required = false;
     };
@@ -1160,6 +1446,9 @@ in
       description = ''
         If `false`, the system disables visual intelligence
         summarization.
+
+        Requires: iOS >= 18.3; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -1168,6 +1457,9 @@ in
       description = ''
         If `false`, the system disables voice dialing if the device
         is locked with a passcode.
+
+        Requires: iOS >= 4.0
+        Deprecated in iOS 17.0
       '';
       required = false;
     };
@@ -1177,6 +1469,8 @@ in
         If `false`, the system allows only managed apps to create
         VPN configurations. Prior to iOS 18, the system also allows
         unmanaged apps to create VPN configurations.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -1184,6 +1478,8 @@ in
       type = types.bool;
       description = ''
         If `false`, the system prevents changing the wallpaper.
+
+        Requires: iOS >= 9.0; supervised device
       '';
       required = false;
     };
@@ -1192,6 +1488,8 @@ in
       description = ''
         If `false`, the device prevents installation of apps
         directly from the web.
+
+        Requires: iOS >= 17.5; supervised device
       '';
       required = false;
     };
@@ -1199,6 +1497,9 @@ in
       type = types.bool;
       description = ''
         If `false`, disables Apple Intelligence writing tools.
+
+        Requires: iOS >= 18.0; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -1208,6 +1509,8 @@ in
         If present, the system allows apps identified by the bundle
         IDs listed in the array to autonomously enter Single App
         Mode.
+
+        Requires: iOS >= 7.0; supervised device
       '';
       required = false;
     };
@@ -1215,6 +1518,9 @@ in
       type = types.listOf types.str;
       description = ''
         Use `blockedAppBundleIDs` instead.
+
+        Requires: iOS >= 9.3; supervised device
+        Deprecated in iOS 15.0
       '';
       required = false;
     };
@@ -1232,6 +1538,8 @@ in
         example, denying the App Store app may prevent users from
         accepting the terms and conditions for the user-based Volume
         Purchase Program (VPP).
+
+        Requires: iOS >= 15.0; supervised device
       '';
       required = false;
     };
@@ -1242,6 +1550,8 @@ in
         The device prevents use of any matching cellular networks in
         iMessage and FaceTime. The array must contain no more than 4
         ICCID strings.
+
+        Requires: iOS >= 26.0; supervised device
       '';
       required = false;
     };
@@ -1252,6 +1562,8 @@ in
         The device prevents use of any matching cellular networks
         with RCS messaging. The array must contain no more than 4
         ICCID strings.
+
+        Requires: iOS >= 26.0; supervised device
       '';
       required = false;
     };
@@ -1264,6 +1576,9 @@ in
         update release date. The restrictions
         `forceDelayedAppSoftwareUpdates` and
         `forceDelayedSoftwareUpdates` use this value.
+
+        Requires: iOS >= 11.3; supervised device
+        Deprecated in iOS 26.0
       '';
       required = false;
     };
@@ -1272,6 +1587,8 @@ in
       description = ''
         If `true`, the system considers AirDrop to be an unmanaged
         drop target.
+
+        Requires: iOS >= 9.0
       '';
       required = false;
     };
@@ -1280,6 +1597,8 @@ in
       description = ''
         If `true`, the system forces all devices receiving AirPlay
         requests from this device to use a pairing password.
+
+        Requires: iOS >= 7.1
       '';
       required = false;
     };
@@ -1288,6 +1607,8 @@ in
       description = ''
         If `true`, the system requires trusted certificates for TLS
         printing communication.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -1296,6 +1617,9 @@ in
       description = ''
         If `true`, the system forces the use of the profanity filter
         for Siri and dictation. Requires a supervised device in iOS.
+
+        Requires: iOS >= 5.0; supervised device
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -1307,6 +1631,8 @@ in
         and apps. If this restriction isn't enforced, the user can
         toggle this feature in Settings. Only supported on devices
         with Face ID or Touch ID.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -1318,6 +1644,8 @@ in
         updates the device's time zone only when the device can
         determine its location using a cellular connection or Wi-Fi
         with location services enabled.
+
+        Requires: iOS >= 12.0; supervised device
       '';
       required = false;
     };
@@ -1326,6 +1654,8 @@ in
       description = ''
         If `true`, the system automatically gives permission to the
         teacher's requests without prompting the student.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -1335,6 +1665,8 @@ in
         If `true`, a student enrolled in an unmanaged course through
         Classroom needs to request permission from the teacher to
         leave the course.
+
+        Requires: iOS >= 11.3; supervised device
       '';
       required = false;
     };
@@ -1343,6 +1675,8 @@ in
       description = ''
         If `true`, the system allows the teacher to lock apps or the
         device without prompting the student.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -1355,6 +1689,8 @@ in
         managed course through the Classroom app automatically gives
         permission to that course teacher's requests to observe the
         student's screen without prompting the student.
+
+        Requires: iOS >= 11.0; supervised device
       '';
       required = false;
     };
@@ -1365,6 +1701,9 @@ in
         updates. In macOS, the system allows seed build updates
         without delay. The delay is 30 days unless you set
         `enforcedSoftwareUpdateDelay` to another value.
+
+        Requires: iOS >= 11.3; supervised device
+        Deprecated in iOS 26.0
       '';
       required = false;
     };
@@ -1372,6 +1711,8 @@ in
       type = types.bool;
       description = ''
         If `true`, the system encrypts all backups.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -1380,6 +1721,9 @@ in
       description = ''
         If `true`, the system forces the user to enter their iTunes
         password for each transaction.
+
+        Requires: iOS >= 6.0
+        Deprecated in iOS 17.0
       '';
       required = false;
     };
@@ -1389,6 +1733,8 @@ in
         If `true`, the system limits ad tracking. Additionally, it
         disables app tracking and the Allow Apps to Request to Track
         setting.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -1397,6 +1743,9 @@ in
       description = ''
         If `true`, the system disables connections to Siri servers
         for the purposes of dictation.
+
+        Requires: iOS >= 14.5
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -1405,6 +1754,9 @@ in
       description = ''
         If `true`, the device can't connect to Siri servers for the
         purposes of translation.
+
+        Requires: iOS >= 15.0
+        Deprecated in iOS 26.4
       '';
       required = false;
     };
@@ -1419,6 +1771,8 @@ in
         > Note:
         > The system doesn't preserve eSIM if Find My initiates
         erasing the device.
+
+        Requires: iOS >= 17.2; supervised device
       '';
       required = false;
     };
@@ -1427,6 +1781,8 @@ in
       description = ''
         If `true`, the system forces a paired Apple Watch to use
         Wrist Detection.
+
+        Requires: iOS >= 8.2
       '';
       required = false;
     };
@@ -1437,6 +1793,8 @@ in
         or Control Center, even by entering or leaving Airplane
         Mode. It doesn't prevent selecting which Wi-Fi network to
         use. and later.
+
+        Requires: iOS >= 13.0; supervised device
       '';
       required = false;
     };
@@ -1445,6 +1803,8 @@ in
       description = ''
         If `true`, the system limits the device to only join Wi-Fi
         networks set up through a configuration profile.
+
+        Requires: iOS >= 14.5; supervised device
       '';
       required = false;
     };
@@ -1452,6 +1812,9 @@ in
       type = types.bool;
       description = ''
         Use `forceWiFiToAllowedNetworksOnly` instead.
+
+        Requires: iOS >= 10.3; supervised device
+        Deprecated in iOS 14.5
       '';
       required = false;
     };
@@ -1501,6 +1864,8 @@ in
 
         This restriction will require supervision in a future
         release.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -1512,6 +1877,8 @@ in
         intersection combine rules to combine multiple payloads and
         any exceptions that parental control apps provide, including
         ScreenTime.
+
+        Requires: iOS >= 26.1
       '';
       required = false;
     };
@@ -1532,6 +1899,8 @@ in
         - `200`: PG
         - `100`: G
         - `0`: None
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -1553,6 +1922,8 @@ in
         The two-letter key that profile tools use to display the
         proper ratings for the given region. The client doesn't
         recognize or report this data.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -1574,6 +1945,8 @@ in
         - `200`: TV-Y7
         - `100`: TV-Y
         - `0`: None
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -1583,6 +1956,8 @@ in
         If `true`, copy-and-paste functionality is limited by the
         `allowOpenFromManagedToUnmanaged` and
         `allowOpenFromUnmanagedToManaged` restrictions.
+
+        Requires: iOS >= 15.0
       '';
       required = false;
     };
@@ -1610,6 +1985,8 @@ in
         - `2`: Enables Prevent Cross-Site Tracking, but doesn't
         enable Block All Cookies. The user can toggle either
         setting.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -1624,6 +2001,8 @@ in
         > Note:
         > The system still allows third-party password managers, and
         apps can use AutoFill.
+
+        Requires: iOS >= 4.0; supervised device
       '';
       required = false;
     };
@@ -1632,6 +2011,8 @@ in
       description = ''
         If `false`, Safari doesn't execute JavaScript. This
         restriction will require supervision in a future release.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -1640,6 +2021,8 @@ in
       description = ''
         If `false`, Safari doesn't allow pop-up windows. Support for
         this restriction on unsupervised devices is deprecated.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -1647,6 +2030,8 @@ in
       type = types.bool;
       description = ''
         If `true`, the system enables Safari fraud warning.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -1654,12 +2039,15 @@ in
       type = types.listOf types.str;
       description = ''
         Use `allowListedAppBundleIDs` instead.
+
+        Requires: iOS >= 9.3; supervised device
+        Deprecated in iOS 15.0
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "4.0";
       maxIos = null;
       supervised = false;

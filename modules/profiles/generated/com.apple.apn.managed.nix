@@ -36,6 +36,9 @@ in
                           type = types.str;
                           description = ''
                             The access point name.
+
+                            Requires: iOS >= 4.0
+                            Deprecated in iOS 7.0
                           '';
                           required = true;
                         };
@@ -44,6 +47,9 @@ in
                           description = ''
                             The user name. If missing, the device prompts for it during
                             profile installation.
+
+                            Requires: iOS >= 4.0
+                            Deprecated in iOS 7.0
                           '';
                           required = false;
                         };
@@ -53,6 +59,9 @@ in
                             The password for the user. For obfuscation purposes, the
                             system encodes the password. If missing, the device prompts
                             for the password during profile installation.
+
+                            Requires: iOS >= 4.0
+                            Deprecated in iOS 7.0
                           '';
                           required = false;
                         };
@@ -60,6 +69,9 @@ in
                           type = types.str;
                           description = ''
                             The IP address or URL of the APN proxy.
+
+                            Requires: iOS >= 4.0
+                            Deprecated in iOS 7.0
                           '';
                           required = false;
                         };
@@ -67,6 +79,9 @@ in
                           type = types.int;
                           description = ''
                             The port number of the APN proxy.
+
+                            Requires: iOS >= 4.0
+                            Deprecated in iOS 7.0
                           '';
                           required = false;
                         };
@@ -76,6 +91,9 @@ in
                 );
                 description = ''
                   An array of APN dictionaries (\`APN.DefaultsData.Apns\`).
+
+                  Requires: iOS >= 4.0
+                  Deprecated in iOS 7.0
                 '';
                 required = true;
               };
@@ -85,6 +103,9 @@ in
       );
       description = ''
         The list of access point names (APNs).
+
+        Requires: iOS >= 4.0
+        Deprecated in iOS 7.0
       '';
       required = true;
     };
@@ -96,12 +117,15 @@ in
       );
       description = ''
         The domain name.
+
+        Requires: iOS >= 4.0
+        Deprecated in iOS 7.0
       '';
       required = true;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "4.0";
       maxIos = null;
       supervised = false;

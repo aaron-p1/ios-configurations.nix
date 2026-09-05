@@ -34,6 +34,8 @@ let
               The system limits the list of visible AirPlay destinations
               to devices that are present in the `AllowList` field of all
               installed AirPlay payloads.
+
+              Requires: iOS >= 18.0
             '';
             required = false;
           };
@@ -66,6 +68,8 @@ in
         If present, only AirPlay destinations in this list are
         available to the device. This allow list applies to
         supervised devices.
+
+        Requires: iOS >= 14.5; supervised device
       '';
       required = false;
     };
@@ -79,6 +83,8 @@ in
                 description = ''
                   The name of the AirPlay destination; used in iOS, and
                   available in macOS 15 and later.
+
+                  Requires: iOS >= 7.0
                 '';
                 required = false;
               };
@@ -86,6 +92,8 @@ in
                 type = types.str;
                 description = ''
                   The password for the AirPlay destination.
+
+                  Requires: iOS >= 7.0
                 '';
                 required = true;
               };
@@ -98,6 +106,8 @@ in
         Using multiple entries for the same destination, whether
         within the same payload or across multiple installed
         payloads, is an error and results in undefined behavior.
+
+        Requires: iOS >= 7.0
       '';
       required = false;
     };
@@ -106,12 +116,15 @@ in
       description = ''
         Use `AllowList` instead. This key is deprecated in iOS 14.5
         and macOS 11.3.
+
+        Requires: iOS >= 7.0; supervised device
+        Deprecated in iOS 14.5
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "7.0";
       maxIos = null;
       supervised = false;

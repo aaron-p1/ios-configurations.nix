@@ -30,12 +30,14 @@ in
         `ProxyType`, `ProxyServer`, `ProxyServerPort`,
         `ProxyUsername`, `ProxyPassword`, `ProxyPACURL` and
         `ProxyPACFallbackAllowed`.
+
+        Requires: iOS >= 17.0
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "17.0";
       maxIos = null;
       supervised = false;

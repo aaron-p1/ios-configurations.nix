@@ -31,6 +31,8 @@ in
                 type = (utils.floatBetween (-180.0) (180.0));
                 description = ''
                   The longitude of the geofence.
+
+                  Requires: iOS >= 17.0
                 '';
                 required = true;
               };
@@ -38,6 +40,8 @@ in
                 type = (utils.floatBetween (-90.0) (90.0));
                 description = ''
                   The latitude of the geofence.
+
+                  Requires: iOS >= 17.0
                 '';
                 required = true;
               };
@@ -47,6 +51,8 @@ in
                   Specifies the radius of the geofence in meters. Set this
                   value slightly greater than the private cellular network
                   coverage area.
+
+                  Requires: iOS >= 17.0
                 '';
                 required = true;
               };
@@ -55,6 +61,8 @@ in
                 description = ''
                   A geofence identifier that's unique within a list of
                   geofences.
+
+                  Requires: iOS >= 17.0
                 '';
                 required = true;
               };
@@ -65,6 +73,8 @@ in
       description = ''
         A list of up to 1000 geofences for private networks.
         Geofencing is only used on iPhone.
+
+        Requires: iOS >= 17.0
       '';
       required = false;
     };
@@ -72,6 +82,8 @@ in
       type = types.str;
       description = ''
         The name of the private network configuration data set.
+
+        Requires: iOS >= 17.0
       '';
       required = true;
     };
@@ -80,6 +92,8 @@ in
       description = ''
         The version number of this dataset that the system uses to
         track updates.
+
+        Requires: iOS >= 17.0
       '';
       required = true;
     };
@@ -87,6 +101,8 @@ in
       type = types.bool;
       description = ''
         Set to `true` to prefer this private network over Wi-Fi.
+
+        Requires: iOS >= 17.0
       '';
       required = false;
     };
@@ -94,6 +110,8 @@ in
       type = types.bool;
       description = ''
         Set to `true` if this private network is NR Standalone.
+
+        Requires: iOS >= 17.0
       '';
       required = false;
     };
@@ -108,6 +126,8 @@ in
         All combinations of `NetworkIdentifier` and
         `CsgNetworkIdentifier` must be unique across all profiles
         installed on the device.
+
+        Requires: iOS >= 18.0
       '';
       required = false;
     };
@@ -121,12 +141,14 @@ in
         All combinations of `NetworkIdentifier` and
         `CsgNetworkIdentifier` must be unique across all profiles
         installed on the device.
+
+        Requires: iOS >= 18.0
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "17.0";
       maxIos = null;
       supervised = false;

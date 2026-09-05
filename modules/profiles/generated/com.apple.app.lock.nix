@@ -31,6 +31,8 @@ in
                 type = types.str;
                 description = ''
                   The app's bundle identifier.
+
+                  Requires: iOS >= 6.0; supervised device
                 '';
                 required = true;
               };
@@ -44,6 +46,8 @@ in
                           description = ''
                             If `true`, the system disables the touch screen. In tvOS, it
                             disables the touch surface on the Apple TV Remote.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -51,6 +55,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system disables device rotation sensing.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -58,6 +64,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system disables the volume buttons.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -67,6 +75,8 @@ in
                             If `true`, the system disables the ringer switch. When
                             disabled, the ringer behavior depends on what position the
                             switch was in when it was first disabled.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -74,6 +84,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system disables the sleep/wake button.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -82,6 +94,8 @@ in
                           description = ''
                             If `true`, the device doesn't automatically go to sleep
                             after an idle period.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -89,6 +103,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system enables VoiceOver.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -96,6 +112,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system enables Zoom.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -103,6 +121,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system enables Invert Colors.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -110,6 +130,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system enables AssistiveTouch.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -117,6 +139,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system enables Speak Selection.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -124,6 +148,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system enables Mono Audio.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -131,6 +157,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system enables Voice Control.
+
+                            Requires: iOS >= 13.0; supervised device
                           '';
                           required = false;
                         };
@@ -140,6 +168,8 @@ in
                 );
                 description = ''
                   A dictionary of options that the user can't change.
+
+                  Requires: iOS >= 7.0; supervised device
                 '';
                 required = false;
               };
@@ -153,6 +183,8 @@ in
                           description = ''
                             If `true`, the system allows the user to toggle Voice
                             Control.
+
+                            Requires: iOS >= 13.0; supervised device
                           '';
                           required = false;
                         };
@@ -160,6 +192,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system allows the user to toggle VoiceOver.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -167,6 +201,8 @@ in
                           type = types.bool;
                           description = ''
                             If `true`, the system allows the user to toggle Zoom.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -175,6 +211,8 @@ in
                           description = ''
                             If `true`, the system allows the user to toggle Invert
                             Colors.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -183,6 +221,8 @@ in
                           description = ''
                             If `true`, the system allows the user to toggle
                             AssistiveTouch.
+
+                            Requires: iOS >= 7.0; supervised device
                           '';
                           required = false;
                         };
@@ -192,6 +232,8 @@ in
                 );
                 description = ''
                   A dictionary of user-editable options.
+
+                  Requires: iOS >= 7.0; supervised device
                 '';
                 required = false;
               };
@@ -201,12 +243,14 @@ in
       );
       description = ''
         A dictionary that contains information about the app.
+
+        Requires: iOS >= 6.0; supervised device
       '';
       required = true;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "6.0";
       maxIos = null;
       supervised = true;

@@ -31,6 +31,8 @@ in
       description = ''
         Set this to `com.apple.AppSSOKerberos.KerberosExtension` for
         this extension.
+
+        Requires: iOS >= 13.0
       '';
       required = true;
     };
@@ -42,6 +44,8 @@ in
       );
       description = ''
         Set this to `apple` for this extension.
+
+        Requires: iOS >= 13.0
       '';
       required = true;
     };
@@ -53,6 +57,8 @@ in
       );
       description = ''
         Set this to `Credential` for this extension.
+
+        Requires: iOS >= 13.0
       '';
       required = true;
     };
@@ -62,6 +68,8 @@ in
         The Kerberos realm. Use proper capitalization for this
         value. If in an Active Directory forest, this is the realm
         where the user logs in.
+
+        Requires: iOS >= 13.0
       '';
       required = true;
     };
@@ -75,6 +83,9 @@ in
                 description = ''
                   The GSS name of the Kerberos cache to use. Rarely set by an
                   administrator.
+
+                  Requires: iOS >= 13.0
+                  Deprecated in iOS 15.0
                 '';
                 required = false;
               };
@@ -83,6 +94,8 @@ in
                 description = ''
                   The principal (username) to use. You don't need to include
                   the realm.
+
+                  Requires: iOS >= 13.0
                 '';
                 required = false;
               };
@@ -93,6 +106,8 @@ in
                   should use. Most administrators don't need to modify this
                   value, as the Kerberos extension can normally find the site
                   automatically.
+
+                  Requires: iOS >= 13.0
                 '';
                 required = false;
               };
@@ -100,6 +115,8 @@ in
                 type = types.str;
                 description = ''
                   The PayloadUUID of a PKINIT certificate.
+
+                  Requires: iOS >= 13.0
                 '';
                 required = false;
               };
@@ -108,6 +125,8 @@ in
                 description = ''
                   If `false`, the Kerberos extension doesn't automatically use
                   LDAP and DNS to determine its AD site name.
+
+                  Requires: iOS >= 13.0
                 '';
                 required = false;
               };
@@ -116,6 +135,8 @@ in
                 description = ''
                   A list of bundle IDs allowed to access the ticket-granting
                   ticket (TGT).
+
+                  Requires: iOS >= 13.0
                 '';
                 required = false;
               };
@@ -126,6 +147,8 @@ in
                   to access and use the credential. This is in addition to the
                   `credentialBundleIDACL`, if you specify that value.
                   Available in iOS 14 and later, and macOS 12 and later.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -139,6 +162,8 @@ in
                           description = ''
                             The key should be the name of the realm, and the value is an
                             array of DNS suffixes that map to the realm.
+
+                            Requires: iOS >= 13.0
                           '';
                           required = false;
                         };
@@ -150,6 +175,8 @@ in
                   A custom domain-realm mapping for Kerberos. The system uses
                   this when the DNS name of hosts doesn't match the realm
                   name. Most administrators don't need to customize this.
+
+                  Requires: iOS >= 13.0
                 '';
                 required = false;
               };
@@ -158,6 +185,8 @@ in
                 description = ''
                   Specifies whether this is the default realm if there's more
                   than one Kerberos extension configuration.
+
+                  Requires: iOS >= 13.0
                 '';
                 required = false;
               };
@@ -167,6 +196,8 @@ in
                   The custom user name label used in the Kerberos extension
                   instead of "Username," such as "Company ID". Available in
                   macOS 11 and later.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -177,6 +208,8 @@ in
                   Kerberos Login Window. You can also use this to display help
                   information or disclaimer text. Available in iOS 14 and
                   later, and macOS 11 and later.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -185,6 +218,8 @@ in
                 description = ''
                   If `false`, the system doesn't allow saving passwords in the
                   keychain.
+
+                  Requires: iOS >= 13.0
                 '';
                 required = false;
               };
@@ -193,6 +228,8 @@ in
                 description = ''
                   If `true`, the system requires the user to provide Touch ID,
                   Face ID or their passcode to access the keychain entry.
+
+                  Requires: iOS >= 13.0
                 '';
                 required = false;
               };
@@ -201,6 +238,8 @@ in
                 description = ''
                   Require that LDAP connections use TLS. Available in macOS 11
                   and later.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -231,6 +270,8 @@ in
                   this capability.
 
                   Available in macOS 11 and later.
+
+                  Requires: iOS >= 14.0
                 '';
                 required = false;
               };
@@ -249,6 +290,8 @@ in
                   - `adserver1.example.com`
                   - `tcp/adserver1.example.com:88`
                   - `kkdcp://kerberosproxy.example.com:443/kkdcp`
+
+                  Requires: iOS >= 15.0
                 '';
                 required = false;
               };
@@ -260,6 +303,8 @@ in
                   password expiration in the menu, check for external password
                   changes, perform password sync, or retrieve the home
                   directory. Available in macOS 13 and later.
+
+                  Requires: iOS >= 16.0
                 '';
                 required = false;
               };
@@ -270,6 +315,8 @@ in
       description = ''
         This is the dictionary used by the Apple built-in Kerberos
         extension.
+
+        Requires: iOS >= 13.0
       '';
       required = false;
     };
@@ -289,12 +336,14 @@ in
         > Host names that begin with a "." are wildcard suffixes
         that match all subdomains; otherwise the host name needs be
         an exact match.
+
+        Requires: iOS >= 13.0
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "13.0";
       maxIos = null;
       supervised = false;

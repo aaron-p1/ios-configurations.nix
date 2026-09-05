@@ -28,12 +28,14 @@ in
         The set of declarations to apply. The array items are
         Base64-encoded data representations of the declaration JSON
         data.
+
+        Requires: iOS >= 17.0
       '';
       required = true;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "17.0";
       maxIos = null;
       supervised = false;

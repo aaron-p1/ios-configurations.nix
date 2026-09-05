@@ -31,6 +31,8 @@ in
                 type = types.str;
                 description = ''
                   The IP address or hostname of the AirPrint destination.
+
+                  Requires: iOS >= 7.0
                 '';
                 required = true;
               };
@@ -45,6 +47,8 @@ in
                   - `printers/Xerox_Phaser_7600`
                   - `ipp/print`
                   - `Epson_IPP_Printer`
+
+                  Requires: iOS >= 7.0
                 '';
                 required = true;
               };
@@ -53,6 +57,8 @@ in
                 description = ''
                   The listening port of the AirPrint destination. Available
                   only in iOS 11 and later.
+
+                  Requires: iOS >= 11.0
                 '';
                 required = false;
               };
@@ -61,6 +67,8 @@ in
                 description = ''
                   If `true`, AirPrint connections are secured by Transport
                   Layer Security (TLS). Available only in iOS 11 and later.
+
+                  Requires: iOS >= 11.0
                 '';
                 required = false;
               };
@@ -71,12 +79,14 @@ in
       description = ''
         An array of AirPrint printers that are presented to the
         user.
+
+        Requires: iOS >= 7.0
       '';
       required = true;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "7.0";
       maxIos = null;
       supervised = false;

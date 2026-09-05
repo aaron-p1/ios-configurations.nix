@@ -26,6 +26,8 @@ in
       type = types.str;
       description = ''
         The description of the account.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -33,6 +35,8 @@ in
       type = types.str;
       description = ''
         The server's address.
+
+        Requires: iOS >= 4.0
       '';
       required = true;
     };
@@ -40,6 +44,8 @@ in
       type = types.str;
       description = ''
         The user name for logins.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -47,6 +53,8 @@ in
       type = types.str;
       description = ''
         The user's password. Only use this in encrypted profiles.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -54,6 +62,8 @@ in
       type = types.str;
       description = ''
         The base URL to the user's address book.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -61,6 +71,8 @@ in
       type = types.bool;
       description = ''
         If `true`, the system enables SSL.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -68,6 +80,8 @@ in
       type = types.int;
       description = ''
         The server's port.
+
+        Requires: iOS >= 4.0
       '';
       required = false;
     };
@@ -86,6 +100,8 @@ in
                           description = ''
                             The bundle identifier for the default application that
                             handles audio calls to contacts from this account.
+
+                            Requires: iOS >= 10.0
                           '';
                           required = false;
                         };
@@ -96,6 +112,8 @@ in
                 description = ''
                   A dictionary of service handlers for contacts from this
                   account.
+
+                  Requires: iOS >= 10.0
                 '';
                 required = false;
               };
@@ -105,6 +123,8 @@ in
       );
       description = ''
         An array of communication service rules for this account.
+
+        Requires: iOS >= 10.0
       '';
       required = false;
     };
@@ -113,12 +133,14 @@ in
       description = ''
         The VPNUUID of the per-app VPN the account uses for network
         communication. Available in iOS 14 and later.
+
+        Requires: iOS >= 14.0
       '';
       required = false;
     };
   };
   supportData = {
-    enable = {
+    "enable" = {
       minIos = "4.0";
       maxIos = null;
       supervised = false;
