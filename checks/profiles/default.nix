@@ -251,6 +251,147 @@ in
     assert hasInfix "<key>DataSetName</key>" plist;
     assert hasInfix "<key>VersionNumber</key>" plist;
     pkgs.runCommand "can-gen-cellularprivatenetwork.managed" { } "touch $out";
+
+  can-gen-declarations =
+    let
+      config.profiles.declarations = {
+        enable = true;
+        Declarations = [ "password" ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.declarations</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.declarations</string>" plist;
+    assert hasInfix "<key>Declarations</key>" plist;
+    pkgs.runCommand "can-gen-declarations" { } "touch $out";
+
+  can-gen-dnsProxy-managed =
+    let
+      config.profiles.dnsProxy.managed = {
+        enable = true;
+        AppBundleIdentifier = "com.example.dnsproxy";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.dnsProxy.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.dnsProxy.managed</string>" plist;
+    assert hasInfix "<key>AppBundleIdentifier</key>" plist;
+    pkgs.runCommand "can-gen-dnsProxy.managed" { } "touch $out";
+
+  can-gen-dnsSettings-managed =
+    let
+      config.profiles.dnsSettings.managed = {
+        enable = true;
+        DNSSettings = {
+          DNSProtocol = "HTTPS";
+        };
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.dnsSettings.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.dnsSettings.managed</string>" plist;
+    assert hasInfix "<key>DNSSettings</key>" plist;
+    pkgs.runCommand "can-gen-dnsSettings.managed" { } "touch $out";
+
+  can-gen-domains =
+    let
+      config.profiles.domains = {
+        enable = true;
+        EmailDomains = [ "example.com" ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.domains</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.domains</string>" plist;
+    assert hasInfix "<key>EmailDomains</key>" plist;
+    pkgs.runCommand "can-gen-domains" { } "touch $out";
+
+  can-gen-eas-account =
+    let
+      config.profiles.eas.account = {
+        enable = true;
+        EmailAddress = "test@example.com";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.eas.account</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.eas.account</string>" plist;
+    assert hasInfix "<key>EmailAddress</key>" plist;
+    pkgs.runCommand "can-gen-eas-account" { } "touch $out";
+
+  can-gen-education =
+    let
+      config.profiles.education = {
+        enable = true;
+        OrganizationUUID = "208b6b0f-369c-4305-a06a-598005615ae5";
+        OrganizationName = "Example School";
+        UserIdentifier = "identifier";
+        Groups = [ ];
+        Users = [ ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.education</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.education</string>" plist;
+    assert hasInfix "<key>OrganizationUUID</key>" plist;
+    pkgs.runCommand "can-gen-education" { } "touch $out";
+
+  can-gen-extensiblesso-kerberos =
+    let
+      config.profiles.extensiblesso-kerberos = {
+        enable = true;
+        ExtensionIdentifier = "com.apple.AppSSOKerberos.KerberosExtension";
+        TeamIdentifier = "apple";
+        Type = "Credential";
+        Realm = "realm";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.extensiblesso</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.extensiblesso(kerberos)</string>" plist;
+    assert hasInfix "<key>ExtensionIdentifier</key>" plist;
+    pkgs.runCommand "can-gen-extensionsso-kerberos" { } "touch $out";
+
+  can-gen-extensiblesso =
+    let
+      config.profiles.extensiblesso = {
+        enable = true;
+        ExtensionIdentifier = "com.example.ssoextension";
+        Type = "Redirect";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.extensiblesso</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.extensiblesso</string>" plist;
+    assert hasInfix "<key>ExtensionIdentifier</key>" plist;
+    pkgs.runCommand "can-gen-extensionsso" { } "touch $out";
+
+  can-gen-font =
+    let
+      config.profiles.font = {
+        enable = true;
+        Name = "ExampleFont";
+        Font = "<font content>";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.font</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.font</string>" plist;
+    assert hasInfix "<key>Name</key>" plist;
+    pkgs.runCommand "can-gen-font" { } "touch $out";
+
+  can-gen-globalethernet-managed =
+    let
+      config.profiles.globalethernet.managed = {
+        enable = true;
+        settings.EthernetMACAddress = "00:11:22:33:44:55";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.globalethernet.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.globalethernet.managed</string>" plist;
+    assert hasInfix "<key>EthernetMACAddress</key>" plist;
+    pkgs.runCommand "can-gen-globalethernet.managed" { } "touch $out";
 }
 // (import ./assertions.nix { inherit eval pkgs lib; })
 // (import ./types.nix { inherit eval pkgs lib; })

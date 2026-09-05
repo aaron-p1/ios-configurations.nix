@@ -8,7 +8,9 @@ let
     toJSON
     ;
   inherit (lib)
+    types
     attrsToList
+    concatMap
     optionalAttrs
     trim
     pipe
@@ -19,6 +21,11 @@ let
     isList
     isAttrs
     ;
+
+  tagVal = tag: value: {
+    __type = tag;
+    value = value;
+  };
 in
 rec {
   mkProfileOpt =
@@ -48,16 +55,25 @@ rec {
 
   plistDataType =
     let
-      tagData = value: {
-        __type = "data";
-        value = value;
-      };
+      baseType = types.either types.str types.path;
     in
-    lib.types.str
+    baseType
     // {
       name = "plist-data";
-      description = ''Written as string, read as { __type = "data", value = ... }'';
-      merge = loc: defs: tagData (lib.types.str.merge loc defs);
+      description = ''Written as string or path, read as { __type = "data", value = ... }'';
+      merge = loc: defs: tagVal "data" (baseType.merge loc defs);
+    };
+
+  settingsOf =
+    type:
+    let
+      baseType = types.attrsOf type;
+    in
+    baseType
+    // {
+      name = "settings-data";
+      description = ''Written as attrs, read as { __type = "settings", value = {...} }'';
+      merge = loc: defs: tagVal "settings" (baseType.merge loc defs);
     };
 
   profileConfigToPlist = args: concatStringsSep "\n" (profileConfigToPlist' args);
@@ -72,7 +88,15 @@ rec {
     let
       valueIsEmpty = value: if isList value then value == [ ] else value == null;
 
-      filledOptions = filter ({ value, ... }: !valueIsEmpty value) (attrsToList config);
+      expandSettings =
+        cval:
+        if isAttrs cval.value && (cval.value ? __type) && cval.value.__type == "settings" then
+          attrsToList cval.value.value
+        else
+          [ cval ];
+
+      configValues = concatMap expandSettings (attrsToList config);
+      filledOptions = filter ({ value, ... }: !valueIsEmpty value) configValues;
 
       gen-indent = n: concatStringsSep "" (genList (_: "  ") n);
 
@@ -131,10 +155,16 @@ rec {
   toBase64 =
     pkgs: value:
     let
-      drv = pkgs.runCommandLocal "value.b64" {
-        inherit value;
-        passAsFile = [ "value" ];
-      } ''base64 < "$valuePath" > $out'';
+      cmdAttrs =
+        if builtins.isPath value || builtins.isAttrs value then
+          { valuePath = value; }
+        else
+          {
+            value = value;
+            passAsFile = [ "value" ];
+          };
+
+      drv = pkgs.runCommandLocal "value.b64" cmdAttrs ''base64 < "$valuePath" > $out'';
     in
     builtins.readFile drv;
 }

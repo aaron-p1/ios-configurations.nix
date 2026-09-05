@@ -175,6 +175,10 @@ def is_array_definition(subkeys, key):
 
 
 def dictionary_to_nix_submodule(subkeys, definitions, indent):
+    if len(subkeys) == 1 and subkeys[0]["key"] == "ANY":
+        nix_type = key_type_to_nix_type(subkeys[0], definitions, indent + "  ")[1]
+        return ([], f"(types.attrsOf {nix_type})")
+
     template = """
         (
           types.submodule (
@@ -254,11 +258,14 @@ def key_type_to_nix_type(payload_key, definitions, indent):
             return dictionary_to_nix_submodule(
                 payload_key["subkeys"], definitions, indent
             )
+        case "<any>":
+            return ([], "types.anything")
         case _:
             return ([], "unknown")
 
 
 def payload_key_to_option(payload_key, definitions, indent):
+
     template = """
         "$key" = mkProfileOpt {
           type = $nix_type;
@@ -288,10 +295,16 @@ def payload_key_to_option(payload_key, definitions, indent):
         "true" if payload_key.get("presence", "optional") == "required" else "false"
     )
 
+    key = payload_key["key"]
+
+    if payload_key["key"] == "ANY":
+        key = "settings"
+        nix_type = f"(utils.settingsOf {nix_type})"
+
     return (
         def_types,
         Template(indented_template).substitute(
-            key=payload_key["key"],
+            key=key,
             nix_type=nix_type,
             description=description,
             required=required,
@@ -392,7 +405,11 @@ def gen_payload_key_support_data(payload_key, definitions, global_values, prev_k
         textwrap.indent(textwrap.dedent(template), "    ").lstrip("\n").rstrip()
     )
 
-    cur_key = payload_key.get("key", "unknown")
+    cur_key = payload_key["key"]
+
+    if cur_key == "ANY":
+        cur_key = "settings"
+
     key_path = ".".join([to_nix_value(k) for k in prev_keys + [cur_key]])
 
     cur_entry = Template(indented_template).substitute(
@@ -420,6 +437,13 @@ def get_sub_key_support_data(payload_key, definitions, global_values, prev_keys=
             subkeys, definitions, global_values, keys + ["*"]
         )
         return sub_entries
+
+    if (
+        payload_key["type"] == "<dictionary>"
+        and len(subkeys) == 1
+        and subkeys[0]["key"] == "ANY"
+    ):
+        return []
 
     return get_payload_keys_support_data(subkeys, definitions, global_values, keys)
 
@@ -558,7 +582,7 @@ def main():
 
     print(f"Found {len(profile_items)} profiles for iOS.")
 
-    for module_name, profile in profile_items[0:10]:
+    for module_name, profile in profile_items[0:20]:
         module_content = profile_to_module(profile, module_name)
         write_module(module_name, module_content)
         print(f"Generated module for {module_name}")

@@ -105,6 +105,23 @@ in
     assert result2.success == true;
     pkgs.runCommand "checks-enum-values" { } "touch $out";
 
+  supports-any-attrs =
+    let
+      config.profiles.dnsProxy.managed = {
+        enable = true;
+        AppBundleIdentifier = "com.example.dnsproxy";
+        ProviderConfiguration = {
+          CustomKey = [ "value1" ];
+        };
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<key>ProviderConfiguration</key>" plist;
+    assert hasInfix "<key>CustomKey</key>" plist;
+    assert hasInfix "<array>" plist;
+    assert hasInfix "<string>value1</string>" plist;
+    pkgs.runCommand "supports-any-attrs" { } "touch $out";
+
   can-output-string =
     let
       config.profiles.apn.managed = {
@@ -200,6 +217,29 @@ in
     assert hasInfix "cGFzc3dvcmQ=" plist; # base64 of "password"
     pkgs.runCommand "can-output-data" { } "touch $out";
 
+  can-output-file-as-data =
+    let
+      config.profiles.apn.managed = {
+        enable = true;
+        DefaultsData.apns = [
+          {
+            apn = "as-derivation";
+            password = pkgs.writeText "test-password.txt" "password";
+          }
+          {
+            apn = "as-path";
+            password = ./data-file.txt;
+          }
+        ];
+        DefaultsDomainName = "com.apple.managedCarrier";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<data>" plist;
+    assert hasInfix "cGFzc3dvcmQ=" plist; # base64 of "password"
+    assert hasInfix "VGhpcyBmaWxlIGNhbiBiZSB1c2VkIGluIGRhd" plist; # base64 of data-file.txt content
+    pkgs.runCommand "can-output-file-as-data" { } "touch $out";
+
   can-output-dictionary =
     let
       config.profiles.apn.managed = {
@@ -218,4 +258,43 @@ in
     assert hasInfix "<dict>" plist;
     assert hasInfix "<key>apn</key>" plist;
     pkgs.runCommand "can-output-dictionary" { } "touch $out";
+
+  can-define-custom-attributes-with-settings =
+    let
+      config.profiles.globalethernet.managed = {
+        enable = true;
+        settings.EthernetMACAddress = "00:11:22:33:44:55";
+      };
+      plist = evalGetPlist config;
+    in
+    assert !hasInfix "settings" plist;
+    assert hasInfix "<key>EthernetMACAddress</key>" plist;
+    assert hasInfix "<string>00:11:22:33:44:55</string>" plist;
+    pkgs.runCommand "can-define-custom-attributes-with-settings" { } "touch $out";
+
+  can-merge-custom-attributes-with-settings =
+    let
+      config1.profiles.globalethernet.managed = {
+        enable = true;
+        settings.EthernetMACAddress = "00:11:22:33:44:55";
+      };
+      config2.profiles.globalethernet.managed = {
+        settings.EthernetMTU = 1500;
+        settings.nested.subkey = true;
+      };
+      configs = [
+        { config = config1; }
+        { config = config2; }
+      ];
+
+      plist = (eval configs).config.profiles.plist;
+    in
+    assert !hasInfix "settings" plist;
+    assert hasInfix "<key>EthernetMACAddress</key>" plist;
+    assert hasInfix "<string>00:11:22:33:44:55</string>" plist;
+    assert hasInfix "<key>EthernetMTU</key>" plist;
+    assert hasInfix "<integer>1500</integer>" plist;
+    assert hasInfix "<key>nested</key>" plist;
+    assert hasInfix "<key>subkey</key>" plist;
+    pkgs.runCommand "can-merge-custom-attributes-with-settings" { } "touch $out";
 }

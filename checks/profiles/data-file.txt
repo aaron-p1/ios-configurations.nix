@@ -1,0 +1,1 @@
+This file can be used in data attribute and will be converted to base64 format.

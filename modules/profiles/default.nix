@@ -72,6 +72,46 @@ let
       name = "com.apple.cellularprivatenetwork.managed";
       uuid = "e12476cd-0f8b-4270-bc34-073e96f01a23";
     };
+    declarations = {
+      name = "com.apple.declarations";
+      uuid = "09f09d9b-eb1f-4576-b89c-576056b44647";
+    };
+    dnsProxy.managed = {
+      name = "com.apple.dnsProxy.managed";
+      uuid = "a019cd59-aff2-41c2-909c-e8f88d25de33";
+    };
+    dnsSettings.managed = {
+      name = "com.apple.dnsSettings.managed";
+      uuid = "779ac0cc-142a-4cb9-9f13-cc7912a49949";
+    };
+    domains = {
+      name = "com.apple.domains";
+      uuid = "687c4b8d-dbf7-4142-86ff-f56578e06c86";
+    };
+    eas.account = {
+      name = "com.apple.eas.account";
+      uuid = "42da894c-81f3-46b9-b641-b8a3f94e7e0b";
+    };
+    education = {
+      name = "com.apple.education";
+      uuid = "3d55bf6c-4871-48e2-8e3f-d048c96a17db";
+    };
+    extensiblesso-kerberos = {
+      name = "com.apple.extensiblesso(kerberos)";
+      uuid = "218d7ec2-33c7-4654-b01b-018bace9478d";
+    };
+    extensiblesso = {
+      name = "com.apple.extensiblesso";
+      uuid = "15d99c00-f9e9-4308-ae29-bf9058e83c36";
+    };
+    font = {
+      name = "com.apple.font";
+      uuid = "33ca8f74-6b73-47f9-adfb-08de15252654";
+    };
+    globalethernet.managed = {
+      name = "com.apple.globalethernet.managed";
+      uuid = "0efdacde-25dd-4334-a2a2-e9cc2289d0c0";
+    };
   };
 
   profileOptions = mergeAttrsList (map (config: toNestedAttrs config.path config.options) configs);
