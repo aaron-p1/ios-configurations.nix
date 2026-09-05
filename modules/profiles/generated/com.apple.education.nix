@@ -60,7 +60,7 @@ in
       required = false;
     };
     "LeaderPayloadCertificateAnchorUUID" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         The array of UUIDs referring to certificate payloads within
         the same profile that the system uses to authorize leader
@@ -81,7 +81,7 @@ in
       required = false;
     };
     "MemberPayloadCertificateAnchorUUID" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         The array of UUIDs referring to certificate payloads within
         the same profile that the system uses to authorize group
@@ -131,28 +131,30 @@ in
       required = true;
     };
     "Departments" = mkProfileOpt {
-      type = types.listOf (
-        utils.subopts {
-          "Name" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The display name of the department.
+      type = (
+        types.listOf (
+          utils.subopts {
+            "Name" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The display name of the department.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-          "GroupBeaconIDs" = mkProfileOpt {
-            type = types.listOf types.int;
-            description = ''
-              The group beacon identifiers that are members of this
-              department.
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+            "GroupBeaconIDs" = mkProfileOpt {
+              type = (types.listOf types.int);
+              description = ''
+                The group beacon identifiers that are members of this
+                department.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-        }
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+          }
+        )
       );
       description = ''
         _For Shared iPad profiles:_ The array of dictionaries that
@@ -165,90 +167,92 @@ in
       required = false;
     };
     "Groups" = mkProfileOpt {
-      type = types.listOf (
-        utils.subopts {
-          "BeaconID" = mkProfileOpt {
-            type = types.int;
-            description = ''
-              An unsigned 16 bit integer specifying this group's unique
-              beacon ID.
+      type = (
+        types.listOf (
+          utils.subopts {
+            "BeaconID" = mkProfileOpt {
+              type = types.int;
+              description = ''
+                An unsigned 16 bit integer specifying this group's unique
+                beacon ID.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-          "Name" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The display name of the group.
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+            "Name" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The display name of the group.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-          "Description" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The description of the group.
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+            "Description" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The description of the group.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-          "ImageURL" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              Deprecated in iOS 9.3.1 and later. The URL of an image for
-              the group.
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+            "ImageURL" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                Deprecated in iOS 9.3.1 and later. The URL of an image for
+                the group.
 
-              Requires: iOS >= 9.3
-              Deprecated in iOS 9.3.1
-            '';
-            required = false;
-          };
-          "ConfigurationSource" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The source that provided this group, such as SIS, or MDM.
+                Requires: iOS >= 9.3
+                Deprecated in iOS 9.3.1
+              '';
+              required = false;
+            };
+            "ConfigurationSource" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The source that provided this group, such as SIS, or MDM.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-          "LeaderIdentifiers" = mkProfileOpt {
-            type = types.listOf types.str;
-            description = ''
-              The user identifiers that are leaders of this group.
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+            "LeaderIdentifiers" = mkProfileOpt {
+              type = (types.listOf types.str);
+              description = ''
+                The user identifiers that are leaders of this group.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-          "MemberIdentifiers" = mkProfileOpt {
-            type = types.listOf types.str;
-            description = ''
-              The entries in the Users array that are members of the
-              group.
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+            "MemberIdentifiers" = mkProfileOpt {
+              type = (types.listOf types.str);
+              description = ''
+                The entries in the Users array that are members of the
+                group.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-          "DeviceGroupIdentifiers" = mkProfileOpt {
-            type = types.listOf types.str;
-            description = ''
-              The identifiers that refer to entries in the `DeviceGroups`
-              array to which the instructor can assign users from this
-              class.
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+            "DeviceGroupIdentifiers" = mkProfileOpt {
+              type = (types.listOf types.str);
+              description = ''
+                The identifiers that refer to entries in the `DeviceGroups`
+                array to which the instructor can assign users from this
+                class.
 
-              Has no effect on the configuration of the Shared iPad login
-              screen.
+                Has no effect on the configuration of the Shared iPad login
+                screen.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-        }
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+          }
+        )
       );
       description = ''
         _For Shared iPad profiles:_ The array of dictionaries that
@@ -266,127 +270,129 @@ in
       required = true;
     };
     "Users" = mkProfileOpt {
-      type = types.listOf (
-        utils.subopts {
-          "Identifier" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The unique identifier for a user in the organization.
+      type = (
+        types.listOf (
+          utils.subopts {
+            "Identifier" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The unique identifier for a user in the organization.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-          "Name" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The name of the user.
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+            "Name" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The name of the user.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-          "GivenName" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The given name of the user.
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+            "GivenName" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The given name of the user.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-          "FamilyName" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The family name of the user.
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+            "FamilyName" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The family name of the user.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-          "PhoneticGivenName" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The user's phonetic given name. The system uses this name to
-              sort users in the Classroom app and the Shared iPad Login
-              Screen.
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+            "PhoneticGivenName" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The user's phonetic given name. The system uses this name to
+                sort users in the Classroom app and the Shared iPad Login
+                Screen.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-          "PhoneticFamilyName" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The user's phonetic family name. The system uses this name
-              to sort users in the Classroom app and the Shared iPad login
-              screen.
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+            "PhoneticFamilyName" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The user's phonetic family name. The system uses this name
+                to sort users in the Classroom app and the Shared iPad login
+                screen.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-          "ImageURL" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              A string that contains a URL pointing to an image of the
-              user. The system displays this image in the iOS login screen
-              and in the Classroom app. The recommended resolution is 256
-              x 256 pixels (512 x 512 pixels on a 2x device). The
-              recommended formats are JPEG, PNG, and TIFF. The system uses
-              the `ResourcePayloadCertificateUUID` identity certificate or
-              the MDM client identity to perform authentication when
-              fetching the image.
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+            "ImageURL" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                A string that contains a URL pointing to an image of the
+                user. The system displays this image in the iOS login screen
+                and in the Classroom app. The recommended resolution is 256
+                x 256 pixels (512 x 512 pixels on a 2x device). The
+                recommended formats are JPEG, PNG, and TIFF. The system uses
+                the `ResourcePayloadCertificateUUID` identity certificate or
+                the MDM client identity to perform authentication when
+                fetching the image.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-          "FullScreenImageURL" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              Deprecated in iOS 9.3.1 and later. The URL pointing to an
-              image of the user. The system uses the
-              `ResourcePayloadCertificateUUID` identity certificate or the
-              MDM client identity to perform authentication when fetching
-              the specified resource.
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+            "FullScreenImageURL" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                Deprecated in iOS 9.3.1 and later. The URL pointing to an
+                image of the user. The system uses the
+                `ResourcePayloadCertificateUUID` identity certificate or the
+                MDM client identity to perform authentication when fetching
+                the specified resource.
 
-              Requires: iOS >= 9.3
-              Deprecated in iOS 9.3.1
-            '';
-            required = false;
-          };
-          "AppleID" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The Managed Apple Account for this user.
+                Requires: iOS >= 9.3
+                Deprecated in iOS 9.3.1
+              '';
+              required = false;
+            };
+            "AppleID" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The Managed Apple Account for this user.
 
-              Not required to configure Classroom, but if set the system
-              uses it.
+                Not required to configure Classroom, but if set the system
+                uses it.
 
-              Required to configure the Shared iPad login screen.
+                Required to configure the Shared iPad login screen.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-          "PasscodeType" = mkProfileOpt {
-            type = (
-              types.enum [
-                "complex"
-                "four"
-                "six"
-              ]
-            );
-            description = ''
-              The type of passcode UI to show when the user is at the
-              Login Window.
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+            "PasscodeType" = mkProfileOpt {
+              type = (
+                types.enum [
+                  "complex"
+                  "four"
+                  "six"
+                ]
+              );
+              description = ''
+                The type of passcode UI to show when the user is at the
+                Login Window.
 
-              Requires: iOS >= 9.3
-            '';
-            required = false;
-          };
-        }
+                Requires: iOS >= 9.3
+              '';
+              required = false;
+            };
+          }
+        )
       );
       description = ''
         For Shared iPad profiles: The array of dictionaries that
@@ -407,38 +413,40 @@ in
       required = true;
     };
     "DeviceGroups" = mkProfileOpt {
-      type = types.listOf (
-        utils.subopts {
-          "Identifier" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The unique identifier for the device group in the
-              organization.
+      type = (
+        types.listOf (
+          utils.subopts {
+            "Identifier" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The unique identifier for the device group in the
+                organization.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-          "Name" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The name of the device group, which must be unique in the
-              organization.
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+            "Name" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The name of the device group, which must be unique in the
+                organization.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-          "SerialNumbers" = mkProfileOpt {
-            type = types.listOf types.str;
-            description = ''
-              The serial numbers of the devices in the group.
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+            "SerialNumbers" = mkProfileOpt {
+              type = (types.listOf types.str);
+              description = ''
+                The serial numbers of the devices in the group.
 
-              Requires: iOS >= 9.3
-            '';
-            required = true;
-          };
-        }
+                Requires: iOS >= 9.3
+              '';
+              required = true;
+            };
+          }
+        )
       );
       description = ''
         _For leader/teacher profiles:_ The array of dictionaries

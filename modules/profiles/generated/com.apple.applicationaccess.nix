@@ -488,7 +488,7 @@ in
       required = false;
     };
     "allowedCameraRestrictionBundleIDs" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         If present, the system exempts apps with bundle IDs in the
         array from the `allowCamera` restriction. The system doesn't
@@ -503,7 +503,7 @@ in
       required = false;
     };
     "allowedExternalIntelligenceWorkspaceIDs" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of strings, but currently restricted to a single
         element. If present, Apple Intelligence allows use of only
@@ -826,7 +826,7 @@ in
       required = false;
     };
     "allowListedAppBundleIDs" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         If present, the system only shows or can launch apps with
         bundle IDs in the array. Include the value
@@ -1504,7 +1504,7 @@ in
       required = false;
     };
     "autonomousSingleAppModePermittedAppIDs" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         If present, the system allows apps identified by the bundle
         IDs listed in the array to autonomously enter Single App
@@ -1515,7 +1515,7 @@ in
       required = false;
     };
     "blacklistedAppBundleIDs" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         Use `blockedAppBundleIDs` instead.
 
@@ -1525,7 +1525,7 @@ in
       required = false;
     };
     "blockedAppBundleIDs" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         If present, the system prevents showing or launching apps
         with bundle IDs in the array. Include the value
@@ -1544,7 +1544,7 @@ in
       required = false;
     };
     "deniedICCIDsForiMessageFaceTime" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of strings representing ICCIDs of cellular plans.
         The device prevents use of any matching cellular networks in
@@ -1556,7 +1556,7 @@ in
       required = false;
     };
     "deniedICCIDsForRCS" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of strings representing ICCIDs of cellular plans.
         The device prevents use of any matching cellular networks
@@ -1870,7 +1870,7 @@ in
       required = false;
     };
     "ratingAppsExemptedBundleIDs" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         If present, the system exempts apps with bundle IDs in the
         array from age-based rating restrictions. The system uses
@@ -2036,7 +2036,7 @@ in
       required = false;
     };
     "whitelistedAppBundleIDs" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         Use `allowListedAppBundleIDs` instead.
 

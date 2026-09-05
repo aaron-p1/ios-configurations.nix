@@ -69,7 +69,7 @@ in
             required = false;
           };
           "ServerAddresses" = mkProfileOpt {
-            type = types.listOf types.str;
+            type = (types.listOf types.str);
             description = ''
               An unordered list of DNS server IP address strings. These IP
               addresses can be a mixture of IPv4 and IPv6 addresses.
@@ -100,7 +100,7 @@ in
             required = false;
           };
           "SupplementalMatchDomains" = mkProfileOpt {
-            type = types.listOf types.str;
+            type = (types.listOf types.str);
             description = ''
               A list of domain strings used to determine which DNS queries
               use the DNS server. If not set, all domains use the DNS
@@ -127,146 +127,150 @@ in
       required = true;
     };
     "OnDemandRules" = mkProfileOpt {
-      type = types.listOf (
-        utils.subopts {
-          "Action" = mkProfileOpt {
-            type = (
-              types.enum [
-                "Connect"
-                "Disconnect"
-                "EvaluateConnection"
-              ]
-            );
-            description = ''
-              The action to take if this dictionary matches the current
-              network. Allowed values:
+      type = (
+        types.listOf (
+          utils.subopts {
+            "Action" = mkProfileOpt {
+              type = (
+                types.enum [
+                  "Connect"
+                  "Disconnect"
+                  "EvaluateConnection"
+                ]
+              );
+              description = ''
+                The action to take if this dictionary matches the current
+                network. Allowed values:
 
-              - `Connect`: Apply DNS Settings when the dictionary matches.
-              - `Disconnect`: Don't apply DNS Settings when the dictionary
-              matches.
-              - `EvaluateConnection`: Apply DNS Settings with per-domain
-              exceptions when the dictionary matches.
+                - `Connect`: Apply DNS Settings when the dictionary matches.
+                - `Disconnect`: Don't apply DNS Settings when the dictionary
+                matches.
+                - `EvaluateConnection`: Apply DNS Settings with per-domain
+                exceptions when the dictionary matches.
 
-              Requires: iOS >= 14.0
-            '';
-            required = true;
-          };
-          "ActionParameters" = mkProfileOpt {
-            type = types.listOf (
-              utils.subopts {
-                "Domains" = mkProfileOpt {
-                  type = types.listOf types.str;
-                  description = ''
-                    The domains for which this evaluation applies.
+                Requires: iOS >= 14.0
+              '';
+              required = true;
+            };
+            "ActionParameters" = mkProfileOpt {
+              type = (
+                types.listOf (
+                  utils.subopts {
+                    "Domains" = mkProfileOpt {
+                      type = (types.listOf types.str);
+                      description = ''
+                        The domains for which this evaluation applies.
 
-                    Requires: iOS >= 14.0
-                  '';
-                  required = true;
-                };
-                "DomainAction" = mkProfileOpt {
-                  type = (
-                    types.enum [
-                      "NeverConnect"
-                      "ConnectIfNeeded"
-                    ]
-                  );
-                  description = ''
-                    The DNS settings behavior for the specified domains. Allowed
-                    values:
+                        Requires: iOS >= 14.0
+                      '';
+                      required = true;
+                    };
+                    "DomainAction" = mkProfileOpt {
+                      type = (
+                        types.enum [
+                          "NeverConnect"
+                          "ConnectIfNeeded"
+                        ]
+                      );
+                      description = ''
+                        The DNS settings behavior for the specified domains. Allowed
+                        values:
 
-                    * 'NeverConnect': Don't use the DNS Settings for the
-                    specified domains.
-                    * 'ConnectIfNeeded': Allow using the DNS Settings for the
-                    specified domains.
+                        * 'NeverConnect': Don't use the DNS Settings for the
+                        specified domains.
+                        * 'ConnectIfNeeded': Allow using the DNS Settings for the
+                        specified domains.
 
-                    Requires: iOS >= 14.0
-                  '';
-                  required = true;
-                };
-              }
-            );
-            description = ''
-              An array of dictionaries that provide per-connection rules.
-              The system uses this array only for settings where the
-              `Action` value is `EvaluateConnection`.
+                        Requires: iOS >= 14.0
+                      '';
+                      required = true;
+                    };
+                  }
+                )
+              );
+              description = ''
+                An array of dictionaries that provide per-connection rules.
+                The system uses this array only for settings where the
+                `Action` value is `EvaluateConnection`.
 
-              Requires: iOS >= 14.0
-            '';
-            required = false;
-          };
-          "DNSDomainMatch" = mkProfileOpt {
-            type = types.listOf types.str;
-            description = ''
-              An array of domain names. This rule matches if any of the
-              domain names in the specified list matches any domain in the
-              device's search domains list.
+                Requires: iOS >= 14.0
+              '';
+              required = false;
+            };
+            "DNSDomainMatch" = mkProfileOpt {
+              type = (types.listOf types.str);
+              description = ''
+                An array of domain names. This rule matches if any of the
+                domain names in the specified list matches any domain in the
+                device's search domains list.
 
-              The system supports a single wildcard (`*`) prefix, but it's
-              not required. For example, both `*.example.com` and
-              `example.com` match against `mydomain.example.com` and
-              `your.domain.example.com`, but don't match against
-              `mydomain-example.com`.
+                The system supports a single wildcard (`*`) prefix, but it's
+                not required. For example, both `*.example.com` and
+                `example.com` match against `mydomain.example.com` and
+                `your.domain.example.com`, but don't match against
+                `mydomain-example.com`.
 
-              Requires: iOS >= 14.0
-            '';
-            required = false;
-          };
-          "DNSServerAddressMatch" = mkProfileOpt {
-            type = types.listOf types.str;
-            description = ''
-              An array of IP addresses. This rule matches if any of the
-              network's specified DNS servers match any entry in the
-              array.
+                Requires: iOS >= 14.0
+              '';
+              required = false;
+            };
+            "DNSServerAddressMatch" = mkProfileOpt {
+              type = (types.listOf types.str);
+              description = ''
+                An array of IP addresses. This rule matches if any of the
+                network's specified DNS servers match any entry in the
+                array.
 
-              The system supports matching with a single wildcard. For
-              example, `17.*` matches any DNS server in the 17.0.0.0/8
-              subnet.
+                The system supports matching with a single wildcard. For
+                example, `17.*` matches any DNS server in the 17.0.0.0/8
+                subnet.
 
-              Requires: iOS >= 14.0
-            '';
-            required = false;
-          };
-          "InterfaceTypeMatch" = mkProfileOpt {
-            type = (
-              types.enum [
-                "Ethernet"
-                "WiFi"
-                "Cellular"
-              ]
-            );
-            description = ''
-              An interface type. If specified, this rule matches only if
-              the primary network interface hardware matches the specified
-              type.
+                Requires: iOS >= 14.0
+              '';
+              required = false;
+            };
+            "InterfaceTypeMatch" = mkProfileOpt {
+              type = (
+                types.enum [
+                  "Ethernet"
+                  "WiFi"
+                  "Cellular"
+                ]
+              );
+              description = ''
+                An interface type. If specified, this rule matches only if
+                the primary network interface hardware matches the specified
+                type.
 
-              Requires: iOS >= 14.0
-            '';
-            required = false;
-          };
-          "SSIDMatch" = mkProfileOpt {
-            type = types.listOf types.str;
-            description = ''
-              An array of SSIDs to match against the current network. If
-              the network isn't a Wi-Fi network or if the SSID doesn't
-              appear in this array, the match fails. Omit this key and the
-              corresponding array to match against any SSID.
+                Requires: iOS >= 14.0
+              '';
+              required = false;
+            };
+            "SSIDMatch" = mkProfileOpt {
+              type = (types.listOf types.str);
+              description = ''
+                An array of SSIDs to match against the current network. If
+                the network isn't a Wi-Fi network or if the SSID doesn't
+                appear in this array, the match fails. Omit this key and the
+                corresponding array to match against any SSID.
 
-              Requires: iOS >= 14.0
-            '';
-            required = false;
-          };
-          "URLStringProbe" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              A URL to probe. This rule matches if this URL is
-              successfully fetched and returns a 200 HTTP status code
-              without redirection.
+                Requires: iOS >= 14.0
+              '';
+              required = false;
+            };
+            "URLStringProbe" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                A URL to probe. This rule matches if this URL is
+                successfully fetched and returns a 200 HTTP status code
+                without redirection.
 
-              Requires: iOS >= 14.0
-            '';
-            required = false;
-          };
-        }
+                Requires: iOS >= 14.0
+              '';
+              required = false;
+            };
+          }
+        )
       );
       description = ''
         An array of rules that define the DNS settings. If not set,

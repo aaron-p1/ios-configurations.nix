@@ -48,7 +48,26 @@ in
     assert result3.success == true;
     pkgs.runCommand "can-gen-profile-if-ios-version-is-above-min" { } "touch $out";
 
-  # TODO: test maxIos version
+  checks-max-ios-version =
+    let
+      gen-config = version: enable: {
+        targetData.version = version;
+        profiles.mdm = {
+          enable = enable;
+          ManagedAppleID = "string";
+          IdentityCertificateUUID = "b57e9a8d-b89f-420a-922e-99775a23a4ac";
+          Topic = "com.apple.mgmt.test";
+          ServerURL = "https://example.com";
+        };
+      };
+      result1 = tryEvalGetPlist (gen-config "18.0" true);
+      result2 = tryEvalGetPlist (gen-config "17.0" true);
+      result3 = tryEvalGetPlist (gen-config "18.0" false);
+    in
+    assert result1.success == false;
+    assert result2.success == true;
+    assert result3.success == true;
+    pkgs.runCommand "can-gen-profile-if-ios-version-is-above-min" { } "touch $out";
 
   checks-supervised =
     let

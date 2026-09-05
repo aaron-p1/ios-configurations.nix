@@ -96,161 +96,163 @@ in
       required = false;
     };
     "APNs" = mkProfileOpt {
-      type = types.listOf (
-        utils.subopts {
-          "Name" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The name for this configuration.
+      type = (
+        types.listOf (
+          utils.subopts {
+            "Name" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The name for this configuration.
 
-              Requires: iOS >= 7.0
-            '';
-            required = true;
-          };
-          "AuthenticationType" = mkProfileOpt {
-            type = (
-              types.enum [
-                "CHAP"
-                "PAP"
-              ]
-            );
-            description = ''
-              The authentication type for logging in.
+                Requires: iOS >= 7.0
+              '';
+              required = true;
+            };
+            "AuthenticationType" = mkProfileOpt {
+              type = (
+                types.enum [
+                  "CHAP"
+                  "PAP"
+                ]
+              );
+              description = ''
+                The authentication type for logging in.
 
-              Requires: iOS >= 7.0
-            '';
-            required = false;
-          };
-          "Username" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The user name for the APN.
+                Requires: iOS >= 7.0
+              '';
+              required = false;
+            };
+            "Username" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The user name for the APN.
 
-              Requires: iOS >= 7.0
-            '';
-            required = false;
-          };
-          "Password" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The user's password for the APN.
+                Requires: iOS >= 7.0
+              '';
+              required = false;
+            };
+            "Password" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The user's password for the APN.
 
-              Requires: iOS >= 7.0
-            '';
-            required = false;
-          };
-          "ProxyServer" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The proxy server's address.
+                Requires: iOS >= 7.0
+              '';
+              required = false;
+            };
+            "ProxyServer" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The proxy server's address.
 
-              Requires: iOS >= 7.0
-            '';
-            required = false;
-          };
-          "ProxyPort" = mkProfileOpt {
-            type = types.int;
-            description = ''
-              The proxy server's port number.
+                Requires: iOS >= 7.0
+              '';
+              required = false;
+            };
+            "ProxyPort" = mkProfileOpt {
+              type = types.int;
+              description = ''
+                The proxy server's port number.
 
-              Requires: iOS >= 7.0
-            '';
-            required = false;
-          };
-          "DefaultProtocolMask" = mkProfileOpt {
-            type = (
-              types.enum [
-                1
-                2
-                3
-              ]
-            );
-            description = ''
-              The default Internet Protocol versions. Available in iOS
-              10.3 but no longer used in iOS 11 and later. Allowed values:
+                Requires: iOS >= 7.0
+              '';
+              required = false;
+            };
+            "DefaultProtocolMask" = mkProfileOpt {
+              type = (
+                types.enum [
+                  1
+                  2
+                  3
+                ]
+              );
+              description = ''
+                The default Internet Protocol versions. Available in iOS
+                10.3 but no longer used in iOS 11 and later. Allowed values:
 
-              - `1`: IPv4
-              - `2`: IPv6
-              - `3`: Both
+                - `1`: IPv4
+                - `2`: IPv6
+                - `3`: Both
 
-              Requires: iOS >= 10.3
-              Deprecated in iOS 11.0
-            '';
-            required = false;
-          };
-          "AllowedProtocolMask" = mkProfileOpt {
-            type = (
-              types.enum [
-                1
-                2
-                3
-              ]
-            );
-            description = ''
-              The Internet Protocol versions that the system supports.
-              Available in iOS 10.3 and later. Allowed values:
+                Requires: iOS >= 10.3
+                Deprecated in iOS 11.0
+              '';
+              required = false;
+            };
+            "AllowedProtocolMask" = mkProfileOpt {
+              type = (
+                types.enum [
+                  1
+                  2
+                  3
+                ]
+              );
+              description = ''
+                The Internet Protocol versions that the system supports.
+                Available in iOS 10.3 and later. Allowed values:
 
-              - `1`: IPv4
-              - `2`: IPv6
-              - `3`: Both
+                - `1`: IPv4
+                - `2`: IPv6
+                - `3`: Both
 
-              Requires: iOS >= 10.3
-            '';
-            required = false;
-          };
-          "AllowedProtocolMaskInRoaming" = mkProfileOpt {
-            type = (
-              types.enum [
-                1
-                2
-                3
-              ]
-            );
-            description = ''
-              The Internet Protocol versions that the system supports
-              while roaming. Available in iOS 10.3 and later. Allowed
-              values:
+                Requires: iOS >= 10.3
+              '';
+              required = false;
+            };
+            "AllowedProtocolMaskInRoaming" = mkProfileOpt {
+              type = (
+                types.enum [
+                  1
+                  2
+                  3
+                ]
+              );
+              description = ''
+                The Internet Protocol versions that the system supports
+                while roaming. Available in iOS 10.3 and later. Allowed
+                values:
 
-              - `1`: IPv4
-              - `2`: IPv6
-              - `3`: Both
+                - `1`: IPv4
+                - `2`: IPv6
+                - `3`: Both
 
-              Requires: iOS >= 10.3
-            '';
-            required = false;
-          };
-          "AllowedProtocolMaskInDomesticRoaming" = mkProfileOpt {
-            type = (
-              types.enum [
-                1
-                2
-                3
-              ]
-            );
-            description = ''
-              The Internet Protocol versions that the system supports
-              while roaming. Available in iOS 10.3 and later. Allowed
-              values:
+                Requires: iOS >= 10.3
+              '';
+              required = false;
+            };
+            "AllowedProtocolMaskInDomesticRoaming" = mkProfileOpt {
+              type = (
+                types.enum [
+                  1
+                  2
+                  3
+                ]
+              );
+              description = ''
+                The Internet Protocol versions that the system supports
+                while roaming. Available in iOS 10.3 and later. Allowed
+                values:
 
-              - `1`: IPv4
-              - `2`: IPv6
-              - `3`: Both
+                - `1`: IPv4
+                - `2`: IPv6
+                - `3`: Both
 
-              Requires: iOS >= 10.3
-            '';
-            required = false;
-          };
-          "EnableXLAT464" = mkProfileOpt {
-            type = types.bool;
-            description = ''
-              If `true`, the system enables XLAT464. Available in iOS 16
-              and later and watchOS 9 and later.
+                Requires: iOS >= 10.3
+              '';
+              required = false;
+            };
+            "EnableXLAT464" = mkProfileOpt {
+              type = types.bool;
+              description = ''
+                If `true`, the system enables XLAT464. Available in iOS 16
+                and later and watchOS 9 and later.
 
-              Requires: iOS >= 16.0
-            '';
-            required = false;
-          };
-        }
+                Requires: iOS >= 16.0
+              '';
+              required = false;
+            };
+          }
+        )
       );
       description = ''
         An array of access point name (APN) dictionaries.

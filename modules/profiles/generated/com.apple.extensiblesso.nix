@@ -68,7 +68,7 @@ in
       required = false;
     };
     "URLs" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of URL prefixes of identity providers where the app
         extension performs SSO.
@@ -90,7 +90,7 @@ in
       required = false;
     };
     "Hosts" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of host or domain names that apps can authenticate
         through the app extension.
@@ -133,7 +133,7 @@ in
       required = false;
     };
     "DeniedBundleIdentifiers" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of bundle identifiers of apps that don't use SSO
         provided by this extension. Available in iOS 15 and later,

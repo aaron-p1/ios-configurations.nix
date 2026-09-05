@@ -23,7 +23,7 @@ in
       default = 1;
     };
     "Declarations" = mkProfileOpt {
-      type = types.listOf utils.plistDataType;
+      type = (types.listOf utils.plistDataType);
       description = ''
         The set of declarations to apply. The array items are
         Base64-encoded data representations of the declaration JSON

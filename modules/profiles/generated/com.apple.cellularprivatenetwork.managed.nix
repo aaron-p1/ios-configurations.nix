@@ -23,48 +23,50 @@ in
       default = 1;
     };
     "Geofences" = mkProfileOpt {
-      type = types.listOf (
-        utils.subopts {
-          "Longitude" = mkProfileOpt {
-            type = (utils.floatBetween (-180.0) (180.0));
-            description = ''
-              The longitude of the geofence.
+      type = (
+        types.listOf (
+          utils.subopts {
+            "Longitude" = mkProfileOpt {
+              type = (utils.floatBetween (-180.0) (180.0));
+              description = ''
+                The longitude of the geofence.
 
-              Requires: iOS >= 17.0
-            '';
-            required = true;
-          };
-          "Latitude" = mkProfileOpt {
-            type = (utils.floatBetween (-90.0) (90.0));
-            description = ''
-              The latitude of the geofence.
+                Requires: iOS >= 17.0
+              '';
+              required = true;
+            };
+            "Latitude" = mkProfileOpt {
+              type = (utils.floatBetween (-90.0) (90.0));
+              description = ''
+                The latitude of the geofence.
 
-              Requires: iOS >= 17.0
-            '';
-            required = true;
-          };
-          "Radius" = mkProfileOpt {
-            type = (utils.floatBetween (100.0) (6500.0));
-            description = ''
-              Specifies the radius of the geofence in meters. Set this
-              value slightly greater than the private cellular network
-              coverage area.
+                Requires: iOS >= 17.0
+              '';
+              required = true;
+            };
+            "Radius" = mkProfileOpt {
+              type = (utils.floatBetween (100.0) (6500.0));
+              description = ''
+                Specifies the radius of the geofence in meters. Set this
+                value slightly greater than the private cellular network
+                coverage area.
 
-              Requires: iOS >= 17.0
-            '';
-            required = true;
-          };
-          "GeofenceId" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              A geofence identifier that's unique within a list of
-              geofences.
+                Requires: iOS >= 17.0
+              '';
+              required = true;
+            };
+            "GeofenceId" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                A geofence identifier that's unique within a list of
+                geofences.
 
-              Requires: iOS >= 17.0
-            '';
-            required = true;
-          };
-        }
+                Requires: iOS >= 17.0
+              '';
+              required = true;
+            };
+          }
+        )
       );
       description = ''
         A list of up to 1000 geofences for private networks.

@@ -6,7 +6,7 @@ let
 
   type-id001 =
     _:
-    types.listOf (
+    (types.listOf (
       utils.subopts {
         "DeviceID" = mkProfileOpt {
           type = (types.strMatching "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$");
@@ -43,7 +43,7 @@ let
           required = false;
         };
       }
-    );
+    ));
 
 in
 {
@@ -76,28 +76,30 @@ in
       required = false;
     };
     "Passwords" = mkProfileOpt {
-      type = types.listOf (
-        utils.subopts {
-          "DeviceName" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The name of the AirPlay destination; used in iOS, and
-              available in macOS 15 and later.
+      type = (
+        types.listOf (
+          utils.subopts {
+            "DeviceName" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The name of the AirPlay destination; used in iOS, and
+                available in macOS 15 and later.
 
-              Requires: iOS >= 7.0
-            '';
-            required = false;
-          };
-          "Password" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The password for the AirPlay destination.
+                Requires: iOS >= 7.0
+              '';
+              required = false;
+            };
+            "Password" = mkProfileOpt {
+              type = types.str;
+              description = ''
+                The password for the AirPlay destination.
 
-              Requires: iOS >= 7.0
-            '';
-            required = true;
-          };
-        }
+                Requires: iOS >= 7.0
+              '';
+              required = true;
+            };
+          }
+        )
       );
       description = ''
         If present, sets passwords for known AirPlay destinations.

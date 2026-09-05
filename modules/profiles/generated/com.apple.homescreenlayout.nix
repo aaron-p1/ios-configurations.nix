@@ -23,7 +23,7 @@ let
     if counters ? counter-id001 && counters.counter-id001 <= 0 then
       types.anything
     else
-      types.listOf (
+      (types.listOf (
         utils.subopts {
           "Type" = mkProfileOpt {
             type = (
@@ -86,7 +86,7 @@ let
             required = false;
           };
         }
-      );
+      ));
 
   type-id002 =
     {
@@ -107,7 +107,7 @@ let
     if counters ? counter-id002 && counters.counter-id002 <= 0 then
       types.anything
     else
-      types.listOf (type-id001 (decrCounter "id001"));
+      (types.listOf (type-id001 (decrCounter "id001")));
 
 in
 {

@@ -23,7 +23,7 @@ in
       default = 1;
     };
     "EmailDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of domains. Mail marks in red all email addresses
         that lack a suffix matching any of these strings.
@@ -35,7 +35,7 @@ in
       required = false;
     };
     "WebDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of domains. The system considers URLs matching the
         patterns listed in this property managed.
@@ -47,7 +47,7 @@ in
       required = false;
     };
     "SafariPasswordAutoFillDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of domains. Users can only save passwords in Safari
         from URLs matching the patterns listed here. This property
@@ -63,7 +63,7 @@ in
       required = false;
     };
     "CrossSiteTrackingPreventionRelaxedDomains" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of up to 10 strings. URLs matching the patterns
         listed here have relaxed enforcement of cross-site tracking
@@ -76,7 +76,7 @@ in
       required = false;
     };
     "CrossSiteTrackingPreventionRelaxedApps" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         An array of up to 10 strings representing app bundle-ids.
         Apps matching the bundle-ids listed here have relaxed

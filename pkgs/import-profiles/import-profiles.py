@@ -317,6 +317,20 @@ def dictionary_to_nix_submodule(
     )
 
 
+def gen_type_fn_lines(fn, param, indent):
+    if "\n" in param:
+        template = """
+            (
+            $indent  $fn $param
+            $indent)
+        """
+        indented_template = textwrap.dedent(template).strip()
+        param = textwrap.indent(param, "  ").lstrip()
+        return Template(indented_template).substitute(fn=fn, param=param, indent=indent)
+
+    return f"({fn} {param})"
+
+
 def key_type_to_nix_type(
     payload_key, definitions, key_path, support_data, indent, opts
 ):
@@ -379,7 +393,8 @@ def key_type_to_nix_type(
                 indent,
                 opts,
             )
-            return (def_types, support_data_list, f"types.listOf {item_nix_type}")
+            nix_type = gen_type_fn_lines("types.listOf", item_nix_type, indent)
+            return (def_types, support_data_list, nix_type)
         case "<dictionary>":
             return dictionary_to_nix_submodule(
                 payload_key["subkeys"],
@@ -496,7 +511,6 @@ def process_sub_keys(subkeys, definitions, key_path, support_data, indent, opts)
     return (def_types, support_data_list, options)
 
 
-
 def ref_var_name(name, decr_counter):
     if decr_counter:
         return f'(type-{name} (decrCounter "{name}"))'
@@ -513,7 +527,9 @@ def define_definition(definitions, def_type, gen_opts):
           $nix_type;
     """
 
-    indented_simple_template = textwrap.indent(textwrap.dedent(simple_template).lstrip(), "  ")
+    indented_simple_template = textwrap.indent(
+        textwrap.dedent(simple_template).lstrip(), "  "
+    )
 
     recursive_template = """
         $var_name =
@@ -551,7 +567,7 @@ def define_definition(definitions, def_type, gen_opts):
                 subkeys[0], definitions, [], support_data, "    ", opts
             )
 
-            nix_type = f"types.listOf {nix_type}"
+            nix_type = f"(types.listOf {nix_type})"
         case _:
             raise ValueError(f"unknown definition type: {def_type}")
 
@@ -570,8 +586,10 @@ def define_definition(definitions, def_type, gen_opts):
         textwrap.dedent(var_def),
     )
 
+
 def parse_version(v):
     return tuple(int(x) for x in v.split("."))
+
 
 def merge_versions(v1, v2, fn):
     if v1 is None:
@@ -589,6 +607,7 @@ def merge_versions(v1, v2, fn):
     if fn == "bool and":
         return v1 and v2
 
+
 def merge_support_data(data1, data2):
     return {
         "minIos": merge_versions(data1.get("minIos"), data2.get("minIos"), "min"),
@@ -599,11 +618,14 @@ def merge_support_data(data1, data2):
         ),
     }
 
+
 def merge_def_types(support_data_list):
     seen = {}
     for name, atype, data in support_data_list:
         if name in seen and seen[name][0] != atype:
-            raise ValueError(f"Conflicting definition types for {name}: {seen[name][0]} vs {atype}")
+            raise ValueError(
+                f"Conflicting definition types for {name}: {seen[name][0]} vs {atype}"
+            )
         merged = merge_support_data(seen[name][1], data) if name in seen else data
         seen[name] = (atype, merged)
 
@@ -617,7 +639,9 @@ def define_definitions(definitions, def_types, gen_opts, prev_def_types=[]):
 
     prev_names = set(name for name, _, _ in prev_def_types)
     def_types = [
-        (name, def_type, support_data) for name, def_type, support_data in def_types if name not in prev_names
+        (name, def_type, support_data)
+        for name, def_type, support_data in def_types
+        if name not in prev_names
     ]
 
     def_types_and_vars = [
@@ -804,7 +828,7 @@ def main():
 
     print(f"Found {len(profile_items)} profiles for iOS.")
 
-    for module_name, profile in profile_items[0:22]:
+    for module_name, profile in profile_items[0:40]:
         module_content = profile_to_module(profile, module_name)
         write_module(module_name, module_content)
         print(f"Generated module for {module_name}")

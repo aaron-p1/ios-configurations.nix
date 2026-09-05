@@ -250,7 +250,7 @@ in
     assert hasInfix "<string>com.example.manage-ios.cellularprivatenetwork.managed</string>" plist;
     assert hasInfix "<key>DataSetName</key>" plist;
     assert hasInfix "<key>VersionNumber</key>" plist;
-    pkgs.runCommand "can-gen-cellularprivatenetwork.managed" { } "touch $out";
+    pkgs.runCommand "can-gen-cellularprivatenetwork-managed" { } "touch $out";
 
   can-gen-declarations =
     let
@@ -276,7 +276,7 @@ in
     assert hasInfix "<string>com.apple.dnsProxy.managed</string>" plist;
     assert hasInfix "<string>com.example.manage-ios.dnsProxy.managed</string>" plist;
     assert hasInfix "<key>AppBundleIdentifier</key>" plist;
-    pkgs.runCommand "can-gen-dnsProxy.managed" { } "touch $out";
+    pkgs.runCommand "can-gen-dnsProxy-managed" { } "touch $out";
 
   can-gen-dnsSettings-managed =
     let
@@ -291,7 +291,7 @@ in
     assert hasInfix "<string>com.apple.dnsSettings.managed</string>" plist;
     assert hasInfix "<string>com.example.manage-ios.dnsSettings.managed</string>" plist;
     assert hasInfix "<key>DNSSettings</key>" plist;
-    pkgs.runCommand "can-gen-dnsSettings.managed" { } "touch $out";
+    pkgs.runCommand "can-gen-dnsSettings-managed" { } "touch $out";
 
   can-gen-domains =
     let
@@ -391,7 +391,7 @@ in
     assert hasInfix "<string>com.apple.globalethernet.managed</string>" plist;
     assert hasInfix "<string>com.example.manage-ios.globalethernet.managed</string>" plist;
     assert hasInfix "<key>EthernetMACAddress</key>" plist;
-    pkgs.runCommand "can-gen-globalethernet.managed" { } "touch $out";
+    pkgs.runCommand "can-gen-globalethernet-managed" { } "touch $out";
 
   can-gen-google-oauth =
     let
@@ -435,6 +435,338 @@ in
     assert resolveNullOrListOf pagesAny == lib.types.anything;
     pkgs.runCommand "stops-recursion-at-right-levels" { } "touch $out";
 
+  can-gen-ldap-account =
+    let
+      config.profiles.ldap.account = {
+        enable = true;
+        LDAPAccountHostName = "ldap.example.com";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.ldap.account</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.ldap.account</string>" plist;
+    assert hasInfix "<key>LDAPAccountHostName</key>" plist;
+    pkgs.runCommand "can-gen-ldap-account" { } "touch $out";
+
+  can-gen-mail-managed =
+    let
+      config.profiles.mail.managed = {
+        enable = true;
+        EmailAccountType = "EmailTypeIMAP";
+        IncomingMailServerAuthentication = "EmailAuthPassword";
+        IncomingMailServerHostName = "imap.example.com";
+        OutgoingMailServerAuthentication = "EmailAuthPassword";
+        OutgoingMailServerHostName = "smtp.example.com";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.mail.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.mail.managed</string>" plist;
+    assert hasInfix "<key>IncomingMailServerHostName</key>" plist;
+    pkgs.runCommand "can-gen-mail-managed" { } "touch $out";
+
+  can-gen-mdm =
+    let
+      config.profiles.mdm = {
+        enable = true;
+        IdentityCertificateUUID = "b57e9a8d-b89f-420a-922e-99775a23a4ac";
+        Topic = "com.apple.mgmt.test";
+        ServerURL = "https://example.com";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.mdm</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.mdm</string>" plist;
+    assert hasInfix "<key>IdentityCertificateUUID</key>" plist;
+    pkgs.runCommand "can-gen-mdm" { } "touch $out";
+
+  can-gen-mobiledevice-passwordpolicy =
+    let
+      config.profiles.mobiledevice.passwordpolicy = {
+        enable = true;
+        allowSimple = false;
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.mobiledevice.passwordpolicy</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.mobiledevice.passwordpolicy</string>" plist;
+    assert hasInfix "<key>allowSimple</key>" plist;
+    pkgs.runCommand "can-gen-mobiledevice-passwordpolicy" { } "touch $out";
+
+  can-networkusagerules =
+    let
+      config.profiles.networkusagerules = {
+        enable = true;
+        ApplicationRules = [
+          {
+            AppIdentifierMatches = [ "com.example.app" ];
+          }
+        ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.networkusagerules</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.networkusagerules</string>" plist;
+    assert hasInfix "<key>ApplicationRules</key>" plist;
+    pkgs.runCommand "can-gen-networkusagerules" { } "touch $out";
+
+  can-gen-notificationsettings =
+    let
+      config.profiles.notificationsettings = {
+        enable = true;
+        NotificationSettings = [ { BundleIdentifier = "com.example.app"; } ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.notificationsettings</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.notificationsettings</string>" plist;
+    assert hasInfix "<key>NotificationSettings</key>" plist;
+    pkgs.runCommand "can-gen-notificationsettings" { } "touch $out";
+
+  can-gen-osxserver-account =
+    let
+      config.profiles.osxserver.account = {
+        enable = true;
+        HostName = "server.example.com";
+        UserName = "user";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.osxserver.account</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.osxserver.account</string>" plist;
+    assert hasInfix "<key>HostName</key>" plist;
+    pkgs.runCommand "can-gen-osxserver-account" { } "touch $out";
+
+  can-gen-profileRemovalPassword =
+    let
+      config.profiles.profileRemovalPassword = {
+        enable = true;
+        RemovalPassword = "password";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.profileRemovalPassword</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.profileRemovalPassword</string>" plist;
+    assert hasInfix "<key>RemovalPassword</key>" plist;
+    pkgs.runCommand "can-gen-profileRemovalPassword" { } "touch $out";
+
+  can-gen-proxy-http-global =
+    let
+      config.profiles.proxy.http.global = {
+        enable = true;
+        ProxyType = "Auto";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.proxy.http.global</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.proxy.http.global</string>" plist;
+    assert hasInfix "<key>ProxyType</key>" plist;
+    pkgs.runCommand "can-gen-proxy-http-global" { } "touch $out";
+
+  can-gen-relay-managed =
+    let
+      config.profiles.relay.managed = {
+        enable = true;
+        Relays = [ { HTTP3RelayURL = "https://relay.example.com"; } ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.relay.managed</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.relay.managed</string>" plist;
+    assert hasInfix "<key>Relays</key>" plist;
+    pkgs.runCommand "can-gen-relay-managed" { } "touch $out";
+
+  can-gen-security-acme =
+    let
+      config.profiles.security.acme = {
+        enable = true;
+        DirectoryURL = "https://acme.example.com";
+        ClientIdentifier = "client-id";
+        KeySize = 2048;
+        KeyType = "RSA";
+        HardwareBound = false;
+        Subject = [
+          [
+            [
+              "C"
+              "US"
+            ]
+          ]
+        ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.security.acme</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.security.acme</string>" plist;
+    assert hasInfix "<key>DirectoryURL</key>" plist;
+    pkgs.runCommand "can-gen-security-acme" { } "touch $out";
+
+  can-gen-security-certificaterevocation =
+    let
+      config.profiles.security.certificaterevocation = {
+        enable = true;
+        EnabledForCerts = [
+          {
+            Algorithm = "sha256";
+            Hash = "plist";
+          }
+        ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.security.certificaterevocation</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.security.certificaterevocation</string>" plist;
+    assert hasInfix "<key>EnabledForCerts</key>" plist;
+    pkgs.runCommand "can-gen-security-certificaterevocation" { } "touch $out";
+
+  can-gen-security-certificatetransparency =
+    let
+      config.profiles.security.certificatetransparency = {
+        enable = true;
+        DisabledForCerts = [
+          {
+            Algorithm = "sha256";
+            Hash = "plist";
+          }
+        ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.security.certificatetransparency</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.security.certificatetransparency</string>" plist;
+    assert hasInfix "<key>DisabledForCerts</key>" plist;
+    pkgs.runCommand "can-gen-security-certificatetransparency" { } "touch $out";
+
+  can-gen-security-pem =
+    let
+      config.profiles.security.pem = {
+        enable = true;
+        PayloadCertificateFileName = "cert.pem";
+        PayloadContent = "pem-content";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.security.pem</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.security.pem</string>" plist;
+    assert hasInfix "<key>PayloadCertificateFileName</key>" plist;
+    pkgs.runCommand "can-gen-security-pem" { } "touch $out";
+
+  can-gen-security-pkcs1 =
+    let
+      config.profiles.security.pkcs1 = {
+        enable = true;
+        PayloadContent = "pkcs1-content";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.security.pkcs1</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.security.pkcs1</string>" plist;
+    assert hasInfix "<key>PayloadContent</key>" plist;
+    pkgs.runCommand "can-gen-security-pkcs1" { } "touch $out";
+
+  can-gen-security-pkcs12 =
+    let
+      config.profiles.security.pkcs12 = {
+        enable = true;
+        PayloadContent = "pkcs12-content";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.security.pkcs12</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.security.pkcs12</string>" plist;
+    assert hasInfix "<key>PayloadContent</key>" plist;
+    pkgs.runCommand "can-gen-security-pkcs12" { } "touch $out";
+
+  can-gen-security-root =
+    let
+      config.profiles.security.root = {
+        enable = true;
+        PayloadContent = "root-content";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.security.root</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.security.root</string>" plist;
+    assert hasInfix "<key>PayloadContent</key>" plist;
+    pkgs.runCommand "can-gen-security-root" { } "touch $out";
+
+  can-gen-security-scep =
+    let
+      config.profiles.security.scep = {
+        enable = true;
+        PayloadContent.URL = "https://scep.example.com";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.security.scep</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.security.scep</string>" plist;
+    assert hasInfix "<key>PayloadContent</key>" plist;
+    pkgs.runCommand "can-gen-security-scep" { } "touch $out";
+
+  can-gen-shareddeviceconfiguration =
+    let
+      config.profiles.shareddeviceconfiguration = {
+        enable = true;
+        AssetTagInformation = "asset-tag";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.shareddeviceconfiguration</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.shareddeviceconfiguration</string>" plist;
+    assert hasInfix "<key>AssetTagInformation</key>" plist;
+    pkgs.runCommand "can-gen-shareddeviceconfiguration" { } "touch $out";
+
+  can-gen-sso =
+    let
+      config.profiles.sso = {
+        enable = true;
+        Name = "sso-name";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.sso</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.sso</string>" plist;
+    assert hasInfix "<key>Name</key>" plist;
+    pkgs.runCommand "can-gen-sso" { } "touch $out";
+
+  can-gen-subscribedcalendar-account =
+    let
+      config.profiles.subscribedcalendar.account = {
+        enable = true;
+        SubCalAccountHostName = "subcal.example.com";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.subscribedcalendar.account</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.subscribedcalendar.account</string>" plist;
+    assert hasInfix "<key>SubCalAccountHostName</key>" plist;
+    pkgs.runCommand "can-gen-subscribedcalendar-account" { } "touch $out";
+
+  can-gen-tvremote =
+    let
+      config.profiles.tvremote = {
+        enable = true;
+        AllowedTVs = [ { TVDeviceID = "00:11:22:33:44:55"; } ];
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.tvremote</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.tvremote</string>" plist;
+    assert hasInfix "<key>AllowedTVs</key>" plist;
+    pkgs.runCommand "can-gen-tvremote" { } "touch $out";
+
+  can-gen-vpn-managed-applayer =
+    let
+      config.profiles.vpn.managed.applayer = {
+        enable = true;
+        VPNUUID = "fdeb9882-f3e1-4d13-8e03-b495eec1e5b7";
+      };
+      plist = evalGetPlist config;
+    in
+    assert hasInfix "<string>com.apple.vpn.managed.applayer</string>" plist;
+    assert hasInfix "<string>com.example.manage-ios.vpn.managed.applayer</string>" plist;
+    assert hasInfix "<key>VPNUUID</key>" plist;
+    pkgs.runCommand "can-gen-vpn-managed-applayer" { } "touch $out";
 }
 // (import ./assertions.nix { inherit eval pkgs lib; })
 // (import ./types.nix { inherit eval pkgs lib; })

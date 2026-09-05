@@ -6,14 +6,14 @@ let
 in
 {
   options = {
-    enable = mkEnableOption "Enable the com.apple.SetupAssistant.managed profile";
+    enable = mkEnableOption "Enable the com.apple.profileRemovalPassword profile";
     PayloadType = mkOption {
       type = types.str;
-      default = "com.apple.SetupAssistant.managed";
+      default = "com.apple.profileRemovalPassword";
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.SetupAssistant.managed";
+      default = "com.example.manage-ios.profileRemovalPassword";
     };
     PayloadUUID = mkOption {
       type = types.str;
@@ -22,27 +22,24 @@ in
       type = types.int;
       default = 1;
     };
-    "SkipSetupItems" = mkProfileOpt {
-      type = (types.listOf types.str);
+    "RemovalPassword" = mkProfileOpt {
+      type = types.str;
       description = ''
-        An array of strings that describe the setup items to skip.
-        `SkipKeys` provides a list of valid strings and their
-        meanings. Available in iOS 14 and later, and macOS 15 and
-        later.
+        The password to allow removing the profile.
 
-        Requires: iOS >= 14.0; supervised device
+        Requires: iOS >= 4.0; supervised device
       '';
       required = false;
     };
   };
   supportData = {
     "enable" = {
-      minIos = "14.0";
+      minIos = "4.0";
       maxIos = null;
       supervised = true;
     };
-    "SkipSetupItems" = {
-      minIos = "14.0";
+    "RemovalPassword" = {
+      minIos = "4.0";
       maxIos = null;
       supervised = true;
     };

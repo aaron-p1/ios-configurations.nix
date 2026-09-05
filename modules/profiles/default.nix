@@ -12,12 +12,13 @@ let
     filter
     removeAttrs
     concatMap
+    foldl'
     ;
   inherit (lib)
     mkOption
     types
     mapAttrsToList
-    mergeAttrsList
+    recursiveUpdate
     pipe
     attrByPath
     concatStringsSep
@@ -120,11 +121,105 @@ let
       name = "com.apple.homescreenlayout";
       uuid = "8478fa79-7865-490f-a8d3-5454366b9db7";
     };
+    ldap.account = {
+      name = "com.apple.ldap.account";
+      uuid = "20759187-0478-44d6-a1c0-9a438169d16a";
+    };
+    mail.managed = {
+      name = "com.apple.mail.managed";
+      uuid = "fb293e3d-928b-4d23-9bc3-78e9bc81f493";
+    };
+    mdm = {
+      name = "com.apple.mdm";
+      uuid = "92b9a0d2-c387-4357-8d6f-5ccd6f43c9ff";
+    };
+    mobiledevice.passwordpolicy = {
+      name = "com.apple.mobiledevice.passwordpolicy";
+      uuid = "f4f5f27c-e2c4-40ea-9b51-96e8a69c260e";
+    };
+    networkusagerules = {
+      name = "com.apple.networkusagerules";
+      uuid = "e565c4a7-e032-45b4-adaf-c81ed1e2fa5d";
+    };
+    notificationsettings = {
+      name = "com.apple.notificationsettings";
+      uuid = "86ad6aba-c82f-497c-9686-a97e37972dfc";
+    };
+    osxserver.account = {
+      name = "com.apple.osxserver.account";
+      uuid = "2c5f10f6-5303-462a-b55f-57ca6403849f";
+    };
+    profileRemovalPassword = {
+      name = "com.apple.profileRemovalPassword";
+      uuid = "88a3507e-117e-4537-8846-576727215805";
+    };
+    proxy.http.global = {
+      name = "com.apple.proxy.http.global";
+      uuid = "3f5d8e47-1252-4136-a5a3-56882ec56b6a";
+    };
+    relay.managed = {
+      name = "com.apple.relay.managed";
+      uuid = "85f8dbce-22ff-427e-9dcb-b646c338ec3f";
+    };
+    security.acme = {
+      name = "com.apple.security.acme";
+      uuid = "87cacd1d-a747-41bc-9dc9-26069563415d";
+    };
+    security.certificaterevocation = {
+      name = "com.apple.security.certificaterevocation";
+      uuid = "61328cd0-28ca-468d-9f93-4ed7b769275b";
+    };
+    security.certificatetransparency = {
+      name = "com.apple.security.certificatetransparency";
+      uuid = "11adfdbc-42e0-4791-991f-d640a442dde2";
+    };
+    security.pem = {
+      name = "com.apple.security.pem";
+      uuid = "97edda38-ecae-4239-a6b9-0947451169d5";
+    };
+    security.pkcs1 = {
+      name = "com.apple.security.pkcs1";
+      uuid = "606a33dc-3bee-4487-9a6e-468f3545e3db";
+    };
+    security.pkcs12 = {
+      name = "com.apple.security.pkcs12";
+      uuid = "219c4b2b-2c0c-488f-8633-dbc2a521703f";
+    };
+    security.root = {
+      name = "com.apple.security.root";
+      uuid = "c5727443-cadb-4e90-979e-37601df8c1f2";
+    };
+    security.scep = {
+      name = "com.apple.security.scep";
+      uuid = "52594027-0288-4fd8-83e3-87092231a4a3";
+    };
+    shareddeviceconfiguration = {
+      name = "com.apple.shareddeviceconfiguration";
+      uuid = "5bcbf601-6b30-4f07-8795-4fc04fcb1064";
+    };
+    sso = {
+      name = "com.apple.sso";
+      uuid = "c92728c2-5c7f-47e7-bc2a-001dac912d8c";
+    };
+    subscribedcalendar.account = {
+      name = "com.apple.subscribedcalendar.account";
+      uuid = "08f53aac-be8d-407f-b974-6cf493d9f2e9";
+    };
+    tvremote = {
+      name = "com.apple.tvremote";
+      uuid = "7960604e-6471-417d-9a06-abccfd7d7280";
+    };
+    vpn.managed.applayer = {
+      name = "com.apple.vpn.managed.applayer";
+      uuid = "6ed914ba-283f-462f-b697-93f56fe9f6f4";
+    };
   };
 
-  profileOptions = mergeAttrsList (map (config: toNestedAttrs config.path config.options) configs);
+  mergeAttrs = foldl' recursiveUpdate { };
 
-  defaultProfileConfig = mergeAttrsList (map toDefaultProfileConfig configs);
+  profileOptions = mergeAttrs (map (config: toNestedAttrs config.path config.options) configs);
+
+  defaultProfileConfig = mergeAttrs (map toDefaultProfileConfig configs);
 
   profileAssertions = concatMap toProfileAssertions configs;
 

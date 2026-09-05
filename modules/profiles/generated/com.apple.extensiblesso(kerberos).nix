@@ -129,7 +129,7 @@ in
             required = false;
           };
           "credentialBundleIdACL" = mkProfileOpt {
-            type = types.listOf types.str;
+            type = (types.listOf types.str);
             description = ''
               A list of bundle IDs allowed to access the ticket-granting
               ticket (TGT).
@@ -154,7 +154,7 @@ in
             type = (
               utils.subopts {
                 "Realm" = mkProfileOpt {
-                  type = types.listOf types.str;
+                  type = (types.listOf types.str);
                   description = ''
                     The key should be the name of the realm, and the value is an
                     array of DNS suffixes that map to the realm.
@@ -270,7 +270,7 @@ in
             required = false;
           };
           "preferredKDCs" = mkProfileOpt {
-            type = types.listOf types.str;
+            type = (types.listOf types.str);
             description = ''
               The ordered list of preferred Key Distribution Centers
               (KDCs) to use for Kerberos traffic. Use this if the servers
@@ -313,7 +313,7 @@ in
       required = false;
     };
     "Hosts" = mkProfileOpt {
-      type = types.listOf types.str;
+      type = (types.listOf types.str);
       description = ''
         One or more host or domain names for which the app extension
         performs SSO.
