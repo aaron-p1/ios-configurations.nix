@@ -87,39 +87,31 @@ in
     };
     "CommunicationServiceRules" = mkProfileOpt {
       type = (
-        types.submodule (
-          { ... }: {
-            options = {
-              "DefaultServiceHandlers" = mkProfileOpt {
-                type = (
-                  types.submodule (
-                    { ... }: {
-                      options = {
-                        "AudioCall" = mkProfileOpt {
-                          type = types.str;
-                          description = ''
-                            The bundle identifier for the default application that
-                            handles audio calls to contacts from this account.
+        utils.subopts {
+          "DefaultServiceHandlers" = mkProfileOpt {
+            type = (
+              utils.subopts {
+                "AudioCall" = mkProfileOpt {
+                  type = types.str;
+                  description = ''
+                    The bundle identifier for the default application that
+                    handles audio calls to contacts from this account.
 
-                            Requires: iOS >= 10.0
-                          '';
-                          required = false;
-                        };
-                      };
-                    }
-                  )
-                );
-                description = ''
-                  A dictionary of service handlers for contacts from this
-                  account.
+                    Requires: iOS >= 10.0
+                  '';
+                  required = false;
+                };
+              }
+            );
+            description = ''
+              A dictionary of service handlers for contacts from this
+              account.
 
-                  Requires: iOS >= 10.0
-                '';
-                required = false;
-              };
-            };
-          }
-        )
+              Requires: iOS >= 10.0
+            '';
+            required = false;
+          };
+        }
       );
       description = ''
         An array of communication service rules for this account.

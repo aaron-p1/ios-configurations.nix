@@ -236,13 +236,9 @@ def dictionary_to_nix_submodule(subkeys, definitions, key_path, support_data, in
 
     template = """
         (
-          types.submodule (
-            { ... }: {
-              options = {
-                $options
-              };
-            }
-          )
+          utils.subopts {
+            $options
+          }
         )
     """.lstrip(
         "\n"
@@ -250,7 +246,7 @@ def dictionary_to_nix_submodule(subkeys, definitions, key_path, support_data, in
 
     indented_template = textwrap.indent(textwrap.dedent(template), indent).lstrip()
 
-    new_indent = "        " + indent
+    new_indent = "    " + indent
     (def_types, support_data_list, options) = process_sub_keys(
         subkeys, definitions, key_path, support_data, new_indent
     )

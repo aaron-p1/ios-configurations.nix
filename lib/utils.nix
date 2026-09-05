@@ -76,6 +76,8 @@ rec {
       merge = loc: defs: tagVal "settings" (baseType.merge loc defs);
     };
 
+  subopts = options: types.submodule { options = options; };
+
   profileConfigToPlist = args: concatStringsSep "\n" (profileConfigToPlist' args);
 
   profileConfigToPlist' =

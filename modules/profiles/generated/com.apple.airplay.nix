@@ -5,43 +5,39 @@ let
   inherit (utils) mkProfileOpt;
 
   type-id001 = types.listOf (
-    types.submodule (
-      { ... }: {
-        options = {
-          "DeviceID" = mkProfileOpt {
-            type = (types.strMatching "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$");
-            description = ''
-              The device ID of the AirPlay destination in the format
-              `xx:xx:xx:xx:xx:xx`. This field isn't case-sensitive.
+    utils.subopts {
+      "DeviceID" = mkProfileOpt {
+        type = (types.strMatching "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$");
+        description = ''
+          The device ID of the AirPlay destination in the format
+          `xx:xx:xx:xx:xx:xx`. This field isn't case-sensitive.
 
-              The system limits the list of visible AirPlay destinations
-              to devices that are present in the `AllowList` field of all
-              installed AirPlay payloads.
+          The system limits the list of visible AirPlay destinations
+          to devices that are present in the `AllowList` field of all
+          installed AirPlay payloads.
 
-              Specifying the same MACAddress more than once, whether in
-              the same payload across different payloads, results in
-              undefined behavior.
+          Specifying the same MACAddress more than once, whether in
+          the same payload across different payloads, results in
+          undefined behavior.
 
-              As of tvOS 18, `DeviceID` isn't supported.
-            '';
-            required = false;
-          };
-          "DeviceName" = mkProfileOpt {
-            type = types.str;
-            description = ''
-              The name of the AirPlay device.
+          As of tvOS 18, `DeviceID` isn't supported.
+        '';
+        required = false;
+      };
+      "DeviceName" = mkProfileOpt {
+        type = types.str;
+        description = ''
+          The name of the AirPlay device.
 
-              The system limits the list of visible AirPlay destinations
-              to devices that are present in the `AllowList` field of all
-              installed AirPlay payloads.
+          The system limits the list of visible AirPlay destinations
+          to devices that are present in the `AllowList` field of all
+          installed AirPlay payloads.
 
-              Requires: iOS >= 18.0
-            '';
-            required = false;
-          };
-        };
-      }
-    )
+          Requires: iOS >= 18.0
+        '';
+        required = false;
+      };
+    }
   );
 in
 {
@@ -75,31 +71,27 @@ in
     };
     "Passwords" = mkProfileOpt {
       type = types.listOf (
-        types.submodule (
-          { ... }: {
-            options = {
-              "DeviceName" = mkProfileOpt {
-                type = types.str;
-                description = ''
-                  The name of the AirPlay destination; used in iOS, and
-                  available in macOS 15 and later.
+        utils.subopts {
+          "DeviceName" = mkProfileOpt {
+            type = types.str;
+            description = ''
+              The name of the AirPlay destination; used in iOS, and
+              available in macOS 15 and later.
 
-                  Requires: iOS >= 7.0
-                '';
-                required = false;
-              };
-              "Password" = mkProfileOpt {
-                type = types.str;
-                description = ''
-                  The password for the AirPlay destination.
+              Requires: iOS >= 7.0
+            '';
+            required = false;
+          };
+          "Password" = mkProfileOpt {
+            type = types.str;
+            description = ''
+              The password for the AirPlay destination.
 
-                  Requires: iOS >= 7.0
-                '';
-                required = true;
-              };
-            };
-          }
-        )
+              Requires: iOS >= 7.0
+            '';
+            required = true;
+          };
+        }
       );
       description = ''
         If present, sets passwords for known AirPlay destinations.

@@ -261,38 +261,30 @@ in
     };
     "CommunicationServiceRules" = mkProfileOpt {
       type = (
-        types.submodule (
-          { ... }: {
-            options = {
-              "DefaultServiceHandlers" = mkProfileOpt {
-                type = (
-                  types.submodule (
-                    { ... }: {
-                      options = {
-                        "AudioCall" = mkProfileOpt {
-                          type = types.str;
-                          description = ''
-                            The bundle identifier of the default application to use for
-                            audio calls made to contacts from this account.
+        utils.subopts {
+          "DefaultServiceHandlers" = mkProfileOpt {
+            type = (
+              utils.subopts {
+                "AudioCall" = mkProfileOpt {
+                  type = types.str;
+                  description = ''
+                    The bundle identifier of the default application to use for
+                    audio calls made to contacts from this account.
 
-                            Requires: iOS >= 10.0
-                          '';
-                          required = false;
-                        };
-                      };
-                    }
-                  )
-                );
-                description = ''
-                  The default handlers to use for contacts from this account.
+                    Requires: iOS >= 10.0
+                  '';
+                  required = false;
+                };
+              }
+            );
+            description = ''
+              The default handlers to use for contacts from this account.
 
-                  Requires: iOS >= 10.0
-                '';
-                required = false;
-              };
-            };
-          }
-        )
+              Requires: iOS >= 10.0
+            '';
+            required = false;
+          };
+        }
       );
       description = ''
         The communication service handler rules for this account.
