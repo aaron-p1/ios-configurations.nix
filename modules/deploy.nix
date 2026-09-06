@@ -9,7 +9,7 @@ let
     mkOption
     types
     escapeShellArgs
-    optional
+    optionals
     optionalString
     ;
 
@@ -19,7 +19,7 @@ let
     "add"
     config.profiles.mobileconfig
   ]
-  ++ (optional (config.target.udid != null) [
+  ++ (optionals (config.target.udid != null) [
     "--udid"
     config.target.udid
   ]);
