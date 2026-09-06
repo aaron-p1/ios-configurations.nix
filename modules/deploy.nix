@@ -14,7 +14,7 @@ let
     ;
 
   defaultProfileDeployCmdList = [
-    "ios"
+    "${pkgs.go-ios}/bin/ios"
     "profile"
     "add"
     config.profiles.mobileconfig
@@ -24,7 +24,10 @@ let
     config.target.udid
   ]);
 
-  defaultProfileDeployCmd = escapeShellArgs defaultProfileDeployCmdList;
+  defaultProfileDeployCmd = ''
+    ${escapeShellArgs defaultProfileDeployCmdList} \
+      2>&1 | ${pkgs.jq}/bin/jq -Rr --unbuffered '. as $line | try fromjson catch $line'
+  '';
 in
 {
   _class = "ios";
@@ -47,27 +50,23 @@ in
       '';
       defaultText = lib.literalExpression ''
         '''
-        ios profile add ''${config.profiles.mobileconfig} \
-          ''${optionalString (config.target.udid != null) "--udid ''${config.target.udid}"}
+        ''${pkgs.go-ios}/bin/ios profile add ''${config.profiles.mobileconfig} \
+          ''${optionalString (config.target.udid != null) "--udid ''${config.target.udid}"} \
+          2>&1 | ''${jq}/bin/jq -Rr --unbuffered '. as $line | try fromjson catch $line'
         '''
       '';
     };
   };
 
-  config.deploy.script = pkgs.writeShellApplication {
-    name = "deploy-ios-config";
-    runtimeInputs = [ pkgs.go-ios ];
+  config.deploy.script = pkgs.writeShellScriptBin "deploy-ios-config" ''
+    set -euo pipefail
 
-    text = ''
-      set -euo pipefail
-
-      ${optionalString config.profiles.enable
-        # bash
-        ''
-          echo "Deploying profiles..."
-          ${config.deploy.profileDeployCmd}
-        ''
-      }
-    '';
-  };
+    ${optionalString config.profiles.enable
+      # bash
+      ''
+        echo "Deploying profiles..."
+        ${config.deploy.profileDeployCmd}
+      ''
+    }
+  '';
 }

@@ -78,8 +78,9 @@ configurations with the ios-configurations.nix flake.
 > *Default:*
 >
 > > ''
-> >     ios profile add ${config.profiles.mobileconfig} \
-> >       ${optionalString (config.target.udid != null) "--udid ${config.target.udid}"}
+> >     ${pkgs.go-ios}/bin/ios profile add ${config.profiles.mobileconfig} \
+> >       ${optionalString (config.target.udid != null) "--udid ${config.target.udid}"} \
+> >       2>&1 | ${jq}/bin/jq -Rr --unbuffered '. as $line | try fromjson catch $line'
 > >     ''
 
 **deploy.script**
