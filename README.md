@@ -18,7 +18,7 @@ This project aims to make it way easier:
 
 1. Edit the configuration options
 2. Plug in the iOS device via USB (or enable [wireless deployment](#wireless-deployment) to skip this step)
-3. `nix run .#deploy.<device_name>` to deploy the configuration to your device.
+3. `nix run .#deploy-<device_name>` to deploy the configuration to your device.
 4. On unsupervised devices the iOS device needs to be unlocked when loading the profile
    and the installation has to be confirmed on the device.
 
@@ -76,7 +76,7 @@ In the `flake.nix` the `iosConfigurations` key should be edited:
 Deploy with:
 
 ```bash
-nix run .#deploy.iphone
+nix run .#deploy-iphone
 ```
 
 ## Validation

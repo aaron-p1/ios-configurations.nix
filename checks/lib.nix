@@ -9,7 +9,6 @@
 
       deployPkgs = projectLib.deployPkgs { inherit self pkgs; };
     in
-    assert deployPkgs ? deploy;
-    assert deployPkgs.deploy ? test;
-    deployPkgs.deploy.test;
+    assert deployPkgs ? deploy-test;
+    deployPkgs.deploy-test;
 }

@@ -48,7 +48,7 @@
         };
       };
 
-      # Deployment is done with `nix run .#deploy.<device name>`.
+      # Deployment is done with `nix run .#deploy-<device name>`.
       packages = forAllSystems ({ pkgs, ... }: deployPkgs { inherit self pkgs; });
 
       # DevShell for making man page available:

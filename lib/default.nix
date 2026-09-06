@@ -1,7 +1,6 @@
 { lib }:
 let
-  inherit (builtins) mapAttrs;
-  inherit (lib) evalModules;
+  inherit (lib) evalModules nameValuePair mapAttrs';
 in
 {
   iosConfig =
@@ -27,7 +26,5 @@ in
     let
       configs = self.iosConfigurations or { };
     in
-    {
-      deploy = mapAttrs (_: fn: (fn pkgs).config.deploy.script) configs;
-    };
+    mapAttrs' (target: fn: nameValuePair "deploy-${target}" (fn pkgs).config.deploy.script) configs;
 }
