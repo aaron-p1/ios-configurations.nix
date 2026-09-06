@@ -57,12 +57,39 @@ In the `flake.nix` the `iosConfigurations` key should be edited:
           };
           profiles = {
             enable = true;
-            webcontent-filter = {
+            # Example: recommended quad9 config
+            # (same as https://docs.quad9.net/Setup_Guides/iOS/iOS_14_and_later_%28Encrypted%29/)
+            dnsSettings.managed = {
               enable = true;
-              FilterType = "BuiltIn";
-              AutoFilterEnabled = false;
-              DenyListURLs = [
-                "youtube.com"
+              PayloadDisplayName = "Quad9 DoH";
+              DNSSettings = {
+                DNSProtocol = "HTTPS";
+                ServerAddresses = [
+                  "9.9.9.9"
+                  "149.112.112.112"
+                  "2620:fe::fe"
+                  "2620:fe::9"
+                ];
+                ServerURL = "https://dns.quad9.net/dns-query";
+              };
+              OnDemandRules = [
+                {
+                  Action = "EvaluateConnection";
+                  ActionParameters = [
+                    {
+                      DomainAction = "NeverConnect";
+                      Domains = [
+                        "dav.orange.fr"
+                        "msg.t-mobile.com"
+                        "ip.videotron.ca"
+                        "vvm.ee.co.uk"
+                      ];
+                    }
+                  ];
+                }
+                {
+                  Action = "Connect";
+                }
               ];
             };
           };
