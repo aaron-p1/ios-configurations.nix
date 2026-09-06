@@ -45,6 +45,12 @@ in
 
         default: `ios profile add <profile> [--udid <udid>]`
       '';
+      defaultText = lib.literalExpression ''
+        '''
+        ios profile add ''${config.profiles.mobileconfig} \
+          ''${optionalString (config.target.udid != null) "--udid ''${config.target.udid}"}
+        '''
+      '';
     };
   };
 
