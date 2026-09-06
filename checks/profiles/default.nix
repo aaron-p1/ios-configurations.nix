@@ -826,4 +826,5 @@ in
     pkgs.runCommand "can-gen-wifi-managed" { } "touch $out";
 }
 // (import ./assertions.nix testArgs)
+// (import ./custom-assertions.nix testArgs)
 // (import ./types.nix testArgs)

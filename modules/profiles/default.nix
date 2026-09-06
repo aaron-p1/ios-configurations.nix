@@ -406,6 +406,8 @@ in
 {
   _class = "ios";
 
+  imports = [ ./assertions.nix ];
+
   options.profiles = {
     enable = mkEnableOption "Enable deploying profiles to iOS devices";
 
