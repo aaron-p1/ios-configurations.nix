@@ -7,24 +7,9 @@
         };
       };
 
-      deployAttrs = {
-        inherit self;
-        pkgsFor = _: pkgs;
-      };
-
-      deployPkgs = projectLib.deployPkgs deployAttrs;
+      deployPkgs = projectLib.deployPkgs { inherit self pkgs; };
     in
-    assert deployPkgs ? x86_64-linux;
-    assert deployPkgs.x86_64-linux ? deploy;
-    assert deployPkgs.x86_64-linux.deploy ? test;
-    assert deployPkgs ? aarch64-linux;
-    assert deployPkgs.aarch64-linux ? deploy;
-    assert deployPkgs.aarch64-linux.deploy ? test;
-    assert deployPkgs ? x86_64-darwin;
-    assert deployPkgs.x86_64-darwin ? deploy;
-    assert deployPkgs.x86_64-darwin.deploy ? test;
-    assert deployPkgs ? aarch64-darwin;
-    assert deployPkgs.aarch64-darwin ? deploy;
-    assert deployPkgs.aarch64-darwin.deploy ? test;
-    deployPkgs.x86_64-linux.deploy.test;
+    assert deployPkgs ? deploy;
+    assert deployPkgs.deploy ? test;
+    deployPkgs.deploy.test;
 }

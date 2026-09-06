@@ -14,13 +14,13 @@
         "x86_64-darwin"
         "aarch64-darwin"
       ];
-      systemAttr =
+      systemAttrs =
         f: system:
         f {
           inherit system;
           pkgs = import nixpkgs { inherit system; };
         };
-      forAllSystems = f: lib.genAttrs systems (systemAttr f);
+      forAllSystems = f: lib.genAttrs systems (systemAttrs f);
     in
     {
       lib = import ./lib { inherit lib; };

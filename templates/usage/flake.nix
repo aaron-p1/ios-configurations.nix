@@ -1,5 +1,6 @@
 {
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     ios-config = {
       url = "github:aaron-p1/ios-configurations.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,10 +13,28 @@
       nixpkgs,
       ios-config,
     }:
+    let
+      inherit (nixpkgs) lib;
+      inherit (ios-config.lib) iosConfig deployPkgs;
+
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      systemAttrs =
+        f: system:
+        f {
+          pkgs = import nixpkgs { inherit system; };
+          system = system;
+        };
+      forAllSystems = f: lib.genAttrs systems (systemAttrs f);
+    in
     {
       iosConfigurations = {
         # TODO: target should be renamed to device name.
-        target = ios-config.lib.iosConfig {
+        target = iosConfig {
           modules = [
             {
               target = {
@@ -30,6 +49,19 @@
       };
 
       # Deployment is done with `nix run .#deploy.<device name>`.
-      packages = ios-config.lib.deployPkgs { inherit self nixpkgs; };
+      packages = forAllSystems ({ pkgs, ... }: deployPkgs { inherit self pkgs; });
+
+      # DevShell for making man page available:
+      # nix develop
+      # man ios-configurations
+      devShells = forAllSystems (
+        { pkgs, system, ... }: {
+          default = pkgs.mkShell {
+            shellHook = ''
+              export MANPATH="${ios-config.packages.${system}.manpage}/share/man:$MANPATH"
+            '';
+          };
+        }
+      );
     };
 }
