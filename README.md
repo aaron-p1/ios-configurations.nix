@@ -30,6 +30,7 @@ and load it manually via program that supports supervised connections)
 Specifying multiple profiles of the same type is not implemented yet.
 
 This project was tested on Linux and iOS 16 but should work on MacOS and other iOS versions as well.
+Most profiles were not tested.
 
 ## Usage
 
@@ -200,7 +201,9 @@ The connection can sometimes feel unstable.
 - More options than just profiles (e.g. installed apps)
 - Higher level options for easier configuration
   (like how NixOS as `services.*` and `systemd.services.*` options)
-- Better output when deploying profiles
+- A lot more assertions to prevent deploying invalid configurations
+- Maybe overriding some config descriptions
+- Maybe better output when deploying profiles
   (currently [go-ios](https://github.com/danielpaulus/go-ios) outputs json
   which is then pretty printed)
 
