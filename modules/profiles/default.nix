@@ -24,14 +24,13 @@ let
     attrByPath
     concatStringsSep
     flatten
-    trim
     optional
     versionAtLeast
     versionOlder
     attrsToList
     splitString
     ;
-  inherit (utils) profileConfigToPlist;
+  inherit (utils) toPlist;
 
   generatedConfigs = {
     setupAssistant.managed = {
@@ -380,19 +379,10 @@ let
       genAssertions supportData configValue path keys;
 
   getProfileConfigValues = pconfig: attrByPath pconfig.path { } cfg;
-  profileConfigPlists = pipe configs [
+  profileConfigValues = pipe configs [
     (map (config: getProfileConfigValues config))
     (filter (config: config.enable))
-    (map (
-      config:
-      profileConfigToPlist {
-        inherit pkgs;
-        config = removeAttrs config [ "enable" ];
-        indent = 3;
-      }
-    ))
-    (map trim)
-    (concatStringsSep "\n")
+    (map (config: removeAttrs config [ "enable" ]))
   ];
 
   # converts nested attrs to [{path = ["a", "b"]; value = ...;} ...]
@@ -416,6 +406,32 @@ in
   _class = "ios";
 
   options.profiles = {
+    PayloadDisplayName = mkOption {
+      type = types.str;
+      default = "Config from iosConfigurations.nix";
+      description = "The display name when viewing this config/profile in Settings";
+    };
+    PayloadIdentifier = mkOption {
+      type = types.str;
+      default = "ios-configurations";
+      description = "The payload identifier for this config";
+    };
+    PayloadUUID = mkOption {
+      type = types.str;
+      default = "82bc8a73-3345-4154-817a-45b7993d3492";
+      description = "The payload UUID for this config";
+    };
+    PayloadType = mkOption {
+      type = types.str;
+      default = "Configuration";
+      description = "The payload type for this config";
+    };
+    PayloadVersion = mkOption {
+      type = types.int;
+      default = 1;
+      description = "The payload version for this config";
+    };
+
     plist = mkOption {
       type = types.str;
       readOnly = true;
@@ -451,33 +467,22 @@ in
             in
             concatStringsSep "\n" ([ first_line ] ++ rest);
           failedAssertionsText = concatStringsSep "\n" (map formatMsg failedAssertions);
+
+          plistAttrs = {
+            inherit (cfg)
+              PayloadDisplayName
+              PayloadIdentifier
+              PayloadUUID
+              PayloadType
+              PayloadVersion
+              ;
+            PayloadContent = profileConfigValues;
+          };
         in
         if failedAssertions != [ ] then
           throw "Failed assertions:\n${failedAssertionsText}"
         else
-          # xml
-          ''
-            <?xml version="1.0" encoding="UTF-8"?>
-            <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-            <plist version="1.0">
-              <dict>
-                <key>PayloadDisplayName</key>
-                <string>Config from iosConfigurations.nix</string>
-                <key>PayloadIdentifier</key>
-                <string>ios-configurations</string>
-                <key>PayloadUUID</key>
-                <string>7bbadd94-97f8-4c3e-82e1-9ac51cb23ae6</string>
-                <key>PayloadType</key>
-                <string>Configuration</string>
-                <key>PayloadVersion</key>
-                <integer>1</integer>
-                <key>PayloadContent</key>
-                <array>
-                  ${profileConfigPlists}
-                </array>
-              </dict>
-            </plist>
-          '';
+          toPlist plistAttrs pkgs;
       assertions = profileAssertions;
     }
     // defaultProfileConfig;

@@ -2,10 +2,11 @@
   eval,
   pkgs,
   lib,
+  testUtils,
 }:
 let
   inherit (builtins) tryEval;
-  inherit (lib) hasInfix;
+  inherit (testUtils) assertContains assertDoesNotContain;
 
   evalGetPlist = config: (eval { inherit config; }).config.profiles.plist;
   tryEvalGetPlist = config: tryEval (evalGetPlist config);
@@ -116,10 +117,10 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<key>ProviderConfiguration</key>" plist;
-    assert hasInfix "<key>CustomKey</key>" plist;
-    assert hasInfix "<array>" plist;
-    assert hasInfix "<string>value1</string>" plist;
+    assert assertContains "<key>ProviderConfiguration</key>" plist;
+    assert assertContains "<key>CustomKey</key>" plist;
+    assert assertContains "<array>" plist;
+    assert assertContains "<string>value1</string>" plist;
     pkgs.runCommand "supports-any-attrs" { } "touch $out";
 
   can-output-string =
@@ -130,7 +131,7 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.managedCarrier</string>" plist;
+    assert assertContains "<string>com.apple.managedCarrier</string>" plist;
     pkgs.runCommand "can-output-string" { } "touch $out";
 
   can-output-int =
@@ -147,7 +148,7 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<integer>631</integer>" plist;
+    assert assertContains "<integer>631</integer>" plist;
     pkgs.runCommand "can-output-int" { } "touch $out";
 
   can-output-float =
@@ -158,7 +159,7 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<real>1.5</real>" plist;
+    assert assertContains "<real>1.5</real>" plist;
     pkgs.runCommand "can-output-float" { } "touch $out";
 
   can-output-bool =
@@ -178,8 +179,8 @@ in
       plist1 = evalGetPlist (gen-config true);
       plist2 = evalGetPlist (gen-config false);
     in
-    assert hasInfix "<true/>" plist1;
-    assert hasInfix "<false/>" plist2;
+    assert assertContains "<true/>" plist1;
+    assert assertContains "<false/>" plist2;
     pkgs.runCommand "can-output-bool" { } "touch $out";
 
   can-output-array =
@@ -193,9 +194,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<array>" plist;
-    assert hasInfix "<string>Device1</string>" plist;
-    assert hasInfix "<string>Device2</string>" plist;
+    assert assertContains "<array>" plist;
+    assert assertContains "<string>Device1</string>" plist;
+    assert assertContains "<string>Device2</string>" plist;
     pkgs.runCommand "can-output-array" { } "touch $out";
 
   can-output-data =
@@ -213,8 +214,8 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<data>" plist;
-    assert hasInfix "cGFzc3dvcmQ=" plist; # base64 of "password"
+    assert assertContains "<data>" plist;
+    assert assertContains "cGFzc3dvcmQ=" plist; # base64 of "password"
     pkgs.runCommand "can-output-data" { } "touch $out";
 
   can-output-file-as-data =
@@ -235,9 +236,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<data>" plist;
-    assert hasInfix "cGFzc3dvcmQ=" plist; # base64 of "password"
-    assert hasInfix "VGhpcyBmaWxlIGNhbiBiZSB1c2VkIGluIGRhd" plist; # base64 of data-file.txt content
+    assert assertContains "<data>" plist;
+    assert assertContains "cGFzc3dvcmQ=" plist; # base64 of "password"
+    assert assertContains "VGhpcyBmaWxlIGNhbiBiZSB1c2VkIGluIGRhd" plist; # base64 of data-file.txt content
     pkgs.runCommand "can-output-file-as-data" { } "touch $out";
 
   can-output-dictionary =
@@ -255,8 +256,8 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<dict>" plist;
-    assert hasInfix "<key>apn</key>" plist;
+    assert assertContains "<dict>" plist;
+    assert assertContains "<key>apn</key>" plist;
     pkgs.runCommand "can-output-dictionary" { } "touch $out";
 
   can-define-custom-attributes-with-settings =
@@ -267,9 +268,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert !hasInfix "settings" plist;
-    assert hasInfix "<key>EthernetMACAddress</key>" plist;
-    assert hasInfix "<string>00:11:22:33:44:55</string>" plist;
+    assert assertDoesNotContain "settings" plist;
+    assert assertContains "<key>EthernetMACAddress</key>" plist;
+    assert assertContains "<string>00:11:22:33:44:55</string>" plist;
     pkgs.runCommand "can-define-custom-attributes-with-settings" { } "touch $out";
 
   can-merge-custom-attributes-with-settings =
@@ -289,12 +290,12 @@ in
 
       plist = (eval configs).config.profiles.plist;
     in
-    assert !hasInfix "settings" plist;
-    assert hasInfix "<key>EthernetMACAddress</key>" plist;
-    assert hasInfix "<string>00:11:22:33:44:55</string>" plist;
-    assert hasInfix "<key>EthernetMTU</key>" plist;
-    assert hasInfix "<integer>1500</integer>" plist;
-    assert hasInfix "<key>nested</key>" plist;
-    assert hasInfix "<key>subkey</key>" plist;
+    assert assertDoesNotContain "settings" plist;
+    assert assertContains "<key>EthernetMACAddress</key>" plist;
+    assert assertContains "<string>00:11:22:33:44:55</string>" plist;
+    assert assertContains "<key>EthernetMTU</key>" plist;
+    assert assertContains "<integer>1500</integer>" plist;
+    assert assertContains "<key>nested</key>" plist;
+    assert assertContains "<key>subkey</key>" plist;
     pkgs.runCommand "can-merge-custom-attributes-with-settings" { } "touch $out";
 }

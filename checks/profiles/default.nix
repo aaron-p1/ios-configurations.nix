@@ -2,9 +2,10 @@
   eval,
   pkgs,
   lib,
-}:
+  testUtils,
+}@testArgs:
 let
-  inherit (lib) hasInfix;
+  inherit (testUtils) assertContains assertDoesNotContain;
   evalGetPlist = config: (eval { inherit config; }).config.profiles.plist;
 in
 {
@@ -25,13 +26,12 @@ in
     let
       plist = evalGetPlist { };
     in
-    assert hasInfix "PayloadContent" plist;
-    assert hasInfix "PayloadDisplayName" plist;
-    assert hasInfix "PayloadIdentifier" plist;
-    assert hasInfix "<string>ios-configurations</string>" plist;
-    assert hasInfix "PayloadUUID" plist;
-    assert hasInfix "PayloadType" plist;
-    assert hasInfix "PayloadVersion" plist;
+    assert assertContains "PayloadDisplayName" plist;
+    assert assertContains "PayloadIdentifier" plist;
+    assert assertContains "<string>ios-configurations</string>" plist;
+    assert assertContains "PayloadUUID" plist;
+    assert assertContains "PayloadType" plist;
+    assert assertContains "PayloadVersion" plist;
     pkgs.runCommand "generates-boilerplate" { } "touch $out";
 
   does-not-gen-disabled-profile =
@@ -39,7 +39,7 @@ in
       config.profiles.setupAssistant.managed.enable = false;
       plist = evalGetPlist config;
     in
-    assert !hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
+    assert assertDoesNotContain "<string>com.apple.SetupAssistant.managed</string>" plist;
     pkgs.runCommand "does-not-gen-disabled-profile" { } "touch $out";
 
   can-gen-enabled-empty-profile =
@@ -47,7 +47,7 @@ in
       config.profiles.setupAssistant.managed.enable = true;
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
+    assert assertContains "<string>com.apple.SetupAssistant.managed</string>" plist;
     pkgs.runCommand "can-gen-enabled-empty-profile" { } "touch $out";
 
   does-not-set-empty-props =
@@ -58,8 +58,8 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
-    assert !hasInfix "SkipSetupItems" plist;
+    assert assertContains "<string>com.apple.SetupAssistant.managed</string>" plist;
+    assert assertDoesNotContain "SkipSetupItems" plist;
     pkgs.runCommand "does-not-set-empty-props" { } "touch $out";
 
   empty-list-counts-as-empty-prop =
@@ -70,7 +70,7 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert !hasInfix "SkipSetupItems" plist;
+    assert assertDoesNotContain "SkipSetupItems" plist;
     pkgs.runCommand "empty-list-counts-as-empty-prop" { } "touch $out";
 
   can-gen-setupassistant-managed =
@@ -82,13 +82,13 @@ in
       plist = evalGetPlist config;
     in
     # test with indentation to not match the global keys
-    assert hasInfix "        <key>PayloadType</key>" plist;
-    assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
-    assert hasInfix "        <key>PayloadVersion</key>" plist;
-    assert hasInfix "        <key>PayloadIdentifier</key>" plist;
-    assert hasInfix "<string>ios-configurations.setupAssistant.managed</string>" plist;
-    assert hasInfix "        <key>PayloadUUID</key>" plist;
-    assert hasInfix "<string>SkipValue</string>" plist;
+    assert assertContains "        <key>PayloadType</key>" plist;
+    assert assertContains "<string>com.apple.SetupAssistant.managed</string>" plist;
+    assert assertContains "        <key>PayloadVersion</key>" plist;
+    assert assertContains "        <key>PayloadIdentifier</key>" plist;
+    assert assertContains "<string>ios-configurations.setupAssistant.managed</string>" plist;
+    assert assertContains "        <key>PayloadUUID</key>" plist;
+    assert assertContains "<string>SkipValue</string>" plist;
     pkgs.runCommand "can-gen-setupassistant-managed" { } "touch $out";
 
   can-gen-airplay =
@@ -110,12 +110,12 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.airplay</string>" plist;
-    assert hasInfix "<string>ios-configurations.airplay</string>" plist;
-    assert hasInfix "<string>00:11:22:33:44:55</string>" plist;
-    assert hasInfix "<string>My AirPlay Device</string>" plist;
-    assert hasInfix "<string>My AirPlay Device Password</string>" plist;
-    assert hasInfix "<string>MyPassword</string>" plist;
+    assert assertContains "<string>com.apple.airplay</string>" plist;
+    assert assertContains "<string>ios-configurations.airplay</string>" plist;
+    assert assertContains "<string>00:11:22:33:44:55</string>" plist;
+    assert assertContains "<string>My AirPlay Device</string>" plist;
+    assert assertContains "<string>My AirPlay Device Password</string>" plist;
+    assert assertContains "<string>MyPassword</string>" plist;
     pkgs.runCommand "can-gen-airplay" { } "touch $out";
 
   can-gen-airprint =
@@ -133,12 +133,12 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.airprint</string>" plist;
-    assert hasInfix "<string>ios-configurations.airprint</string>" plist;
-    assert hasInfix "<string>127.0.0.1</string>" plist;
-    assert hasInfix "<string>ipp/print</string>" plist;
-    assert hasInfix "<integer>631</integer>" plist;
-    assert hasInfix "<true/>" plist;
+    assert assertContains "<string>com.apple.airprint</string>" plist;
+    assert assertContains "<string>ios-configurations.airprint</string>" plist;
+    assert assertContains "<string>127.0.0.1</string>" plist;
+    assert assertContains "<string>ipp/print</string>" plist;
+    assert assertContains "<integer>631</integer>" plist;
+    assert assertContains "<true/>" plist;
     pkgs.runCommand "can-gen-airprint" { } "touch $out";
 
   can-gen-apn-managed =
@@ -158,12 +158,12 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.apn.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.apn.managed</string>" plist;
-    assert hasInfix "<string>internet</string>" plist;
-    assert hasInfix "<data>" plist;
-    assert hasInfix "cGFzc3dvcmQ=" plist;
-    assert hasInfix "<integer>8080</integer>" plist;
+    assert assertContains "<string>com.apple.apn.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.apn.managed</string>" plist;
+    assert assertContains "<string>internet</string>" plist;
+    assert assertContains "<data>" plist;
+    assert assertContains "cGFzc3dvcmQ=" plist;
+    assert assertContains "<integer>8080</integer>" plist;
     pkgs.runCommand "can-gen-apn-managed" { } "touch $out";
 
   can-gen-app-lock =
@@ -177,11 +177,11 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.app.lock</string>" plist;
-    assert hasInfix "<string>ios-configurations.app.lock</string>" plist;
-    assert hasInfix "<key>App</key>" plist;
-    assert hasInfix "<key>Identifier</key>" plist;
-    assert hasInfix "<key>EnableZoom</key>" plist;
+    assert assertContains "<string>com.apple.app.lock</string>" plist;
+    assert assertContains "<string>ios-configurations.app.lock</string>" plist;
+    assert assertContains "<key>App</key>" plist;
+    assert assertContains "<key>Identifier</key>" plist;
+    assert assertContains "<key>EnableZoom</key>" plist;
     pkgs.runCommand "can-gen-app-lock" { } "touch $out";
 
   can-gen-applicationaccess =
@@ -192,9 +192,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.applicationaccess</string>" plist;
-    assert hasInfix "<string>ios-configurations.applicationaccess</string>" plist;
-    assert hasInfix "<key>allowAccountModification</key>" plist;
+    assert assertContains "<string>com.apple.applicationaccess</string>" plist;
+    assert assertContains "<string>ios-configurations.applicationaccess</string>" plist;
+    assert assertContains "<key>allowAccountModification</key>" plist;
     pkgs.runCommand "can-gen-applicationaccess" { } "touch $out";
 
   can-gen-caldav-account =
@@ -205,9 +205,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.caldav.account</string>" plist;
-    assert hasInfix "<string>ios-configurations.caldav.account</string>" plist;
-    assert hasInfix "<key>CalDAVHostName</key>" plist;
+    assert assertContains "<string>com.apple.caldav.account</string>" plist;
+    assert assertContains "<string>ios-configurations.caldav.account</string>" plist;
+    assert assertContains "<key>CalDAVHostName</key>" plist;
     pkgs.runCommand "can-gen-caldav-account" { } "touch $out";
 
   can-gen-carddav-account =
@@ -218,9 +218,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.carddav.account</string>" plist;
-    assert hasInfix "<string>ios-configurations.carddav.account</string>" plist;
-    assert hasInfix "<key>CardDAVHostName</key>" plist;
+    assert assertContains "<string>com.apple.carddav.account</string>" plist;
+    assert assertContains "<string>ios-configurations.carddav.account</string>" plist;
+    assert assertContains "<key>CardDAVHostName</key>" plist;
     pkgs.runCommand "can-gen-carddav-account" { } "touch $out";
 
   can-gen-cellular =
@@ -231,10 +231,10 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.cellular</string>" plist;
-    assert hasInfix "<string>ios-configurations.cellular</string>" plist;
-    assert hasInfix "<key>AttachAPN</key>" plist;
-    assert hasInfix "<key>Name</key>" plist;
+    assert assertContains "<string>com.apple.cellular</string>" plist;
+    assert assertContains "<string>ios-configurations.cellular</string>" plist;
+    assert assertContains "<key>AttachAPN</key>" plist;
+    assert assertContains "<key>Name</key>" plist;
     pkgs.runCommand "can-gen-cellular" { } "touch $out";
 
   can-gen-cellularprivatenetwork-managed =
@@ -246,10 +246,10 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.cellularprivatenetwork.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.cellularprivatenetwork.managed</string>" plist;
-    assert hasInfix "<key>DataSetName</key>" plist;
-    assert hasInfix "<key>VersionNumber</key>" plist;
+    assert assertContains "<string>com.apple.cellularprivatenetwork.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.cellularprivatenetwork.managed</string>" plist;
+    assert assertContains "<key>DataSetName</key>" plist;
+    assert assertContains "<key>VersionNumber</key>" plist;
     pkgs.runCommand "can-gen-cellularprivatenetwork-managed" { } "touch $out";
 
   can-gen-declarations =
@@ -260,9 +260,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.declarations</string>" plist;
-    assert hasInfix "<string>ios-configurations.declarations</string>" plist;
-    assert hasInfix "<key>Declarations</key>" plist;
+    assert assertContains "<string>com.apple.declarations</string>" plist;
+    assert assertContains "<string>ios-configurations.declarations</string>" plist;
+    assert assertContains "<key>Declarations</key>" plist;
     pkgs.runCommand "can-gen-declarations" { } "touch $out";
 
   can-gen-dnsProxy-managed =
@@ -273,9 +273,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.dnsProxy.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.dnsProxy.managed</string>" plist;
-    assert hasInfix "<key>AppBundleIdentifier</key>" plist;
+    assert assertContains "<string>com.apple.dnsProxy.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.dnsProxy.managed</string>" plist;
+    assert assertContains "<key>AppBundleIdentifier</key>" plist;
     pkgs.runCommand "can-gen-dnsProxy-managed" { } "touch $out";
 
   can-gen-dnsSettings-managed =
@@ -288,9 +288,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.dnsSettings.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.dnsSettings.managed</string>" plist;
-    assert hasInfix "<key>DNSSettings</key>" plist;
+    assert assertContains "<string>com.apple.dnsSettings.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.dnsSettings.managed</string>" plist;
+    assert assertContains "<key>DNSSettings</key>" plist;
     pkgs.runCommand "can-gen-dnsSettings-managed" { } "touch $out";
 
   can-gen-domains =
@@ -301,9 +301,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.domains</string>" plist;
-    assert hasInfix "<string>ios-configurations.domains</string>" plist;
-    assert hasInfix "<key>EmailDomains</key>" plist;
+    assert assertContains "<string>com.apple.domains</string>" plist;
+    assert assertContains "<string>ios-configurations.domains</string>" plist;
+    assert assertContains "<key>EmailDomains</key>" plist;
     pkgs.runCommand "can-gen-domains" { } "touch $out";
 
   can-gen-eas-account =
@@ -314,9 +314,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.eas.account</string>" plist;
-    assert hasInfix "<string>ios-configurations.eas.account</string>" plist;
-    assert hasInfix "<key>EmailAddress</key>" plist;
+    assert assertContains "<string>com.apple.eas.account</string>" plist;
+    assert assertContains "<string>ios-configurations.eas.account</string>" plist;
+    assert assertContains "<key>EmailAddress</key>" plist;
     pkgs.runCommand "can-gen-eas-account" { } "touch $out";
 
   can-gen-education =
@@ -331,9 +331,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.education</string>" plist;
-    assert hasInfix "<string>ios-configurations.education</string>" plist;
-    assert hasInfix "<key>OrganizationUUID</key>" plist;
+    assert assertContains "<string>com.apple.education</string>" plist;
+    assert assertContains "<string>ios-configurations.education</string>" plist;
+    assert assertContains "<key>OrganizationUUID</key>" plist;
     pkgs.runCommand "can-gen-education" { } "touch $out";
 
   can-gen-extensiblesso-kerberos =
@@ -347,9 +347,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.extensiblesso</string>" plist;
-    assert hasInfix "<string>ios-configurations.extensiblesso-kerberos</string>" plist;
-    assert hasInfix "<key>ExtensionIdentifier</key>" plist;
+    assert assertContains "<string>com.apple.extensiblesso</string>" plist;
+    assert assertContains "<string>ios-configurations.extensiblesso-kerberos</string>" plist;
+    assert assertContains "<key>ExtensionIdentifier</key>" plist;
     pkgs.runCommand "can-gen-extensionsso-kerberos" { } "touch $out";
 
   can-gen-extensiblesso =
@@ -361,9 +361,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.extensiblesso</string>" plist;
-    assert hasInfix "<string>ios-configurations.extensiblesso</string>" plist;
-    assert hasInfix "<key>ExtensionIdentifier</key>" plist;
+    assert assertContains "<string>com.apple.extensiblesso</string>" plist;
+    assert assertContains "<string>ios-configurations.extensiblesso</string>" plist;
+    assert assertContains "<key>ExtensionIdentifier</key>" plist;
     pkgs.runCommand "can-gen-extensionsso" { } "touch $out";
 
   can-gen-font =
@@ -375,9 +375,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.font</string>" plist;
-    assert hasInfix "<string>ios-configurations.font</string>" plist;
-    assert hasInfix "<key>Name</key>" plist;
+    assert assertContains "<string>com.apple.font</string>" plist;
+    assert assertContains "<string>ios-configurations.font</string>" plist;
+    assert assertContains "<key>Name</key>" plist;
     pkgs.runCommand "can-gen-font" { } "touch $out";
 
   can-gen-globalethernet-managed =
@@ -388,9 +388,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.globalethernet.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.globalethernet.managed</string>" plist;
-    assert hasInfix "<key>EthernetMACAddress</key>" plist;
+    assert assertContains "<string>com.apple.globalethernet.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.globalethernet.managed</string>" plist;
+    assert assertContains "<key>EthernetMACAddress</key>" plist;
     pkgs.runCommand "can-gen-globalethernet-managed" { } "touch $out";
 
   can-gen-google-oauth =
@@ -401,9 +401,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.google-oauth</string>" plist;
-    assert hasInfix "<string>ios-configurations.google-oauth</string>" plist;
-    assert hasInfix "<key>EmailAddress</key>" plist;
+    assert assertContains "<string>com.apple.google-oauth</string>" plist;
+    assert assertContains "<string>ios-configurations.google-oauth</string>" plist;
+    assert assertContains "<key>EmailAddress</key>" plist;
     pkgs.runCommand "can-gen-google-oauth" { } "touch $out";
 
   can-gen-homescreenlayout =
@@ -415,9 +415,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.homescreenlayout</string>" plist;
-    assert hasInfix "<string>ios-configurations.homescreenlayout</string>" plist;
-    assert hasInfix "<key>Dock</key>" plist;
+    assert assertContains "<string>com.apple.homescreenlayout</string>" plist;
+    assert assertContains "<string>ios-configurations.homescreenlayout</string>" plist;
+    assert assertContains "<key>Dock</key>" plist;
     pkgs.runCommand "can-gen-homescreenlayout" { } "touch $out";
 
   stops-recursion-at-right-levels =
@@ -443,9 +443,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.ldap.account</string>" plist;
-    assert hasInfix "<string>ios-configurations.ldap.account</string>" plist;
-    assert hasInfix "<key>LDAPAccountHostName</key>" plist;
+    assert assertContains "<string>com.apple.ldap.account</string>" plist;
+    assert assertContains "<string>ios-configurations.ldap.account</string>" plist;
+    assert assertContains "<key>LDAPAccountHostName</key>" plist;
     pkgs.runCommand "can-gen-ldap-account" { } "touch $out";
 
   can-gen-mail-managed =
@@ -460,9 +460,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.mail.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.mail.managed</string>" plist;
-    assert hasInfix "<key>IncomingMailServerHostName</key>" plist;
+    assert assertContains "<string>com.apple.mail.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.mail.managed</string>" plist;
+    assert assertContains "<key>IncomingMailServerHostName</key>" plist;
     pkgs.runCommand "can-gen-mail-managed" { } "touch $out";
 
   can-gen-mdm =
@@ -475,9 +475,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.mdm</string>" plist;
-    assert hasInfix "<string>ios-configurations.mdm</string>" plist;
-    assert hasInfix "<key>IdentityCertificateUUID</key>" plist;
+    assert assertContains "<string>com.apple.mdm</string>" plist;
+    assert assertContains "<string>ios-configurations.mdm</string>" plist;
+    assert assertContains "<key>IdentityCertificateUUID</key>" plist;
     pkgs.runCommand "can-gen-mdm" { } "touch $out";
 
   can-gen-mobiledevice-passwordpolicy =
@@ -488,9 +488,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.mobiledevice.passwordpolicy</string>" plist;
-    assert hasInfix "<string>ios-configurations.mobiledevice.passwordpolicy</string>" plist;
-    assert hasInfix "<key>allowSimple</key>" plist;
+    assert assertContains "<string>com.apple.mobiledevice.passwordpolicy</string>" plist;
+    assert assertContains "<string>ios-configurations.mobiledevice.passwordpolicy</string>" plist;
+    assert assertContains "<key>allowSimple</key>" plist;
     pkgs.runCommand "can-gen-mobiledevice-passwordpolicy" { } "touch $out";
 
   can-networkusagerules =
@@ -505,9 +505,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.networkusagerules</string>" plist;
-    assert hasInfix "<string>ios-configurations.networkusagerules</string>" plist;
-    assert hasInfix "<key>ApplicationRules</key>" plist;
+    assert assertContains "<string>com.apple.networkusagerules</string>" plist;
+    assert assertContains "<string>ios-configurations.networkusagerules</string>" plist;
+    assert assertContains "<key>ApplicationRules</key>" plist;
     pkgs.runCommand "can-gen-networkusagerules" { } "touch $out";
 
   can-gen-notificationsettings =
@@ -518,9 +518,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.notificationsettings</string>" plist;
-    assert hasInfix "<string>ios-configurations.notificationsettings</string>" plist;
-    assert hasInfix "<key>NotificationSettings</key>" plist;
+    assert assertContains "<string>com.apple.notificationsettings</string>" plist;
+    assert assertContains "<string>ios-configurations.notificationsettings</string>" plist;
+    assert assertContains "<key>NotificationSettings</key>" plist;
     pkgs.runCommand "can-gen-notificationsettings" { } "touch $out";
 
   can-gen-osxserver-account =
@@ -532,9 +532,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.osxserver.account</string>" plist;
-    assert hasInfix "<string>ios-configurations.osxserver.account</string>" plist;
-    assert hasInfix "<key>HostName</key>" plist;
+    assert assertContains "<string>com.apple.osxserver.account</string>" plist;
+    assert assertContains "<string>ios-configurations.osxserver.account</string>" plist;
+    assert assertContains "<key>HostName</key>" plist;
     pkgs.runCommand "can-gen-osxserver-account" { } "touch $out";
 
   can-gen-profileRemovalPassword =
@@ -545,9 +545,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.profileRemovalPassword</string>" plist;
-    assert hasInfix "<string>ios-configurations.profileRemovalPassword</string>" plist;
-    assert hasInfix "<key>RemovalPassword</key>" plist;
+    assert assertContains "<string>com.apple.profileRemovalPassword</string>" plist;
+    assert assertContains "<string>ios-configurations.profileRemovalPassword</string>" plist;
+    assert assertContains "<key>RemovalPassword</key>" plist;
     pkgs.runCommand "can-gen-profileRemovalPassword" { } "touch $out";
 
   can-gen-proxy-http-global =
@@ -558,9 +558,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.proxy.http.global</string>" plist;
-    assert hasInfix "<string>ios-configurations.proxy.http.global</string>" plist;
-    assert hasInfix "<key>ProxyType</key>" plist;
+    assert assertContains "<string>com.apple.proxy.http.global</string>" plist;
+    assert assertContains "<string>ios-configurations.proxy.http.global</string>" plist;
+    assert assertContains "<key>ProxyType</key>" plist;
     pkgs.runCommand "can-gen-proxy-http-global" { } "touch $out";
 
   can-gen-relay-managed =
@@ -571,9 +571,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.relay.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.relay.managed</string>" plist;
-    assert hasInfix "<key>Relays</key>" plist;
+    assert assertContains "<string>com.apple.relay.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.relay.managed</string>" plist;
+    assert assertContains "<key>Relays</key>" plist;
     pkgs.runCommand "can-gen-relay-managed" { } "touch $out";
 
   can-gen-security-acme =
@@ -596,9 +596,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.security.acme</string>" plist;
-    assert hasInfix "<string>ios-configurations.security.acme</string>" plist;
-    assert hasInfix "<key>DirectoryURL</key>" plist;
+    assert assertContains "<string>com.apple.security.acme</string>" plist;
+    assert assertContains "<string>ios-configurations.security.acme</string>" plist;
+    assert assertContains "<key>DirectoryURL</key>" plist;
     pkgs.runCommand "can-gen-security-acme" { } "touch $out";
 
   can-gen-security-certificaterevocation =
@@ -614,9 +614,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.security.certificaterevocation</string>" plist;
-    assert hasInfix "<string>ios-configurations.security.certificaterevocation</string>" plist;
-    assert hasInfix "<key>EnabledForCerts</key>" plist;
+    assert assertContains "<string>com.apple.security.certificaterevocation</string>" plist;
+    assert assertContains "<string>ios-configurations.security.certificaterevocation</string>" plist;
+    assert assertContains "<key>EnabledForCerts</key>" plist;
     pkgs.runCommand "can-gen-security-certificaterevocation" { } "touch $out";
 
   can-gen-security-certificatetransparency =
@@ -632,9 +632,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.security.certificatetransparency</string>" plist;
-    assert hasInfix "<string>ios-configurations.security.certificatetransparency</string>" plist;
-    assert hasInfix "<key>DisabledForCerts</key>" plist;
+    assert assertContains "<string>com.apple.security.certificatetransparency</string>" plist;
+    assert assertContains "<string>ios-configurations.security.certificatetransparency</string>" plist;
+    assert assertContains "<key>DisabledForCerts</key>" plist;
     pkgs.runCommand "can-gen-security-certificatetransparency" { } "touch $out";
 
   can-gen-security-pem =
@@ -646,9 +646,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.security.pem</string>" plist;
-    assert hasInfix "<string>ios-configurations.security.pem</string>" plist;
-    assert hasInfix "<key>PayloadCertificateFileName</key>" plist;
+    assert assertContains "<string>com.apple.security.pem</string>" plist;
+    assert assertContains "<string>ios-configurations.security.pem</string>" plist;
+    assert assertContains "<key>PayloadCertificateFileName</key>" plist;
     pkgs.runCommand "can-gen-security-pem" { } "touch $out";
 
   can-gen-security-pkcs1 =
@@ -659,9 +659,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.security.pkcs1</string>" plist;
-    assert hasInfix "<string>ios-configurations.security.pkcs1</string>" plist;
-    assert hasInfix "<key>PayloadContent</key>" plist;
+    assert assertContains "<string>com.apple.security.pkcs1</string>" plist;
+    assert assertContains "<string>ios-configurations.security.pkcs1</string>" plist;
+    assert assertContains "<key>PayloadContent</key>" plist;
     pkgs.runCommand "can-gen-security-pkcs1" { } "touch $out";
 
   can-gen-security-pkcs12 =
@@ -672,9 +672,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.security.pkcs12</string>" plist;
-    assert hasInfix "<string>ios-configurations.security.pkcs12</string>" plist;
-    assert hasInfix "<key>PayloadContent</key>" plist;
+    assert assertContains "<string>com.apple.security.pkcs12</string>" plist;
+    assert assertContains "<string>ios-configurations.security.pkcs12</string>" plist;
+    assert assertContains "<key>PayloadContent</key>" plist;
     pkgs.runCommand "can-gen-security-pkcs12" { } "touch $out";
 
   can-gen-security-root =
@@ -685,9 +685,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.security.root</string>" plist;
-    assert hasInfix "<string>ios-configurations.security.root</string>" plist;
-    assert hasInfix "<key>PayloadContent</key>" plist;
+    assert assertContains "<string>com.apple.security.root</string>" plist;
+    assert assertContains "<string>ios-configurations.security.root</string>" plist;
+    assert assertContains "<key>PayloadContent</key>" plist;
     pkgs.runCommand "can-gen-security-root" { } "touch $out";
 
   can-gen-security-scep =
@@ -698,9 +698,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.security.scep</string>" plist;
-    assert hasInfix "<string>ios-configurations.security.scep</string>" plist;
-    assert hasInfix "<key>PayloadContent</key>" plist;
+    assert assertContains "<string>com.apple.security.scep</string>" plist;
+    assert assertContains "<string>ios-configurations.security.scep</string>" plist;
+    assert assertContains "<key>PayloadContent</key>" plist;
     pkgs.runCommand "can-gen-security-scep" { } "touch $out";
 
   can-gen-shareddeviceconfiguration =
@@ -711,9 +711,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.shareddeviceconfiguration</string>" plist;
-    assert hasInfix "<string>ios-configurations.shareddeviceconfiguration</string>" plist;
-    assert hasInfix "<key>AssetTagInformation</key>" plist;
+    assert assertContains "<string>com.apple.shareddeviceconfiguration</string>" plist;
+    assert assertContains "<string>ios-configurations.shareddeviceconfiguration</string>" plist;
+    assert assertContains "<key>AssetTagInformation</key>" plist;
     pkgs.runCommand "can-gen-shareddeviceconfiguration" { } "touch $out";
 
   can-gen-sso =
@@ -724,9 +724,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.sso</string>" plist;
-    assert hasInfix "<string>ios-configurations.sso</string>" plist;
-    assert hasInfix "<key>Name</key>" plist;
+    assert assertContains "<string>com.apple.sso</string>" plist;
+    assert assertContains "<string>ios-configurations.sso</string>" plist;
+    assert assertContains "<key>Name</key>" plist;
     pkgs.runCommand "can-gen-sso" { } "touch $out";
 
   can-gen-subscribedcalendar-account =
@@ -737,9 +737,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.subscribedcalendar.account</string>" plist;
-    assert hasInfix "<string>ios-configurations.subscribedcalendar.account</string>" plist;
-    assert hasInfix "<key>SubCalAccountHostName</key>" plist;
+    assert assertContains "<string>com.apple.subscribedcalendar.account</string>" plist;
+    assert assertContains "<string>ios-configurations.subscribedcalendar.account</string>" plist;
+    assert assertContains "<key>SubCalAccountHostName</key>" plist;
     pkgs.runCommand "can-gen-subscribedcalendar-account" { } "touch $out";
 
   can-gen-tvremote =
@@ -750,9 +750,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.tvremote</string>" plist;
-    assert hasInfix "<string>ios-configurations.tvremote</string>" plist;
-    assert hasInfix "<key>AllowedTVs</key>" plist;
+    assert assertContains "<string>com.apple.tvremote</string>" plist;
+    assert assertContains "<string>ios-configurations.tvremote</string>" plist;
+    assert assertContains "<key>AllowedTVs</key>" plist;
     pkgs.runCommand "can-gen-tvremote" { } "touch $out";
 
   can-gen-vpn-managed-applayer =
@@ -763,9 +763,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.vpn.managed.applayer</string>" plist;
-    assert hasInfix "<string>ios-configurations.vpn.managed-applayer</string>" plist;
-    assert hasInfix "<key>VPNUUID</key>" plist;
+    assert assertContains "<string>com.apple.vpn.managed.applayer</string>" plist;
+    assert assertContains "<string>ios-configurations.vpn.managed-applayer</string>" plist;
+    assert assertContains "<key>VPNUUID</key>" plist;
     pkgs.runCommand "can-gen-vpn-managed-applayer" { } "touch $out";
 
   can-gen-vpn-managed =
@@ -777,9 +777,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.vpn.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.vpn.managed</string>" plist;
-    assert hasInfix "<key>VPNType</key>" plist;
+    assert assertContains "<string>com.apple.vpn.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.vpn.managed</string>" plist;
+    assert assertContains "<key>VPNType</key>" plist;
     pkgs.runCommand "can-gen-vpn-managed" { } "touch $out";
 
   can-gen-webclip-managed =
@@ -791,9 +791,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.webClip.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.webClip.managed</string>" plist;
-    assert hasInfix "<key>URL</key>" plist;
+    assert assertContains "<string>com.apple.webClip.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.webClip.managed</string>" plist;
+    assert assertContains "<key>URL</key>" plist;
     pkgs.runCommand "can-gen-webClip-managed" { } "touch $out";
 
   can-gen-webcontent-filter =
@@ -804,9 +804,9 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.webcontent-filter</string>" plist;
-    assert hasInfix "<string>ios-configurations.webcontent-filter</string>" plist;
-    assert hasInfix "<key>FilterType</key>" plist;
+    assert assertContains "<string>com.apple.webcontent-filter</string>" plist;
+    assert assertContains "<string>ios-configurations.webcontent-filter</string>" plist;
+    assert assertContains "<key>FilterType</key>" plist;
     pkgs.runCommand "can-gen-webcontent-filter" { } "touch $out";
 
   can-gen-wifi-managed =
@@ -817,10 +817,10 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.wifi.managed</string>" plist;
-    assert hasInfix "<string>ios-configurations.wifi.managed</string>" plist;
-    assert hasInfix "<key>SSID_STR</key>" plist;
+    assert assertContains "<string>com.apple.wifi.managed</string>" plist;
+    assert assertContains "<string>ios-configurations.wifi.managed</string>" plist;
+    assert assertContains "<key>SSID_STR</key>" plist;
     pkgs.runCommand "can-gen-wifi-managed" { } "touch $out";
 }
-// (import ./assertions.nix { inherit eval pkgs lib; })
-// (import ./types.nix { inherit eval pkgs lib; })
+// (import ./assertions.nix testArgs)
+// (import ./types.nix testArgs)

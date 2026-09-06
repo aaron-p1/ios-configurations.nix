@@ -81,81 +81,109 @@ rec {
 
   subopts = options: types.submodule { options = options; };
 
-  profileConfigToPlist = args: concatStringsSep "\n" (profileConfigToPlist' args);
+  toPlist =
+    { ... }@attrs:
+    pkgs:
+    let
+      lines = (
+        toPlistValueLines {
+          value = attrs;
+          inherit pkgs;
+          indent = 1;
+        }
+      );
+    in
+    # xml
+    ''
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      ${concatStringsSep "\n" (map (line: "  ${line}") lines)}
+      </plist>
+    '';
 
-  profileConfigToPlist' =
+  toPlistValueLines =
     {
-      config,
+      value,
       # needed for base64 encoding, because it builds a drv to encode the data
       pkgs,
       indent ? 0,
     }:
     let
-      valueIsEmpty = value: if isList value then value == [ ] else value == null;
-
-      expandSettings =
-        cval:
-        if isAttrs cval.value && (cval.value ? __type) && cval.value.__type == "settings" then
-          attrsToList cval.value.value
-        else
-          [ cval ];
-
-      configValues = concatMap expandSettings (attrsToList config);
-      filledOptions = filter ({ value, ... }: !valueIsEmpty value) configValues;
-
       gen-indent = n: concatStringsSep "" (genList (_: "  ") n);
+      addIndent = indent: map (line: "${gen-indent indent}${line}");
 
-      value-to-plist-lines =
-        value:
+      attrsToPlistLines =
+        attrs:
         let
-          lines =
-            if isString value then
-              [ "<string>${value}</string>" ]
-            else if isInt value then
-              [ "<integer>${toString value}</integer>" ]
-            else if isFloat value then
-              # toString has trailing 0s
-              [ "<real>${toJSON value}</real>" ]
-            else if value == true then
-              [ "<true/>" ]
-            else if value == false then
-              [ "<false/>" ]
-            else if isList value then
-              [ "<array>" ] ++ lib.concatMap value-to-plist-lines value ++ [ "</array>" ]
-            else if isAttrs value && (value ? __type) && value.__type == "data" then
-              let
-                data = pipe value.value [
-                  (toBase64 pkgs)
-                  (trim)
-                  (splitString "\n")
-                  (map (line: "${gen-indent 1}${line}"))
-                ];
-              in
-              [ "<data>" ] ++ data ++ [ "</data>" ]
-            else if isAttrs value then
-              let
-                nestedLines = profileConfigToPlist' {
-                  inherit pkgs;
-                  config = value;
-                };
-              in
-              if nestedLines == [ ] then [ "<dict/>" ] else nestedLines
+          valueIsEmpty = value: if isList value then value == [ ] else value == null;
+
+          expandSettings =
+            cval:
+            if isAttrs cval.value && (cval.value ? __type) && cval.value.__type == "settings" then
+              attrsToList cval.value.value
             else
-              throw "Unsupported value type: ${toString value}";
+              [ cval ];
+
+          filledValues = pipe attrs [
+            attrsToList
+            (concatMap expandSettings)
+            (filter ({ value, ... }: !valueIsEmpty value))
+          ];
+
+          genKeyVal =
+            { name, value }:
+            [ "<key>${name}</key>" ]
+            ++ (toPlistValueLines {
+              inherit value pkgs;
+              indent = indent + 1;
+            });
+
+          nestedPlistLines = addIndent 1 (concatLists (map genKeyVal filledValues));
         in
-        map (line: "${gen-indent 1}${line}") lines;
+        if nestedPlistLines == [ ] then
+          [ "<dict/>" ]
+        else
+          [ "<dict>" ] ++ nestedPlistLines ++ [ "</dict>" ];
 
-      option-plist-lines = concatLists (
-        map (
-          { name, value }: [ "${gen-indent 1}<key>${name}</key>" ] ++ (value-to-plist-lines value)
-        ) filledOptions
-      );
-
-      plist-lines = map (line: "${gen-indent indent}${line}") (
-        [ "<dict>" ] ++ option-plist-lines ++ [ "</dict>" ]
-      );
     in
-    plist-lines;
+    if isString value then
+      [ "<string>${value}</string>" ]
+    else if isInt value then
+      [ "<integer>${toString value}</integer>" ]
+    else if isFloat value then
+      # toString has trailing 0s
+      [ "<real>${toJSON value}</real>" ]
+    else if value == true then
+      [ "<true/>" ]
+    else if value == false then
+      [ "<false/>" ]
+    else if isList value then
+      let
+        nestedLines = concatMap (
+          item:
+          toPlistValueLines {
+            inherit pkgs;
+            value = item;
+            indent = indent + 1;
+          }
+        ) value;
+      in
+      [ "<array>" ] ++ (addIndent 1 nestedLines) ++ [ "</array>" ]
+    else if isAttrs value && (value ? __type) && value.__type == "data" then
+      let
+        data = pipe value.value [
+          (toBase64 pkgs)
+          (trim)
+          (splitString "\n")
+          (addIndent 1)
+        ];
+      in
+      [ "<data>" ] ++ data ++ [ "</data>" ]
+    else if isAttrs value then
+      attrsToPlistLines value
+    else
+      throw "Unsupported value type: ${toString value}";
 
   toBase64 =
     pkgs: value:

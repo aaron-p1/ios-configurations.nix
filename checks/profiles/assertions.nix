@@ -2,10 +2,11 @@
   eval,
   pkgs,
   lib,
+  testUtils,
 }:
 let
   inherit (builtins) tryEval;
-  inherit (lib) hasInfix;
+  inherit (testUtils) assertContains;
 
   evalGetPlist = config: (eval { inherit config; }).config.profiles.plist;
   tryEvalGetPlist = config: tryEval (evalGetPlist config);
@@ -19,7 +20,7 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
+    assert assertContains "<string>com.apple.SetupAssistant.managed</string>" plist;
     pkgs.runCommand "can-gen-profile-if-ios-version-is-null" { } "touch $out";
 
   can-gen-profile-if-is-supervised-is-null =
@@ -30,7 +31,7 @@ in
       };
       plist = evalGetPlist config;
     in
-    assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
+    assert assertContains "<string>com.apple.SetupAssistant.managed</string>" plist;
     pkgs.runCommand "can-gen-profile-if-is-supervised-is-null" { } "touch $out";
 
   checks-min-ios-version =

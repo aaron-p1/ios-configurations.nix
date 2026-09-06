@@ -6,7 +6,6 @@ in
   _class = "ios";
 
   imports = [
-    ./build.nix
     ./profiles
   ];
 
