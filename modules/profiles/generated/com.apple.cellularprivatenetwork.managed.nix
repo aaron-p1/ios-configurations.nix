@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -36,9 +36,9 @@ in
     "Geofences" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "Longitude" = mkProfileOpt {
-              type = (utils.floatBetween (-180.0) (180.0));
+              type = (ios-config-utils.floatBetween (-180.0) (180.0));
               description = ''
                 The longitude of the geofence.
 
@@ -47,7 +47,7 @@ in
               required = true;
             };
             "Latitude" = mkProfileOpt {
-              type = (utils.floatBetween (-90.0) (90.0));
+              type = (ios-config-utils.floatBetween (-90.0) (90.0));
               description = ''
                 The latitude of the geofence.
 
@@ -56,7 +56,7 @@ in
               required = true;
             };
             "Radius" = mkProfileOpt {
-              type = (utils.floatBetween (100.0) (6500.0));
+              type = (ios-config-utils.floatBetween (100.0) (6500.0));
               description = ''
                 Specifies the radius of the geofence in meters. Set this
                 value slightly greater than the private cellular network

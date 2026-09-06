@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -165,7 +165,7 @@ in
     "Departments" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "Name" = mkProfileOpt {
               type = types.str;
               description = ''
@@ -201,7 +201,7 @@ in
     "Groups" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "BeaconID" = mkProfileOpt {
               type = types.int;
               description = ''
@@ -304,7 +304,7 @@ in
     "Users" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "Identifier" = mkProfileOpt {
               type = types.str;
               description = ''
@@ -447,7 +447,7 @@ in
     "DeviceGroups" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "Identifier" = mkProfileOpt {
               type = types.str;
               description = ''

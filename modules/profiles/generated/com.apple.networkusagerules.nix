@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -39,7 +39,7 @@ in
     "ApplicationRules" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "AppIdentifierMatches" = mkProfileOpt {
               type = (types.listOf types.str);
               description = ''
@@ -95,7 +95,7 @@ in
     "SIMRules" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "ICCIDs" = mkProfileOpt {
               type = (types.listOf types.str);
               description = ''

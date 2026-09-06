@@ -1,6 +1,6 @@
 {
   lib,
-  utils,
+  ios-config-utils,
   config,
   pkgs,
   ...
@@ -31,7 +31,7 @@ let
     attrsToList
     splitString
     ;
-  inherit (utils) toPlist;
+  inherit (ios-config-utils) toPlist;
 
   generatedConfigs = {
     setupAssistant.managed = {
@@ -293,7 +293,7 @@ let
   toProfileOption =
     config:
     toNestedAttrs config.path (mkOption {
-      type = utils.subopts config.options;
+      type = ios-config-utils.subopts config.options;
       description = config.description;
     });
 
@@ -326,8 +326,8 @@ let
         }
     ) (attrsToList supportData);
 
-  iosVersion = config.targetData.version;
-  isSupervised = config.targetData.isSupervised;
+  iosVersion = config.target.version;
+  isSupervised = config.target.isSupervised;
 
   # Currently not checking keys that are attrs, because checking if empty is elaborate.
   # This only causes the assertion message to be not as clear.
@@ -399,7 +399,7 @@ let
   toNestedAttrs =
     path: value: if path == [ ] then value else { ${head path} = toNestedAttrs (tail path) value; };
 
-  get-generated = name: import ./generated/${name}.nix { inherit lib utils; };
+  get-generated = name: import ./generated/${name}.nix { inherit lib ios-config-utils; };
 
   cfg = config.profiles;
 in

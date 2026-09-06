@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -90,7 +90,7 @@ in
     };
     "ExtensionData" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "cacheName" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -167,7 +167,7 @@ in
           };
           "domainRealmMapping" = mkProfileOpt {
             type = (
-              utils.subopts {
+              ios-config-utils.subopts {
                 "Realm" = mkProfileOpt {
                   type = (types.listOf types.str);
                   description = ''

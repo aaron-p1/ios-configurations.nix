@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -33,7 +33,7 @@ in
     "EnabledForCerts" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "Algorithm" = mkProfileOpt {
               type = (
                 types.enum [
@@ -48,7 +48,7 @@ in
               required = true;
             };
             "Hash" = mkProfileOpt {
-              type = utils.plistDataType;
+              type = ios-config-utils.plistDataType;
               description = ''
                 The hash of the DER-encoding of the certificate's
                 `subjectPublicKeyInfo`.

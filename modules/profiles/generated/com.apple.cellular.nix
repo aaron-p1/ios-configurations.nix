@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -36,7 +36,7 @@ in
     };
     "AttachAPN" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "Name" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -110,7 +110,7 @@ in
     "APNs" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "Name" = mkProfileOpt {
               type = types.str;
               description = ''

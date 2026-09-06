@@ -15,7 +15,7 @@ in
   can-gen-profile-if-ios-version-is-null =
     let
       config = {
-        targetData.version = null;
+        target.version = null;
         profiles.setupAssistant.managed.enable = true;
       };
       plist = evalGetPlist config;
@@ -26,7 +26,7 @@ in
   can-gen-profile-if-is-supervised-is-null =
     let
       config = {
-        targetData.isSupervised = null;
+        target.isSupervised = null;
         profiles.setupAssistant.managed.enable = true;
       };
       plist = evalGetPlist config;
@@ -37,7 +37,7 @@ in
   checks-min-ios-version =
     let
       gen-config = version: enable: {
-        targetData.version = version;
+        target.version = version;
         profiles.setupAssistant.managed.enable = enable;
       };
       result1 = tryEvalGetPlist (gen-config "13.0" true);
@@ -52,7 +52,7 @@ in
   checks-max-ios-version =
     let
       gen-config = version: enable: {
-        targetData.version = version;
+        target.version = version;
         profiles.mdm = {
           enable = enable;
           ManagedAppleID = "string";
@@ -73,7 +73,7 @@ in
   checks-supervised =
     let
       gen-config = isSupervised: enable: {
-        targetData.isSupervised = isSupervised;
+        target.isSupervised = isSupervised;
         profiles.setupAssistant.managed.enable = enable;
       };
       result1 = tryEvalGetPlist (gen-config false true);
@@ -88,7 +88,7 @@ in
   checks-support-through-array-values =
     let
       gen-config = version: {
-        targetData.version = version;
+        target.version = version;
         profiles.airplay = {
           enable = true;
           AllowList = [ { DeviceName = "DeviceNameValue"; } ];

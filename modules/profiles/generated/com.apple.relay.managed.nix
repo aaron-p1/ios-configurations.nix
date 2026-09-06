@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -31,7 +31,7 @@ in
     "Relays" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "HTTP3RelayURL" = mkProfileOpt {
               type = types.str;
               description = ''
@@ -87,7 +87,7 @@ in
               required = false;
             };
             "RawPublicKeys" = mkProfileOpt {
-              type = (types.listOf utils.plistDataType);
+              type = (types.listOf ios-config-utils.plistDataType);
               description = ''
                 An array of DER-encoded raw public keys that the system uses
                 to authenticate the server during a TLS handshake. The

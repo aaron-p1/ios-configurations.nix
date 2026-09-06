@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -38,11 +38,11 @@ in
     };
     "DefaultsData" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "apns" = mkProfileOpt {
             type = (
               types.listOf (
-                utils.subopts {
+                ios-config-utils.subopts {
                   "apn" = mkProfileOpt {
                     type = types.str;
                     description = ''
@@ -65,7 +65,7 @@ in
                     required = false;
                   };
                   "password" = mkProfileOpt {
-                    type = utils.plistDataType;
+                    type = ios-config-utils.plistDataType;
                     description = ''
                       The password for the user. For obfuscation purposes, the
                       system encodes the password. If missing, the device prompts

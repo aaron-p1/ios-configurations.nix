@@ -1,13 +1,13 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 
   type-id001 =
     _:
     (types.listOf (
-      utils.subopts {
+      ios-config-utils.subopts {
         "DeviceID" = mkProfileOpt {
           type = (types.strMatching "^([0-9A-Fa-f]{2}:){5}([0-9A-Fa-f]{2})$");
           description = ''
@@ -87,7 +87,7 @@ in
     "Passwords" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "DeviceName" = mkProfileOpt {
               type = types.str;
               description = ''

@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -36,7 +36,7 @@ in
     };
     "PayloadContent" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "URL" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -126,7 +126,7 @@ in
             required = false;
           };
           "CAFingerprint" = mkProfileOpt {
-            type = utils.plistDataType;
+            type = ios-config-utils.plistDataType;
             description = ''
               The fingerprint of the Certificate Authority certificate.
 
@@ -156,7 +156,7 @@ in
           };
           "SubjectAltName" = mkProfileOpt {
             type = (
-              utils.subopts {
+              ios-config-utils.subopts {
                 "rfc822Name" = mkProfileOpt {
                   type = types.str;
                   description = ''

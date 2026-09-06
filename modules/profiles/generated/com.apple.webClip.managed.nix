@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -72,7 +72,7 @@ in
       required = true;
     };
     "Icon" = mkProfileOpt {
-      type = utils.plistDataType;
+      type = ios-config-utils.plistDataType;
       description = ''
         The PNG icon to show on the Home Screen. If not set, the
         system displays a white square. For best results, provide a

@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 
   type-id001 =
     {
@@ -24,7 +24,7 @@ let
       types.anything
     else
       (types.listOf (
-        utils.subopts {
+        ios-config-utils.subopts {
           "Type" = mkProfileOpt {
             type = (
               types.enum [

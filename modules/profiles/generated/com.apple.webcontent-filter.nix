@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -132,7 +132,7 @@ in
     "WhitelistedBookmarks" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "URL" = mkProfileOpt {
               type = types.str;
               description = ''
@@ -167,7 +167,7 @@ in
     "AllowListBookmarks" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "URL" = mkProfileOpt {
               type = types.str;
               description = ''
@@ -338,7 +338,7 @@ in
     };
     "URLFilterParameters" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "URLFilterControlProviderDesignatedRequirement" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -408,7 +408,7 @@ in
             required = false;
           };
           "URLPrefilterFetchFrequency" = mkProfileOpt {
-            type = (utils.intMin 2700);
+            type = (ios-config-utils.intMin 2700);
             description = ''
               The time interval in seconds that the system uses to
               periodically run the `NEURLFilterControlProvider` app

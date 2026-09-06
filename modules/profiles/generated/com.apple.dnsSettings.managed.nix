@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -34,7 +34,7 @@ in
     };
     "DNSSettings" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "DNSProtocol" = mkProfileOpt {
             type = (
               types.enum [
@@ -141,7 +141,7 @@ in
     "OnDemandRules" = mkProfileOpt {
       type = (
         types.listOf (
-          utils.subopts {
+          ios-config-utils.subopts {
             "Action" = mkProfileOpt {
               type = (
                 types.enum [
@@ -167,7 +167,7 @@ in
             "ActionParameters" = mkProfileOpt {
               type = (
                 types.listOf (
-                  utils.subopts {
+                  ios-config-utils.subopts {
                     "Domains" = mkProfileOpt {
                       type = (types.listOf types.str);
                       description = ''

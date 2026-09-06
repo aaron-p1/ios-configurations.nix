@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -35,7 +35,7 @@ in
     };
     "App" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "Identifier" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -47,7 +47,7 @@ in
           };
           "Options" = mkProfileOpt {
             type = (
-              utils.subopts {
+              ios-config-utils.subopts {
                 "DisableTouch" = mkProfileOpt {
                   type = types.bool;
                   description = ''
@@ -180,7 +180,7 @@ in
           };
           "UserEnabledOptions" = mkProfileOpt {
             type = (
-              utils.subopts {
+              ios-config-utils.subopts {
                 "VoiceControl" = mkProfileOpt {
                   type = types.bool;
                   description = ''

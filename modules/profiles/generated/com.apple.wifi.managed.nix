@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 
   type-id001 = _: (types.listOf types.str);
 in
@@ -140,7 +140,7 @@ in
     };
     "EAPClientConfiguration" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "AcceptEAPTypes" = mkProfileOpt {
             type = (
               types.listOf (
@@ -516,7 +516,7 @@ in
     };
     "QoSMarkingPolicy" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "QoSMarkingAllowListAppIdentifiers" = mkProfileOpt {
             type = (type-id001 { });
             description = ''

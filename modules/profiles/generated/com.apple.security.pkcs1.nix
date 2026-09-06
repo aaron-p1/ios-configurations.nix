@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -40,7 +40,7 @@ in
       required = false;
     };
     "PayloadContent" = mkProfileOpt {
-      type = utils.plistDataType;
+      type = ios-config-utils.plistDataType;
       description = ''
         The binary representation of the payload, encoded in Base64.
 

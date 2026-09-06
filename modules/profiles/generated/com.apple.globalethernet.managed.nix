@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -37,7 +37,7 @@ in
       description = "The payload version for this profile";
     };
     "settings" = mkProfileOpt {
-      type = (utils.settingsOf types.anything);
+      type = (ios-config-utils.settingsOf types.anything);
       description = ''
         Keys relevant to 802.1X configuration. User enrollment
         payloads don't support the various proxy keys, including

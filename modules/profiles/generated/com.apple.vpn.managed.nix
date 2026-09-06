@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 
   type-id001 = _: (types.listOf types.str);
   type-id002 = _: (types.listOf types.str);
@@ -10,7 +10,7 @@ let
   type-id004 =
     _:
     (types.listOf (
-      utils.subopts {
+      ios-config-utils.subopts {
         "Action" = mkProfileOpt {
           type = (
             types.enum [
@@ -44,7 +44,7 @@ let
         "ActionParameters" = mkProfileOpt {
           type = (
             types.listOf (
-              utils.subopts {
+              ios-config-utils.subopts {
                 "Domains" = mkProfileOpt {
                   type = (types.listOf types.str);
                   description = ''
@@ -197,7 +197,7 @@ let
 
   type-id005 =
     _:
-    (utils.subopts {
+    (ios-config-utils.subopts {
       "EncryptionAlgorithm" = mkProfileOpt {
         type = (
           types.enum [
@@ -404,7 +404,7 @@ in
     };
     "VendorConfig" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "Realm" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -460,7 +460,7 @@ in
     };
     "VPN" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "AuthName" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -791,7 +791,7 @@ in
     };
     "IPv4" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "OverridePrimary" = mkProfileOpt {
             type = (
               types.enum [
@@ -819,7 +819,7 @@ in
     };
     "PPP" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "AuthName" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -982,7 +982,7 @@ in
     };
     "IPSec" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "RemoteAddress" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -1081,7 +1081,7 @@ in
             required = false;
           };
           "SharedSecret" = mkProfileOpt {
-            type = utils.plistDataType;
+            type = ios-config-utils.plistDataType;
             description = ''
               The shared secret for this VPN account.
 
@@ -1214,7 +1214,7 @@ in
     };
     "IKEv2" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "RemoteAddress" = mkProfileOpt {
             type = types.str;
             description = ''
@@ -1790,7 +1790,7 @@ in
             required = false;
           };
           "PPK" = mkProfileOpt {
-            type = utils.plistDataType;
+            type = ios-config-utils.plistDataType;
             description = ''
               The Post-quantum Pre-shared key (PPK) the device uses for
               this VPN. This key is is used with VPN servers that support
@@ -1898,7 +1898,7 @@ in
     };
     "DNS" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "DNSProtocol" = mkProfileOpt {
             type = (
               types.enum [
@@ -2033,7 +2033,7 @@ in
     };
     "Proxies" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "ProxyAutoConfigEnable" = mkProfileOpt {
             type = (
               types.enum [
@@ -2178,7 +2178,7 @@ in
     };
     "AlwaysOn" = mkProfileOpt {
       type = (
-        utils.subopts {
+        ios-config-utils.subopts {
           "UIToggleEnabled" = mkProfileOpt {
             type = (
               types.enum [
@@ -2196,7 +2196,7 @@ in
           "TunnelConfigurations" = mkProfileOpt {
             type = (
               types.listOf (
-                utils.subopts {
+                ios-config-utils.subopts {
                   "ProtocolType" = mkProfileOpt {
                     type = (
                       types.enum [
@@ -2240,7 +2240,7 @@ in
           "ServiceExceptions" = mkProfileOpt {
             type = (
               types.listOf (
-                utils.subopts {
+                ios-config-utils.subopts {
                   "ServiceName" = mkProfileOpt {
                     type = (
                       types.enum [
@@ -2294,7 +2294,7 @@ in
           "ApplicationExceptions" = mkProfileOpt {
             type = (
               types.listOf (
-                utils.subopts {
+                ios-config-utils.subopts {
                   "BundleIdentifier" = mkProfileOpt {
                     type = types.str;
                     description = ''
@@ -2364,7 +2364,7 @@ in
           "AllowedCaptiveNetworkPlugins" = mkProfileOpt {
             type = (
               types.listOf (
-                utils.subopts {
+                ios-config-utils.subopts {
                   "BundleIdentifier" = mkProfileOpt {
                     type = types.str;
                     description = ''

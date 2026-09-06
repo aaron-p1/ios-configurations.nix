@@ -6,12 +6,7 @@
 let
   inherit (lib) assertMsg hasInfix;
 
-  eval =
-    modules:
-    self.lib.iosConfig {
-      inherit pkgs;
-      modules = lib.toList modules;
-    };
+  eval = modules: self.lib.iosConfig { modules = lib.toList modules; } pkgs;
 
   testUtils = rec {
     assertVal =

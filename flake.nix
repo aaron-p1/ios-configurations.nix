@@ -11,6 +11,8 @@
       systems = [
         "x86_64-linux"
         "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
       systemAttr =
         f: system:
@@ -23,40 +25,27 @@
     {
       lib = import ./lib { inherit lib; };
 
-      iosModules = {
-        default = ./modules;
+      iosModules.default = {
+        imports = [ ./modules ];
+        _module.args.ios-config-utils = import ./utils.nix { inherit lib; };
       };
 
       packages = forAllSystems (
         { pkgs, ... }: {
-          manpage =
-            let
-              optionsDoc = (
-                pkgs.nixosOptionsDoc {
-                  inherit ((self.lib.iosConfig { inherit pkgs; })) options;
-                  transformOptions = o: o // { declarations = [ ]; };
-                  warningsAreErrors = false;
-                }
-              );
-            in
-            pkgs.runCommand "ios-configurations.5" { } ''
-              mkdir -p $out/share/man/man5
-              ${pkgs.nixos-render-docs}/bin/nixos-render-docs -j $NIX_BUILD_CORES \
-                options manpage \
-                --revision ${self.rev or "dirty"} \
-                ${optionsDoc.optionsJSON}/share/doc/nixos/options.json \
-                $out/share/man/man5/ios-configurations.5
-
-              # for some reason it does not render Required: and Deprecated in on separate lines
-              sed -i "s| Deprecated in|\n.br\nDeprecated in|g" $out/share/man/man5/ios-configurations.5
-            '';
-
+          manpage = import ./pkgs/manpage.nix { inherit self pkgs; };
           import-profiles = import ./pkgs/import-profiles { inherit pkgs; };
         }
       );
 
-      formatter = forAllSystems ({ pkgs, ... }: pkgs.nixfmt-tree);
+      templates = rec {
+        default = usage;
+        usage = {
+          path = ./templates/usage;
+          description = "Default template for using this flake to configure iOS devices";
+        };
+      };
 
+      formatter = forAllSystems ({ pkgs, ... }: pkgs.nixfmt-tree);
       checks = forAllSystems ({ pkgs, ... }: import ./checks { inherit self pkgs lib; });
 
       devShells = forAllSystems (

@@ -11,7 +11,7 @@ in
   ];
 
   options = {
-    targetData = {
+    target = {
       version = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -26,6 +26,15 @@ in
         description = ''
           Whether the target device is supervised.
           Only used for validating profile options.
+        '';
+      };
+
+      udid = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          The UDID of the target device used for deployment.
+          If null, the deployment will run on the default device selected by `go-ios`.
         '';
       };
     };

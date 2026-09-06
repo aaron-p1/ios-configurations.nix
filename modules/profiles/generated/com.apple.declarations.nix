@@ -1,8 +1,8 @@
 # Generated from import-profiles.py. Do not edit.
-{ lib, utils, ... }:
+{ lib, ios-config-utils, ... }:
 let
   inherit (lib) types mkEnableOption mkOption;
-  inherit (utils) mkProfileOpt;
+  inherit (ios-config-utils) mkProfileOpt;
 in
 {
   description = ''
@@ -41,7 +41,7 @@ in
       description = "The payload version for this profile";
     };
     "Declarations" = mkProfileOpt {
-      type = (types.listOf utils.plistDataType);
+      type = (types.listOf ios-config-utils.plistDataType);
       description = ''
         The set of declarations to apply. The array items are
         Base64-encoded data representations of the declaration JSON

@@ -305,7 +305,7 @@ def dictionary_to_nix_submodule(
         return ([], [], f"(types.attrsOf {nix_type})")
 
     smaller_template = """
-        (utils.subopts {
+        (ios-config-utils.subopts {
           $options
         })
     """
@@ -316,7 +316,7 @@ def dictionary_to_nix_submodule(
 
     template = """
         (
-          utils.subopts {
+          ios-config-utils.subopts {
             $options
           }
         )
@@ -390,19 +390,21 @@ def key_type_to_nix_type(
                         return ret_type(
                             f"(types.ints.between {intRange['min']} {intRange['max']})"
                         )
-                    return ret_type(f"(utils.intMin {intRange['min']})")
-                return ret_type(f"(utils.intMax {intRange['max']})")
+                    return ret_type(f"(ios-config-utils.intMin {intRange['min']})")
+                return ret_type(f"(ios-config-utils.intMax {intRange['max']})")
 
             return ret_type("types.int")
         case "<real>":
             if payload_key.get("range"):
                 range_min = payload_key["range"]["min"]
                 range_max = payload_key["range"]["max"]
-                return ret_type(f"(utils.floatBetween ({range_min}) ({range_max}))")
+                return ret_type(
+                    f"(ios-config-utils.floatBetween ({range_min}) ({range_max}))"
+                )
 
             return ret_type("types.float")
         case "<data>":
-            return ret_type("utils.plistDataType")
+            return ret_type("ios-config-utils.plistDataType")
         case "<array>":
             subkeys = payload_key["subkeys"]
             if isinstance(subkeys, Ref):
@@ -507,7 +509,7 @@ def payload_key_to_option(
     )
 
     if is_any:
-        nix_type = f"(utils.settingsOf {nix_type})"
+        nix_type = f"(ios-config-utils.settingsOf {nix_type})"
 
     required = (
         "true" if payload_key.get("presence", "optional") == "required" else "false"
@@ -791,10 +793,10 @@ def gen_support_data_string(support_data_list, global_values):
 def profile_to_module(profile, module_name):
     template = """
         # Generated from import-profiles.py. Do not edit.
-        { lib, utils, ... }:
+        { lib, ios-config-utils, ... }:
         let
           inherit (lib) types mkEnableOption mkOption;
-          inherit (utils) mkProfileOpt;$var_definitions
+          inherit (ios-config-utils) mkProfileOpt;$var_definitions
         in
         {
           description = ''
