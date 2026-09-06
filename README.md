@@ -96,6 +96,8 @@ Options that need certain iOS versions or a supervised device can
 be validated by setting the `target.version` and `target.supervised` keys in the configuration.
 If these keys are `null` (default), options are not validate against them.
 
+(`nix flake check` can check the configuration.)
+
 ## Documentation
 
 A man page of all options is available and in the [flake template](/templates/usage/flake.nix)

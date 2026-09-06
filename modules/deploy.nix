@@ -64,8 +64,20 @@ in
     ${optionalString config.profiles.enable
       # bash
       ''
-        echo "Deploying profiles..."
-        ${config.deploy.profileDeployCmd}
+        set +e
+        (
+          set -e
+          echo "Deploying profiles..."
+          ${config.deploy.profileDeployCmd}
+          echo -e "\n\e[32mSuccessfully deployed profile\e[0m"
+        )
+        rc=$?
+        set -e
+
+        if [ $rc -ne 0 ]; then
+          echo -e "\n\e[31mFailed to deploy profile (exit code $rc)\e[0m"
+          exit $rc
+        fi
       ''
     }
   '';
