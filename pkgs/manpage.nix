@@ -1,8 +1,4 @@
-{
-  self,
-  pkgs,
-  ...
-}:
+{ self, pkgs, ... }:
 let
   inherit (builtins) replaceStrings concatStringsSep;
   inherit (pkgs.lib) escape;

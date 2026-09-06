@@ -26,9 +26,13 @@ let
       ;
     projectLib = self.lib;
   };
+
+  system = pkgs.stdenv.hostPlatform.system;
 in
 {
   can-build-deploy-script = (eval { }).config.deploy.script;
+
+  can-build-wireless-config-pkg = self.packages.${system}.wireless-config;
 }
 // (import ./lib.nix testArgs)
 // (import ./utils.nix testArgs)

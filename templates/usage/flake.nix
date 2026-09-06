@@ -58,9 +58,9 @@
         { pkgs, system, ... }: {
           default = pkgs.mkShell {
             # info about connected iOS devices:
-            # (idevice commands need "-n" for devices accessed via WiFi)
+            # (libimobiledevice commands require "-n" for devices accessed wirelessly)
             # $ idevice_id -nl
-            # $ ideviceinfo -n
+            # $ ideviceinfo
             buildInputs = [ pkgs.libimobiledevice ];
 
             shellHook = ''

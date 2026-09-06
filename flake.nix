@@ -31,9 +31,12 @@
       };
 
       packages = forAllSystems (
-        { pkgs, ... }: {
+        { pkgs, ... }: rec {
           manpage = import ./pkgs/manpage.nix { inherit self pkgs; };
+          wireless-config = import ./pkgs/wireless-config { inherit pkgs; };
+          # used to generate profile options from a source
           import-profiles = import ./pkgs/import-profiles { inherit pkgs; };
+          gen-docs-opts-md = import ./pkgs/gen-docs-opts-md.nix { inherit pkgs manpage; };
         }
       );
 
