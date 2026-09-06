@@ -117,7 +117,7 @@ For example, the profile `webcontent-filter` requires `ContentFilterUUID` to be 
 on unsupervised devices.
 If you find any other missing assertions (installing the profile on the device
 gives an error message saying the profile is somehow invalid), feel free to open an issue or PR.
-(Assertions are defined [here](/modules/profiles/assertions.nix))
+(Assertions are defined [here](/modules/profiles/overrides.nix))
 
 Options that need certain iOS versions or a supervised device can
 be validated by setting the `target.version` and `target.supervised` keys in the configuration.

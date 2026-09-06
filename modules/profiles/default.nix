@@ -13,6 +13,7 @@ let
     removeAttrs
     concatMap
     foldl'
+    isFunction
     ;
   inherit (lib)
     mkEnableOption
@@ -311,8 +312,16 @@ let
 
   toProfileAssertions =
     pConfig:
+    let
+      userConfig = getProfileConfigValues pConfig;
+      pConfigAssertions = (pConfig.assertions or (_: [ ])) {
+        inherit (config) target;
+        cfg = userConfig;
+      };
+
+    in
     if (getProfileConfigValues pConfig).enable then
-      genAssertions pConfig.supportData (getProfileConfigValues pConfig) pConfig.path [ ]
+      (genAssertions pConfig.supportData userConfig pConfig.path [ ]) ++ pConfigAssertions
     else
       [ ];
 
@@ -404,12 +413,18 @@ let
   toNestedAttrs =
     path: value: if path == [ ] then value else { ${head path} = toNestedAttrs (tail path) value; };
 
+  overrides = import ./overrides.nix { inherit lib ios-config-utils; };
+
+  applyOverride =
+    config: override: if isFunction override then override config else config // override;
+
   loadGenerated = name: import ./generated/${name}.nix { inherit lib ios-config-utils; };
 
   loadWithCommon =
     name:
     let
-      config = loadGenerated name;
+      rawConfig = loadGenerated name;
+      config = if overrides ? ${name} then applyOverride rawConfig overrides.${name} else rawConfig;
     in
     config
     // {
@@ -434,8 +449,6 @@ let
 in
 {
   _class = "ios";
-
-  imports = [ ./assertions.nix ];
 
   options.profiles = {
     enable = mkEnableOption "Enable deploying profiles to iOS devices";
