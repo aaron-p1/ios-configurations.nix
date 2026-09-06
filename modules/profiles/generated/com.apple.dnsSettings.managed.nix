@@ -1,10 +1,11 @@
 # Generated from import-profiles.py. Do not edit.
 { lib, ios-config-utils, ... }:
 let
-  inherit (lib) types mkEnableOption mkOption;
+  inherit (lib) types;
   inherit (ios-config-utils) mkProfileOpt;
 in
 {
+  payloadType = "com.apple.dnsSettings.managed";
   description = ''
     The payload that configures encrypted DNS settings.
 
@@ -13,25 +14,7 @@ in
     When installed manually, this setting also applies to cellular networks.
   '';
   options = {
-    enable = mkEnableOption "Enable the com.apple.dnsSettings.managed profile";
-    PayloadType = mkOption {
-      type = types.str;
-      default = "com.apple.dnsSettings.managed";
-      description = "The payload type for this profile";
-    };
-    PayloadIdentifier = mkOption {
-      type = types.str;
-      description = "The payload identifier for this profile";
-    };
-    PayloadUUID = mkOption {
-      type = types.str;
-      description = "The payload UUID for this profile";
-    };
-    PayloadVersion = mkOption {
-      type = types.int;
-      default = 1;
-      description = "The payload version for this profile";
-    };
+    enable = lib.mkEnableOption "Enable the com.apple.dnsSettings.managed profile";
     "DNSSettings" = mkProfileOpt {
       type = (
         ios-config-utils.subopts {

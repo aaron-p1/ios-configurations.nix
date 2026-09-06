@@ -56,6 +56,18 @@ rec {
       descriptionClass = "noun";
     };
 
+  dateDataType =
+    let
+      regex = "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$";
+      baseType = types.strMatching regex;
+    in
+    baseType
+    // {
+      name = "date";
+      description = "Date as string in the format YYYY-MM-DDTHH:MM:SSZ";
+      merge = loc: defs: tagVal "date" (baseType.merge loc defs);
+    };
+
   plistDataType =
     let
       baseType = types.either types.str types.path;
@@ -63,7 +75,7 @@ rec {
     baseType
     // {
       name = "plist-data";
-      description = ''Written as string or path, read as { __type = "data", value = ... }'';
+      description = "string or path (string or file content will be made base64 encoded <data> in plist)";
       merge = loc: defs: tagVal "data" (baseType.merge loc defs);
     };
 
@@ -75,7 +87,6 @@ rec {
     baseType
     // {
       name = "settings-data";
-      description = ''Written as attrs, read as { __type = "settings", value = {...} }'';
       merge = loc: defs: tagVal "settings" (baseType.merge loc defs);
     };
 
@@ -180,6 +191,8 @@ rec {
         ];
       in
       [ "<data>" ] ++ data ++ [ "</data>" ]
+    else if isAttrs value && (value ? __type) && value.__type == "date" then
+      [ "<date>${value.value}</date>" ]
     else if isAttrs value then
       attrsToPlistLines value
     else

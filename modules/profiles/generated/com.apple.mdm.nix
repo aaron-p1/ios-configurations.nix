@@ -1,10 +1,11 @@
 # Generated from import-profiles.py. Do not edit.
 { lib, ios-config-utils, ... }:
 let
-  inherit (lib) types mkEnableOption mkOption;
+  inherit (lib) types;
   inherit (ios-config-utils) mkProfileOpt;
 in
 {
+  payloadType = "com.apple.mdm";
   description = ''
     The payload that configures mobile device management (MDM) settings.
 
@@ -28,25 +29,7 @@ in
     treat them as managed preferences.
   '';
   options = {
-    enable = mkEnableOption "Enable the com.apple.mdm profile";
-    PayloadType = mkOption {
-      type = types.str;
-      default = "com.apple.mdm";
-      description = "The payload type for this profile";
-    };
-    PayloadIdentifier = mkOption {
-      type = types.str;
-      description = "The payload identifier for this profile";
-    };
-    PayloadUUID = mkOption {
-      type = types.str;
-      description = "The payload UUID for this profile";
-    };
-    PayloadVersion = mkOption {
-      type = types.int;
-      default = 1;
-      description = "The payload version for this profile";
-    };
+    enable = lib.mkEnableOption "Enable the com.apple.mdm profile";
     "IdentityCertificateUUID" = mkProfileOpt {
       type = (
         types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"

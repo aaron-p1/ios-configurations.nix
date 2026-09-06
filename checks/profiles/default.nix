@@ -45,6 +45,14 @@ in
     assert assertDoesNotContain "<string>com.apple.SetupAssistant.managed</string>" plist;
     pkgs.runCommand "does-not-gen-disabled-profile" { } "touch $out";
 
+  does-not-gen-enable-key =
+    let
+      config.profiles.setupAssistant.managed.enable = true;
+      plist = evalGetPlist config;
+    in
+    assert assertDoesNotContain "enable" plist;
+    pkgs.runCommand "does-not-gen-enable-key" { } "touch $out";
+
   can-gen-enabled-empty-profile =
     let
       config.profiles.setupAssistant.managed.enable = true;

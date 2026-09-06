@@ -1,10 +1,11 @@
 # Generated from import-profiles.py. Do not edit.
 { lib, ios-config-utils, ... }:
 let
-  inherit (lib) types mkEnableOption mkOption;
+  inherit (lib) types;
   inherit (ios-config-utils) mkProfileOpt;
 in
 {
+  payloadType = "com.apple.cellularprivatenetwork.managed";
   description = ''
     The payload that provides device info on private network deployments, including
     geographical location, preference over Wi-Fi, and network deployment type.
@@ -14,25 +15,7 @@ in
     type. Only five Cellular Private Networks can be configured simultaneously.
   '';
   options = {
-    enable = mkEnableOption "Enable the com.apple.cellularprivatenetwork.managed profile";
-    PayloadType = mkOption {
-      type = types.str;
-      default = "com.apple.cellularprivatenetwork.managed";
-      description = "The payload type for this profile";
-    };
-    PayloadIdentifier = mkOption {
-      type = types.str;
-      description = "The payload identifier for this profile";
-    };
-    PayloadUUID = mkOption {
-      type = types.str;
-      description = "The payload UUID for this profile";
-    };
-    PayloadVersion = mkOption {
-      type = types.int;
-      default = 1;
-      description = "The payload version for this profile";
-    };
+    enable = lib.mkEnableOption "Enable the com.apple.cellularprivatenetwork.managed profile";
     "Geofences" = mkProfileOpt {
       type = (
         types.listOf (

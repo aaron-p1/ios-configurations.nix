@@ -199,6 +199,14 @@ in
     assert assertContains "<string>Device2</string>" plist;
     pkgs.runCommand "can-output-array" { } "touch $out";
 
+  can-output-date =
+    let
+      config.profiles.RemovalDate = "2024-01-01T00:00:00Z";
+      plist = evalGetPlist config;
+    in
+    assert assertContains "<date>2024-01-01T00:00:00Z</date>" plist;
+    pkgs.runCommand "can-output-date" { } "touch $out";
+
   can-output-data =
     let
       config.profiles.apn.managed = {

@@ -1,33 +1,16 @@
 # Generated from import-profiles.py. Do not edit.
 { lib, ios-config-utils, ... }:
 let
-  inherit (lib) types mkEnableOption mkOption;
+  inherit (lib) types;
   inherit (ios-config-utils) mkProfileOpt;
 in
 {
+  payloadType = "com.apple.subscribedcalendar.account";
   description = ''
     The payload that configures subscribed calendars.
   '';
   options = {
-    enable = mkEnableOption "Enable the com.apple.subscribedcalendar.account profile";
-    PayloadType = mkOption {
-      type = types.str;
-      default = "com.apple.subscribedcalendar.account";
-      description = "The payload type for this profile";
-    };
-    PayloadIdentifier = mkOption {
-      type = types.str;
-      description = "The payload identifier for this profile";
-    };
-    PayloadUUID = mkOption {
-      type = types.str;
-      description = "The payload UUID for this profile";
-    };
-    PayloadVersion = mkOption {
-      type = types.int;
-      default = 1;
-      description = "The payload version for this profile";
-    };
+    enable = lib.mkEnableOption "Enable the com.apple.subscribedcalendar.account profile";
     "SubCalAccountDescription" = mkProfileOpt {
       type = types.str;
       description = ''

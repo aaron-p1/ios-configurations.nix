@@ -22,6 +22,7 @@ let
     mapAttrsToList
     recursiveUpdate
     pipe
+    getAttrs
     attrByPath
     concatStringsSep
     flatten
@@ -288,7 +289,7 @@ let
   profileAssertions = concatMap toProfileAssertions configs;
 
   # convert generatedConfigs to list and import each generated config
-  configs = map (config: config // (get-generated config.name)) (nestedAttrsToList generatedConfigs);
+  configs = map (config: config // (loadWithCommon config.name)) (nestedAttrsToList generatedConfigs);
 
   toProfileOption =
     config:
@@ -299,10 +300,14 @@ let
 
   toDefaultProfileConfig =
     config:
-    toNestedAttrs config.path {
-      PayloadIdentifier = mkDefault config.id;
-      PayloadUUID = mkDefault config.uuid;
-    };
+    toNestedAttrs config.path (
+      commonDefaultConfig
+      // {
+        PayloadType = mkDefault config.payloadType;
+        PayloadIdentifier = mkDefault config.id;
+        PayloadUUID = mkDefault config.uuid;
+      }
+    );
 
   toProfileAssertions =
     pConfig:
@@ -399,7 +404,31 @@ let
   toNestedAttrs =
     path: value: if path == [ ] then value else { ${head path} = toNestedAttrs (tail path) value; };
 
-  get-generated = name: import ./generated/${name}.nix { inherit lib ios-config-utils; };
+  loadGenerated = name: import ./generated/${name}.nix { inherit lib ios-config-utils; };
+
+  loadWithCommon =
+    name:
+    let
+      config = loadGenerated name;
+    in
+    config
+    // {
+      options = config.options // commonConfig.options;
+      supportData = config.supportData // commonConfig.supportData;
+    };
+
+  commonConfig = loadGenerated "CommonPayloadKeys";
+  commonDefaultConfig = {
+    PayloadVersion = 1;
+  };
+
+  topLevelConfig = loadGenerated "TopLevel";
+
+  topLevelOptions = removeAttrs topLevelConfig.options [ "PayloadContent" ];
+  topLevelSupportData = removeAttrs topLevelConfig.supportData [ "PayloadContent" ];
+  topLevelAssertions = genAssertions topLevelSupportData cfg [ "profiles" ] [ ];
+
+  topLevelOptionKeys = mapAttrsToList (name: _: name) topLevelOptions;
 
   cfg = config.profiles;
 in
@@ -410,32 +439,6 @@ in
 
   options.profiles = {
     enable = mkEnableOption "Enable deploying profiles to iOS devices";
-
-    PayloadDisplayName = mkOption {
-      type = types.str;
-      default = "Config from ios-configurations.nix";
-      description = "The display name when viewing this config/profile in Settings";
-    };
-    PayloadIdentifier = mkOption {
-      type = types.str;
-      default = "ios-configurations";
-      description = "The payload identifier for this config";
-    };
-    PayloadUUID = mkOption {
-      type = types.str;
-      default = "82bc8a73-3345-4154-817a-45b7993d3492";
-      description = "The payload UUID for this config";
-    };
-    PayloadType = mkOption {
-      type = types.str;
-      default = "Configuration";
-      description = "The payload type for this config";
-    };
-    PayloadVersion = mkOption {
-      type = types.int;
-      default = 1;
-      description = "The payload version for this config";
-    };
 
     plist = mkOption {
       type = types.str;
@@ -461,10 +464,17 @@ in
       );
     };
   }
+  // topLevelOptions
   // profileOptions;
 
   config = {
     profiles = {
+      PayloadDisplayName = mkDefault "Config from ios-configurations.nix";
+      PayloadIdentifier = mkDefault "ios-configurations";
+      PayloadUUID = mkDefault "82bc8a73-3345-4154-817a-45b7993d3492";
+      PayloadType = mkDefault "Configuration";
+      PayloadVersion = mkDefault 1;
+
       plist =
         let
           failedAssertions = map (a: a.message) (filter (a: !a.assertion) cfg.assertions);
@@ -478,14 +488,7 @@ in
             concatStringsSep "\n" ([ first_line ] ++ rest);
           failedAssertionsText = concatStringsSep "\n" (map formatMsg failedAssertions);
 
-          plistAttrs = {
-            inherit (cfg)
-              PayloadDisplayName
-              PayloadIdentifier
-              PayloadUUID
-              PayloadType
-              PayloadVersion
-              ;
+          plistAttrs = (getAttrs topLevelOptionKeys cfg) // {
             PayloadContent = profileConfigValues;
           };
         in
@@ -496,7 +499,7 @@ in
 
       mobileconfig = (pkgs.writeText "ios-configuration.mobileconfig" cfg.plist);
 
-      assertions = profileAssertions;
+      assertions = topLevelAssertions ++ profileAssertions;
     }
     // defaultProfileConfig;
   };

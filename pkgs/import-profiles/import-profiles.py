@@ -133,7 +133,7 @@ def extract_profiles(tarball_bytes):
             if len(parts) != 4 or parts[1:3] != ("mdm", "profiles"):
                 continue
             name = parts[3]
-            if not name.startswith("com.apple.") or not name.endswith(".yaml"):
+            if not name.endswith(".yaml"):
                 continue
             handle = tar.extractfile(member)
             if handle is None:
@@ -438,6 +438,8 @@ def key_type_to_nix_type(
                 indent,
                 opts,
             )
+        case "<date>":
+            return ret_type("ios-config-utils.dateDataType")
         case "<any>":
             return ret_type("types.anything")
         case _:
@@ -757,7 +759,7 @@ def get_support_data(payload, prev_data={}):
     }
 
 
-def gen_support_data_string(support_data_list, global_values):
+def gen_support_data_string(support_data_list, global_values, with_enable):
     template = """
         $key = {
           minIos = $min_ios;
@@ -770,12 +772,18 @@ def gen_support_data_string(support_data_list, global_values):
         textwrap.indent(textwrap.dedent(template), "    ").lstrip("\n").rstrip()
     )
 
-    main_support_data = {
-        "path": ["enable"],
-        "value": global_values,
-    }
+    main_support_data = (
+        [
+            {
+                "path": ["enable"],
+                "value": global_values,
+            }
+        ]
+        if with_enable
+        else []
+    )
 
-    all_support_data = [main_support_data] + list(flatten(support_data_list))
+    all_support_data = main_support_data + list(flatten(support_data_list))
 
     support_strings = map(
         lambda entry: Template(indented_template).substitute(
@@ -795,33 +803,15 @@ def profile_to_module(profile, module_name):
         # Generated from import-profiles.py. Do not edit.
         { lib, ios-config-utils, ... }:
         let
-          inherit (lib) types mkEnableOption mkOption;
+          inherit (lib) types;
           inherit (ios-config-utils) mkProfileOpt;$var_definitions
         in
         {
+          payloadType = "$payload_type";
           description = ''
             $description
           '';
-          options = {
-            enable = mkEnableOption "Enable the $payload_type profile";
-            PayloadType = mkOption {
-              type = types.str;
-              default = "$payload_type";
-              description = "The payload type for this profile";
-            };
-            PayloadIdentifier = mkOption {
-              type = types.str;
-              description = "The payload identifier for this profile";
-            };
-            PayloadUUID = mkOption {
-              type = types.str;
-              description = "The payload UUID for this profile";
-            };
-            PayloadVersion = mkOption {
-              type = types.int;
-              default = 1;
-              description = "The payload version for this profile";
-            };
+          options = {$enable_option
             $options
           };
           supportData = {
@@ -831,6 +821,8 @@ def profile_to_module(profile, module_name):
     """.removeprefix(
         "\n"
     )
+
+    with_enable = module_name not in ("CommonPayloadKeys", "TopLevel")
 
     gen_opts = GEN_OPTS.get(module_name, {})
 
@@ -852,6 +844,12 @@ def profile_to_module(profile, module_name):
 
     description = textwrap.indent("\n".join(formatted_descr_lines), "    ").strip()
 
+    enable_option = (
+        (f'\n    enable = lib.mkEnableOption "Enable the {payload_type} profile";')
+        if with_enable
+        else ""
+    )
+
     ios_payload_keys = list(
         filter(payload_key_supports_ios, profile.get("payloadkeys", []))
     )
@@ -867,12 +865,13 @@ def profile_to_module(profile, module_name):
     var_definitions = "\n\n" + var_definitions if var_definitions else ""
 
     support_data_string = gen_support_data_string(
-        support_data_list, global_support_data
+        support_data_list, global_support_data, with_enable
     )
 
     return Template(textwrap.dedent(template)).substitute(
-        description=description,
         payload_type=payload_type,
+        description=description,
+        enable_option=enable_option,
         options="\n".join(options).strip(),
         var_definitions=var_definitions,
         support_data=support_data_string.strip(),

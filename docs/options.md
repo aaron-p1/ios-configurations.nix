@@ -103,55 +103,259 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.PayloadDisplayName**
+**profiles.ConsentText**
 
-> The display name when viewing this config/profile in Settings
+> A dictionary that includes:
 >
-> *Type:* string
+> > **•** A key that contains the IETF BCP 47 identifier for a language,
+> > such as *en* or *jp*
+>
+> > **•** A value that contains the agreement localized to language
+> > specified by the key
+>
+> The dictionary can also contain an optional key, 'default', with its
+> value consisting of the unlocalized (usually in *en*) agreement.
+>
+> The system always displays the agreement in a dialog, and the user
+> needs to agree before the system can install the profile.
+>
+> The system chooses a localized version in the order of preference that
+> the user specifies in macOS, or based on the user's current language
+> setting in iOS. If there's no exact match, the system uses the default
+> localization. If there's no default localization, the system uses the
+> *en* localization. If there's no *en* localization, the system uses
+> the first available localization.
+>
+> > *""* Tip: Provide a default value, if possible. The system won't
+> > display a warning if the user's locale doesn't match any
+> > localization in the 'ConsentText' dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or (submodule)
 >
 > *Default:*
 >
-> > "Config from ios-configurations.nix"
+> > null
+
+**profiles.ConsentText.ConsentTextItem**
+
+> The dictionary containing a key that consists of the IETF BCP 47
+> identifier for a language (for example, en or jp) and a value that
+> consists of the agreement localized to that language.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* attribute set of string
+>
+> *Default:*
+>
+> > { }
+
+**profiles.DurationUntilRemoval**
+
+> The number of seconds until the profile is automatically removed. If
+> the 'RemovalDate' key is present, the system uses whichever field
+> yields the earliest date.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or floating point number
+>
+> *Default:*
+>
+> > null
+
+**profiles.EncryptedPayloadContent**
+
+> Enabled if 'IsEncrypted' is 'true'.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string or path (string or file content will be made
+> base64 encoded \<data\> in plist)
+>
+> *Default:*
+>
+> > null
+
+**profiles.PayloadDescription**
+
+> The description of the profile, shown on the Detail screen for the
+> profile. Make this description detailed enough to help the user decide
+> whether to install the profile.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.PayloadDisplayName**
+
+> The human-readable name for the profile, which doesn't need to be
+> unique. The system displays this value on the Detail screen.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.PayloadExpirationDate**
+
+> The date when a profile is no longer valid and the system presents an
+> update button to the user.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or Date as string in the format YYYY-MM-DDTHH:MM:SSZ
+>
+> *Default:*
+>
+> > null
 
 **profiles.PayloadIdentifier**
 
-> The payload identifier for this config
+> The reverse-DNS style identifier ('com.example.myprofile', for
+> example) that identifies the profile. The system uses this string to
+> determine whether to replace an existing profile or add it as a new
+> profile.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
+
+**profiles.PayloadOrganization**
+
+> The human-readable string that contains the name of the organization
+> that provided the profile.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "ios-configurations"
+> > null
+
+**profiles.PayloadRemovalDisallowed**
+
+> If present and set to 'true', the user can't delete the profile unless
+> the profile has a removal password and the user provides it.
+>
+> On macOS 10.15 and later, this key only affects removal of *manually*
+> installed profiles. If set to 'true' and no profile removal payload is
+> present, removing the profile requires admin auth.
+>
+> On macOS versions prior to 10.15, this key prevents admins from
+> removing MDM installed profiles. However, as of macOS 10.15, users can
+> never remove MDM profiles, not even the admin.
+>
+> On iOS users can't remove a MDM profile.
+>
+> Requires a supervised device.
+>
+> Requires: iOS \>= 4.0; supervised device
+>
+> *Type:* null or boolean
+>
+> *Default:*
+>
+> > null
+
+**profiles.PayloadScope**
+
+> A string that defines whether to install the profile for the system or
+> the user. In many cases, it determines the location of certificate
+> items, such as keychains. Though it's not possible to declare
+> different payload scopes, payloads like VPN can automatically install
+> their items in both scopes, if needed.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or one of "System", "User"
+>
+> *Default:*
+>
+> > null
 
 **profiles.PayloadType**
 
-> The payload type for this config
+> The type of payload. The only supported value is 'Configuration'.
 >
-> *Type:* string
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > "Configuration"
+> *Type:* value "Configuration" (singular enum)
 
 **profiles.PayloadUUID**
 
-> The payload UUID for this config
+> The globally unique identifier for the profile. The actual content is
+> unimportant. In macOS, you can use 'uuidgen' to generate reasonable
+> UUIDs.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
->
-> *Default:*
->
-> > "82bc8a73-3345-4154-817a-45b7993d3492"
 
 **profiles.PayloadVersion**
 
-> The payload version for this config
+> The version number of the profile format, which needs to be '1'. This
+> number represents the version of the configuration profile as a whole,
+> not of the individual profiles within it.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
+>
+> *Type:* value 1 (singular enum)
+
+**profiles.RemovalDate**
+
+> The date when the system automatically removes the profile.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or Date as string in the format YYYY-MM-DDTHH:MM:SSZ
 >
 > *Default:*
 >
-> > 1
+> > null
+
+**profiles.TargetDeviceType**
+
+> The type of platform of the target device. Specifying the platform
+> type helps prevent unintended installations.
+>
+> For interactive installations on iOS devices, specifying a target
+> platform avoids interstitial alerts that prompt the user to choose a
+> profile target when multiple targets are eligible.
+>
+> Allowed values:
+>
+> > **•** '0': Any/unspecified
+>
+> > **•** '1': iPhone/iPad/iPod Touch
+>
+> > **•** '2': Apple Watch
+>
+> > **•** '3': HomePod
+>
+> > **•** '4': Apple TV
+>
+> > **•** '5': Mac
+>
+> > **•** '6': Vision Pro
+>
+> Requires: iOS \>= 12.2
+>
+> *Type:* null or one of 0, 1, 2, 3, 4, 5, 6
+>
+> *Default:*
+>
+> > null
 
 **profiles.airplay**
 
@@ -265,37 +469,90 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.airplay.PayloadIdentifier**
+**profiles.airplay.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.airplay.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.airplay"
+> > null
+
+**profiles.airplay.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.airplay.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.airplay.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.airplay.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.airplay.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.airplay.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.airplay.Whitelist**
 
@@ -431,37 +688,90 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.airprint.PayloadIdentifier**
+**profiles.airprint.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.airprint.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.airprint"
+> > null
+
+**profiles.airprint.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.airprint.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.airprint.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.airprint.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.airprint.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.airprint.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.apn.managed**
 
@@ -526,8 +836,8 @@ configurations with the ios-configurations.nix flake.
 > Requires: iOS \>= 4.0\
 > Deprecated in iOS 7.0
 >
-> *Type:* null or Written as string or path, read as { \_\_type =
-> "data", value = \... }
+> *Type:* null or string or path (string or file content will be made
+> base64 encoded \<data\> in plist)
 >
 > *Default:*
 >
@@ -582,37 +892,90 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value "com.apple.managedCarrier" (singular enum)
 
-**profiles.apn.managed.PayloadIdentifier**
+**profiles.apn.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.apn.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.apn.managed"
+> > null
+
+**profiles.apn.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.apn.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.apn.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.apn.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.apn.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.apn.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.app.lock**
 
@@ -900,37 +1263,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.PayloadIdentifier**
+**profiles.app.lock.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.app.lock.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.app.lock"
+> > null
+
+**profiles.app.lock.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.app.lock.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.app.lock.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.app.lock.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.app.lock.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.app.lock.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.applicationaccess**
 
@@ -956,37 +1372,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.applicationaccess.PayloadIdentifier**
+**profiles.applicationaccess.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.applicationaccess.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.applicationaccess"
+> > null
+
+**profiles.applicationaccess.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.applicationaccess.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.applicationaccess.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.applicationaccess.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.applicationaccess.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.applicationaccess.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.applicationaccess.allowAccountModification**
 
@@ -3610,37 +4079,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.PayloadIdentifier**
+**profiles.caldav.account.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.caldav.account.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.caldav.account"
+> > null
+
+**profiles.caldav.account.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.caldav.account.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.caldav.account.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.caldav.account.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.caldav.account.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.caldav.account.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.caldav.account.VPNUUID**
 
@@ -3792,37 +4314,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.PayloadIdentifier**
+**profiles.carddav.account.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.carddav.account.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.carddav.account"
+> > null
+
+**profiles.carddav.account.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.carddav.account.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.carddav.account.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.carddav.account.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.carddav.account.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.carddav.account.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.carddav.account.VPNUUID**
 
@@ -4108,37 +4683,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellular.PayloadIdentifier**
+**profiles.cellular.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.cellular.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.cellular"
+> > null
+
+**profiles.cellular.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.cellular.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.cellular.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.cellular.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.cellular.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.cellular.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.cellularprivatenetwork.managed**
 
@@ -4282,37 +4910,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellularprivatenetwork.managed.PayloadIdentifier**
+**profiles.cellularprivatenetwork.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.cellularprivatenetwork.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.cellularprivatenetwork.managed"
+> > null
+
+**profiles.cellularprivatenetwork.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.cellularprivatenetwork.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.cellularprivatenetwork.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.cellularprivatenetwork.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.cellularprivatenetwork.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.cellularprivatenetwork.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.cellularprivatenetwork.managed.VersionNumber**
 
@@ -4362,44 +5043,97 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 17.0
 >
-> *Type:* list of (Written as string or path, read as { \_\_type =
-> "data", value = \... })
+> *Type:* list of (string or path (string or file content will be made
+> base64 encoded \<data\> in plist))
 >
 > *Default:*
 >
 > > [ ]
 
-**profiles.declarations.PayloadIdentifier**
+**profiles.declarations.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.declarations.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.declarations"
+> > null
+
+**profiles.declarations.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.declarations.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.declarations.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.declarations.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.declarations.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.declarations.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.dnsProxy.managed**
 
@@ -4452,37 +5186,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsProxy.managed.PayloadIdentifier**
+**profiles.dnsProxy.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.dnsProxy.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.dnsProxy.managed"
+> > null
+
+**profiles.dnsProxy.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.dnsProxy.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.dnsProxy.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.dnsProxy.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.dnsProxy.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.dnsProxy.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.dnsProxy.managed.ProviderBundleIdentifier**
 
@@ -4790,37 +5577,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.PayloadIdentifier**
+**profiles.dnsSettings.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.dnsSettings.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.dnsSettings.managed"
+> > null
+
+**profiles.dnsSettings.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.dnsSettings.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.dnsSettings.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.dnsSettings.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.dnsSettings.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.dnsSettings.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.dnsSettings.managed.ProhibitDisablement**
 
@@ -4948,37 +5788,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.domains.PayloadIdentifier**
+**profiles.domains.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.domains.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.domains"
+> > null
+
+**profiles.domains.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.domains.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.domains.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.domains.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.domains.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.domains.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.domains.SafariPasswordAutoFillDomains**
 
@@ -5047,8 +5940,8 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 7.0
 >
-> *Type:* null or Written as string or path, read as { \_\_type =
-> "data", value = \... }
+> *Type:* null or string or path (string or file content will be made
+> base64 encoded \<data\> in plist)
 >
 > *Default:*
 >
@@ -5407,37 +6300,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.PayloadIdentifier**
+**profiles.eas.account.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.eas.account.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.eas.account"
+> > null
+
+**profiles.eas.account.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.eas.account.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.eas.account.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.eas.account.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.eas.account.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.eas.account.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.eas.account.PreventAppSheet**
 
@@ -6022,37 +6968,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.education.PayloadIdentifier**
+**profiles.education.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.education.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.education"
+> > null
+
+**profiles.education.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.education.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.education.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.education.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.education.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.education.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.education.ResourcePayloadCertificateUUID**
 
@@ -6329,37 +7328,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.extensiblesso.PayloadIdentifier**
+**profiles.extensiblesso.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.extensiblesso.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.extensiblesso"
+> > null
+
+**profiles.extensiblesso.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.extensiblesso.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.extensiblesso.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.extensiblesso.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.extensiblesso.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.extensiblesso.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.extensiblesso.Realm**
 
@@ -6767,37 +7819,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.extensiblesso-kerberos.PayloadIdentifier**
+**profiles.extensiblesso-kerberos.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.extensiblesso-kerberos.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.extensiblesso"
+> > null
+
+**profiles.extensiblesso-kerberos.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.extensiblesso-kerberos.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.extensiblesso-kerberos.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.extensiblesso-kerberos.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.extensiblesso-kerberos.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.extensiblesso-kerberos.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.extensiblesso-kerberos.Realm**
 
@@ -6864,8 +7969,8 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 7.0
 >
-> *Type:* Written as string or path, read as { \_\_type = "data", value
-> = \... }
+> *Type:* string or path (string or file content will be made base64
+> encoded \<data\> in plist)
 
 **profiles.font.Name**
 
@@ -6888,37 +7993,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.font.PayloadIdentifier**
+**profiles.font.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.font.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.font"
+> > null
+
+**profiles.font.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.font.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.font.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.font.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.font.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.font.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.globalethernet.managed**
 
@@ -6952,37 +8110,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.globalethernet.managed.PayloadIdentifier**
+**profiles.globalethernet.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.globalethernet.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.globalethernet.managed"
+> > null
+
+**profiles.globalethernet.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.globalethernet.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.globalethernet.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.globalethernet.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.globalethernet.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.globalethernet.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.globalethernet.managed.settings**
 
@@ -6993,8 +8204,7 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 17.0
 >
-> *Type:* null or (Written as attrs, read as { \_\_type = "settings",
-> value = {\...} })
+> *Type:* null or (attribute set of anything)
 >
 > *Default:*
 >
@@ -7110,37 +8320,90 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.google-oauth.PayloadIdentifier**
+**profiles.google-oauth.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.google-oauth.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.google-oauth"
+> > null
+
+**profiles.google-oauth.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.google-oauth.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.google-oauth.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.google-oauth.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.google-oauth.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.google-oauth.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.google-oauth.VPNUUID**
 
@@ -7467,37 +8730,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.homescreenlayout.PayloadIdentifier**
+**profiles.homescreenlayout.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.homescreenlayout.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.homescreenlayout"
+> > null
+
+**profiles.homescreenlayout.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.homescreenlayout.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.homescreenlayout.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.homescreenlayout.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.homescreenlayout.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.homescreenlayout.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.ldap.account**
 
@@ -7630,37 +8946,90 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.ldap.account.PayloadIdentifier**
+**profiles.ldap.account.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.ldap.account.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.ldap.account"
+> > null
+
+**profiles.ldap.account.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.ldap.account.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.ldap.account.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.ldap.account.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.ldap.account.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.ldap.account.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.ldap.account.VPNUUID**
 
@@ -7917,37 +9286,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.PayloadIdentifier**
+**profiles.mail.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.mail.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.mail.managed"
+> > null
+
+**profiles.mail.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.mail.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.mail.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.mail.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.mail.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.mail.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.mail.managed.PreventAppSheet**
 
@@ -8364,37 +9786,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mdm.PayloadIdentifier**
+**profiles.mdm.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.mdm.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.mdm"
+> > null
+
+**profiles.mdm.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.mdm.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.mdm.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.mdm.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.mdm.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.mdm.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.mdm.PinningRevocationCheckRequired**
 
@@ -8579,37 +10054,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.mobiledevice.passwordpolicy.PayloadIdentifier**
+**profiles.mobiledevice.passwordpolicy.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.mobiledevice.passwordpolicy.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.mobiledevice.passwordpolicy"
+> > null
+
+**profiles.mobiledevice.passwordpolicy.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.mobiledevice.passwordpolicy.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.mobiledevice.passwordpolicy.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.mobiledevice.passwordpolicy.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.mobiledevice.passwordpolicy.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.mobiledevice.passwordpolicy.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.mobiledevice.passwordpolicy.allowSimple**
 
@@ -8854,37 +10382,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.networkusagerules.PayloadIdentifier**
+**profiles.networkusagerules.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.networkusagerules.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.networkusagerules"
+> > null
+
+**profiles.networkusagerules.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.networkusagerules.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.networkusagerules.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.networkusagerules.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.networkusagerules.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.networkusagerules.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.networkusagerules.SIMRules**
 
@@ -9139,37 +10720,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.notificationsettings.PayloadIdentifier**
+**profiles.notificationsettings.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.notificationsettings.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.notificationsettings"
+> > null
+
+**profiles.notificationsettings.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.notificationsettings.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.notificationsettings.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.notificationsettings.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.notificationsettings.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.notificationsettings.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.osxserver.account**
 
@@ -9259,37 +10893,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.osxserver.account.PayloadIdentifier**
+**profiles.osxserver.account.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.osxserver.account.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.osxserver.account"
+> > null
+
+**profiles.osxserver.account.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.osxserver.account.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.osxserver.account.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.osxserver.account.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.osxserver.account.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.osxserver.account.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.osxserver.account.UserName**
 
@@ -9332,37 +11019,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.profileRemovalPassword.PayloadIdentifier**
+**profiles.profileRemovalPassword.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.profileRemovalPassword.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.profileRemovalPassword"
+> > null
+
+**profiles.profileRemovalPassword.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.profileRemovalPassword.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.profileRemovalPassword.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.profileRemovalPassword.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.profileRemovalPassword.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.profileRemovalPassword.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.profileRemovalPassword.RemovalPassword**
 
@@ -9400,37 +11140,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.proxy.http.global.PayloadIdentifier**
+**profiles.proxy.http.global.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.proxy.http.global.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.proxy.http.global"
+> > null
+
+**profiles.proxy.http.global.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.proxy.http.global.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.proxy.http.global.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.proxy.http.global.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.proxy.http.global.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.proxy.http.global.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.proxy.http.global.ProxyCaptiveLoginAllowed**
 
@@ -9645,37 +11438,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.PayloadIdentifier**
+**profiles.relay.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.relay.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.relay.managed"
+> > null
+
+**profiles.relay.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.relay.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.relay.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.relay.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.relay.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.relay.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.relay.managed.RelayUUID**
 
@@ -9774,8 +11620,8 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 17.0
 >
-> *Type:* null or (list of (Written as string or path, read as {
-> \_\_type = "data", value = \... }))
+> *Type:* null or (list of (string or path (string or file content will
+> be made base64 encoded \<data\> in plist)))
 >
 > *Default:*
 >
@@ -9956,37 +11802,90 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "RSA", "ECSECPrimeRandom"
 
-**profiles.security.acme.PayloadIdentifier**
+**profiles.security.acme.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.security.acme.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.security.acme"
+> > null
+
+**profiles.security.acme.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.acme.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.security.acme.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.acme.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.security.acme.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.security.acme.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.security.acme.Subject**
 
@@ -10160,40 +12059,93 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 14.2
 >
-> *Type:* Written as string or path, read as { \_\_type = "data", value
-> = \... }
+> *Type:* string or path (string or file content will be made base64
+> encoded \<data\> in plist)
 
-**profiles.security.certificaterevocation.PayloadIdentifier**
+**profiles.security.certificaterevocation.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.security.certificaterevocation.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.security.certificaterevocation"
+> > null
+
+**profiles.security.certificaterevocation.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.certificaterevocation.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.security.certificaterevocation.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.certificaterevocation.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.security.certificaterevocation.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.security.certificaterevocation.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.security.certificatetransparency**
 
@@ -10268,8 +12220,8 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 12.1.1
 >
-> *Type:* Written as string or path, read as { \_\_type = "data", value
-> = \... }
+> *Type:* string or path (string or file content will be made base64
+> encoded \<data\> in plist)
 
 **profiles.security.certificatetransparency.DisabledForDomains**
 
@@ -10287,37 +12239,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificatetransparency.PayloadIdentifier**
+**profiles.security.certificatetransparency.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.security.certificatetransparency.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.security.certificatetransparency"
+> > null
+
+**profiles.security.certificatetransparency.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.certificatetransparency.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.security.certificatetransparency.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.certificatetransparency.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.security.certificatetransparency.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.security.certificatetransparency.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.security.pem**
 
@@ -10360,40 +12365,93 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 4.0
 >
-> *Type:* Written as string or path, read as { \_\_type = "data", value
-> = \... }
+> *Type:* string or path (string or file content will be made base64
+> encoded \<data\> in plist)
 
-**profiles.security.pem.PayloadIdentifier**
+**profiles.security.pem.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.security.pem.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.security.pem"
+> > null
+
+**profiles.security.pem.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.pem.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.security.pem.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.pem.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.security.pem.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.security.pem.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.security.pkcs1**
 
@@ -10436,40 +12494,93 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 4.0
 >
-> *Type:* Written as string or path, read as { \_\_type = "data", value
-> = \... }
+> *Type:* string or path (string or file content will be made base64
+> encoded \<data\> in plist)
 
-**profiles.security.pkcs1.PayloadIdentifier**
+**profiles.security.pkcs1.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.security.pkcs1.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.security.pkcs1"
+> > null
+
+**profiles.security.pkcs1.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.pkcs1.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.security.pkcs1.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.pkcs1.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.security.pkcs1.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.security.pkcs1.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.security.pkcs12**
 
@@ -10539,40 +12650,93 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 4.0
 >
-> *Type:* Written as string or path, read as { \_\_type = "data", value
-> = \... }
+> *Type:* string or path (string or file content will be made base64
+> encoded \<data\> in plist)
 
-**profiles.security.pkcs12.PayloadIdentifier**
+**profiles.security.pkcs12.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.security.pkcs12.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.security.pkcs12"
+> > null
+
+**profiles.security.pkcs12.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.pkcs12.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.security.pkcs12.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.pkcs12.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.security.pkcs12.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.security.pkcs12.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.security.root**
 
@@ -10614,40 +12778,93 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 4.0
 >
-> *Type:* Written as string or path, read as { \_\_type = "data", value
-> = \... }
+> *Type:* string or path (string or file content will be made base64
+> encoded \<data\> in plist)
 
-**profiles.security.root.PayloadIdentifier**
+**profiles.security.root.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.security.root.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.security.root"
+> > null
+
+**profiles.security.root.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.root.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.security.root.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.root.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.security.root.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.security.root.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.security.scep**
 
@@ -10702,8 +12919,8 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 4.0
 >
-> *Type:* null or Written as string or path, read as { \_\_type =
-> "data", value = \... }
+> *Type:* null or string or path (string or file content will be made
+> base64 encoded \<data\> in plist)
 >
 > *Default:*
 >
@@ -10913,37 +13130,90 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.scep.PayloadIdentifier**
+**profiles.security.scep.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.security.scep.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.security.scep"
+> > null
+
+**profiles.security.scep.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.scep.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.security.scep.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.security.scep.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.security.scep.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.security.scep.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.setupAssistant.managed**
 
@@ -10968,37 +13238,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.setupAssistant.managed.PayloadIdentifier**
+**profiles.setupAssistant.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.setupAssistant.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.SetupAssistant.managed"
+> > null
+
+**profiles.setupAssistant.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.setupAssistant.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.setupAssistant.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.setupAssistant.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.setupAssistant.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.setupAssistant.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.setupAssistant.managed.SkipSetupItems**
 
@@ -11081,37 +13404,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.shareddeviceconfiguration.PayloadIdentifier**
+**profiles.shareddeviceconfiguration.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.shareddeviceconfiguration.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.shareddeviceconfiguration"
+> > null
+
+**profiles.shareddeviceconfiguration.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.shareddeviceconfiguration.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.shareddeviceconfiguration.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.shareddeviceconfiguration.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.shareddeviceconfiguration.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.shareddeviceconfiguration.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.sso**
 
@@ -11244,37 +13620,90 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.sso.PayloadIdentifier**
+**profiles.sso.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.sso.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.sso"
+> > null
+
+**profiles.sso.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.sso.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.sso.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.sso.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.sso.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.sso.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.subscribedcalendar.account**
 
@@ -11297,37 +13726,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.subscribedcalendar.account.PayloadIdentifier**
+**profiles.subscribedcalendar.account.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.subscribedcalendar.account.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.subscribedcalendar.account"
+> > null
+
+**profiles.subscribedcalendar.account.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.subscribedcalendar.account.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.subscribedcalendar.account.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.subscribedcalendar.account.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.subscribedcalendar.account.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.subscribedcalendar.account.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.subscribedcalendar.account.SubCalAccountDescription**
 
@@ -11454,37 +13936,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.tvremote.PayloadIdentifier**
+**profiles.tvremote.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.tvremote.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.tvremote"
+> > null
+
+**profiles.tvremote.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.tvremote.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.tvremote.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.tvremote.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.tvremote.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.tvremote.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.vpn.managed**
 
@@ -12614,8 +15149,8 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 18.0
 >
-> *Type:* null or Written as string or path, read as { \_\_type =
-> "data", value = \... }
+> *Type:* null or string or path (string or file content will be made
+> base64 encoded \<data\> in plist)
 >
 > *Default:*
 >
@@ -13179,8 +15714,8 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 4.0
 >
-> *Type:* null or Written as string or path, read as { \_\_type =
-> "data", value = \... }
+> *Type:* null or string or path (string or file content will be made
+> base64 encoded \<data\> in plist)
 >
 > *Default:*
 >
@@ -13414,37 +15949,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PayloadIdentifier**
+**profiles.vpn.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.vpn.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.vpn.managed"
+> > null
+
+**profiles.vpn.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.vpn.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.vpn.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.vpn.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.vpn.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.vpn.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.vpn.managed.Proxies**
 
@@ -14392,37 +16980,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.PayloadIdentifier**
+**profiles.vpn.managed-applayer.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.vpn.managed-applayer.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.vpn.managed.applayer"
+> > null
+
+**profiles.vpn.managed-applayer.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.vpn.managed-applayer.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.vpn.managed-applayer.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.vpn.managed-applayer.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.vpn.managed-applayer.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.vpn.managed-applayer.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.vpn.managed-applayer.SMBDomains**
 
@@ -14520,8 +17161,8 @@ configurations with the ios-configurations.nix flake.
 >
 > Requires: iOS \>= 4.0
 >
-> *Type:* null or Written as string or path, read as { \_\_type =
-> "data", value = \... }
+> *Type:* null or string or path (string or file content will be made
+> base64 encoded \<data\> in plist)
 >
 > *Default:*
 >
@@ -14562,37 +17203,90 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.webClip.managed.PayloadIdentifier**
+**profiles.webClip.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.webClip.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.webClip.managed"
+> > null
+
+**profiles.webClip.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.webClip.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.webClip.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.webClip.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.webClip.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.webClip.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.webClip.managed.Precomposed**
 
@@ -14865,37 +17559,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webcontent-filter.PayloadIdentifier**
+**profiles.webcontent-filter.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.webcontent-filter.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.webcontent-filter"
+> > null
+
+**profiles.webcontent-filter.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.webcontent-filter.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.webcontent-filter.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.webcontent-filter.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.webcontent-filter.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.webcontent-filter.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.webcontent-filter.PermittedURLs**
 
@@ -15650,37 +18397,90 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.PayloadIdentifier**
+**profiles.wifi.managed.PayloadDescription**
 
-> The payload identifier for this profile
+> The human-readable description of this payload. This description
+> appears on the Detail screen.
 >
-> *Type:* string
-
-**profiles.wifi.managed.PayloadType**
-
-> The payload type for this profile
+> Requires: iOS \>= 4.0
 >
-> *Type:* string
+> *Type:* null or string
 >
 > *Default:*
 >
-> > "com.apple.wifi.managed"
+> > null
+
+**profiles.wifi.managed.PayloadDisplayName**
+
+> The human-readable name for the profile payload. The name appears on
+> the Detail screen and doesn't need to be unique.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.wifi.managed.PayloadIdentifier**
+
+> The reverse-DNS-style identifier for the payload. This identifier is
+> usually the same as the 'TopLevel' value, with an additional appended
+> component. This string must be unique within the profile.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
+
+**profiles.wifi.managed.PayloadOrganization**
+
+> The human-readable string containing the name of the organization that
+> provides the profile. This value doesn't need to match the
+> organization payload value in the enclosing dictionary.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* null or string
+>
+> *Default:*
+>
+> > null
+
+**profiles.wifi.managed.PayloadType**
+
+> The payload type, which each payload domain's reference page
+> specifies.
+>
+> Requires: iOS \>= 4.0
+>
+> *Type:* string
 
 **profiles.wifi.managed.PayloadUUID**
 
-> The payload UUID for this profile
+> The globally unique identifier for the payload. The actual content is
+> unimportant, but must be globally unique. In macOS, use 'uuidgen' to
+> generate UUIDs.
+>
+> During a profile replacement, the system updates payloads with the
+> same 'PayloadIdentifier' and 'PayloadUUID' in the old and new
+> profiles.
+>
+> Requires: iOS \>= 4.0
 >
 > *Type:* string
 
 **profiles.wifi.managed.PayloadVersion**
 
-> The payload version for this profile
+> The version of this specific payload.
 >
-> *Type:* signed integer
+> Requires: iOS \>= 4.0
 >
-> *Default:*
->
-> > 1
+> *Type:* value 1 (singular enum)
 
 **profiles.wifi.managed.ProxyPACFallbackAllowed**
 

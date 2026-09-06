@@ -100,4 +100,19 @@ in
     assert result1.success == false;
     assert result2.success == true;
     pkgs.runCommand "checks-support-through-array-values" { } "touch $out";
+
+  checks-top-level-payload-values =
+    let
+      gen-config = isSupervised: {
+        target.isSupervised = isSupervised;
+        profiles.PayloadRemovalDisallowed = true;
+      };
+      result1 = tryEvalGetPlist (gen-config false);
+      result2 = tryEvalGetPlist (gen-config true);
+      result3 = tryEvalGetPlist (gen-config null);
+    in
+    assert result1.success == false;
+    assert result2.success == true;
+    assert result3.success == true;
+    pkgs.runCommand "checks-root-payload-values" { } "touch $out";
 }

@@ -1,10 +1,11 @@
 # Generated from import-profiles.py. Do not edit.
 { lib, ios-config-utils, ... }:
 let
-  inherit (lib) types mkEnableOption mkOption;
+  inherit (lib) types;
   inherit (ios-config-utils) mkProfileOpt;
 in
 {
+  payloadType = "com.apple.security.scep";
   description = ''
     The payload that configures Simple Certificate Enrollment Protocol (SCEP)
     settings.
@@ -15,25 +16,7 @@ in
     OTAConfiguration/Introduction/Introduction.html).
   '';
   options = {
-    enable = mkEnableOption "Enable the com.apple.security.scep profile";
-    PayloadType = mkOption {
-      type = types.str;
-      default = "com.apple.security.scep";
-      description = "The payload type for this profile";
-    };
-    PayloadIdentifier = mkOption {
-      type = types.str;
-      description = "The payload identifier for this profile";
-    };
-    PayloadUUID = mkOption {
-      type = types.str;
-      description = "The payload UUID for this profile";
-    };
-    PayloadVersion = mkOption {
-      type = types.int;
-      default = 1;
-      description = "The payload version for this profile";
-    };
+    enable = lib.mkEnableOption "Enable the com.apple.security.scep profile";
     "PayloadContent" = mkProfileOpt {
       type = (
         ios-config-utils.subopts {
