@@ -34,7 +34,6 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "ios-configurations.google-oauth";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

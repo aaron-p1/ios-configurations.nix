@@ -31,7 +31,6 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "ios-configurations.font";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

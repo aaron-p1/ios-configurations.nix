@@ -30,7 +30,6 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "ios-configurations.security.pkcs12";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

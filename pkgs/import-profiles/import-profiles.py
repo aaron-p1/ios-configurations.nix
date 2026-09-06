@@ -8,8 +8,6 @@ REF = "release"
 TARBALL = f"https://codeload.github.com/apple/device-management/tar.gz/refs/heads/{REF}"
 
 MODULE_PATH = "modules/profiles/generated"
-PROFILE_IDENTIFIER_PREFIX = "ios-configurations."
-
 CACHE_DIR = "tmp"
 
 GEN_OPTS = yaml.safe_load(open("pkgs/import-profiles/gen-options.yaml", "r"))
@@ -811,7 +809,6 @@ def profile_to_module(profile, module_name):
             };
             PayloadIdentifier = mkOption {
               type = types.str;
-              default = "$identifier";
               description = "The payload identifier for this profile";
             };
             PayloadUUID = mkOption {
@@ -838,7 +835,6 @@ def profile_to_module(profile, module_name):
     definitions = profile["definitions"]
     profile = profile["document"]
 
-    name = module_name.replace("com.apple.", "")
     payload_type = profile["payload"]["payloadtype"]
 
     description_parts = [
@@ -875,7 +871,6 @@ def profile_to_module(profile, module_name):
     return Template(textwrap.dedent(template)).substitute(
         description=description,
         payload_type=payload_type,
-        identifier=f"{PROFILE_IDENTIFIER_PREFIX}{name}",
         options="\n".join(options).strip(),
         var_definitions=var_definitions,
         support_data=support_data_string.strip(),

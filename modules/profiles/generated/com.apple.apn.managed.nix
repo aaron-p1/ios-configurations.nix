@@ -25,7 +25,6 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "ios-configurations.apn.managed";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

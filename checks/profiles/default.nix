@@ -86,7 +86,7 @@ in
     assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
     assert hasInfix "        <key>PayloadVersion</key>" plist;
     assert hasInfix "        <key>PayloadIdentifier</key>" plist;
-    assert hasInfix "<string>ios-configurations.SetupAssistant.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.setupAssistant.managed</string>" plist;
     assert hasInfix "        <key>PayloadUUID</key>" plist;
     assert hasInfix "<string>SkipValue</string>" plist;
     pkgs.runCommand "can-gen-setupassistant-managed" { } "touch $out";
@@ -348,7 +348,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.extensiblesso</string>" plist;
-    assert hasInfix "<string>ios-configurations.extensiblesso(kerberos)</string>" plist;
+    assert hasInfix "<string>ios-configurations.extensiblesso-kerberos</string>" plist;
     assert hasInfix "<key>ExtensionIdentifier</key>" plist;
     pkgs.runCommand "can-gen-extensionsso-kerberos" { } "touch $out";
 
@@ -764,7 +764,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.vpn.managed.applayer</string>" plist;
-    assert hasInfix "<string>ios-configurations.vpn.managed.applayer</string>" plist;
+    assert hasInfix "<string>ios-configurations.vpn.managed-applayer</string>" plist;
     assert hasInfix "<key>VPNUUID</key>" plist;
     pkgs.runCommand "can-gen-vpn-managed-applayer" { } "touch $out";
 
@@ -784,7 +784,7 @@ in
 
   can-gen-webclip-managed =
     let
-      config.profiles.webclip.managed = {
+      config.profiles.webClip.managed = {
         enable = true;
         URL = "https://example.com";
         Label = "Example Web Clip";

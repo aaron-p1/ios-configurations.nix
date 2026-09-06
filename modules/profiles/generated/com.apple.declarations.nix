@@ -29,7 +29,6 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "ios-configurations.declarations";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {
