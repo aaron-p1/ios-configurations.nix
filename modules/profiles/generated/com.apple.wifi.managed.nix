@@ -127,7 +127,9 @@ in
       required = false;
     };
     "PayloadCertificateUUID" = mkProfileOpt {
-      type = (types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$");
+      type = (
+        types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"
+      );
       description = ''
         The UUID of the certificate payload within the same profile
         to use for the client credential.
@@ -196,7 +198,11 @@ in
             required = false;
           };
           "PayloadCertificateAnchorUUID" = mkProfileOpt {
-            type = (types.listOf (types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"));
+            type = (
+              types.listOf (
+                types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"
+              )
+            );
             description = ''
               An array of the UUID of each certificate payload in the same
               profile to trust for authentication. Use this key to prevent

@@ -74,7 +74,9 @@ in
               required = false;
             };
             "PayloadCertificateUUID" = mkProfileOpt {
-              type = (types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$");
+              type = (
+                types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"
+              );
               description = ''
                 The UUID that points to an identity certificate payload,
                 which the system uses to authenticate the user to the relay

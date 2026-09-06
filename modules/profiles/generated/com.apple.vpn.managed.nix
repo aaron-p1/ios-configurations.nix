@@ -198,110 +198,110 @@ let
   type-id005 =
     _:
     (utils.subopts {
-    "EncryptionAlgorithm" = mkProfileOpt {
-      type = (
-        types.enum [
-          "DES"
-          "3DES"
-          "AES-128"
-          "AES-256"
-          "AES-128-GCM"
-          "AES-256-GCM"
-          "ChaCha20Poly1305"
-        ]
-      );
-      description = ''
-        The encryption algorithm.
-
-        In watchOS and tvOS, the default value is `AES-256-GCM`.
-        `DES` and `3DES` are available only in iOS, macOS, and
-        visionOS prior to iOS 26, macOS 26, and visionOS 26.
-
-        Requires: iOS >= 4.0
-      '';
-      required = false;
-    };
-    "IntegrityAlgorithm" = mkProfileOpt {
-      type = (
-        types.enum [
-          "SHA1-96"
-          "SHA1-160"
-          "SHA2-256"
-          "SHA2-384"
-          "SHA2-512"
-        ]
-      );
-      description = ''
-        The integrity algorithm.
-
-        `SHA1-96` and `SHA1-160` are available only in iOS, macOS,
-        and visionOS prior to iOS 26, macOS 26, and visionOS 26.
-
-        Requires: iOS >= 4.0
-      '';
-      required = false;
-    };
-    "DiffieHellmanGroup" = mkProfileOpt {
-      type = (
-        types.enum [
-          1
-          2
-          5
-          14
-          15
-          16
-          17
-          18
-          19
-          20
-          21
-          31
-          32
-        ]
-      );
-      description = ''
-        The Diffie-Hellman group.
-
-        For `AlwaysOn` VPN in iOS 14.2 and later, the minimum
-        allowed value is `14`.
-
-        `1`, `2`, and `5` are available only in iOS, macOS, and
-        visionOS prior to iOS 26, macOS 26, and visionOS 26.
-
-        Requires: iOS >= 4.0
-      '';
-      required = false;
-    };
-    "PostQuantumKeyExchangeMethods" = mkProfileOpt {
-      type = (
-        types.listOf (
+      "EncryptionAlgorithm" = mkProfileOpt {
+        type = (
           types.enum [
-            0
-            36
-            37
+            "DES"
+            "3DES"
+            "AES-128"
+            "AES-256"
+            "AES-128-GCM"
+            "AES-256-GCM"
+            "ChaCha20Poly1305"
           ]
-        )
-      );
-      description = ''
-        An array of strings representing postquantum key exchange
-        methods the device uses during SA establishment and rekey.
-        You can specify up to seven items, which correspond to
-        ADDKE1 - ADDKE7 from RFC 9370.
+        );
+        description = ''
+          The encryption algorithm.
 
-        Requires: iOS >= 26.0
-      '';
-      required = false;
-    };
-    "LifeTimeInMinutes" = mkProfileOpt {
-      type = (types.ints.between 10 1440);
-      description = ''
-        The SA lifetime (rekey interval) in minutes.
+          In watchOS and tvOS, the default value is `AES-256-GCM`.
+          `DES` and `3DES` are available only in iOS, macOS, and
+          visionOS prior to iOS 26, macOS 26, and visionOS 26.
 
-        Requires: iOS >= 4.0
-      '';
-      required = false;
-    };
-  });
+          Requires: iOS >= 4.0
+        '';
+        required = false;
+      };
+      "IntegrityAlgorithm" = mkProfileOpt {
+        type = (
+          types.enum [
+            "SHA1-96"
+            "SHA1-160"
+            "SHA2-256"
+            "SHA2-384"
+            "SHA2-512"
+          ]
+        );
+        description = ''
+          The integrity algorithm.
+
+          `SHA1-96` and `SHA1-160` are available only in iOS, macOS,
+          and visionOS prior to iOS 26, macOS 26, and visionOS 26.
+
+          Requires: iOS >= 4.0
+        '';
+        required = false;
+      };
+      "DiffieHellmanGroup" = mkProfileOpt {
+        type = (
+          types.enum [
+            1
+            2
+            5
+            14
+            15
+            16
+            17
+            18
+            19
+            20
+            21
+            31
+            32
+          ]
+        );
+        description = ''
+          The Diffie-Hellman group.
+
+          For `AlwaysOn` VPN in iOS 14.2 and later, the minimum
+          allowed value is `14`.
+
+          `1`, `2`, and `5` are available only in iOS, macOS, and
+          visionOS prior to iOS 26, macOS 26, and visionOS 26.
+
+          Requires: iOS >= 4.0
+        '';
+        required = false;
+      };
+      "PostQuantumKeyExchangeMethods" = mkProfileOpt {
+        type = (
+          types.listOf (
+            types.enum [
+              0
+              36
+              37
+            ]
+          )
+        );
+        description = ''
+          An array of strings representing postquantum key exchange
+          methods the device uses during SA establishment and rekey.
+          You can specify up to seven items, which correspond to
+          ADDKE1 - ADDKE7 from RFC 9370.
+
+          Requires: iOS >= 26.0
+        '';
+        required = false;
+      };
+      "LifeTimeInMinutes" = mkProfileOpt {
+        type = (types.ints.between 10 1440);
+        description = ''
+          The SA lifetime (rekey interval) in minutes.
+
+          Requires: iOS >= 4.0
+        '';
+        required = false;
+      };
+    });
 
   type-id006 = _: (types.listOf types.str);
 in
@@ -2010,7 +2010,9 @@ in
             required = false;
           };
           "PayloadCertificateUUID" = mkProfileOpt {
-            type = (types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$");
+            type = (
+              types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"
+            );
             description = ''
               That UUID that points to an identity certificate payload.
               The system uses this identity to authenticate the user to

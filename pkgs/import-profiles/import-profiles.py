@@ -905,6 +905,17 @@ def main():
         write_module(module_name, module_content)
         print(f"Generated module for {module_name}")
 
+    print("Formatting...")
+
+    import subprocess
+
+    try:
+        proc = subprocess.run(["nix", "fmt"])
+        if proc.returncode != 0:
+            print("nix fmt failed")
+    except OSError:
+        print("nix not available")
+
 
 if __name__ == "__main__":
     main()

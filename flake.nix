@@ -55,6 +55,8 @@
         }
       );
 
+      formatter = forAllSystems ({ pkgs, ... }: pkgs.nixfmt-tree);
+
       checks = forAllSystems ({ pkgs, ... }: import ./checks { inherit self pkgs lib; });
 
       devShells = forAllSystems (

@@ -251,7 +251,9 @@ in
       required = false;
     };
     "PayloadCertificateUUID" = mkProfileOpt {
-      type = (types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$");
+      type = (
+        types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"
+      );
       description = ''
         The UUID of the certificate payload within the same profile
         that the system uses to authenticate the user. Use when

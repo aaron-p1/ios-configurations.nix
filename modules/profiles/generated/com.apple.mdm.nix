@@ -48,7 +48,9 @@ in
       description = "The payload version for this profile";
     };
     "IdentityCertificateUUID" = mkProfileOpt {
-      type = (types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$");
+      type = (
+        types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"
+      );
       description = ''
         The UUID of the certificate payload for the device's
         identity. It may also point to a SCEP payload.

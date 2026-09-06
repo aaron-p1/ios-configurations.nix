@@ -146,7 +146,9 @@ in
       required = false;
     };
     "PayloadCertificateUUID" = mkProfileOpt {
-      type = (types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$");
+      type = (
+        types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"
+      );
       description = ''
         The UUID of the certificate payload within the same profile
         to use for the identity credential. If this field is
@@ -179,7 +181,9 @@ in
       required = false;
     };
     "SMIMESigningCertificateUUID" = mkProfileOpt {
-      type = (types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$");
+      type = (
+        types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"
+      );
       description = ''
         The UUID of the identity certificate used to sign messages
         sent from this account.
@@ -201,7 +205,9 @@ in
       required = false;
     };
     "SMIMEEncryptionCertificateUUID" = mkProfileOpt {
-      type = (types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$");
+      type = (
+        types.strMatching "^[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{4}-[0-9A-Za-z]{12}$"
+      );
       description = ''
         The payload UUID of the identity certificate used to decrypt
         messages sent to this account. The system attaches the
