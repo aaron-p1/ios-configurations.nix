@@ -21,13 +21,20 @@ let
     assertContains = str: value: assertVal (hasInfix str) value (''Does not contain "${str}"'');
     assertDoesNotContain = str: value: assertVal (x: !(hasInfix str x)) value (''Contains "${str}"'');
   };
+
+  testArgs = {
+    inherit
+      eval
+      pkgs
+      lib
+      testUtils
+      ;
+    projectLib = self.lib;
+  };
 in
-(import ./utils.nix { inherit pkgs lib testUtils; })
-// (import ./profiles {
-  inherit
-    eval
-    pkgs
-    lib
-    testUtils
-    ;
-})
+{
+  can-build-deploy-script = (eval { }).config.deploy.script;
+}
+// (import ./lib.nix testArgs)
+// (import ./utils.nix testArgs)
+// (import ./profiles testArgs)

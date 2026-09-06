@@ -1,11 +1,16 @@
-{ lib }: {
+{ lib }:
+let
+  inherit (builtins) mapAttrs;
+  inherit (lib) evalModules;
+in
+{
   iosConfig =
     {
       pkgs,
       modules ? [ ],
       specialArgs ? { },
     }:
-    lib.evalModules {
+    evalModules {
       class = "ios";
       specialArgs = specialArgs // {
         inherit pkgs;
@@ -13,4 +18,11 @@
       };
       modules = [ ../modules/default.nix ] ++ modules;
     };
+
+  deployPkgs =
+    self:
+    let
+      configs = self.iosConfigurations or { };
+    in
+    mapAttrs (_: cfg: cfg.config.deploy.script) configs;
 }

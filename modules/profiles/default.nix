@@ -15,6 +15,7 @@ let
     foldl'
     ;
   inherit (lib)
+    mkEnableOption
     mkOption
     mkDefault
     types
@@ -406,6 +407,8 @@ in
   _class = "ios";
 
   options.profiles = {
+    enable = mkEnableOption "Enable deploying profiles to iOS devices";
+
     PayloadDisplayName = mkOption {
       type = types.str;
       default = "Config from iosConfigurations.nix";
@@ -435,7 +438,12 @@ in
     plist = mkOption {
       type = types.str;
       readOnly = true;
-      description = "The generated profiles.mobileconfig file content.";
+      description = "The generated profiles file content.";
+    };
+    mobileconfig = mkOption {
+      type = types.package;
+      readOnly = true;
+      description = "The generated iosConfiguration.mobileconfig file.";
     };
 
     assertions = mkOption {
@@ -483,6 +491,9 @@ in
           throw "Failed assertions:\n${failedAssertionsText}"
         else
           toPlist plistAttrs pkgs;
+
+      mobileconfig = (pkgs.writeText "iosConfiguration.mobileconfig" cfg.plist);
+
       assertions = profileAssertions;
     }
     // defaultProfileConfig;

@@ -1,8 +1,8 @@
 {
   eval,
   pkgs,
-  lib,
   testUtils,
+  ...
 }:
 let
   inherit (builtins) tryEval;

@@ -7,6 +7,7 @@ in
 
   imports = [
     ./profiles
+    ./deploy.nix
   ];
 
   options = {

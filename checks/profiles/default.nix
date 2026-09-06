@@ -3,12 +3,15 @@
   pkgs,
   lib,
   testUtils,
+  ...
 }@testArgs:
 let
   inherit (testUtils) assertContains assertDoesNotContain;
   evalGetPlist = config: (eval { inherit config; }).config.profiles.plist;
 in
 {
+  gen-create-mobileconfig-file = (eval { }).config.profiles.mobileconfig;
+
   valid-xml =
     pkgs.runCommand "valid-xml"
       {
