@@ -5,6 +5,22 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a PKCS #12-formatted certificate.
+
+    Password-protected identity certificate. Only one certificate may be included.
+
+    > Warning:
+    > The system obfuscates the profile but doesn't encrypt it, so it's possible to
+    intercept the profile and extract the password and identity.
+
+    It's recommended to omit the password in the profile, or do one of the following
+    instead:
+
+    - Securely deliver the profile to authorized users only, such as through MDM.
+    - Encrypt the profile so that only authorized devices can decrypt it.
+    - Use `SCEP` or `ACMECertificate` to provision the identity.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.security.pkcs12 profile";
     PayloadType = mkOption {

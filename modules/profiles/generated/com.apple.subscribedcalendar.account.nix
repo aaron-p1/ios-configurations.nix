@@ -5,6 +5,9 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures subscribed calendars.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.subscribedcalendar.account profile";
     PayloadType = mkOption {

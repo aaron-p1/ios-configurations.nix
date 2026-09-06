@@ -7,6 +7,9 @@ let
   type-id001 = _: (types.listOf types.str);
 in
 {
+  description = ''
+    The payload that configures Wi-Fi settings.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.wifi.managed profile";
     PayloadType = mkOption {

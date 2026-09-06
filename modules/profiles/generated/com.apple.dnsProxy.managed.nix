@@ -5,6 +5,16 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures DNS proxies.
+
+    As of iOS 15.0 this payload can be installed on unsupervised devices via MDM and
+    can only be installed via MDM. As of iOS 16.0, this can be installed on user
+    enrollments via MDM if DNSProxyUUID is specified.
+
+    Beginning with iOS 15, this profile is unsupervised and needs to be installed
+    through MDM.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.dnsProxy.managed profile";
     PayloadType = mkOption {

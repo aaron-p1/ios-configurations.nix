@@ -5,6 +5,14 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures an app extension that performs single sign-on (SSO).
+
+    Configures an app extension that performs SSO on behalf of certain URLs. User
+    channel support was added in macOS 11.0.
+
+    The system supports user channel installation in macOS 11 and later.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.extensiblesso profile";
     PayloadType = mkOption {

@@ -5,6 +5,18 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures an app extension that performs single sign-on with
+    the Kerberos extension.
+
+    Configures the included Kerberos extension that performs SSO on behalf of
+    specified hosts. User channel support was added in macOS 11.0.
+
+    This is a version of the profile that defines the specific keys and values
+    needed for the Kerberos extension.
+
+    The system supports user channel installation in macOS 11 and later.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.extensiblesso profile";
     PayloadType = mkOption {

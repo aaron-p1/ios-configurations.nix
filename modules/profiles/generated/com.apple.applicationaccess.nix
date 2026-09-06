@@ -5,6 +5,14 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures restrictions on a device.
+
+    > Important:
+    > The system allows multiple Restrictions payloads. However, don't attempt to
+    manage the same restriction in different payloads. Doing so results in
+    unexpected behavior.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.applicationaccess profile";
     PayloadType = mkOption {

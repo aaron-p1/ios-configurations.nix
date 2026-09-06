@@ -799,6 +799,9 @@ def profile_to_module(profile, module_name):
           inherit (utils) mkProfileOpt;$var_definitions
         in
         {
+          description = ''
+            $description
+          '';
           options = {
             enable = mkEnableOption "Enable the $payload_type profile";
             PayloadType = mkOption {
@@ -838,6 +841,19 @@ def profile_to_module(profile, module_name):
     name = module_name.replace("com.apple.", "")
     payload_type = profile["payload"]["payloadtype"]
 
+    description_parts = [
+        profile.get("description"),
+        profile["payload"].get("content"),
+        profile.get("notes", [{}])[0].get("content"),
+    ]
+
+    description_lines = "\n\n".join(filter(None, description_parts)).split("\n")
+    formatted_descr_lines = [
+        textwrap.fill(line, width=80) for line in description_lines
+    ]
+
+    description = textwrap.indent("\n".join(formatted_descr_lines), "    ").strip()
+
     ios_payload_keys = list(
         filter(payload_key_supports_ios, profile.get("payloadkeys", []))
     )
@@ -857,6 +873,7 @@ def profile_to_module(profile, module_name):
     )
 
     return Template(textwrap.dedent(template)).substitute(
+        description=description,
         payload_type=payload_type,
         identifier=f"{PROFILE_IDENTIFIER_PREFIX}{name}",
         options="\n".join(options).strip(),

@@ -5,6 +5,14 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a device to run a single app.
+
+    With an app lock profile, the device locks to the specified app until removal of
+    the profile. The device returns to the app automatically upon wake or restart.
+
+    Only use an app lock payload after installing the target app.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.app.lock profile";
     PayloadType = mkOption {

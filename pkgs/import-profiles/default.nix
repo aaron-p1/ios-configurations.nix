@@ -9,4 +9,12 @@ pkgs.writeShellApplication {
   text = ''
     exec python3 ${./import-profiles.py} "$@"
   '';
+
+  meta = with pkgs.lib; {
+    description = ''
+      Import profiles from Apple Configuration Profile Reference.
+      https://github.com/apple/device-management/blob/release/mdm/profiles
+    '';
+    license = licenses.mit;
+  };
 }

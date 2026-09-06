@@ -5,6 +5,13 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures encrypted DNS settings.
+
+    When installed from an MDM, the setting only applies to managed Wi-Fi networks.
+
+    When installed manually, this setting also applies to cellular networks.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.dnsSettings.managed profile";
     PayloadType = mkOption {

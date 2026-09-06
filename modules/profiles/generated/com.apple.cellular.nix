@@ -5,6 +5,15 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures cellular settings.
+
+    This payload cannot be installed if an APN payload is already installed.
+    This payload only applies to the preferred data SIM. There is no way to have a
+    cellular payload affect a different SIM.
+    This payload replaces the com.apple.managedCarrier payload. The latter payload
+    is supported, but deprecated.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.cellular profile";
     PayloadType = mkOption {

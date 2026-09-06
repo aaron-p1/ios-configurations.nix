@@ -5,6 +5,23 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures fonts.
+
+    Each payload may contain one font file. Font files may be in TrueType (.ttf) or
+    OpenType (.otf) file format. Collection types (.ttc or .otc) formats are not
+    supported.
+    Fonts are uniquely identified internally by their embedded PostScript name. Two
+    fonts with the same PostScript name will be considered the same font, even if
+    their contents differ. Installing two different fonts with the same PostScript
+    name is not supported, and it is undefined which font will remain installed.
+    Supported on the Shared iPad user channel as of iPadOS 18.0. Earlier versions of
+    iPadOS erroneously accepted the Font payload on the device channel but installed
+    it for the currently logged in user.
+
+    In iPadOS 18 and later, the font profile is available on the user channel for
+    Shared iPads.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.font profile";
     PayloadType = mkOption {

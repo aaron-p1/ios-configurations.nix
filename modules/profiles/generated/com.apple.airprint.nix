@@ -5,6 +5,10 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures AirPrint printer discoverability in the user's
+    printer list.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.airprint profile";
     PayloadType = mkOption {

@@ -5,6 +5,13 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a global HTTP proxy.
+
+    PEM-encoded cer
+
+    There can only be one payload of this type on the device at any time.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.proxy.http.global profile";
     PayloadType = mkOption {

@@ -5,6 +5,11 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures certificate revocation checking.
+
+    Policies that affect system-wide certificate revocation checking.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.security.certificaterevocation profile";
     PayloadType = mkOption {

@@ -5,6 +5,9 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures the Apple TV remote.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.tvremote profile";
     PayloadType = mkOption {

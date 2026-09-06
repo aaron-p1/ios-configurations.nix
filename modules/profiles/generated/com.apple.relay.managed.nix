@@ -5,6 +5,9 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures relay settings.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.relay.managed profile";
     PayloadType = mkOption {

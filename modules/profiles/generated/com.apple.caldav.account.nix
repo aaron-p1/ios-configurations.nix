@@ -5,6 +5,9 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a Calendar account.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.caldav.account profile";
     PayloadType = mkOption {

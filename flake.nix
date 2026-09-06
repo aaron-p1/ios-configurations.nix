@@ -10,18 +10,22 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
-      systemAttr = f: system: f { pkgs = import nixpkgs { inherit system; }; };
+      systemAttr =
+        f: system:
+        f {
+          inherit system;
+          pkgs = import nixpkgs { inherit system; };
+        };
       forAllSystems = f: lib.genAttrs systems (systemAttr f);
     in
     {
       lib = import ./lib { inherit lib; };
       manageiosModules = import ./modules;
 
-      checks = forAllSystems ({ pkgs }: import ./checks { inherit self pkgs lib; });
+      checks = forAllSystems ({ pkgs, ... }: import ./checks { inherit self pkgs lib; });
 
       packages = forAllSystems (
-        { pkgs }: {
-
+        { pkgs, ... }: {
           manpage =
             let
               optionsDoc = (
@@ -43,25 +47,17 @@
               # for some reason it does not render Required: and Deprecated in on separate lines
               sed -i "s| Deprecated in|\n.br\nDeprecated in|g" $out/share/man/man5/manage-ios.5
             '';
-        }
-      );
 
-      apps = forAllSystems (
-        { pkgs }:
-        {
-          import-profiles = {
-            type = "app";
-            program = lib.getExe (import ./pkgs/import-profiles { inherit pkgs; });
-          };
+          import-profiles = import ./pkgs/import-profiles { inherit pkgs; };
         }
       );
 
       devShells = forAllSystems (
-        { pkgs }:
+        { system, pkgs, ... }:
         {
           default = pkgs.mkShell {
             shellHook = ''
-              export MANPATH="${self.packages.${pkgs.system}.manpage}/share/man:$MANPATH"
+              export MANPATH="${self.packages.${system}.manpage}/share/man:$MANPATH"
             '';
           };
         }

@@ -5,6 +5,11 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures single sign-on (SSO).
+
+    Deprecated in iOS 26. Use the `ExtensibleSingleSignOn` payload instead.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.sso profile";
     PayloadType = mkOption {

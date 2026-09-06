@@ -5,6 +5,14 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures notifications.
+
+    A notification settings payload specifies the restriction enforced notification
+    settings for apps using their bundle identifier. The profile specifies
+    notification settings by bundle identifier (even for apps that aren’t installed
+    on the device yet), and those settings will always be enforced.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.notificationsettings profile";
     PayloadType = mkOption {

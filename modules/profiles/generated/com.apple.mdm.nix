@@ -5,6 +5,28 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures mobile device management (MDM) settings.
+
+    Also define the following four standard payload values in your MDM payload:
+
+    - `PayloadIdentifier`: The reverse-DNS style identifier that identifies the
+    profile; for example, `com.example.myprofile`. The system uses this value to
+    determine whether to replace an existing profile or add a new one.
+    - `PayloadUUID`: A globally unique identifier for the profile. In macOS, you can
+    use `uuidgen` to generate this value.
+    - `PayloadType`: The payload type. Set to `com.apple.mdm` to designate that this
+    payload is an MDM payload.
+    - `PayloadVersion`: The version number of the profile format, which describes
+    the version of the configuration profile as a whole, not of the individual
+    profiles within it. Set this value to `1`.
+
+
+
+    > Note:
+    > MDM reserves profile payload dictionary keys with the _Payload_ prefix. Don't
+    treat them as managed preferences.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.mdm profile";
     PayloadType = mkOption {

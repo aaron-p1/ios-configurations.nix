@@ -5,6 +5,11 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a PEM-formatted certificate.
+
+    PEM-encoded certificate without private key. May contain root certificates.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.security.pem profile";
     PayloadType = mkOption {

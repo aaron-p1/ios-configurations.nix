@@ -5,6 +5,9 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a Contacts account.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.carddav.account profile";
     PayloadType = mkOption {

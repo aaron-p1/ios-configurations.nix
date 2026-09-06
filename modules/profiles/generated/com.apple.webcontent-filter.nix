@@ -5,6 +5,29 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures web content filters.
+
+    As of iOS 16.0 and visionOS 1.1, this can be installed on unsupervised devices
+    and user enrollments if ContentFilterUUID is specified. Previously it could only
+    be installed on supervised devices.
+
+    The system matches URLs using string-based matching. A URL matches an allow
+    list, deny list, or permitted list pattern if the exact characters of the
+    pattern appear as a substring of the URL requested in the web browser. For
+    example, if the system doesn't allow `test.com/a`, it blocks `test.com/a`,
+    `test.com/apple`, and `test.com/a/b`.
+
+    The system matches list entries that terminate with a `/` character explicitly;
+    if the system blocks or allows `test.com/a/`, it blocks or allows `test.com/a`
+    and `test.com/a/b`.
+
+    Matching discards a `www` subdomain prefix if present, so if the system doesn't
+    allow `www.test.com`, it also blocks `m.test.com`.
+
+    All filtering options are active simultaneously. The system only permits URLs
+    and sites that pass all rules.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.webcontent-filter profile";
     PayloadType = mkOption {

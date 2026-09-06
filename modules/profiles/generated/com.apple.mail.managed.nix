@@ -5,6 +5,11 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a Mail account.
+
+    An email payload creates an email account on the device.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.mail.managed profile";
     PayloadType = mkOption {

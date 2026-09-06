@@ -5,6 +5,15 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures Simple Certificate Enrollment Protocol (SCEP)
+    settings.
+
+    A SCEP payload automates the request of a client certificate from a SCEP server,
+    as described in [Over-the-Air Profile Delivery and Configuration](https://develo
+    per.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/iPhone
+    OTAConfiguration/Introduction/Introduction.html).
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.security.scep profile";
     PayloadType = mkOption {

@@ -5,6 +5,9 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a macOS Server account.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.osxserver.account profile";
     PayloadType = mkOption {

@@ -5,6 +5,26 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a Google account.
+
+    A Google account payload sets up a Google email address as well as any other
+    Google services the user enables after authentication. Google accounts must be
+    installed via MDM or by Apple Configurator 2 (if the device is supervised). The
+    payload never contains credentials and the user will be prompted to enter their
+    credentials shortly after the payload successfully installs. On Shared iPads,
+    this payload can only be installed on the MDM user channel.
+
+    You can install multiple Google payloads. Each sets up a Google email address
+    and any other Google services the user enables after authentication.
+
+    > Note:
+    > For supervised devices, the system requires installation of Google accounts
+    through MDM or Apple Configurator 2.
+
+    The payload never contains credentials; the system prompts the user to enter
+    credentials shortly after installation of the payload.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.google-oauth profile";
     PayloadType = mkOption {

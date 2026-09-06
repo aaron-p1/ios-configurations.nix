@@ -5,6 +5,11 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a root certificate.
+
+    Alias for com.apple.security.pkcs1.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.security.root profile";
     PayloadType = mkOption {

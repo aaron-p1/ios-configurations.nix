@@ -5,6 +5,16 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a Lock Screen message.
+
+    Allows admins to specify optional text displayed on the Login Window and Lock
+    Screen (i.e. a footnote and Asset Tag Information).
+
+    This payload allows administrators to specify optional text displayed in the
+    Login Window and Lock Screen (for example, an "If Lost, Return To" message and
+    asset tag information). There can only be one Lock Screen payload.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.shareddeviceconfiguration profile";
     PayloadType = mkOption {

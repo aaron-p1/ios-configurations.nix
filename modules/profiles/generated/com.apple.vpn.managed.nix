@@ -306,6 +306,9 @@ let
   type-id006 = _: (types.listOf types.str);
 in
 {
+  description = ''
+    The payload that configures a VPN.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.vpn.managed profile";
     PayloadType = mkOption {

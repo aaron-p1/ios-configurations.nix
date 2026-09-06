@@ -5,6 +5,43 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures the domains under an organization's management.
+
+    This payload defines web domains that are under an enterprise's management.
+
+    The `WebDomains`, `SafariPasswordAutoFillDomains`, and
+    `CrossSiteTrackingPreventionRelaxedDomains` keys are arrays containing strings
+    that use the following matching patterns:
+
+    - `example.com`: Any path under `example.com` matches, but not
+    `site.example.com`.
+    - `foo.example.com`: Any path under `foo.example.com` matches, but not
+    `example.com` or `bar.example.com`.
+    - `\*.example.com`: Any path under `foo.example.com` or `bar.example.com`
+    matches, but not `example.com`.
+    - `example.com/sub`: `example.com/sub` and any path under it matches, but not
+    `example.com`.
+    - `foo.example.com/sub`: Any path under `foo.example.com/sub` matches, but not
+    `example.com`, `example.com/sub`, `foo.example.com/`, or `bar.example.com/sub`.
+    - `\*.example.com/sub`: Any path under `foo.example.com/sub` or
+    `bar.example.com/sub` matches, but not `example.com` or `foo.example.com/`.
+    - `\*.co`: Any path under `example.co` or `betterbag.co` matches, but not
+    `example.co.uk` or `example.com`.
+
+    A URL that begins with the prefix `www.` is treated as though it doesn't contain
+    that prefix during matching. For example, `http://www.example.com/store` is
+    matched as `http://example.com/store`.
+
+    Trailing slashes are ignored.
+
+    If a domain string contains a port number, the system considers only addresses
+    that specify that port number managed. Otherwise, the system matches the domain
+    without regard to the port number specified. For example, the pattern
+    `*.example.com:8080` matches `http://site.example.com:8080/page.html` but not
+    `http://site.example.com/page.html`, while the pattern `*.example.com` matches
+    both URLs.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.domains profile";
     PayloadType = mkOption {

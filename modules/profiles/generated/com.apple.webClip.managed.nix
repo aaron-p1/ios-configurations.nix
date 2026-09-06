@@ -5,6 +5,23 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The profile that configures web clips on the device.
+
+    Use this payload to add web clips to the Home Screen of the user's iOS device or
+    to the Dock on a Mac. Web clips provide fast access to favorite webpages.
+
+    For iOS devices, if you prevent the user from removing the web clip, the only
+    way to remove it is to remove the configuration profile that installed it. Also,
+    for iOS devices it must have a display name and an icon URL for the payload to
+    be valid.
+
+    A full-screen web clip on iOS devices opens the URL as a web app without a
+    browser; there's no URL, search bar, or bookmarks.
+
+    For Shared iPad devices, the system supports this payload on the user channel
+    only.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.webClip.managed profile";
     PayloadType = mkOption {

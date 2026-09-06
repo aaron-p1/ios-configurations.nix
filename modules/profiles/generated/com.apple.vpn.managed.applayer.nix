@@ -5,6 +5,16 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a per-app VPN.
+
+    The fields in this payload are the same as the VPN payload, with the addition of
+    the fields shown below. On watchOS, only the IKEv2 VPN type is supported.
+
+    This profile defines per-app VPN behavior and applies only to VPN services of
+    type `VPN`, `IPsec`, and `IKEv2`. All the properties of VPN apply to the top
+    level of this profile as well.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.vpn.managed.applayer profile";
     PayloadType = mkOption {

@@ -5,6 +5,32 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures Automated Certificate Management Environment (ACME)
+    settings.
+
+    Use this payload to specify how the device requests a client certificate from an
+    Automated Certificate Management Environment (ACME) server. Other payloads can
+    reference the resulting client identity by the payload's `PayloadUUID`.
+
+    First the device generates an asymmetric key pair based upon the `KeyType`,
+    `KeySize`, and `HardwareBound` fields. Then the device communicates with the
+    ACME server. It requests a new order using the `ClientIdentifier` as the
+    `permanent-identifier`. The ACME server responds with a challenge type of
+    `device-attest-01`. If `Attest` is `true` the device requests an attestation of
+    the key and device properties. Then it replies to the challenge with a WebAuthn
+    attestation statement, and this contains the attestation if the device obtained
+    one. The device submits a certificate signing request matching the key and
+    containing the `ClientIdentifier`, `Subject`, `SubjectAltName`, `UsageFlags`,
+    and `ExtendedKeyUsage` fields. The ACME server issues a certificate, and the
+    device stores the resulting identity.
+
+    For details on the content of the attestation provided to the ACME server, see
+    the documentation of the `DevicePropertiesAttestation` key in the
+    `QueryResponses`response. In the attestation certificate the value of the
+    freshness code OID is the SHA-256 hash of the `token` from the `device-
+    attest-01` challenge.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.security.acme profile";
     PayloadType = mkOption {

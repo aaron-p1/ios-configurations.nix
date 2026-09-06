@@ -5,6 +5,10 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a Lightweight Directory Access Protocol (LDAP)
+    account.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.ldap.account profile";
     PayloadType = mkOption {

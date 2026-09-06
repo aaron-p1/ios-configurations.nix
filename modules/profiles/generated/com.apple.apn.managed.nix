@@ -5,6 +5,17 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures access point names.
+
+    Not supported in macOS.
+    This technically does install on watchOS but we are removing the supportedOS
+    dictionary. The cellular payload should be used instead.
+    Only applies to the preferred data SIM.
+    Deprecated. Use Cellular instead.
+
+    This profile is deprecated. Use the `Cellular` profile instead.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.apn.managed profile";
     PayloadType = mkOption {

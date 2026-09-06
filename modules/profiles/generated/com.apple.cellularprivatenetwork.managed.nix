@@ -5,6 +5,14 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that provides device info on private network deployments, including
+    geographical location, preference over Wi-Fi, and network deployment type.
+
+    Payload can be used to provide device info on private network deployments
+    including geographical location, preference over Wi-Fi, and network deployment
+    type. Only five Cellular Private Networks can be configured simultaneously.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.cellularprivatenetwork.managed profile";
     PayloadType = mkOption {

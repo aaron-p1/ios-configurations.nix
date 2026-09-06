@@ -5,6 +5,14 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures Exchange ActiveSync accounts.
+
+    This payload configures an Exchange Active Sync account on an iOS device for
+    Mail, Contacts, Calendars, Reminders, and Notes.
+    Updating this payload overrides any settings that the user customized, such as
+    EnableMail/Contacts/Calendars/Reminders/Notes and MailNumberOfPastDaysToSync.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.eas.account profile";
     PayloadType = mkOption {

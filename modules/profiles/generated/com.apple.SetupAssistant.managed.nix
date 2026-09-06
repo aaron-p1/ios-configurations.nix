@@ -5,6 +5,12 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures Setup Assistant settings.
+
+    On macOS, this payload can specify Setup Assistant options for either the system
+    or particular users.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.SetupAssistant.managed profile";
     PayloadType = mkOption {

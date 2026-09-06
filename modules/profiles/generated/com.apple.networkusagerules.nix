@@ -5,6 +5,17 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures network-usage rules.
+
+    Network Usage Rules allow enterprises to specify how devices use networks, such
+    as cellular data networks. iOS 9-12 support only ApplicationRules. In iOS 13,
+    ApplicationRules, SIMRules, or both must be present.
+
+    Network usage rules allow enterprises to specify how devices use networks, such
+    as cellular data networks. iOS 9-12 require the application rules. In iOS 13,
+    application rules, SIM rules, or both must be present.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.networkusagerules profile";
     PayloadType = mkOption {

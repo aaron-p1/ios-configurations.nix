@@ -233,14 +233,19 @@ let
 
   mergeAttrs = foldl' recursiveUpdate { };
 
-  profileOptions = mergeAttrs (map (config: toNestedAttrs config.path config.options) configs);
-
+  profileOptions = mergeAttrs (map toProfileOption configs);
   defaultProfileConfig = mergeAttrs (map toDefaultProfileConfig configs);
-
   profileAssertions = concatMap toProfileAssertions configs;
 
   # convert generatedConfigs to list and import each generated config
   configs = map (config: config // (get-generated config.name)) (nestedAttrsToList generatedConfigs);
+
+  toProfileOption =
+    config:
+    toNestedAttrs config.path (mkOption {
+      type = utils.subopts config.options;
+      description = config.description;
+    });
 
   toDefaultProfileConfig = config: toNestedAttrs config.path { PayloadUUID = config.uuid; };
 

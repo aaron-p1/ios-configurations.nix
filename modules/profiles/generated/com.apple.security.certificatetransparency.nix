@@ -5,6 +5,11 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures certificate transparency enforcement.
+
+    Policies that affect system-wide certificate transparency enforcement.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.security.certificatetransparency profile";
     PayloadType = mkOption {

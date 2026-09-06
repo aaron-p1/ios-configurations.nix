@@ -425,7 +425,7 @@ in
       subOpts = opt: opt.type.getSubOptions [ ];
       resolveNullOrListOf = type: type.nestedTypes.elemType.nestedTypes.elemType;
 
-      opts = (eval { }).options.profiles.homescreenlayout;
+      opts = subOpts (eval { }).options.profiles.homescreenlayout;
       # one recursion for dock and one for folders
       dockAny = (subOpts (subOpts opts.Dock).Pages).Pages.type;
       # first Pages is not the same as other Pages

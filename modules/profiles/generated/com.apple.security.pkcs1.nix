@@ -5,6 +5,11 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures a PKCS #1-formatted certificate.
+
+    DER-encoded certificate without private key. May contain root certificates.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.security.pkcs1 profile";
     PayloadType = mkOption {

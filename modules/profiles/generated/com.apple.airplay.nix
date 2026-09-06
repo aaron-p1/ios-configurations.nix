@@ -47,6 +47,12 @@ let
 
 in
 {
+  description = ''
+    The payload that configures AirPlay settings.
+
+    macOS supports more than one payload, iOS does not. Supported on the user
+    channel for macOS only.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.airplay profile";
     PayloadType = mkOption {

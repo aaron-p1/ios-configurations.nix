@@ -5,6 +5,35 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures the users, groups, and departments within an
+    educational organization.
+
+    This payload is used to configure Classroom students, Classroom instructors, and
+    the Shared iPad login screen. These do not necessarily require the same set of
+    keys to be present in their payloads, so make sure to include all keys that are
+    required for the education product you are configuring.
+
+    In iOS, send this payload over the device channel. Additionally, the system
+    requires supervision unless the payload only specifies as teacher configuration.
+
+    In macOS, send this payload over the user channel. The system supports student
+    payloads in macOS 10.14.4 and later.
+
+    Additionally, configure:
+
+    - All identities as both SSL clients and servers
+    - All certificates with a key size of at least 2048 bits
+    - All certificates to use a hashing algorithm of SHA256 or stronger
+    - Leader certificates to have the common name prefix leader, which is case-
+    insensitive
+    - Member certificates to have the common name prefix member, which is case-
+    insensitive
+    - TLS server certificates issued on or after September 1, 2020 00:00 GMT/UTC to
+    have a validity period greater than 398 days; see [About Upcoming Limits on
+    Trusted Certificates](https://support.apple.com/en-us/HT211025) for more
+    information.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.education profile";
     PayloadType = mkOption {

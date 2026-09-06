@@ -111,6 +111,21 @@ let
 
 in
 {
+  description = ''
+    The payload that configures the Home Screen layout.
+
+    The payload defines a layout of apps, folders, & web clips for the Home screen.
+
+    This payload defines a layout of apps, folders, and web clips for the Home
+    Screen. This layout is locked and can't be modified by the user.
+
+    If a Home Screen layout puts more than four items in the iPhone Dock the
+    location of the fifth and succeeding items may be undefined but they will not be
+    omitted.
+
+    To disable deletion of apps, set `allowAppRemoval` to `false` with
+    `Restrictions`.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.homescreenlayout profile";
     PayloadType = mkOption {

@@ -5,6 +5,17 @@ let
   inherit (utils) mkProfileOpt;
 in
 {
+  description = ''
+    The payload that configures the default fallback global Ethernet interface.
+
+    This payload's contents contain these profile-specific keys:
+
+    - Interface (String): This payload uses the value `GlobalEthernet`.
+    - EAPClientConfiguration (`EAPClientConfiguration`): The dictionary that defines
+    the enterprise profile for the network.
+    - SetupModes (String): The type of connection mode, which is either `System` or
+    `Loginwindow`. `System` is the default.
+  '';
   options = {
     enable = mkEnableOption "Enable the com.apple.globalethernet.managed profile";
     PayloadType = mkOption {
