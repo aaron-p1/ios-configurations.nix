@@ -110,7 +110,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Default:*
 >
-> > "Config from iosConfigurations.nix"
+> > "Config from ios-configurations.nix"
 
 **profiles.PayloadIdentifier**
 
@@ -8536,7 +8536,7 @@ configurations with the ios-configurations.nix flake.
 
 **profiles.mobileconfig**
 
-> The generated iosConfiguration.mobileconfig file.
+> The generated ios-configuration.mobileconfig file.
 >
 > *Type:* package *(read only)*
 

@@ -413,7 +413,7 @@ in
 
     PayloadDisplayName = mkOption {
       type = types.str;
-      default = "Config from iosConfigurations.nix";
+      default = "Config from ios-configurations.nix";
       description = "The display name when viewing this config/profile in Settings";
     };
     PayloadIdentifier = mkOption {
@@ -445,7 +445,7 @@ in
     mobileconfig = mkOption {
       type = types.package;
       readOnly = true;
-      description = "The generated iosConfiguration.mobileconfig file.";
+      description = "The generated ios-configuration.mobileconfig file.";
     };
 
     assertions = mkOption {
@@ -494,7 +494,7 @@ in
         else
           toPlist plistAttrs pkgs;
 
-      mobileconfig = (pkgs.writeText "iosConfiguration.mobileconfig" cfg.plist);
+      mobileconfig = (pkgs.writeText "ios-configuration.mobileconfig" cfg.plist);
 
       assertions = profileAssertions;
     }
