@@ -60,7 +60,7 @@ In the `flake.nix` the `iosConfigurations` key should be edited:
             enable = true;
             # Example: recommended quad9 config
             # (same as https://docs.quad9.net/Setup_Guides/iOS/iOS_14_and_later_%28Encrypted%29/)
-            dnsSettings.managed = {
+            dnsSettings-managed = {
               enable = true;
               PayloadDisplayName = "Quad9 DoH";
               DNSSettings = {

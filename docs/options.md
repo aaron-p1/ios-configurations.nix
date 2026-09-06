@@ -773,7 +773,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.apn.managed**
+**profiles.apn-managed**
 
 > The payload that configures access point names.
 >
@@ -786,7 +786,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.apn.managed.enable**
+**profiles.apn-managed.enable**
 
 > Whether to enable Enable the com.apple.apn.managed profile.
 >
@@ -800,7 +800,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.apn.managed.DefaultsData**
+**profiles.apn-managed.DefaultsData**
 
 > The list of access point names (APNs).
 >
@@ -809,7 +809,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.apn.managed.DefaultsData.apns**
+**profiles.apn-managed.DefaultsData.apns**
 
 > An array of APN dictionaries (\`APN.DefaultsData.Apns\`).
 >
@@ -818,7 +818,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* list of (submodule)
 
-**profiles.apn.managed.DefaultsData.apns.\*.apn**
+**profiles.apn-managed.DefaultsData.apns.\*.apn**
 
 > The access point name.
 >
@@ -827,7 +827,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.apn.managed.DefaultsData.apns.\*.password**
+**profiles.apn-managed.DefaultsData.apns.\*.password**
 
 > The password for the user. For obfuscation purposes, the system
 > encodes the password. If missing, the device prompts for the password
@@ -843,7 +843,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.apn.managed.DefaultsData.apns.\*.proxy**
+**profiles.apn-managed.DefaultsData.apns.\*.proxy**
 
 > The IP address or URL of the APN proxy.
 >
@@ -856,7 +856,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.apn.managed.DefaultsData.apns.\*.proxyPort**
+**profiles.apn-managed.DefaultsData.apns.\*.proxyPort**
 
 > The port number of the APN proxy.
 >
@@ -869,7 +869,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.apn.managed.DefaultsData.apns.\*.username**
+**profiles.apn-managed.DefaultsData.apns.\*.username**
 
 > The user name. If missing, the device prompts for it during profile
 > installation.
@@ -883,7 +883,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.apn.managed.DefaultsDomainName**
+**profiles.apn-managed.DefaultsDomainName**
 
 > The domain name.
 >
@@ -892,7 +892,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value "com.apple.managedCarrier" (singular enum)
 
-**profiles.apn.managed.PayloadDescription**
+**profiles.apn-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -905,7 +905,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.apn.managed.PayloadDisplayName**
+**profiles.apn-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -918,7 +918,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.apn.managed.PayloadIdentifier**
+**profiles.apn-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -932,7 +932,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.apn.managed.PayloadOrganization**
+**profiles.apn-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -946,7 +946,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.apn.managed.PayloadType**
+**profiles.apn-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -955,7 +955,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.apn.managed.PayloadUUID**
+**profiles.apn-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -969,7 +969,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.apn.managed.PayloadVersion**
+**profiles.apn-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -977,7 +977,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.app.lock**
+**profiles.app-lock**
 
 > The payload that configures a device to run a single app.
 >
@@ -989,7 +989,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.app.lock.enable**
+**profiles.app-lock.enable**
 
 > Whether to enable Enable the com.apple.app.lock profile.
 >
@@ -1003,7 +1003,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.app.lock.App**
+**profiles.app-lock.App**
 
 > A dictionary that contains information about the app.
 >
@@ -1011,7 +1011,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.app.lock.App.Identifier**
+**profiles.app-lock.App.Identifier**
 
 > The app's bundle identifier.
 >
@@ -1019,7 +1019,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.app.lock.App.Options**
+**profiles.app-lock.App.Options**
 
 > A dictionary of options that the user can't change.
 >
@@ -1031,7 +1031,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.DisableAutoLock**
+**profiles.app-lock.App.Options.DisableAutoLock**
 
 > If 'true', the device doesn't automatically go to sleep after an idle
 > period.
@@ -1044,7 +1044,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.DisableDeviceRotation**
+**profiles.app-lock.App.Options.DisableDeviceRotation**
 
 > If 'true', the system disables device rotation sensing.
 >
@@ -1056,7 +1056,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.DisableRingerSwitch**
+**profiles.app-lock.App.Options.DisableRingerSwitch**
 
 > If 'true', the system disables the ringer switch. When disabled, the
 > ringer behavior depends on what position the switch was in when it was
@@ -1070,7 +1070,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.DisableSleepWakeButton**
+**profiles.app-lock.App.Options.DisableSleepWakeButton**
 
 > If 'true', the system disables the sleep/wake button.
 >
@@ -1082,7 +1082,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.DisableTouch**
+**profiles.app-lock.App.Options.DisableTouch**
 
 > If 'true', the system disables the touch screen. In tvOS, it disables
 > the touch surface on the Apple TV Remote.
@@ -1095,7 +1095,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.DisableVolumeButtons**
+**profiles.app-lock.App.Options.DisableVolumeButtons**
 
 > If 'true', the system disables the volume buttons.
 >
@@ -1107,7 +1107,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.EnableAssistiveTouch**
+**profiles.app-lock.App.Options.EnableAssistiveTouch**
 
 > If 'true', the system enables AssistiveTouch.
 >
@@ -1119,7 +1119,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.EnableInvertColors**
+**profiles.app-lock.App.Options.EnableInvertColors**
 
 > If 'true', the system enables Invert Colors.
 >
@@ -1131,7 +1131,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.EnableMonoAudio**
+**profiles.app-lock.App.Options.EnableMonoAudio**
 
 > If 'true', the system enables Mono Audio.
 >
@@ -1143,7 +1143,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.EnableSpeakSelection**
+**profiles.app-lock.App.Options.EnableSpeakSelection**
 
 > If 'true', the system enables Speak Selection.
 >
@@ -1155,7 +1155,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.EnableVoiceControl**
+**profiles.app-lock.App.Options.EnableVoiceControl**
 
 > If 'true', the system enables Voice Control.
 >
@@ -1167,7 +1167,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.EnableVoiceOver**
+**profiles.app-lock.App.Options.EnableVoiceOver**
 
 > If 'true', the system enables VoiceOver.
 >
@@ -1179,7 +1179,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.Options.EnableZoom**
+**profiles.app-lock.App.Options.EnableZoom**
 
 > If 'true', the system enables Zoom.
 >
@@ -1191,7 +1191,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.UserEnabledOptions**
+**profiles.app-lock.App.UserEnabledOptions**
 
 > A dictionary of user-editable options.
 >
@@ -1203,7 +1203,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.UserEnabledOptions.AssistiveTouch**
+**profiles.app-lock.App.UserEnabledOptions.AssistiveTouch**
 
 > If 'true', the system allows the user to toggle AssistiveTouch.
 >
@@ -1215,7 +1215,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.UserEnabledOptions.InvertColors**
+**profiles.app-lock.App.UserEnabledOptions.InvertColors**
 
 > If 'true', the system allows the user to toggle Invert Colors.
 >
@@ -1227,7 +1227,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.UserEnabledOptions.VoiceControl**
+**profiles.app-lock.App.UserEnabledOptions.VoiceControl**
 
 > If 'true', the system allows the user to toggle Voice Control.
 >
@@ -1239,7 +1239,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.UserEnabledOptions.VoiceOver**
+**profiles.app-lock.App.UserEnabledOptions.VoiceOver**
 
 > If 'true', the system allows the user to toggle VoiceOver.
 >
@@ -1251,7 +1251,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.App.UserEnabledOptions.Zoom**
+**profiles.app-lock.App.UserEnabledOptions.Zoom**
 
 > If 'true', the system allows the user to toggle Zoom.
 >
@@ -1263,7 +1263,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.PayloadDescription**
+**profiles.app-lock.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -1276,7 +1276,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.PayloadDisplayName**
+**profiles.app-lock.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -1289,7 +1289,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.PayloadIdentifier**
+**profiles.app-lock.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -1303,7 +1303,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.app.lock.PayloadOrganization**
+**profiles.app-lock.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -1317,7 +1317,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.app.lock.PayloadType**
+**profiles.app-lock.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -1326,7 +1326,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.app.lock.PayloadUUID**
+**profiles.app-lock.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -1340,7 +1340,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.app.lock.PayloadVersion**
+**profiles.app-lock.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -3978,13 +3978,13 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.caldav.account**
+**profiles.caldav-account**
 
 > The payload that configures a Calendar account.
 >
 > *Type:* submodule
 
-**profiles.caldav.account.enable**
+**profiles.caldav-account.enable**
 
 > Whether to enable Enable the com.apple.caldav.account profile.
 >
@@ -3998,7 +3998,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.caldav.account.CalDAVAccountDescription**
+**profiles.caldav-account.CalDAVAccountDescription**
 
 > The description of the account.
 >
@@ -4010,7 +4010,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.CalDAVHostName**
+**profiles.caldav-account.CalDAVHostName**
 
 > The server's address.
 >
@@ -4018,7 +4018,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.caldav.account.CalDAVPassword**
+**profiles.caldav-account.CalDAVPassword**
 
 > The user's password. Only use this in encrypted profiles.
 >
@@ -4030,7 +4030,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.CalDAVPort**
+**profiles.caldav-account.CalDAVPort**
 
 > The server's port.
 >
@@ -4042,7 +4042,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.CalDAVPrincipalURL**
+**profiles.caldav-account.CalDAVPrincipalURL**
 
 > The base URL to the user's calendar.
 >
@@ -4054,7 +4054,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.CalDAVUseSSL**
+**profiles.caldav-account.CalDAVUseSSL**
 
 > If 'true', the system enables SSL.
 >
@@ -4066,7 +4066,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.CalDAVUsername**
+**profiles.caldav-account.CalDAVUsername**
 
 > The user name for logins. If this profile is part of a non-
 > interactive install, the system requires this field.
@@ -4079,7 +4079,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.PayloadDescription**
+**profiles.caldav-account.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -4092,7 +4092,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.PayloadDisplayName**
+**profiles.caldav-account.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -4105,7 +4105,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.PayloadIdentifier**
+**profiles.caldav-account.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -4119,7 +4119,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.caldav.account.PayloadOrganization**
+**profiles.caldav-account.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -4133,7 +4133,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.caldav.account.PayloadType**
+**profiles.caldav-account.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -4142,7 +4142,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.caldav.account.PayloadUUID**
+**profiles.caldav-account.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -4156,7 +4156,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.caldav.account.PayloadVersion**
+**profiles.caldav-account.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -4164,7 +4164,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.caldav.account.VPNUUID**
+**profiles.caldav-account.VPNUUID**
 
 > The VPNUUID of the per-app VPN the account uses for network
 > communication. Available in iOS 14 and later.
@@ -4177,13 +4177,13 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account**
+**profiles.carddav-account**
 
 > The payload that configures a Contacts account.
 >
 > *Type:* submodule
 
-**profiles.carddav.account.enable**
+**profiles.carddav-account.enable**
 
 > Whether to enable Enable the com.apple.carddav.account profile.
 >
@@ -4197,7 +4197,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.carddav.account.CardDAVAccountDescription**
+**profiles.carddav-account.CardDAVAccountDescription**
 
 > The description of the account.
 >
@@ -4209,7 +4209,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.CardDAVHostName**
+**profiles.carddav-account.CardDAVHostName**
 
 > The server's address.
 >
@@ -4217,7 +4217,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.carddav.account.CardDAVPassword**
+**profiles.carddav-account.CardDAVPassword**
 
 > The user's password. Only use this in encrypted profiles.
 >
@@ -4229,7 +4229,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.CardDAVPort**
+**profiles.carddav-account.CardDAVPort**
 
 > The server's port.
 >
@@ -4241,7 +4241,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.CardDAVPrincipalURL**
+**profiles.carddav-account.CardDAVPrincipalURL**
 
 > The base URL to the user's address book.
 >
@@ -4253,7 +4253,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.CardDAVUseSSL**
+**profiles.carddav-account.CardDAVUseSSL**
 
 > If 'true', the system enables SSL.
 >
@@ -4265,7 +4265,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.CardDAVUsername**
+**profiles.carddav-account.CardDAVUsername**
 
 > The user name for logins.
 >
@@ -4277,7 +4277,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.CommunicationServiceRules**
+**profiles.carddav-account.CommunicationServiceRules**
 
 > An array of communication service rules for this account.
 >
@@ -4289,7 +4289,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.CommunicationServiceRules.DefaultServiceHandlers**
+**profiles.carddav-account.CommunicationServiceRules.DefaultServiceHandlers**
 
 > A dictionary of service handlers for contacts from this account.
 >
@@ -4301,7 +4301,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.CommunicationServiceRules.DefaultServiceHandlers.AudioCall**
+**profiles.carddav-account.CommunicationServiceRules.DefaultServiceHandlers.AudioCall**
 
 > The bundle identifier for the default application that handles audio
 > calls to contacts from this account.
@@ -4314,7 +4314,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.PayloadDescription**
+**profiles.carddav-account.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -4327,7 +4327,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.PayloadDisplayName**
+**profiles.carddav-account.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -4340,7 +4340,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.PayloadIdentifier**
+**profiles.carddav-account.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -4354,7 +4354,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.carddav.account.PayloadOrganization**
+**profiles.carddav-account.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -4368,7 +4368,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.carddav.account.PayloadType**
+**profiles.carddav-account.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -4377,7 +4377,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.carddav.account.PayloadUUID**
+**profiles.carddav-account.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -4391,7 +4391,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.carddav.account.PayloadVersion**
+**profiles.carddav-account.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -4399,7 +4399,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.carddav.account.VPNUUID**
+**profiles.carddav-account.VPNUUID**
 
 > The VPNUUID of the per-app VPN the account uses for network
 > communication. Available in iOS 14 and later.
@@ -4768,7 +4768,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.cellularprivatenetwork.managed**
+**profiles.cellularprivatenetwork-managed**
 
 > The payload that provides device info on private network deployments,
 > including geographical location, preference over Wi-Fi, and network
@@ -4781,7 +4781,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.cellularprivatenetwork.managed.enable**
+**profiles.cellularprivatenetwork-managed.enable**
 
 > Whether to enable Enable the com.apple.cellularprivatenetwork.managed
 > profile.
@@ -4796,7 +4796,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.cellularprivatenetwork.managed.CellularDataPreferred**
+**profiles.cellularprivatenetwork-managed.CellularDataPreferred**
 
 > Set to 'true' to prefer this private network over Wi-Fi.
 >
@@ -4808,7 +4808,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellularprivatenetwork.managed.CsgNetworkIdentifier**
+**profiles.cellularprivatenetwork-managed.CsgNetworkIdentifier**
 
 > A string using the 3GPP "CSG_ID" format (defined in 3GPP 23.003,
 > Section 4.7). The device uses this value to match a SIM present on the
@@ -4825,7 +4825,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellularprivatenetwork.managed.DataSetName**
+**profiles.cellularprivatenetwork-managed.DataSetName**
 
 > The name of the private network configuration data set.
 >
@@ -4833,7 +4833,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.cellularprivatenetwork.managed.EnableNRStandalone**
+**profiles.cellularprivatenetwork-managed.EnableNRStandalone**
 
 > Set to 'true' if this private network is NR Standalone.
 >
@@ -4845,7 +4845,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellularprivatenetwork.managed.Geofences**
+**profiles.cellularprivatenetwork-managed.Geofences**
 
 > A list of up to 1000 geofences for private networks. Geofencing is
 > only used on iPhone.
@@ -4858,7 +4858,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellularprivatenetwork.managed.Geofences.\*.GeofenceId**
+**profiles.cellularprivatenetwork-managed.Geofences.\*.GeofenceId**
 
 > A geofence identifier that's unique within a list of geofences.
 >
@@ -4866,7 +4866,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.cellularprivatenetwork.managed.Geofences.\*.Latitude**
+**profiles.cellularprivatenetwork-managed.Geofences.\*.Latitude**
 
 > The latitude of the geofence.
 >
@@ -4874,7 +4874,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* floating point number between -90.0 and 90.0 (both inclusive)
 
-**profiles.cellularprivatenetwork.managed.Geofences.\*.Longitude**
+**profiles.cellularprivatenetwork-managed.Geofences.\*.Longitude**
 
 > The longitude of the geofence.
 >
@@ -4883,7 +4883,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* floating point number between -180.0 and 180.0 (both
 > inclusive)
 
-**profiles.cellularprivatenetwork.managed.Geofences.\*.Radius**
+**profiles.cellularprivatenetwork-managed.Geofences.\*.Radius**
 
 > Specifies the radius of the geofence in meters. Set this value
 > slightly greater than the private cellular network coverage area.
@@ -4893,7 +4893,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* floating point number between 100.0 and 6500.0 (both
 > inclusive)
 
-**profiles.cellularprivatenetwork.managed.NetworkIdentifier**
+**profiles.cellularprivatenetwork-managed.NetworkIdentifier**
 
 > A string using the 3GPP "Coordinated NID" (option 1 or option 2)
 > format (defined in 3GPP 31.102, Section 12.7.1). The device uses this
@@ -4910,7 +4910,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellularprivatenetwork.managed.PayloadDescription**
+**profiles.cellularprivatenetwork-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -4923,7 +4923,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellularprivatenetwork.managed.PayloadDisplayName**
+**profiles.cellularprivatenetwork-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -4936,7 +4936,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellularprivatenetwork.managed.PayloadIdentifier**
+**profiles.cellularprivatenetwork-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -4950,7 +4950,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.cellularprivatenetwork.managed.PayloadOrganization**
+**profiles.cellularprivatenetwork-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -4964,7 +4964,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.cellularprivatenetwork.managed.PayloadType**
+**profiles.cellularprivatenetwork-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -4973,7 +4973,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.cellularprivatenetwork.managed.PayloadUUID**
+**profiles.cellularprivatenetwork-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -4987,7 +4987,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.cellularprivatenetwork.managed.PayloadVersion**
+**profiles.cellularprivatenetwork-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -4995,7 +4995,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.cellularprivatenetwork.managed.VersionNumber**
+**profiles.cellularprivatenetwork-managed.VersionNumber**
 
 > The version number of this dataset that the system uses to track
 > updates.
@@ -5135,7 +5135,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.dnsProxy.managed**
+**profiles.dnsProxy-managed**
 
 > The payload that configures DNS proxies.
 >
@@ -5148,7 +5148,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.dnsProxy.managed.enable**
+**profiles.dnsProxy-managed.enable**
 
 > Whether to enable Enable the com.apple.dnsProxy.managed profile.
 >
@@ -5162,7 +5162,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.dnsProxy.managed.AppBundleIdentifier**
+**profiles.dnsProxy-managed.AppBundleIdentifier**
 
 > The bundle identifier of the app containing the DNS proxy network
 > extension.
@@ -5171,7 +5171,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.dnsProxy.managed.DNSProxyUUID**
+**profiles.dnsProxy-managed.DNSProxyUUID**
 
 > A globally unique identifier for this DNS proxy configuration. The
 > proxy processes DNS lookups traffic for managed apps with the same
@@ -5186,7 +5186,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsProxy.managed.PayloadDescription**
+**profiles.dnsProxy-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -5199,7 +5199,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsProxy.managed.PayloadDisplayName**
+**profiles.dnsProxy-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -5212,7 +5212,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsProxy.managed.PayloadIdentifier**
+**profiles.dnsProxy-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -5226,7 +5226,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.dnsProxy.managed.PayloadOrganization**
+**profiles.dnsProxy-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -5240,7 +5240,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsProxy.managed.PayloadType**
+**profiles.dnsProxy-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -5249,7 +5249,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.dnsProxy.managed.PayloadUUID**
+**profiles.dnsProxy-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -5263,7 +5263,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.dnsProxy.managed.PayloadVersion**
+**profiles.dnsProxy-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -5271,7 +5271,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.dnsProxy.managed.ProviderBundleIdentifier**
+**profiles.dnsProxy-managed.ProviderBundleIdentifier**
 
 > The bundle identifier of the DNS proxy network extension to use.
 > Declaring the bundle identifier is useful for apps that contain more
@@ -5285,7 +5285,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsProxy.managed.ProviderConfiguration**
+**profiles.dnsProxy-managed.ProviderConfiguration**
 
 > The dictionary of vendor-specific configuration items.
 >
@@ -5297,7 +5297,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed**
+**profiles.dnsSettings-managed**
 
 > The payload that configures encrypted DNS settings.
 >
@@ -5309,7 +5309,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.dnsSettings.managed.enable**
+**profiles.dnsSettings-managed.enable**
 
 > Whether to enable Enable the com.apple.dnsSettings.managed profile.
 >
@@ -5323,7 +5323,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.dnsSettings.managed.DNSSettings**
+**profiles.dnsSettings-managed.DNSSettings**
 
 > A dictionary that defines a configuration for an encrypted DNS server.
 >
@@ -5331,7 +5331,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.dnsSettings.managed.DNSSettings.AllowFailover**
+**profiles.dnsSettings-managed.DNSSettings.AllowFailover**
 
 > If 'true', the device allows failover to the default system DNS
 > resolver.
@@ -5344,7 +5344,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.DNSSettings.DNSProtocol**
+**profiles.dnsSettings-managed.DNSSettings.DNSProtocol**
 
 > The encrypted transport protocol used to communicate with the DNS
 > server.
@@ -5353,7 +5353,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "HTTPS", "TLS"
 
-**profiles.dnsSettings.managed.DNSSettings.PayloadCertificateUUID**
+**profiles.dnsSettings-managed.DNSSettings.PayloadCertificateUUID**
 
 > The UUID that points to an identity certificate payload. The system
 > uses this identity to authenticate the user to the DNS resolver.
@@ -5367,7 +5367,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.DNSSettings.ServerAddresses**
+**profiles.dnsSettings-managed.DNSSettings.ServerAddresses**
 
 > An unordered list of DNS server IP address strings. These IP addresses
 > can be a mixture of IPv4 and IPv6 addresses.
@@ -5380,7 +5380,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.DNSSettings.ServerName**
+**profiles.dnsSettings-managed.DNSSettings.ServerName**
 
 > The hostname of a DNS-over-TLS server used to validate the server
 > certificate, as defined in RFC 7858. If no 'ServerAddresses' are
@@ -5395,7 +5395,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.DNSSettings.ServerURL**
+**profiles.dnsSettings-managed.DNSSettings.ServerURL**
 
 > The URI template of a DNS-over-HTTPS server, as defined in RFC 8484.
 > This URL needs to use the 'https://' scheme, and the system uses the
@@ -5412,7 +5412,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.DNSSettings.SupplementalMatchDomains**
+**profiles.dnsSettings-managed.DNSSettings.SupplementalMatchDomains**
 
 > A list of domain strings used to determine which DNS queries use the
 > DNS server. If not set, all domains use the DNS server.
@@ -5430,7 +5430,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.OnDemandRules**
+**profiles.dnsSettings-managed.OnDemandRules**
 
 > An array of rules that define the DNS settings. If not set, the system
 > always applies the DNS settings. These rules are identical to the
@@ -5444,7 +5444,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.OnDemandRules.\*.Action**
+**profiles.dnsSettings-managed.OnDemandRules.\*.Action**
 
 > The action to take if this dictionary matches the current network.
 > Allowed values:
@@ -5461,7 +5461,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "Connect", "Disconnect", "EvaluateConnection"
 
-**profiles.dnsSettings.managed.OnDemandRules.\*.ActionParameters**
+**profiles.dnsSettings-managed.OnDemandRules.\*.ActionParameters**
 
 > An array of dictionaries that provide per-connection rules. The system
 > uses this array only for settings where the 'Action' value is
@@ -5475,7 +5475,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.OnDemandRules.\*.ActionParameters.\*.DomainAction**
+**profiles.dnsSettings-managed.OnDemandRules.\*.ActionParameters.\*.DomainAction**
 
 > The DNS settings behavior for the specified domains. Allowed values:
 >
@@ -5489,7 +5489,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "NeverConnect", "ConnectIfNeeded"
 
-**profiles.dnsSettings.managed.OnDemandRules.\*.ActionParameters.\*.Domains**
+**profiles.dnsSettings-managed.OnDemandRules.\*.ActionParameters.\*.Domains**
 
 > The domains for which this evaluation applies.
 >
@@ -5501,7 +5501,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > [ ]
 
-**profiles.dnsSettings.managed.OnDemandRules.\*.DNSDomainMatch**
+**profiles.dnsSettings-managed.OnDemandRules.\*.DNSDomainMatch**
 
 > An array of domain names. This rule matches if any of the domain names
 > in the specified list matches any domain in the device's search
@@ -5520,7 +5520,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.OnDemandRules.\*.DNSServerAddressMatch**
+**profiles.dnsSettings-managed.OnDemandRules.\*.DNSServerAddressMatch**
 
 > An array of IP addresses. This rule matches if any of the network's
 > specified DNS servers match any entry in the array.
@@ -5536,7 +5536,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.OnDemandRules.\*.InterfaceTypeMatch**
+**profiles.dnsSettings-managed.OnDemandRules.\*.InterfaceTypeMatch**
 
 > An interface type. If specified, this rule matches only if the primary
 > network interface hardware matches the specified type.
@@ -5549,7 +5549,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.OnDemandRules.\*.SSIDMatch**
+**profiles.dnsSettings-managed.OnDemandRules.\*.SSIDMatch**
 
 > An array of SSIDs to match against the current network. If the network
 > isn't a Wi-Fi network or if the SSID doesn't appear in this array, the
@@ -5564,7 +5564,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.OnDemandRules.\*.URLStringProbe**
+**profiles.dnsSettings-managed.OnDemandRules.\*.URLStringProbe**
 
 > A URL to probe. This rule matches if this URL is successfully fetched
 > and returns a 200 HTTP status code without redirection.
@@ -5577,7 +5577,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.PayloadDescription**
+**profiles.dnsSettings-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -5590,7 +5590,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.PayloadDisplayName**
+**profiles.dnsSettings-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -5603,7 +5603,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.PayloadIdentifier**
+**profiles.dnsSettings-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -5617,7 +5617,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.dnsSettings.managed.PayloadOrganization**
+**profiles.dnsSettings-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -5631,7 +5631,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.dnsSettings.managed.PayloadType**
+**profiles.dnsSettings-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -5640,7 +5640,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.dnsSettings.managed.PayloadUUID**
+**profiles.dnsSettings-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -5654,7 +5654,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.dnsSettings.managed.PayloadVersion**
+**profiles.dnsSettings-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -5662,7 +5662,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.dnsSettings.managed.ProhibitDisablement**
+**profiles.dnsSettings-managed.ProhibitDisablement**
 
 > If 'true', the system prohibits users from disabling DNS settings.
 > This key is only available on supervised devices.
@@ -5907,7 +5907,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account**
+**profiles.eas-account**
 
 > The payload that configures Exchange ActiveSync accounts.
 >
@@ -5919,7 +5919,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.eas.account.enable**
+**profiles.eas-account.enable**
 
 > Whether to enable Enable the com.apple.eas.account profile.
 >
@@ -5933,7 +5933,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.eas.account.Certificate**
+**profiles.eas-account.Certificate**
 
 > The '.p12' identity certificate in NSData blob format, for accounts
 > that allow authentication via certificate.
@@ -5947,7 +5947,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.CertificateName**
+**profiles.eas-account.CertificateName**
 
 > The name or description of the certificate.
 >
@@ -5959,7 +5959,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.CertificatePassword**
+**profiles.eas-account.CertificatePassword**
 
 > The password necessary for the '.p12' identity certificate. Used with
 > mandatory encryption of profiles.
@@ -5972,7 +5972,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.CommunicationServiceRules**
+**profiles.eas-account.CommunicationServiceRules**
 
 > The communication service handler rules for this account.
 >
@@ -5984,7 +5984,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.CommunicationServiceRules.DefaultServiceHandlers**
+**profiles.eas-account.CommunicationServiceRules.DefaultServiceHandlers**
 
 > The default handlers to use for contacts from this account.
 >
@@ -5996,7 +5996,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.CommunicationServiceRules.DefaultServiceHandlers.AudioCall**
+**profiles.eas-account.CommunicationServiceRules.DefaultServiceHandlers.AudioCall**
 
 > The bundle identifier of the default application to use for audio
 > calls made to contacts from this account.
@@ -6009,7 +6009,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EmailAddress**
+**profiles.eas-account.EmailAddress**
 
 > The full email address for the account. If not present in the payload,
 > the device prompts for this string during profile installation.
@@ -6022,7 +6022,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableCalendars**
+**profiles.eas-account.EnableCalendars**
 
 > If 'false', the system disables the Calendars service for this
 > account. The user can reenable Calendars service in Settings unless
@@ -6040,7 +6040,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableCalendarsUserOverridable**
+**profiles.eas-account.EnableCalendarsUserOverridable**
 
 > If 'false', the system prevents the user from changing the state of
 > the Calendars service for this account in Settings.
@@ -6053,7 +6053,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableContacts**
+**profiles.eas-account.EnableContacts**
 
 > If 'false', the system disables the Contacts service for this account.
 > The user can reenable Contacts service in Settings unless
@@ -6071,7 +6071,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableContactsUserOverridable**
+**profiles.eas-account.EnableContactsUserOverridable**
 
 > If 'false', the system prevents the user from changing the state of
 > the Contacts service for this account in Settings.
@@ -6084,7 +6084,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableMail**
+**profiles.eas-account.EnableMail**
 
 > If 'false', the system disables the Mail service for this account. The
 > user can reenable Mail service in Settings unless
@@ -6102,7 +6102,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableMailUserOverridable**
+**profiles.eas-account.EnableMailUserOverridable**
 
 > If 'false', the system prevents the user from changing the state of
 > the Mail service for this account in Settings.
@@ -6115,7 +6115,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableNotes**
+**profiles.eas-account.EnableNotes**
 
 > If 'false', the system disables the Notes service for this account.
 > The user can reenable Notes service in Settings unless
@@ -6133,7 +6133,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableNotesUserOverridable**
+**profiles.eas-account.EnableNotesUserOverridable**
 
 > If 'false', prevents the user from changing the state of the Notes
 > service for this account in Settings.
@@ -6146,7 +6146,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableReminders**
+**profiles.eas-account.EnableReminders**
 
 > If 'false', the system disables the Reminders service for this
 > account. The user can reenable Reminders service in Settings unless
@@ -6164,7 +6164,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.EnableRemindersUserOverridable**
+**profiles.eas-account.EnableRemindersUserOverridable**
 
 > If 'false', the system prevents the user from changing the state of
 > the Reminders service for this account in Settings.
@@ -6177,7 +6177,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.HeaderMagic**
+**profiles.eas-account.HeaderMagic**
 
 > The value of the 'X-Apple-Config-Magic' header in each EAS HTTP
 > request.
@@ -6191,7 +6191,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.Host**
+**profiles.eas-account.Host**
 
 > The Exchange server host name or IP address.
 >
@@ -6203,7 +6203,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.MailNumberOfPastDaysToSync**
+**profiles.eas-account.MailNumberOfPastDaysToSync**
 
 > The number of days in the past to sync mail on the device.
 >
@@ -6217,7 +6217,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.OAuth**
+**profiles.eas-account.OAuth**
 
 > If 'true', enables OAuth for authentication. If enabled, don't specify
 > a password.
@@ -6232,7 +6232,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.OAuthSignInURL**
+**profiles.eas-account.OAuthSignInURL**
 
 > The URL that this account should use for signing in through OAuth.
 > Ignored unless 'OAuth' is 'true'. If you specify this URL,
@@ -6247,7 +6247,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.OAuthTokenRequestURL**
+**profiles.eas-account.OAuthTokenRequestURL**
 
 > The URL that this account should use for token requests through OAuth.
 > Ignored unless 'OAuth' is 'true'.
@@ -6260,7 +6260,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.OverridePreviousPassword**
+**profiles.eas-account.OverridePreviousPassword**
 
 > If 'true', the system overrides the previous user/EAS password with
 > the new EAS password in the payload. Available in iOS 14 and later.
@@ -6273,7 +6273,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.Password**
+**profiles.eas-account.Password**
 
 > The password of the account. Use only with encrypted profiles.
 >
@@ -6285,7 +6285,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.PayloadCertificateUUID**
+**profiles.eas-account.PayloadCertificateUUID**
 
 > The UUID of the certificate payload within the same profile to use for
 > the identity credential. If this field is present, the Certificate
@@ -6300,7 +6300,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.PayloadDescription**
+**profiles.eas-account.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -6313,7 +6313,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.PayloadDisplayName**
+**profiles.eas-account.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -6326,7 +6326,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.PayloadIdentifier**
+**profiles.eas-account.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -6340,7 +6340,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.eas.account.PayloadOrganization**
+**profiles.eas-account.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -6354,7 +6354,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.PayloadType**
+**profiles.eas-account.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -6363,7 +6363,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.eas.account.PayloadUUID**
+**profiles.eas-account.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -6377,7 +6377,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.eas.account.PayloadVersion**
+**profiles.eas-account.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -6385,7 +6385,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.eas.account.PreventAppSheet**
+**profiles.eas-account.PreventAppSheet**
 
 > If 'true', prevents this account from sending mail in any app other
 > than the Apple Mail app.
@@ -6398,7 +6398,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.PreventMove**
+**profiles.eas-account.PreventMove**
 
 > If 'true', the system prevents moving messages from out of this email
 > account into another account. This setting also prevents forwarding or
@@ -6412,7 +6412,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMEEnableEncryptionPerMessageSwitch**
+**profiles.eas-account.SMIMEEnableEncryptionPerMessageSwitch**
 
 > If 'true', the system displays the per-message encryption switch in
 > the Mail Compose UI. Available in iOS 12.0 and later.
@@ -6425,7 +6425,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMEEnablePerMessageSwitch**
+**profiles.eas-account.SMIMEEnablePerMessageSwitch**
 
 > If 'true', the system displays the per-message encryption switch in
 > the Mail Compose UI.
@@ -6442,7 +6442,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMEEnabled**
+**profiles.eas-account.SMIMEEnabled**
 
 > If 'true', the system enables S/MIME encryption. In iOS 10.0 and
 > later, this key is ignored. Use 'SMIMESigningEnabled' instead.
@@ -6456,7 +6456,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMEEncryptByDefault**
+**profiles.eas-account.SMIMEEncryptByDefault**
 
 > If 'true', the system enables S/MIME encryption by default. If
 > 'SMIMEEnableEncryptionPerMessageSwitch' is 'false', the user can't
@@ -6470,7 +6470,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMEEncryptByDefaultUserOverrideable**
+**profiles.eas-account.SMIMEEncryptByDefaultUserOverrideable**
 
 > If 'true', the system enables encryption by default and the user can't
 > change it. Available in iOS 12.0 and later.
@@ -6483,7 +6483,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMEEncryptionCertificateUUID**
+**profiles.eas-account.SMIMEEncryptionCertificateUUID**
 
 > The payload UUID of the identity certificate used to decrypt messages
 > sent to this account. The system attaches the public certificate to
@@ -6500,7 +6500,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMEEncryptionCertificateUUIDUserOverrideable**
+**profiles.eas-account.SMIMEEncryptionCertificateUUIDUserOverrideable**
 
 > If 'true', the user can select the S/MIME encryption identity, and
 > encryption is on.Available in iOS 12.0 and later.
@@ -6513,7 +6513,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMEEncryptionEnabled**
+**profiles.eas-account.SMIMEEncryptionEnabled**
 
 > If 'true', the system enables S/MIME encryption for this account.
 > Available in iOS 10.0 and later. As of iOS 12.0, this key is
@@ -6528,7 +6528,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMESigningCertificateUUID**
+**profiles.eas-account.SMIMESigningCertificateUUID**
 
 > The UUID of the identity certificate used to sign messages sent from
 > this account.
@@ -6542,7 +6542,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMESigningCertificateUUIDUserOverrideable**
+**profiles.eas-account.SMIMESigningCertificateUUIDUserOverrideable**
 
 > If 'true', the user can select the signing identity. Available in iOS
 > 12.0 and later.
@@ -6555,7 +6555,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMESigningEnabled**
+**profiles.eas-account.SMIMESigningEnabled**
 
 > If 'true', the system enables S/MIME signing for this account.
 > Available in iOS 10.0 and later.
@@ -6568,7 +6568,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SMIMESigningUserOverrideable**
+**profiles.eas-account.SMIMESigningUserOverrideable**
 
 > If 'true', the user can turn S/MIME signing on or off in Settings.
 > Available in iOS 12.0 and later.
@@ -6581,7 +6581,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.SSL**
+**profiles.eas-account.SSL**
 
 > If 'true', the system enables SSL for authentication.
 >
@@ -6593,7 +6593,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.UserName**
+**profiles.eas-account.UserName**
 
 > This user name for this Exchange account. Required for noninteractive
 > installations like MDM in iOS.
@@ -6606,7 +6606,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.VPNUUID**
+**profiles.eas-account.VPNUUID**
 
 > The VPNUUID of the per-app VPN the account uses for network
 > communication. Available in iOS 14 and later.
@@ -6619,7 +6619,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.allowMailDrop**
+**profiles.eas-account.allowMailDrop**
 
 > If 'true', the system enables this account to use Mail Drop.
 >
@@ -6631,7 +6631,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.eas.account.disableMailRecentsSyncing**
+**profiles.eas-account.disableMailRecentsSyncing**
 
 > If 'true', the system excludes this account from Recent Addresses
 > syncing.
@@ -8078,7 +8078,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.globalethernet.managed**
+**profiles.globalethernet-managed**
 
 > The payload that configures the default fallback global Ethernet
 > interface.
@@ -8096,7 +8096,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.globalethernet.managed.enable**
+**profiles.globalethernet-managed.enable**
 
 > Whether to enable Enable the com.apple.globalethernet.managed profile.
 >
@@ -8110,7 +8110,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.globalethernet.managed.PayloadDescription**
+**profiles.globalethernet-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -8123,7 +8123,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.globalethernet.managed.PayloadDisplayName**
+**profiles.globalethernet-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -8136,7 +8136,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.globalethernet.managed.PayloadIdentifier**
+**profiles.globalethernet-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -8150,7 +8150,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.globalethernet.managed.PayloadOrganization**
+**profiles.globalethernet-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -8164,7 +8164,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.globalethernet.managed.PayloadType**
+**profiles.globalethernet-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -8173,7 +8173,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.globalethernet.managed.PayloadUUID**
+**profiles.globalethernet-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -8187,7 +8187,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.globalethernet.managed.PayloadVersion**
+**profiles.globalethernet-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -8195,7 +8195,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.globalethernet.managed.settings**
+**profiles.globalethernet-managed.settings**
 
 > Keys relevant to 802.1X configuration. User enrollment payloads don't
 > support the various proxy keys, including 'ProxyType', 'ProxyServer',
@@ -8815,14 +8815,14 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.ldap.account**
+**profiles.ldap-account**
 
 > The payload that configures a Lightweight Directory Access Protocol
 > (LDAP) account.
 >
 > *Type:* submodule
 
-**profiles.ldap.account.enable**
+**profiles.ldap-account.enable**
 
 > Whether to enable Enable the com.apple.ldap.account profile.
 >
@@ -8836,7 +8836,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.ldap.account.LDAPAccountDescription**
+**profiles.ldap-account.LDAPAccountDescription**
 
 > The description of the account.
 >
@@ -8848,7 +8848,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.LDAPAccountHostName**
+**profiles.ldap-account.LDAPAccountHostName**
 
 > The server's address.
 >
@@ -8856,7 +8856,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.ldap.account.LDAPAccountPassword**
+**profiles.ldap-account.LDAPAccountPassword**
 
 > The user's password. Only use this in encrypted profiles.
 >
@@ -8868,7 +8868,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.LDAPAccountUseSSL**
+**profiles.ldap-account.LDAPAccountUseSSL**
 
 > If 'true', the system enables SSL.
 >
@@ -8880,7 +8880,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.LDAPAccountUserName**
+**profiles.ldap-account.LDAPAccountUserName**
 
 > The user's user name.
 >
@@ -8892,7 +8892,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.LDAPSearchSettings**
+**profiles.ldap-account.LDAPSearchSettings**
 
 > An array of search settings dictionaries.
 >
@@ -8904,7 +8904,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.LDAPSearchSettings.\*.LDAPSearchSettingDescription**
+**profiles.ldap-account.LDAPSearchSettings.\*.LDAPSearchSettingDescription**
 
 > The description of this search setting.
 >
@@ -8916,7 +8916,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.LDAPSearchSettings.\*.LDAPSearchSettingScope**
+**profiles.ldap-account.LDAPSearchSettings.\*.LDAPSearchSettingScope**
 
 > The type of recursion to use in the search:
 >
@@ -8938,7 +8938,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.LDAPSearchSettings.\*.LDAPSearchSettingSearchBase**
+**profiles.ldap-account.LDAPSearchSettings.\*.LDAPSearchSettingSearchBase**
 
 > The path to the node where a search should start.
 >
@@ -8946,7 +8946,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.ldap.account.PayloadDescription**
+**profiles.ldap-account.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -8959,7 +8959,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.PayloadDisplayName**
+**profiles.ldap-account.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -8972,7 +8972,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.PayloadIdentifier**
+**profiles.ldap-account.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -8986,7 +8986,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.ldap.account.PayloadOrganization**
+**profiles.ldap-account.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -9000,7 +9000,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.ldap.account.PayloadType**
+**profiles.ldap-account.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -9009,7 +9009,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.ldap.account.PayloadUUID**
+**profiles.ldap-account.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -9023,7 +9023,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.ldap.account.PayloadVersion**
+**profiles.ldap-account.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -9031,7 +9031,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.ldap.account.VPNUUID**
+**profiles.ldap-account.VPNUUID**
 
 > The VPNUUID of the per-app VPN the account uses for network
 > communication. Available in iOS 14 and later.
@@ -9044,7 +9044,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed**
+**profiles.mail-managed**
 
 > The payload that configures a Mail account.
 >
@@ -9052,7 +9052,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.mail.managed.enable**
+**profiles.mail-managed.enable**
 
 > Whether to enable Enable the com.apple.mail.managed profile.
 >
@@ -9066,7 +9066,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.mail.managed.EmailAccountDescription**
+**profiles.mail-managed.EmailAccountDescription**
 
 > A user-visible description of the email account, shown in the Mail and
 > Settings applications.
@@ -9079,7 +9079,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.EmailAccountName**
+**profiles.mail-managed.EmailAccountName**
 
 > The full user name for the account. The system displays this name in
 > sent messages.
@@ -9092,7 +9092,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.EmailAccountType**
+**profiles.mail-managed.EmailAccountType**
 
 > Defines the protocol to use for the account.
 >
@@ -9100,7 +9100,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "EmailTypeIMAP", "EmailTypePOP"
 
-**profiles.mail.managed.EmailAddress**
+**profiles.mail-managed.EmailAddress**
 
 > The full email address for the account. If this string isn't present
 > in the payload, the device prompts the user for this string during
@@ -9114,7 +9114,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.IncomingMailServerAuthentication**
+**profiles.mail-managed.IncomingMailServerAuthentication**
 
 > The authentication scheme for incoming mail.
 >
@@ -9123,7 +9123,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* one of "EmailAuthNone", "EmailAuthPassword",
 > "EmailAuthCRAMMD5", "EmailAuthNTLM", "EmailAuthHTTPMD5"
 
-**profiles.mail.managed.IncomingMailServerHostName**
+**profiles.mail-managed.IncomingMailServerHostName**
 
 > The incoming mail server host name.
 >
@@ -9131,7 +9131,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.mail.managed.IncomingMailServerIMAPPathPrefix**
+**profiles.mail-managed.IncomingMailServerIMAPPathPrefix**
 
 > The path prefix for the IMAP mail server.
 >
@@ -9143,7 +9143,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.IncomingMailServerPortNumber**
+**profiles.mail-managed.IncomingMailServerPortNumber**
 
 > The incoming mail server port number. If not set, the system uses the
 > default port for a given protocol.
@@ -9156,7 +9156,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.IncomingMailServerUseSSL**
+**profiles.mail-managed.IncomingMailServerUseSSL**
 
 > If 'true', the system enables SSL for authentication on the incoming
 > mail server.
@@ -9169,7 +9169,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.IncomingMailServerUsername**
+**profiles.mail-managed.IncomingMailServerUsername**
 
 > The user name for the email account, usually the same as the email
 > address up to the "@" character. If not set and the account requires
@@ -9185,7 +9185,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.IncomingPassword**
+**profiles.mail-managed.IncomingPassword**
 
 > The password for the incoming mail server. Only use this in encrypted
 > profiles.
@@ -9198,7 +9198,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.OutgoingMailServerAuthentication**
+**profiles.mail-managed.OutgoingMailServerAuthentication**
 
 > The authentication scheme for outgoing mail.
 >
@@ -9207,7 +9207,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* one of "EmailAuthNone", "EmailAuthPassword",
 > "EmailAuthCRAMMD5", "EmailAuthNTLM", "EmailAuthHTTPMD5"
 
-**profiles.mail.managed.OutgoingMailServerHostName**
+**profiles.mail-managed.OutgoingMailServerHostName**
 
 > The outgoing mail server host name.
 >
@@ -9215,7 +9215,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.mail.managed.OutgoingMailServerPortNumber**
+**profiles.mail-managed.OutgoingMailServerPortNumber**
 
 > The outgoing mail server port number. If not set, the system uses
 > ports 25, 587, and 465, in that order.
@@ -9228,7 +9228,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.OutgoingMailServerUseSSL**
+**profiles.mail-managed.OutgoingMailServerUseSSL**
 
 > If 'true', the system enables SSL authentication on the outgoing mail
 > server.
@@ -9241,7 +9241,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.OutgoingMailServerUsername**
+**profiles.mail-managed.OutgoingMailServerUsername**
 
 > The user name for the email account, usually the same as the email
 > address up to the "@" character. If not set and the account requires
@@ -9257,7 +9257,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.OutgoingPassword**
+**profiles.mail-managed.OutgoingPassword**
 
 > The password for the outgoing mail server. Only use this in encrypted
 > profiles.
@@ -9270,7 +9270,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.OutgoingPasswordSameAsIncomingPassword**
+**profiles.mail-managed.OutgoingPasswordSameAsIncomingPassword**
 
 > If 'true', the system prompts the user only once for the password,
 > which it uses for both outgoing and incoming mail.
@@ -9286,7 +9286,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.PayloadDescription**
+**profiles.mail-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -9299,7 +9299,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.PayloadDisplayName**
+**profiles.mail-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -9312,7 +9312,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.PayloadIdentifier**
+**profiles.mail-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -9326,7 +9326,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.mail.managed.PayloadOrganization**
+**profiles.mail-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -9340,7 +9340,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.PayloadType**
+**profiles.mail-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -9349,7 +9349,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.mail.managed.PayloadUUID**
+**profiles.mail-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -9363,7 +9363,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.mail.managed.PayloadVersion**
+**profiles.mail-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -9371,7 +9371,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.mail.managed.PreventAppSheet**
+**profiles.mail-managed.PreventAppSheet**
 
 > If 'true', the system prevents this account from sending mail in any
 > app other than the Apple Mail app.
@@ -9384,7 +9384,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.PreventMove**
+**profiles.mail-managed.PreventMove**
 
 > If 'true', the system prevents moving messages out of this email
 > account and into another account. It also prevents forwarding or
@@ -9398,7 +9398,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMEEnableEncryptionPerMessageSwitch**
+**profiles.mail-managed.SMIMEEnableEncryptionPerMessageSwitch**
 
 > If 'true', the system displays the per-message encryption switch in
 > the Mail Compose UI.
@@ -9411,7 +9411,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMEEnablePerMessageSwitch**
+**profiles.mail-managed.SMIMEEnablePerMessageSwitch**
 
 > If 'true', the system displays the per-message encryption switch in
 > the Mail Compose UI.\
@@ -9427,7 +9427,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMEEnabled**
+**profiles.mail-managed.SMIMEEnabled**
 
 > If 'true', the system enables S/MIME encryption. The system ignores
 > this key in iOS 10.0 and later.
@@ -9440,7 +9440,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMEEncryptByDefault**
+**profiles.mail-managed.SMIMEEncryptByDefault**
 
 > If 'true', the system enables S/MIME encryption by default.
 >
@@ -9452,7 +9452,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMEEncryptByDefaultUserOverrideable**
+**profiles.mail-managed.SMIMEEncryptByDefaultUserOverrideable**
 
 > If 'true', the user can turn encryption by default on/off, and
 > encryption is on.
@@ -9465,7 +9465,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMEEncryptionCertificateUUID**
+**profiles.mail-managed.SMIMEEncryptionCertificateUUID**
 
 > The UUID of the identity certificate used to decrypt messages sent to
 > this account. The system attaches the public certificate to outgoing
@@ -9482,7 +9482,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMEEncryptionCertificateUUIDUserOverrideable**
+**profiles.mail-managed.SMIMEEncryptionCertificateUUIDUserOverrideable**
 
 > If 'true', the user can select the S/MIME encryption identity, and
 > encryption is on.
@@ -9495,7 +9495,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMEEncryptionEnabled**
+**profiles.mail-managed.SMIMEEncryptionEnabled**
 
 > If 'true', the system enables S/MIME encryption for this account.
 >
@@ -9507,7 +9507,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMESigningCertificateUUID**
+**profiles.mail-managed.SMIMESigningCertificateUUID**
 
 > The payload UUID of the identity certificate used to sign messages
 > sent from this account.
@@ -9521,7 +9521,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMESigningCertificateUUIDUserOverrideable**
+**profiles.mail-managed.SMIMESigningCertificateUUIDUserOverrideable**
 
 > If 'true', the user can select the signing identity.
 >
@@ -9533,7 +9533,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMESigningEnabled**
+**profiles.mail-managed.SMIMESigningEnabled**
 
 > If 'true', the system enables S/MIME signing for this account.
 >
@@ -9545,7 +9545,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.SMIMESigningUserOverrideable**
+**profiles.mail-managed.SMIMESigningUserOverrideable**
 
 > If 'true', the user can turn S/MIME signing on or off in Settings.
 >
@@ -9557,7 +9557,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.VPNUUID**
+**profiles.mail-managed.VPNUUID**
 
 > The VPNUUID of the per-app VPN the account uses for network
 > communication. Available in iOS 14 and later.
@@ -9570,7 +9570,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.allowMailDrop**
+**profiles.mail-managed.allowMailDrop**
 
 > If 'true', the system enables this account to use Mail Drop.
 >
@@ -9582,7 +9582,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mail.managed.disableMailRecentsSyncing**
+**profiles.mail-managed.disableMailRecentsSyncing**
 
 > If 'true', the system excludes this account from Recent Addresses
 > syncing.
@@ -10016,7 +10016,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* package *(read only)*
 
-**profiles.mobiledevice.passwordpolicy**
+**profiles.mobiledevice-passwordpolicy**
 
 > The payload that configures a passcode policy.
 >
@@ -10039,7 +10039,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.mobiledevice.passwordpolicy.enable**
+**profiles.mobiledevice-passwordpolicy.enable**
 
 > Whether to enable Enable the com.apple.mobiledevice.passwordpolicy
 > profile.
@@ -10054,7 +10054,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.mobiledevice.passwordpolicy.PayloadDescription**
+**profiles.mobiledevice-passwordpolicy.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -10067,7 +10067,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.PayloadDisplayName**
+**profiles.mobiledevice-passwordpolicy.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -10080,7 +10080,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.PayloadIdentifier**
+**profiles.mobiledevice-passwordpolicy.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -10094,7 +10094,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.mobiledevice.passwordpolicy.PayloadOrganization**
+**profiles.mobiledevice-passwordpolicy.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -10108,7 +10108,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.PayloadType**
+**profiles.mobiledevice-passwordpolicy.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -10117,7 +10117,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.mobiledevice.passwordpolicy.PayloadUUID**
+**profiles.mobiledevice-passwordpolicy.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -10131,7 +10131,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.mobiledevice.passwordpolicy.PayloadVersion**
+**profiles.mobiledevice-passwordpolicy.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -10139,7 +10139,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.mobiledevice.passwordpolicy.allowSimple**
+**profiles.mobiledevice-passwordpolicy.allowSimple**
 
 > If 'false', the system prevents use of a simple passcode. A simple
 > passcode contains repeated characters, or increasing or decreasing
@@ -10153,7 +10153,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.forcePIN**
+**profiles.mobiledevice-passwordpolicy.forcePIN**
 
 > If 'true', the system forces the user to enter a PIN.
 >
@@ -10165,7 +10165,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.maxFailedAttempts**
+**profiles.mobiledevice-passwordpolicy.maxFailedAttempts**
 
 > The number of failed passcode attempts that the system allows the user
 > before it erases or locks the device. After six failed attempts, the
@@ -10188,7 +10188,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.maxGracePeriod**
+**profiles.mobiledevice-passwordpolicy.maxGracePeriod**
 
 > The maximum grace period, in minutes, to unlock the phone without
 > entering a passcode. The default is '0', which is no grace period and
@@ -10203,7 +10203,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.maxInactivity**
+**profiles.mobiledevice-passwordpolicy.maxInactivity**
 
 > The maximum number of minutes for which the device can be idle without
 > the user unlocking it, before the system locks it. When this limit is
@@ -10225,7 +10225,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.maxPINAgeInDays**
+**profiles.mobiledevice-passwordpolicy.maxPINAgeInDays**
 
 > The number of days for which the passcode can remain unchanged. After
 > this number of days, the system forces the user to change the passcode
@@ -10239,7 +10239,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.minComplexChars**
+**profiles.mobiledevice-passwordpolicy.minComplexChars**
 
 > The minimum number of complex characters that a passcode needs to
 > contain. A *complex* character is a character other than a number or a
@@ -10255,7 +10255,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.minLength**
+**profiles.mobiledevice-passwordpolicy.minLength**
 
 > The minimum overall length of the passcode. This value is independent
 > of the value for 'minComplexChars'.
@@ -10268,7 +10268,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.pinHistory**
+**profiles.mobiledevice-passwordpolicy.pinHistory**
 
 > This value defines *N*, where the new passcode must be unique within
 > the last *N* entries in the passcode history.
@@ -10281,7 +10281,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.mobiledevice.passwordpolicy.requireAlphanumeric**
+**profiles.mobiledevice-passwordpolicy.requireAlphanumeric**
 
 > If 'true', the system requires alphabetic characters instead of only
 > numeric characters.
@@ -10805,13 +10805,13 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.osxserver.account**
+**profiles.osxserver-account**
 
 > The payload that configures a macOS Server account.
 >
 > *Type:* submodule
 
-**profiles.osxserver.account.enable**
+**profiles.osxserver-account.enable**
 
 > Whether to enable Enable the com.apple.osxserver.account profile.
 >
@@ -10825,7 +10825,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.osxserver.account.AccountDescription**
+**profiles.osxserver-account.AccountDescription**
 
 > The description of the account.
 >
@@ -10838,7 +10838,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.osxserver.account.ConfiguredAccounts**
+**profiles.osxserver-account.ConfiguredAccounts**
 
 > An array of dictionaries containing configured account types and
 > relevant settings
@@ -10848,7 +10848,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* list of (submodule)
 
-**profiles.osxserver.account.ConfiguredAccounts.\*.Port**
+**profiles.osxserver-account.ConfiguredAccounts.\*.Port**
 
 > Designates the port number to use when contacting the server. If no
 > port number is specified, the default port is used.
@@ -10862,7 +10862,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.osxserver.account.ConfiguredAccounts.\*.Type**
+**profiles.osxserver-account.ConfiguredAccounts.\*.Type**
 
 > com.apple.osxserver.documents (the Documents account type).
 >
@@ -10871,7 +10871,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value "com.apple.osxserver.documents" (singular enum)
 
-**profiles.osxserver.account.HostName**
+**profiles.osxserver-account.HostName**
 
 > The server's address.
 >
@@ -10880,7 +10880,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.osxserver.account.Password**
+**profiles.osxserver-account.Password**
 
 > The user's password.
 >
@@ -10893,7 +10893,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.osxserver.account.PayloadDescription**
+**profiles.osxserver-account.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -10906,7 +10906,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.osxserver.account.PayloadDisplayName**
+**profiles.osxserver-account.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -10919,7 +10919,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.osxserver.account.PayloadIdentifier**
+**profiles.osxserver-account.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -10933,7 +10933,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.osxserver.account.PayloadOrganization**
+**profiles.osxserver-account.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -10947,7 +10947,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.osxserver.account.PayloadType**
+**profiles.osxserver-account.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -10956,7 +10956,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.osxserver.account.PayloadUUID**
+**profiles.osxserver-account.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -10970,7 +10970,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.osxserver.account.PayloadVersion**
+**profiles.osxserver-account.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -10978,7 +10978,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.osxserver.account.UserName**
+**profiles.osxserver-account.UserName**
 
 > The user's user name.
 >
@@ -11116,7 +11116,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global**
+**profiles.proxy-http-global**
 
 > The payload that configures a global HTTP proxy.
 >
@@ -11126,7 +11126,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.proxy.http.global.enable**
+**profiles.proxy-http-global.enable**
 
 > Whether to enable Enable the com.apple.proxy.http.global profile.
 >
@@ -11140,7 +11140,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.proxy.http.global.PayloadDescription**
+**profiles.proxy-http-global.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -11153,7 +11153,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.PayloadDisplayName**
+**profiles.proxy-http-global.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -11166,7 +11166,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.PayloadIdentifier**
+**profiles.proxy-http-global.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -11180,7 +11180,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.proxy.http.global.PayloadOrganization**
+**profiles.proxy-http-global.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -11194,7 +11194,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.PayloadType**
+**profiles.proxy-http-global.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -11203,7 +11203,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.proxy.http.global.PayloadUUID**
+**profiles.proxy-http-global.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -11217,7 +11217,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.proxy.http.global.PayloadVersion**
+**profiles.proxy-http-global.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -11225,7 +11225,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.proxy.http.global.ProxyCaptiveLoginAllowed**
+**profiles.proxy-http-global.ProxyCaptiveLoginAllowed**
 
 > If 'true', allows the device to bypass the proxy server to display the
 > login page for captive networks.
@@ -11238,7 +11238,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.ProxyPACFallbackAllowed**
+**profiles.proxy-http-global.ProxyPACFallbackAllowed**
 
 > If 'true', allows connecting directly to the destination if the proxy
 > autoconfiguration (PAC) file is unreachable.
@@ -11251,7 +11251,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.ProxyPACURL**
+**profiles.proxy-http-global.ProxyPACURL**
 
 > The URL of the PAC file that defines the proxy configuration. Starting
 > in iOS 13 and macOS 10.15, only URLs that begin with 'http://' or
@@ -11266,7 +11266,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.ProxyPassword**
+**profiles.proxy-http-global.ProxyPassword**
 
 > The password used to authenticate to the proxy server. The device only
 > uses this if 'ProxyType' is set to 'Manual', and ignores it if
@@ -11280,7 +11280,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.ProxyServer**
+**profiles.proxy-http-global.ProxyServer**
 
 > The proxy server's network address. The device requires this if
 > 'ProxyType' is set to 'Manual', and ignores it if 'ProxyType' is set
@@ -11294,7 +11294,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.ProxyServerPort**
+**profiles.proxy-http-global.ProxyServerPort**
 
 > The proxy server's port number. The device requires this if
 > 'ProxyType' is set to 'Manual', and ignores this if 'ProxyType' is set
@@ -11308,7 +11308,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.ProxyType**
+**profiles.proxy-http-global.ProxyType**
 
 > The proxy type. For a manual proxy type, the profile contains the
 > proxy server address, including its port, and optionally a user name
@@ -11322,7 +11322,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.proxy.http.global.ProxyUsername**
+**profiles.proxy-http-global.ProxyUsername**
 
 > The user name used to authenticate to the proxy server. The device
 > only uses this if 'ProxyType' is set to 'Manual', and ignores it if
@@ -11336,13 +11336,13 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed**
+**profiles.relay-managed**
 
 > The payload that configures relay settings.
 >
 > *Type:* submodule
 
-**profiles.relay.managed.enable**
+**profiles.relay-managed.enable**
 
 > Whether to enable Enable the com.apple.relay.managed profile.
 >
@@ -11356,7 +11356,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.relay.managed.AllowDNSFailover**
+**profiles.relay-managed.AllowDNSFailover**
 
 > If 'true', the device allows the relay to failover to the default
 > system DNS resolver.
@@ -11369,7 +11369,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.ExcludedDomains**
+**profiles.relay-managed.ExcludedDomains**
 
 > A list of domain strings to exclude from routing through the servers
 > in 'Relays'. Any connection that matches a domain in the list exactly
@@ -11383,7 +11383,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.ExcludedFQDNs**
+**profiles.relay-managed.ExcludedFQDNs**
 
 > A list of Fully Qualified Domain Names (FQDNs) to exclude from routing
 > through the servers contained in 'Relays'. Any connection that matches
@@ -11400,7 +11400,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.MatchDomains**
+**profiles.relay-managed.MatchDomains**
 
 > A list of domain strings that the system uses to determine which
 > connection to route through the servers in 'Relays'.
@@ -11421,7 +11421,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.MatchFQDNs**
+**profiles.relay-managed.MatchFQDNs**
 
 > A list of Fully Qualified Domain Names (FQDNs) to be routed through
 > the servers contained in 'Relays'. Any connection that matches an FQDN
@@ -11438,7 +11438,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.PayloadDescription**
+**profiles.relay-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -11451,7 +11451,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.PayloadDisplayName**
+**profiles.relay-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -11464,7 +11464,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.PayloadIdentifier**
+**profiles.relay-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -11478,7 +11478,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.relay.managed.PayloadOrganization**
+**profiles.relay-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -11492,7 +11492,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.PayloadType**
+**profiles.relay-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -11501,7 +11501,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.relay.managed.PayloadUUID**
+**profiles.relay-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -11515,7 +11515,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.relay.managed.PayloadVersion**
+**profiles.relay-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -11523,7 +11523,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.relay.managed.RelayUUID**
+**profiles.relay-managed.RelayUUID**
 
 > A globally unique identifier for this relay configuration. The system
 > uses this UUID to route managed apps through the servers in 'Relays'.
@@ -11537,7 +11537,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.Relays**
+**profiles.relay-managed.Relays**
 
 > An array of dictionaries that describe one or more relay servers that
 > the system can chain together.
@@ -11546,7 +11546,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* list of (submodule)
 
-**profiles.relay.managed.Relays.\*.AdditionalHTTPHeaderFields**
+**profiles.relay-managed.Relays.\*.AdditionalHTTPHeaderFields**
 
 > A dictionary that contains custom HTTP header keys and values to add
 > to each request. The dictionary key name represents the HTTP header
@@ -11561,7 +11561,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.Relays.\*.HTTP2RelayURL**
+**profiles.relay-managed.Relays.\*.HTTP2RelayURL**
 
 > The URL or URI template, as defined in RFC 9298, of a relay server
 > that's reachable using HTTP/2 and supports proxying TCP and UDP using
@@ -11578,7 +11578,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.Relays.\*.HTTP3RelayURL**
+**profiles.relay-managed.Relays.\*.HTTP3RelayURL**
 
 > The URL or URI template, as defined in RFC 9298, of a relay server
 > that's reachable using HTTP/3 and supports proxying TCP and UDP using
@@ -11595,7 +11595,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.Relays.\*.PayloadCertificateUUID**
+**profiles.relay-managed.Relays.\*.PayloadCertificateUUID**
 
 > The UUID that points to an identity certificate payload, which the
 > system uses to authenticate the user to the relay server.
@@ -11609,7 +11609,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.Relays.\*.RawPublicKeys**
+**profiles.relay-managed.Relays.\*.RawPublicKeys**
 
 > An array of DER-encoded raw public keys that the system uses to
 > authenticate the server during a TLS handshake. The server needs to
@@ -11627,7 +11627,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.relay.managed.UIToggleEnabled**
+**profiles.relay-managed.UIToggleEnabled**
 
 > If 'true', the device allows the user to disable this network relay
 > configuration.
@@ -11640,7 +11640,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme**
+**profiles.security-acme**
 
 > The payload that configures Automated Certificate Management
 > Environment (ACME) settings.
@@ -11672,7 +11672,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.security.acme.enable**
+**profiles.security-acme.enable**
 
 > Whether to enable Enable the com.apple.security.acme profile.
 >
@@ -11686,7 +11686,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.security.acme.Attest**
+**profiles.security-acme.Attest**
 
 > If 'true', the device provides attestations that describe the device
 > and the generated key to the ACME server. The server can use the
@@ -11709,7 +11709,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.ClientIdentifier**
+**profiles.security-acme.ClientIdentifier**
 
 > A unique string identifying a specific device. The server may use this
 > as an anti-replay code to prevent issuing multiple certificates. This
@@ -11723,7 +11723,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.acme.DirectoryURL**
+**profiles.security-acme.DirectoryURL**
 
 > The directory URL of the ACME server. The URL must use the https
 > scheme.
@@ -11732,7 +11732,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.acme.ExtendedKeyUsage**
+**profiles.security-acme.ExtendedKeyUsage**
 
 > The value is an array of strings. Each string is an OID in dotted
 > notation. For instance, '\[\"1.3.6.1.5.5.7.3.2\",
@@ -11751,7 +11751,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.HardwareBound**
+**profiles.security-acme.HardwareBound**
 
 > If 'false', the private key isn't bound to the device.
 >
@@ -11772,7 +11772,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* boolean
 
-**profiles.security.acme.KeySize**
+**profiles.security-acme.KeySize**
 
 > The valid values for 'KeySize' depend on the values of 'KeyType' and
 > 'HardwareBound'. See those keys for specific requirements.
@@ -11781,7 +11781,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* signed integer
 
-**profiles.security.acme.KeyType**
+**profiles.security-acme.KeyType**
 
 > The type of key pair to generate. Allowed values:
 >
@@ -11802,7 +11802,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "RSA", "ECSECPrimeRandom"
 
-**profiles.security.acme.PayloadDescription**
+**profiles.security-acme.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -11815,7 +11815,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.PayloadDisplayName**
+**profiles.security-acme.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -11828,7 +11828,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.PayloadIdentifier**
+**profiles.security-acme.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -11842,7 +11842,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.acme.PayloadOrganization**
+**profiles.security-acme.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -11856,7 +11856,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.PayloadType**
+**profiles.security-acme.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -11865,7 +11865,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.acme.PayloadUUID**
+**profiles.security-acme.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -11879,7 +11879,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.acme.PayloadVersion**
+**profiles.security-acme.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -11887,7 +11887,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.security.acme.Subject**
+**profiles.security-acme.Subject**
 
 > The device requests this subject for the certificate that the ACME
 > server issues. The ACME server may override or ignore this field in
@@ -11912,7 +11912,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > [ ]
 
-**profiles.security.acme.SubjectAltName**
+**profiles.security-acme.SubjectAltName**
 
 > The Subject Alt Name that the device requests for the certificate that
 > the ACME server issues. The ACME server may override or ignore this
@@ -11926,7 +11926,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.SubjectAltName.dNSName**
+**profiles.security-acme.SubjectAltName.dNSName**
 
 > The DNS name.
 >
@@ -11938,7 +11938,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.SubjectAltName.ntPrincipalName**
+**profiles.security-acme.SubjectAltName.ntPrincipalName**
 
 > The NT principal name. Use an other name OID set to
 > '1.3.6.1.4.1.311.20.2.3'.
@@ -11951,7 +11951,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.SubjectAltName.rfc822Name**
+**profiles.security-acme.SubjectAltName.rfc822Name**
 
 > The RFC 822 (email address) string.
 >
@@ -11963,7 +11963,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.SubjectAltName.uniformResourceIdentifier**
+**profiles.security-acme.SubjectAltName.uniformResourceIdentifier**
 
 > The Uniform Resource Identifier.
 >
@@ -11975,7 +11975,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.acme.UsageFlags**
+**profiles.security-acme.UsageFlags**
 
 > This value is a bit field.
 >
@@ -11995,7 +11995,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificaterevocation**
+**profiles.security-certificaterevocation**
 
 > The payload that configures certificate revocation checking.
 >
@@ -12003,7 +12003,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.security.certificaterevocation.enable**
+**profiles.security-certificaterevocation.enable**
 
 > Whether to enable Enable the com.apple.security.certificaterevocation
 > profile.
@@ -12018,7 +12018,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.security.certificaterevocation.EnabledForCerts**
+**profiles.security-certificaterevocation.EnabledForCerts**
 
 > An array of certificates that the system checks for revocation.
 >
@@ -12040,7 +12040,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > **1.** https://support.apple.com/en-us/HT209143
 
-**profiles.security.certificaterevocation.EnabledForCerts.\*.Algorithm**
+**profiles.security-certificaterevocation.EnabledForCerts.\*.Algorithm**
 
 > The algorithm must be 'sha256'.
 >
@@ -12048,7 +12048,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value "sha256" (singular enum)
 
-**profiles.security.certificaterevocation.EnabledForCerts.\*.Hash**
+**profiles.security-certificaterevocation.EnabledForCerts.\*.Hash**
 
 > The hash of the DER-encoding of the certificate's
 > 'subjectPublicKeyInfo'.
@@ -12062,7 +12062,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* string or path (string or file content will be made base64
 > encoded \<data\> in plist)
 
-**profiles.security.certificaterevocation.PayloadDescription**
+**profiles.security-certificaterevocation.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -12075,7 +12075,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificaterevocation.PayloadDisplayName**
+**profiles.security-certificaterevocation.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -12088,7 +12088,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificaterevocation.PayloadIdentifier**
+**profiles.security-certificaterevocation.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -12102,7 +12102,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.certificaterevocation.PayloadOrganization**
+**profiles.security-certificaterevocation.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -12116,7 +12116,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificaterevocation.PayloadType**
+**profiles.security-certificaterevocation.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -12125,7 +12125,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.certificaterevocation.PayloadUUID**
+**profiles.security-certificaterevocation.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -12139,7 +12139,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.certificaterevocation.PayloadVersion**
+**profiles.security-certificaterevocation.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -12147,7 +12147,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.security.certificatetransparency**
+**profiles.security-certificatetransparency**
 
 > The payload that configures certificate transparency enforcement.
 >
@@ -12155,7 +12155,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.security.certificatetransparency.enable**
+**profiles.security-certificatetransparency.enable**
 
 > Whether to enable Enable the
 > com.apple.security.certificatetransparency profile.
@@ -12170,7 +12170,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.security.certificatetransparency.DisabledForCerts**
+**profiles.security-certificatetransparency.DisabledForCerts**
 
 > An array of certificates for which certificate transparency is
 > disabled. One of the following conditions needs to be met to disable
@@ -12201,7 +12201,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificatetransparency.DisabledForCerts.\*.Algorithm**
+**profiles.security-certificatetransparency.DisabledForCerts.\*.Algorithm**
 
 > The algorithm must be 'sha256'.
 >
@@ -12209,7 +12209,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value "sha256" (singular enum)
 
-**profiles.security.certificatetransparency.DisabledForCerts.\*.Hash**
+**profiles.security-certificatetransparency.DisabledForCerts.\*.Hash**
 
 > The hash of the DER-encoding of the certificate's
 > 'subjectPublicKeyInfo'.
@@ -12223,7 +12223,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* string or path (string or file content will be made base64
 > encoded \<data\> in plist)
 
-**profiles.security.certificatetransparency.DisabledForDomains**
+**profiles.security-certificatetransparency.DisabledForDomains**
 
 > An array of strings that represent the domains to exclude from
 > certificate transparency enforcement. The system supports using a
@@ -12239,7 +12239,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificatetransparency.PayloadDescription**
+**profiles.security-certificatetransparency.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -12252,7 +12252,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificatetransparency.PayloadDisplayName**
+**profiles.security-certificatetransparency.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -12265,7 +12265,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificatetransparency.PayloadIdentifier**
+**profiles.security-certificatetransparency.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -12279,7 +12279,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.certificatetransparency.PayloadOrganization**
+**profiles.security-certificatetransparency.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -12293,7 +12293,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.certificatetransparency.PayloadType**
+**profiles.security-certificatetransparency.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -12302,7 +12302,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.certificatetransparency.PayloadUUID**
+**profiles.security-certificatetransparency.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -12316,7 +12316,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.certificatetransparency.PayloadVersion**
+**profiles.security-certificatetransparency.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -12324,7 +12324,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.security.pem**
+**profiles.security-pem**
 
 > The payload that configures a PEM-formatted certificate.
 >
@@ -12333,7 +12333,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.security.pem.enable**
+**profiles.security-pem.enable**
 
 > Whether to enable Enable the com.apple.security.pem profile.
 >
@@ -12347,7 +12347,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.security.pem.PayloadCertificateFileName**
+**profiles.security-pem.PayloadCertificateFileName**
 
 > The file name of the enclosed certificate.
 >
@@ -12359,7 +12359,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pem.PayloadContent**
+**profiles.security-pem.PayloadContent**
 
 > The binary representation of the payload, encoded in Base64.
 >
@@ -12368,7 +12368,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* string or path (string or file content will be made base64
 > encoded \<data\> in plist)
 
-**profiles.security.pem.PayloadDescription**
+**profiles.security-pem.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -12381,7 +12381,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pem.PayloadDisplayName**
+**profiles.security-pem.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -12394,7 +12394,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pem.PayloadIdentifier**
+**profiles.security-pem.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -12408,7 +12408,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.pem.PayloadOrganization**
+**profiles.security-pem.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -12422,7 +12422,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pem.PayloadType**
+**profiles.security-pem.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -12431,7 +12431,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.pem.PayloadUUID**
+**profiles.security-pem.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -12445,7 +12445,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.pem.PayloadVersion**
+**profiles.security-pem.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -12453,7 +12453,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.security.pkcs1**
+**profiles.security-pkcs1**
 
 > The payload that configures a PKCS #1-formatted certificate.
 >
@@ -12462,7 +12462,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.security.pkcs1.enable**
+**profiles.security-pkcs1.enable**
 
 > Whether to enable Enable the com.apple.security.pkcs1 profile.
 >
@@ -12476,7 +12476,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.security.pkcs1.PayloadCertificateFileName**
+**profiles.security-pkcs1.PayloadCertificateFileName**
 
 > The file name of the enclosed certificate.
 >
@@ -12488,7 +12488,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pkcs1.PayloadContent**
+**profiles.security-pkcs1.PayloadContent**
 
 > The binary representation of the payload, encoded in Base64.
 >
@@ -12497,7 +12497,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* string or path (string or file content will be made base64
 > encoded \<data\> in plist)
 
-**profiles.security.pkcs1.PayloadDescription**
+**profiles.security-pkcs1.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -12510,7 +12510,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pkcs1.PayloadDisplayName**
+**profiles.security-pkcs1.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -12523,7 +12523,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pkcs1.PayloadIdentifier**
+**profiles.security-pkcs1.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -12537,7 +12537,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.pkcs1.PayloadOrganization**
+**profiles.security-pkcs1.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -12551,7 +12551,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pkcs1.PayloadType**
+**profiles.security-pkcs1.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -12560,7 +12560,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.pkcs1.PayloadUUID**
+**profiles.security-pkcs1.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -12574,7 +12574,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.pkcs1.PayloadVersion**
+**profiles.security-pkcs1.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -12582,7 +12582,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.security.pkcs12**
+**profiles.security-pkcs12**
 
 > The payload that configures a PKCS #12-formatted certificate.
 >
@@ -12606,7 +12606,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.security.pkcs12.enable**
+**profiles.security-pkcs12.enable**
 
 > Whether to enable Enable the com.apple.security.pkcs12 profile.
 >
@@ -12620,7 +12620,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.security.pkcs12.Password**
+**profiles.security-pkcs12.Password**
 
 > The password to the identity.
 >
@@ -12632,7 +12632,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pkcs12.PayloadCertificateFileName**
+**profiles.security-pkcs12.PayloadCertificateFileName**
 
 > The file name of the enclosed certificate.
 >
@@ -12644,7 +12644,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pkcs12.PayloadContent**
+**profiles.security-pkcs12.PayloadContent**
 
 > The binary representation of the payload, encoded in Base64.
 >
@@ -12653,7 +12653,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* string or path (string or file content will be made base64
 > encoded \<data\> in plist)
 
-**profiles.security.pkcs12.PayloadDescription**
+**profiles.security-pkcs12.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -12666,7 +12666,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pkcs12.PayloadDisplayName**
+**profiles.security-pkcs12.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -12679,7 +12679,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pkcs12.PayloadIdentifier**
+**profiles.security-pkcs12.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -12693,7 +12693,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.pkcs12.PayloadOrganization**
+**profiles.security-pkcs12.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -12707,7 +12707,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.pkcs12.PayloadType**
+**profiles.security-pkcs12.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -12716,7 +12716,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.pkcs12.PayloadUUID**
+**profiles.security-pkcs12.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -12730,7 +12730,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.pkcs12.PayloadVersion**
+**profiles.security-pkcs12.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -12738,7 +12738,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.security.root**
+**profiles.security-root**
 
 > The payload that configures a root certificate.
 >
@@ -12746,7 +12746,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.security.root.enable**
+**profiles.security-root.enable**
 
 > Whether to enable Enable the com.apple.security.root profile.
 >
@@ -12760,7 +12760,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.security.root.PayloadCertificateFileName**
+**profiles.security-root.PayloadCertificateFileName**
 
 > The file name of the enclosed certificate.
 >
@@ -12772,7 +12772,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.root.PayloadContent**
+**profiles.security-root.PayloadContent**
 
 > The binary representation of the payload encoded in base64.
 >
@@ -12781,7 +12781,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* string or path (string or file content will be made base64
 > encoded \<data\> in plist)
 
-**profiles.security.root.PayloadDescription**
+**profiles.security-root.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -12794,7 +12794,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.root.PayloadDisplayName**
+**profiles.security-root.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -12807,7 +12807,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.root.PayloadIdentifier**
+**profiles.security-root.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -12821,7 +12821,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.root.PayloadOrganization**
+**profiles.security-root.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -12835,7 +12835,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.root.PayloadType**
+**profiles.security-root.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -12844,7 +12844,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.root.PayloadUUID**
+**profiles.security-root.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -12858,7 +12858,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.root.PayloadVersion**
+**profiles.security-root.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -12866,7 +12866,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.security.scep**
+**profiles.security-scep**
 
 > The payload that configures Simple Certificate Enrollment Protocol
 > (SCEP) settings.
@@ -12879,7 +12879,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.security.scep.enable**
+**profiles.security-scep.enable**
 
 > Whether to enable Enable the com.apple.security.scep profile.
 >
@@ -12893,7 +12893,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.security.scep.PayloadContent**
+**profiles.security-scep.PayloadContent**
 
 > A dictionary containing the SCEP information.
 >
@@ -12901,7 +12901,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.security.scep.PayloadContent.AllowAllAppsAccess**
+**profiles.security-scep.PayloadContent.AllowAllAppsAccess**
 
 > If 'true', all apps have access to the private key.
 >
@@ -12913,7 +12913,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.CAFingerprint**
+**profiles.security-scep.PayloadContent.CAFingerprint**
 
 > The fingerprint of the Certificate Authority certificate.
 >
@@ -12926,7 +12926,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.Challenge**
+**profiles.security-scep.PayloadContent.Challenge**
 
 > A preshared secret.
 >
@@ -12938,7 +12938,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.\"Key Type\"**
+**profiles.security-scep.PayloadContent.\"Key Type\"**
 
 > Always 'RSA'.
 >
@@ -12950,7 +12950,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.\"Key Usage\"**
+**profiles.security-scep.PayloadContent.\"Key Usage\"**
 
 > A bitmask indicating the use of the key. Possible values:
 >
@@ -12969,7 +12969,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.KeyIsExtractable**
+**profiles.security-scep.PayloadContent.KeyIsExtractable**
 
 > If 'false', the system disables exporting the private key from the
 > keychain.
@@ -12982,7 +12982,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.Keysize**
+**profiles.security-scep.PayloadContent.Keysize**
 
 > The key size, in bits.
 >
@@ -12994,7 +12994,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.Name**
+**profiles.security-scep.PayloadContent.Name**
 
 > A string that's understood by the SCEP server; for example, a domain
 > name like example.org. If a certificate authority has multiple CA
@@ -13008,7 +13008,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.Retries**
+**profiles.security-scep.PayloadContent.Retries**
 
 > The number of times the device should retry if the server sends a
 > PENDING response.
@@ -13021,7 +13021,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.RetryDelay**
+**profiles.security-scep.PayloadContent.RetryDelay**
 
 > The number of seconds to wait between subsequent retries. The first
 > retry is attempted without this delay.
@@ -13034,7 +13034,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.Subject**
+**profiles.security-scep.PayloadContent.Subject**
 
 > The representation of an X.500 name as an array of OID and value.
 >
@@ -13054,7 +13054,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.SubjectAltName**
+**profiles.security-scep.PayloadContent.SubjectAltName**
 
 > The SCEP payload can specify an optional 'SubjectAltName' dictionary
 > that provides values required by the CA for issuing a certificate. You
@@ -13072,7 +13072,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.SubjectAltName.dNSName**
+**profiles.security-scep.PayloadContent.SubjectAltName.dNSName**
 
 > The DNS name.
 >
@@ -13084,7 +13084,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.SubjectAltName.ntPrincipalName**
+**profiles.security-scep.PayloadContent.SubjectAltName.ntPrincipalName**
 
 > The NT principal name. Use an other name OID set to
 > '1.3.6.1.4.1.311.20.2.3'.
@@ -13097,7 +13097,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.SubjectAltName.rfc822Name**
+**profiles.security-scep.PayloadContent.SubjectAltName.rfc822Name**
 
 > The RFC 822 (email address) string.
 >
@@ -13109,7 +13109,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.SubjectAltName.uniformResourceIdentifier**
+**profiles.security-scep.PayloadContent.SubjectAltName.uniformResourceIdentifier**
 
 > The Uniform Resource Identifier.
 >
@@ -13121,7 +13121,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadContent.URL**
+**profiles.security-scep.PayloadContent.URL**
 
 > The SCEP URL. See Over-the-Air Profile Delivery and Configuration for
 > more information about SCEP.
@@ -13130,7 +13130,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.scep.PayloadDescription**
+**profiles.security-scep.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -13143,7 +13143,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadDisplayName**
+**profiles.security-scep.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -13156,7 +13156,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadIdentifier**
+**profiles.security-scep.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -13170,7 +13170,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.scep.PayloadOrganization**
+**profiles.security-scep.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -13184,7 +13184,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.security.scep.PayloadType**
+**profiles.security-scep.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -13193,7 +13193,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.scep.PayloadUUID**
+**profiles.security-scep.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -13207,7 +13207,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.security.scep.PayloadVersion**
+**profiles.security-scep.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -13215,7 +13215,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.setupAssistant.managed**
+**profiles.setupAssistant-managed**
 
 > The payload that configures Setup Assistant settings.
 >
@@ -13224,7 +13224,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.setupAssistant.managed.enable**
+**profiles.setupAssistant-managed.enable**
 
 > Whether to enable Enable the com.apple.SetupAssistant.managed profile.
 >
@@ -13238,7 +13238,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.setupAssistant.managed.PayloadDescription**
+**profiles.setupAssistant-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -13251,7 +13251,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.setupAssistant.managed.PayloadDisplayName**
+**profiles.setupAssistant-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -13264,7 +13264,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.setupAssistant.managed.PayloadIdentifier**
+**profiles.setupAssistant-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -13278,7 +13278,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.setupAssistant.managed.PayloadOrganization**
+**profiles.setupAssistant-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -13292,7 +13292,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.setupAssistant.managed.PayloadType**
+**profiles.setupAssistant-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -13301,7 +13301,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.setupAssistant.managed.PayloadUUID**
+**profiles.setupAssistant-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -13315,7 +13315,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.setupAssistant.managed.PayloadVersion**
+**profiles.setupAssistant-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -13323,7 +13323,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.setupAssistant.managed.SkipSetupItems**
+**profiles.setupAssistant-managed.SkipSetupItems**
 
 > An array of strings that describe the setup items to skip. 'SkipKeys'
 > provides a list of valid strings and their meanings. Available in iOS
@@ -13705,13 +13705,13 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.subscribedcalendar.account**
+**profiles.subscribedcalendar-account**
 
 > The payload that configures subscribed calendars.
 >
 > *Type:* submodule
 
-**profiles.subscribedcalendar.account.enable**
+**profiles.subscribedcalendar-account.enable**
 
 > Whether to enable Enable the com.apple.subscribedcalendar.account
 > profile.
@@ -13726,7 +13726,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.subscribedcalendar.account.PayloadDescription**
+**profiles.subscribedcalendar-account.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -13739,7 +13739,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.subscribedcalendar.account.PayloadDisplayName**
+**profiles.subscribedcalendar-account.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -13752,7 +13752,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.subscribedcalendar.account.PayloadIdentifier**
+**profiles.subscribedcalendar-account.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -13766,7 +13766,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.subscribedcalendar.account.PayloadOrganization**
+**profiles.subscribedcalendar-account.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -13780,7 +13780,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.subscribedcalendar.account.PayloadType**
+**profiles.subscribedcalendar-account.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -13789,7 +13789,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.subscribedcalendar.account.PayloadUUID**
+**profiles.subscribedcalendar-account.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -13803,7 +13803,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.subscribedcalendar.account.PayloadVersion**
+**profiles.subscribedcalendar-account.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -13811,7 +13811,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.subscribedcalendar.account.SubCalAccountDescription**
+**profiles.subscribedcalendar-account.SubCalAccountDescription**
 
 > The description of the account.
 >
@@ -13823,7 +13823,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.subscribedcalendar.account.SubCalAccountHostName**
+**profiles.subscribedcalendar-account.SubCalAccountHostName**
 
 > The server's address.
 >
@@ -13831,7 +13831,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.subscribedcalendar.account.SubCalAccountPassword**
+**profiles.subscribedcalendar-account.SubCalAccountPassword**
 
 > The user's password.
 >
@@ -13843,7 +13843,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.subscribedcalendar.account.SubCalAccountUseSSL**
+**profiles.subscribedcalendar-account.SubCalAccountUseSSL**
 
 > If 'true', the system enables SSL.
 >
@@ -13855,7 +13855,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.subscribedcalendar.account.SubCalAccountUsername**
+**profiles.subscribedcalendar-account.SubCalAccountUsername**
 
 > The user's user name.
 >
@@ -13867,7 +13867,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.subscribedcalendar.account.VPNUUID**
+**profiles.subscribedcalendar-account.VPNUUID**
 
 > The VPNUUID of the per-app VPN the account uses for network
 > communication. Available in iOS 14 and later.
@@ -14021,13 +14021,13 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.vpn.managed**
+**profiles.vpn-managed**
 
 > The payload that configures a VPN.
 >
 > *Type:* submodule
 
-**profiles.vpn.managed.enable**
+**profiles.vpn-managed.enable**
 
 > Whether to enable Enable the com.apple.vpn.managed profile.
 >
@@ -14041,7 +14041,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.vpn.managed.AlwaysOn**
+**profiles.vpn-managed.AlwaysOn**
 
 > The dictionary to use when 'VPNType' is 'AlwaysOn'. Not available in
 > tvOS or watchOS.
@@ -14054,7 +14054,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.AlwaysOn.AllowAllCaptiveNetworkPlugins**
+**profiles.vpn-managed.AlwaysOn.AllowAllCaptiveNetworkPlugins**
 
 > If '1', allows traffic from all captive networking apps outside the
 > VPN tunnel to perform captive network handling.
@@ -14067,7 +14067,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.AlwaysOn.AllowCaptiveWebSheet**
+**profiles.vpn-managed.AlwaysOn.AllowCaptiveWebSheet**
 
 > If '1', allows traffic from Captive Web Sheet outside the VPN tunnel.
 >
@@ -14079,7 +14079,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.AlwaysOn.AllowedCaptiveNetworkPlugins**
+**profiles.vpn-managed.AlwaysOn.AllowedCaptiveNetworkPlugins**
 
 > The array of captive networking apps whose traffic is allowed outside
 > the VPN tunnel, to perform captive network handling. Used only when
@@ -14093,7 +14093,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.AlwaysOn.AllowedCaptiveNetworkPlugins.\*.BundleIdentifier**
+**profiles.vpn-managed.AlwaysOn.AllowedCaptiveNetworkPlugins.\*.BundleIdentifier**
 
 > The bundle identifier for the app that's allowed on the captive
 > network.
@@ -14102,7 +14102,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.AlwaysOn.ApplicationExceptions**
+**profiles.vpn-managed.AlwaysOn.ApplicationExceptions**
 
 > An array that contains an arbitrary number of apps whose connections
 > occur outside the VPN.
@@ -14115,7 +14115,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.AlwaysOn.ApplicationExceptions.\*.BundleIdentifier**
+**profiles.vpn-managed.AlwaysOn.ApplicationExceptions.\*.BundleIdentifier**
 
 > The app's bundle identifier.
 >
@@ -14123,7 +14123,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.AlwaysOn.ApplicationExceptions.\*.LimitToProtocols**
+**profiles.vpn-managed.AlwaysOn.ApplicationExceptions.\*.LimitToProtocols**
 
 > Limit the exception to only the specified list of protocols, with
 > support for 'UDP' only.
@@ -14136,7 +14136,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.AlwaysOn.ServiceExceptions**
+**profiles.vpn-managed.AlwaysOn.ServiceExceptions**
 
 > An array that contains an arbitrary number of service exceptions.
 >
@@ -14148,7 +14148,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.AlwaysOn.ServiceExceptions.\*.Action**
+**profiles.vpn-managed.AlwaysOn.ServiceExceptions.\*.Action**
 
 > The action to take with network connections from the named service.
 >
@@ -14156,7 +14156,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "Allow", "Drop"
 
-**profiles.vpn.managed.AlwaysOn.ServiceExceptions.\*.ServiceName**
+**profiles.vpn-managed.AlwaysOn.ServiceExceptions.\*.ServiceName**
 
 > The name of a service that's exempt from Always On VPN.
 >
@@ -14173,7 +14173,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* one of "VoiceMail", "AirPrint", "CellularServices",
 > "DeviceCommunication"
 
-**profiles.vpn.managed.AlwaysOn.TunnelConfigurations**
+**profiles.vpn-managed.AlwaysOn.TunnelConfigurations**
 
 > An array that contains an arbitrary number of tunnel configurations.
 >
@@ -14181,7 +14181,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* list of (submodule)
 
-**profiles.vpn.managed.AlwaysOn.TunnelConfigurations.\*.Interfaces**
+**profiles.vpn-managed.AlwaysOn.TunnelConfigurations.\*.Interfaces**
 
 > The interfaces to apply this configuration to.
 >
@@ -14193,7 +14193,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.AlwaysOn.TunnelConfigurations.\*.ProtocolType**
+**profiles.vpn-managed.AlwaysOn.TunnelConfigurations.\*.ProtocolType**
 
 > The type of connection, which needs to be 'IKEv2'.
 >
@@ -14201,7 +14201,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value "IKEv2" (singular enum)
 
-**profiles.vpn.managed.AlwaysOn.UIToggleEnabled**
+**profiles.vpn-managed.AlwaysOn.UIToggleEnabled**
 
 > If '1', allows the user to disable the VPN configuration.
 >
@@ -14213,7 +14213,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.DNS**
+**profiles.vpn-managed.DNS**
 
 > A dictionary to use for all VPN types.
 >
@@ -14225,7 +14225,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.DNS.DNSProtocol**
+**profiles.vpn-managed.DNS.DNSProtocol**
 
 > The transport protocol to communicate with the DNS server.
 >
@@ -14233,7 +14233,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "Cleartext", "HTTPS", "TLS"
 
-**profiles.vpn.managed.DNS.DomainName**
+**profiles.vpn-managed.DNS.DomainName**
 
 > The primary domain of the tunnel.
 >
@@ -14245,7 +14245,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.DNS.PayloadCertificateUUID**
+**profiles.vpn-managed.DNS.PayloadCertificateUUID**
 
 > That UUID that points to an identity certificate payload. The system
 > uses this identity to authenticate the user to the DNS resolver.
@@ -14259,7 +14259,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.DNS.SearchDomains**
+**profiles.vpn-managed.DNS.SearchDomains**
 
 > The list of domain strings used to fully qualify single- label host
 > names.
@@ -14272,7 +14272,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.DNS.ServerAddresses**
+**profiles.vpn-managed.DNS.ServerAddresses**
 
 > The array of DNS server IP address strings. These IP addresses can be
 > a mixture of IPv4 and IPv6 addresses.
@@ -14285,7 +14285,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > [ ]
 
-**profiles.vpn.managed.DNS.ServerName**
+**profiles.vpn-managed.DNS.ServerName**
 
 > The hostname of a DNS-over-TLS server to validate the server
 > certificate, as defined in RFC 7858. If 'ServerAddresses' isn't
@@ -14300,7 +14300,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.DNS.ServerURL**
+**profiles.vpn-managed.DNS.ServerURL**
 
 > The URI template of a DNS-over-HTTPS server, as defined in RFC 8484,
 > which needs to use the 'https://' scheme. The system uses the hostname
@@ -14317,7 +14317,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.DNS.SupplementalMatchDomains**
+**profiles.vpn-managed.DNS.SupplementalMatchDomains**
 
 > The list of domain strings used to determine which DNS queries use the
 > DNS resolver settings in 'ServerAddresses'. The system uses this key
@@ -14343,7 +14343,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.DNS.SupplementalMatchDomainsNoSearch**
+**profiles.vpn-managed.DNS.SupplementalMatchDomainsNoSearch**
 
 > If '0', append the domains in the 'SupplementalMatchDomains' list to
 > the resolver's list of search domains.
@@ -14356,7 +14356,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2**
+**profiles.vpn-managed.IKEv2**
 
 > The dictionary to use when 'VPNType' is 'IKEv2'.
 >
@@ -14368,7 +14368,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.AllowPostQuantumKeyExchangeFallback**
+**profiles.vpn-managed.IKEv2.AllowPostQuantumKeyExchangeFallback**
 
 > If set to '0', the VPN doesn't establish a connection if the server
 > does not support or doesn't allow post-quantum key exchanges. Thd
@@ -14384,7 +14384,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.AuthName**
+**profiles.vpn-managed.IKEv2.AuthName**
 
 > The user name to use for authentication.
 >
@@ -14396,7 +14396,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.AuthPassword**
+**profiles.vpn-managed.IKEv2.AuthPassword**
 
 > The password to use for authentication.
 >
@@ -14408,7 +14408,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.AuthenticationMethod**
+**profiles.vpn-managed.IKEv2.AuthenticationMethod**
 
 > The type of authentication method for the VPN.
 >
@@ -14421,7 +14421,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "None", "SharedSecret", "Certificate"
 
-**profiles.vpn.managed.IKEv2.CertificateType**
+**profiles.vpn-managed.IKEv2.CertificateType**
 
 > The type of 'PayloadCertificateUUID' to use for IKEv2 machine
 > authentication. If this key is included, the system requires a value
@@ -14436,7 +14436,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ChildSecurityAssociationParameters**
+**profiles.vpn-managed.IKEv2.ChildSecurityAssociationParameters**
 
 > The 'ChildSecurityAssociationParameters' dictionaries.
 >
@@ -14448,7 +14448,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ChildSecurityAssociationParameters.DiffieHellmanGroup**
+**profiles.vpn-managed.IKEv2.ChildSecurityAssociationParameters.DiffieHellmanGroup**
 
 > The Diffie-Hellman group.
 >
@@ -14466,7 +14466,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ChildSecurityAssociationParameters.EncryptionAlgorithm**
+**profiles.vpn-managed.IKEv2.ChildSecurityAssociationParameters.EncryptionAlgorithm**
 
 > The encryption algorithm.
 >
@@ -14483,7 +14483,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ChildSecurityAssociationParameters.IntegrityAlgorithm**
+**profiles.vpn-managed.IKEv2.ChildSecurityAssociationParameters.IntegrityAlgorithm**
 
 > The integrity algorithm.
 >
@@ -14499,7 +14499,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ChildSecurityAssociationParameters.LifeTimeInMinutes**
+**profiles.vpn-managed.IKEv2.ChildSecurityAssociationParameters.LifeTimeInMinutes**
 
 > The SA lifetime (rekey interval) in minutes.
 >
@@ -14511,7 +14511,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ChildSecurityAssociationParameters.PostQuantumKeyExchangeMethods**
+**profiles.vpn-managed.IKEv2.ChildSecurityAssociationParameters.PostQuantumKeyExchangeMethods**
 
 > An array of strings representing postquantum key exchange methods the
 > device uses during SA establishment and rekey. You can specify up to
@@ -14525,7 +14525,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.DeadPeerDetectionRate**
+**profiles.vpn-managed.IKEv2.DeadPeerDetectionRate**
 
 > One of the following:
 >
@@ -14547,7 +14547,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.DisableMOBIKE**
+**profiles.vpn-managed.IKEv2.DisableMOBIKE**
 
 > If '1', the system disables MOBIKE.
 >
@@ -14559,7 +14559,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.DisableRedirect**
+**profiles.vpn-managed.IKEv2.DisableRedirect**
 
 > If '1', the system disables IKEv2 redirect. If not set, the system
 > redirects an IKEv2 connection when it receives a redirect request from
@@ -14573,7 +14573,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.DisconnectOnIdle**
+**profiles.vpn-managed.IKEv2.DisconnectOnIdle**
 
 > If '1', the VPN disconnects automatically after a period defined by
 > 'DisconnectOnIdleTimer'.
@@ -14586,7 +14586,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.DisconnectOnIdleTimer**
+**profiles.vpn-managed.IKEv2.DisconnectOnIdleTimer**
 
 > Only used if 'DisconnectOnIdle' is '1'. The number of seconds before
 > the VPN disconnects. On watchOS, maximum allowed value is 15 seconds
@@ -14599,7 +14599,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.EnableCertificateRevocationCheck**
+**profiles.vpn-managed.IKEv2.EnableCertificateRevocationCheck**
 
 > If '1', the system performs a certificate revocation check for IKEv2
 > connections. This is a best-effort revocation check and server
@@ -14613,7 +14613,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.EnableFallback**
+**profiles.vpn-managed.IKEv2.EnableFallback**
 
 > If '1', the system enables a tunnel over cellular data to carry
 > traffic that's eligible for Wi-Fi Assist and also requires VPN.
@@ -14632,7 +14632,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.EnablePFS**
+**profiles.vpn-managed.IKEv2.EnablePFS**
 
 > If '1', enables Perfect Forward Secrecy (PFS) for IKEv2 Connections.
 >
@@ -14644,7 +14644,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.EnforceRoutes**
+**profiles.vpn-managed.IKEv2.EnforceRoutes**
 
 > If '1', all the VPN's non-default routes take precedence over any
 > locally-defined routes. If 'IncludeAllNetworks' is '1', the system
@@ -14658,7 +14658,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.EnforceStrictAlgorithmSelection**
+**profiles.vpn-managed.IKEv2.EnforceStrictAlgorithmSelection**
 
 > If set to '1', the device doesn't allow DES, 3DES, and Diffie-Hellman
 > groups less than 14. Also the device requires the encryption algorithm
@@ -14674,7 +14674,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ExcludeAPNs**
+**profiles.vpn-managed.IKEv2.ExcludeAPNs**
 
 > If '1' and 'IncludeAllNetworks' is '1', the system excludes network
 > traffic for the Apple Push Notification service (APNs) from the
@@ -14688,7 +14688,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ExcludeCellularServices**
+**profiles.vpn-managed.IKEv2.ExcludeCellularServices**
 
 > If '1' and 'IncludeAllNetworks' is '1', the system excludes
 > internet-routable network traffic for cellular services (VoLTE, Wi-Fi
@@ -14705,7 +14705,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ExcludeDeviceCommunication**
+**profiles.vpn-managed.IKEv2.ExcludeDeviceCommunication**
 
 > If set to '1' and 'IncludeAllNetworks' is set to '1', the device
 > excludes network traffic used for communicating with devices connected
@@ -14719,7 +14719,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ExcludeLocalNetworks**
+**profiles.vpn-managed.IKEv2.ExcludeLocalNetworks**
 
 > If '1' and either 'IncludeAllNetworks' or 'EnforceRoutes' are '1',
 > then the system routes local network traffic outside of the VPN. The
@@ -14733,7 +14733,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ExtendedAuthEnabled**
+**profiles.vpn-managed.IKEv2.ExtendedAuthEnabled**
 
 > If '1', enables EAP-only authentication.
 >
@@ -14745,7 +14745,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.IKESecurityAssociationParameters**
+**profiles.vpn-managed.IKEv2.IKESecurityAssociationParameters**
 
 > These parameters apply to Child Security Association unless
 > 'ChildSecurityAssociationParameters' is specified.
@@ -14758,7 +14758,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.IKESecurityAssociationParameters.DiffieHellmanGroup**
+**profiles.vpn-managed.IKEv2.IKESecurityAssociationParameters.DiffieHellmanGroup**
 
 > The Diffie-Hellman group.
 >
@@ -14776,7 +14776,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.IKESecurityAssociationParameters.EncryptionAlgorithm**
+**profiles.vpn-managed.IKEv2.IKESecurityAssociationParameters.EncryptionAlgorithm**
 
 > The encryption algorithm.
 >
@@ -14793,7 +14793,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.IKESecurityAssociationParameters.IntegrityAlgorithm**
+**profiles.vpn-managed.IKEv2.IKESecurityAssociationParameters.IntegrityAlgorithm**
 
 > The integrity algorithm.
 >
@@ -14809,7 +14809,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.IKESecurityAssociationParameters.LifeTimeInMinutes**
+**profiles.vpn-managed.IKEv2.IKESecurityAssociationParameters.LifeTimeInMinutes**
 
 > The SA lifetime (rekey interval) in minutes.
 >
@@ -14821,7 +14821,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.IKESecurityAssociationParameters.PostQuantumKeyExchangeMethods**
+**profiles.vpn-managed.IKEv2.IKESecurityAssociationParameters.PostQuantumKeyExchangeMethods**
 
 > An array of strings representing postquantum key exchange methods the
 > device uses during SA establishment and rekey. You can specify up to
@@ -14835,7 +14835,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.IncludeAllNetworks**
+**profiles.vpn-managed.IKEv2.IncludeAllNetworks**
 
 > If '1', then the system routes all network traffic through the VPN,
 > with some controllable exclusions, such as 'ExcludeLocalNetworks',
@@ -14862,7 +14862,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.LocalIdentifier**
+**profiles.vpn-managed.IKEv2.LocalIdentifier**
 
 > Identifier of the IKEv2 client.
 >
@@ -14870,7 +14870,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.IKEv2.MTU**
+**profiles.vpn-managed.IKEv2.MTU**
 
 > The Maximum Transmission Unit (MTU) specifies the maximum size in
 > bytes of each packet that the system sends over the IKEv2 VPN
@@ -14884,7 +14884,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.NATKeepAliveInterval**
+**profiles.vpn-managed.IKEv2.NATKeepAliveInterval**
 
 > The NAT Keepalive interval for Always On VPN IKEv2 connections. This
 > value controls the interval that the device sends keepalive offload
@@ -14900,7 +14900,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.NATKeepAliveOffloadEnable**
+**profiles.vpn-managed.IKEv2.NATKeepAliveOffloadEnable**
 
 > If '1', enables NAT keepalive offload for Always On VPN IKEv2
 > connections. The device sends keepalive packets to maintain NAT
@@ -14926,7 +14926,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandEnabled**
+**profiles.vpn-managed.IKEv2.OnDemandEnabled**
 
 > If '1', enables VPN up on demand.
 >
@@ -14938,7 +14938,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandRules**
+**profiles.vpn-managed.IKEv2.OnDemandRules**
 
 > A list of rules that determine when and how to use an OnDemand VPN.
 >
@@ -14950,7 +14950,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.Action**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.Action**
 
 > The action to take if this dictionary matches the current network.
 > Possible values are:
@@ -14976,7 +14976,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* one of "Allow", "Connect", "Disconnect", "EvaluateConnection",
 > "Ignore"
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.ActionParameters**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.ActionParameters**
 
 > An array of dictionaries that provides rules similar to the
 > 'OnDemandRules' dictionary, but evaluated on each connection instead
@@ -14993,7 +14993,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.ActionParameters.\*.DomainAction**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.ActionParameters.\*.DomainAction**
 
 > Defines the VPN behavior for the specified domains. Allowed values
 > are:
@@ -15010,7 +15010,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "ConnectIfNeeded", "NeverConnect"
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.ActionParameters.\*.Domains**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.ActionParameters.\*.Domains**
 
 > The domains to apply this evaluation.
 >
@@ -15022,7 +15022,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > [ ]
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.ActionParameters.\*.RequiredDNSServers**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.ActionParameters.\*.RequiredDNSServers**
 
 > An array of IP addresses of DNS servers to use for resolving the
 > specified domains. These servers don't need to be part of the device's
@@ -15039,7 +15039,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.ActionParameters.\*.RequiredURLStringProbe**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.ActionParameters.\*.RequiredURLStringProbe**
 
 > An HTTP or HTTPS (preferred) URL to probe, using a GET request. If the
 > URL's hostname can't be resolved, if the server is unreachable, or if
@@ -15055,7 +15055,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.DNSDomainMatch**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.DNSDomainMatch**
 
 > An array of domain names. This rule matches if any of the domain names
 > in the specified list matches any domain in the device's search
@@ -15071,7 +15071,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.DNSServerAddressMatch**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.DNSServerAddressMatch**
 
 > An array of IP addresses. This rule matches if any of the network's
 > specified DNS servers match any entry in the array. The system
@@ -15086,7 +15086,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.InterfaceTypeMatch**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.InterfaceTypeMatch**
 
 > An interface type. If specified, this rule matches only if the primary
 > network interface hardware matches the specified type.
@@ -15099,7 +15099,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.SSIDMatch**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.SSIDMatch**
 
 > An array of SSIDs to match against the current network. If the network
 > isn't a Wi-Fi network or if the SSID doesn't appear in this array, the
@@ -15114,7 +15114,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandRules.\*.URLStringProbe**
+**profiles.vpn-managed.IKEv2.OnDemandRules.\*.URLStringProbe**
 
 > A URL to probe. This rule matches when this URL is successfully
 > fetched (returns a '200' HTTP status code) without redirection. Not
@@ -15128,7 +15128,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.OnDemandUserOverrideDisabled**
+**profiles.vpn-managed.IKEv2.OnDemandUserOverrideDisabled**
 
 > If '1', the system disables the Connect On Demand toggle in Settings
 > for this configuration.
@@ -15141,7 +15141,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.PPK**
+**profiles.vpn-managed.IKEv2.PPK**
 
 > The Post-quantum Pre-shared key (PPK) the device uses for this VPN.
 > This key is is used with VPN servers that support RFC 8784. If this
@@ -15156,7 +15156,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.PPKIdentifier**
+**profiles.vpn-managed.IKEv2.PPKIdentifier**
 
 > The identifier for the Post-quantum Pre-shared key (PPK) the device
 > uses for this VPN. This key is is used with VPN servers that support
@@ -15170,7 +15170,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.PPKMandatory**
+**profiles.vpn-managed.IKEv2.PPKMandatory**
 
 > If set to '1', the VPN doesn't establish a connection if the server
 > doesn't support RFC 8784 or doesn't accept the PPK identifier
@@ -15185,7 +15185,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.Password**
+**profiles.vpn-managed.IKEv2.Password**
 
 > The password to use for the account credentials. Only used if
 > 'AuthenticationMethod' is 'Password'.
@@ -15198,7 +15198,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.PayloadCertificateUUID**
+**profiles.vpn-managed.IKEv2.PayloadCertificateUUID**
 
 > The UUID of the certificate payload within the same profile to use as
 > the account credential. If the value of 'AuthenticationMethod' is
@@ -15214,7 +15214,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ProviderBundleIdentifier**
+**profiles.vpn-managed.IKEv2.ProviderBundleIdentifier**
 
 > If the VPNSubType field contains the bundle identifier of an app that
 > contains multiple VPN providers of the same type (app-proxy or
@@ -15230,7 +15230,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ProviderType**
+**profiles.vpn-managed.IKEv2.ProviderType**
 
 > If the value of this key is 'app-proxy', the VPN service tunnels
 > traffic at the application layer. If the value of this key is
@@ -15244,7 +15244,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.RemoteAddress**
+**profiles.vpn-managed.IKEv2.RemoteAddress**
 
 > The IP address or host name of the VPN server.
 >
@@ -15252,7 +15252,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.IKEv2.RemoteIdentifier**
+**profiles.vpn-managed.IKEv2.RemoteIdentifier**
 
 > The remote identifier.
 >
@@ -15260,7 +15260,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.IKEv2.ServerCertificateCommonName**
+**profiles.vpn-managed.IKEv2.ServerCertificateCommonName**
 
 > The common name of the server certificate. The system uses this name
 > to validate the certificate sent by the IKE server. If not set, the
@@ -15274,7 +15274,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.ServerCertificateIssuerCommonName**
+**profiles.vpn-managed.IKEv2.ServerCertificateIssuerCommonName**
 
 > Common Name of the server certificate issuer. If set, this field
 > causes IKE to send a certificate request based on this certificate
@@ -15289,7 +15289,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.SharedSecret**
+**profiles.vpn-managed.IKEv2.SharedSecret**
 
 > If 'AuthenticationMethod' is 'SharedSecret', this value is used for
 > IKE authentication.
@@ -15302,7 +15302,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.TLSMaximumVersion**
+**profiles.vpn-managed.IKEv2.TLSMaximumVersion**
 
 > The maximum TLS version to use with EAP-TLS authentication.
 >
@@ -15314,7 +15314,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.TLSMinimumVersion**
+**profiles.vpn-managed.IKEv2.TLSMinimumVersion**
 
 > The minimum TLS version to use with EAP-TLS authentication.
 >
@@ -15326,7 +15326,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IKEv2.UseConfigurationAttributeInternalIPSubnet**
+**profiles.vpn-managed.IKEv2.UseConfigurationAttributeInternalIPSubnet**
 
 > If '1', negotiations should use IKEv2 Configuration Attribute
 > 'INTERNAL_IP4_SUBNET' and 'INTERNAL_IP6_SUBNET'.
@@ -15339,7 +15339,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec**
+**profiles.vpn-managed.IPSec**
 
 > The dictionary that contains IPSec settings. Not available in watchOS.
 >
@@ -15351,7 +15351,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.AuthenticationMethod**
+**profiles.vpn-managed.IPSec.AuthenticationMethod**
 
 > The authentication method for L2TP and Cisco IPSec.
 >
@@ -15363,7 +15363,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.DisconnectOnIdle**
+**profiles.vpn-managed.IPSec.DisconnectOnIdle**
 
 > If '1', disconnect after an on-demand connection idles.
 >
@@ -15375,7 +15375,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.DisconnectOnIdleTimer**
+**profiles.vpn-managed.IPSec.DisconnectOnIdleTimer**
 
 > The length of time to wait before disconnecting an on-demand
 > connection.
@@ -15388,7 +15388,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.LocalIdentifier**
+**profiles.vpn-managed.IPSec.LocalIdentifier**
 
 > The name of the group. For hybrid authentication, the string needs to
 > end with "hybrid".
@@ -15404,7 +15404,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.LocalIdentifierType**
+**profiles.vpn-managed.IPSec.LocalIdentifierType**
 
 > Present only if 'AuthenticationMethod' is 'SharedSecret'. The value is
 > 'KeyID'. The system uses this value for L2TP and Cisco IPSec VPNs.
@@ -15417,7 +15417,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandEnabled**
+**profiles.vpn-managed.IPSec.OnDemandEnabled**
 
 > If '1', enables bringing the VPN connection up on demand.
 >
@@ -15429,7 +15429,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandMatchDomainsAlways**
+**profiles.vpn-managed.IPSec.OnDemandMatchDomainsAlways**
 
 > Deprecated. A list of domain names. In iOS 7 and later, if this key is
 > present, the system treats associated domain names as though they're
@@ -15445,7 +15445,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandMatchDomainsNever**
+**profiles.vpn-managed.IPSec.OnDemandMatchDomainsNever**
 
 > Deprecated. A list of domain names. In iOS 7 and later, this key is
 > deprecated (but still supported) in favor of 'EvaluateConnection'
@@ -15460,7 +15460,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandMatchDomainsOnRetry**
+**profiles.vpn-managed.IPSec.OnDemandMatchDomainsOnRetry**
 
 > Deprecated. A list of domain names. In iOS 7 and later, this field is
 > deprecated (but still supported) in favor of 'EvaluateConnection'
@@ -15475,7 +15475,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandRules**
+**profiles.vpn-managed.IPSec.OnDemandRules**
 
 > The on-demand rules dictionary.
 >
@@ -15487,7 +15487,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.Action**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.Action**
 
 > The action to take if this dictionary matches the current network.
 > Possible values are:
@@ -15513,7 +15513,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* one of "Allow", "Connect", "Disconnect", "EvaluateConnection",
 > "Ignore"
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.ActionParameters**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.ActionParameters**
 
 > An array of dictionaries that provides rules similar to the
 > 'OnDemandRules' dictionary, but evaluated on each connection instead
@@ -15530,7 +15530,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.ActionParameters.\*.DomainAction**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.ActionParameters.\*.DomainAction**
 
 > Defines the VPN behavior for the specified domains. Allowed values
 > are:
@@ -15547,7 +15547,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "ConnectIfNeeded", "NeverConnect"
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.ActionParameters.\*.Domains**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.ActionParameters.\*.Domains**
 
 > The domains to apply this evaluation.
 >
@@ -15559,7 +15559,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > [ ]
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.ActionParameters.\*.RequiredDNSServers**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.ActionParameters.\*.RequiredDNSServers**
 
 > An array of IP addresses of DNS servers to use for resolving the
 > specified domains. These servers don't need to be part of the device's
@@ -15576,7 +15576,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.ActionParameters.\*.RequiredURLStringProbe**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.ActionParameters.\*.RequiredURLStringProbe**
 
 > An HTTP or HTTPS (preferred) URL to probe, using a GET request. If the
 > URL's hostname can't be resolved, if the server is unreachable, or if
@@ -15592,7 +15592,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.DNSDomainMatch**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.DNSDomainMatch**
 
 > An array of domain names. This rule matches if any of the domain names
 > in the specified list matches any domain in the device's search
@@ -15608,7 +15608,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.DNSServerAddressMatch**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.DNSServerAddressMatch**
 
 > An array of IP addresses. This rule matches if any of the network's
 > specified DNS servers match any entry in the array. The system
@@ -15623,7 +15623,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.InterfaceTypeMatch**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.InterfaceTypeMatch**
 
 > An interface type. If specified, this rule matches only if the primary
 > network interface hardware matches the specified type.
@@ -15636,7 +15636,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.SSIDMatch**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.SSIDMatch**
 
 > An array of SSIDs to match against the current network. If the network
 > isn't a Wi-Fi network or if the SSID doesn't appear in this array, the
@@ -15651,7 +15651,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.OnDemandRules.\*.URLStringProbe**
+**profiles.vpn-managed.IPSec.OnDemandRules.\*.URLStringProbe**
 
 > A URL to probe. This rule matches when this URL is successfully
 > fetched (returns a '200' HTTP status code) without redirection. Not
@@ -15665,7 +15665,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.PayloadCertificateUUID**
+**profiles.vpn-managed.IPSec.PayloadCertificateUUID**
 
 > The UUID of the certificate payload within the same profile to use for
 > the account credentials.
@@ -15681,7 +15681,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.PromptForVPNPIN**
+**profiles.vpn-managed.IPSec.PromptForVPNPIN**
 
 > If 'true', prompts for a PIN when connecting to Cisco IPSec VPNs.
 >
@@ -15693,7 +15693,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.RemoteAddress**
+**profiles.vpn-managed.IPSec.RemoteAddress**
 
 > The IP address or host name of the VPN server.
 >
@@ -15705,7 +15705,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.SharedSecret**
+**profiles.vpn-managed.IPSec.SharedSecret**
 
 > The shared secret for this VPN account.
 >
@@ -15721,7 +15721,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.XAuthEnabled**
+**profiles.vpn-managed.IPSec.XAuthEnabled**
 
 > If '1', enables Xauth for Cisco IPSec VPNs.
 >
@@ -15733,7 +15733,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.XAuthName**
+**profiles.vpn-managed.IPSec.XAuthName**
 
 > The user name for the VPN account for Cisco IPSec.
 >
@@ -15745,7 +15745,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.XAuthPassword**
+**profiles.vpn-managed.IPSec.XAuthPassword**
 
 > The VPN account password for Cisco IPSec.
 >
@@ -15757,7 +15757,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPSec.XAuthPasswordEncryption**
+**profiles.vpn-managed.IPSec.XAuthPasswordEncryption**
 
 > A string that either has the value "Prompt" or isn't present.
 >
@@ -15769,7 +15769,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPv4**
+**profiles.vpn-managed.IPv4**
 
 > The dictionary that contains IPv4 settings. Not available in watchOS.
 >
@@ -15781,7 +15781,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.IPv4.OverridePrimary**
+**profiles.vpn-managed.IPv4.OverridePrimary**
 
 > If '1', the system sends all network traffic over VPN. Only applies to
 > Cisco IPsec and L2TP VPN types.
@@ -15794,7 +15794,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP**
+**profiles.vpn-managed.PPP**
 
 > The dictionary to use when 'VPNType' is 'L2TP' or 'PTPP'. Not
 > available in watchOS.
@@ -15807,7 +15807,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.AuthEAPPlugins**
+**profiles.vpn-managed.PPP.AuthEAPPlugins**
 
 > An array of authentication plugins. For use of RSA SecurID, this array
 > should only have one value: 'EAP-RSA'. This key is for use with L2TP
@@ -15821,7 +15821,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.AuthName**
+**profiles.vpn-managed.PPP.AuthName**
 
 > The VPN account user name. This key is for use with L2TP and PPTP
 > networks.
@@ -15834,7 +15834,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.AuthPassword**
+**profiles.vpn-managed.PPP.AuthPassword**
 
 > If 'TokenCard' is '1', use this password for authentication. This key
 > is for use with L2TP and PPTP networks.
@@ -15847,7 +15847,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.AuthProtocol**
+**profiles.vpn-managed.PPP.AuthProtocol**
 
 > An array of authentication protocols. For use of RSA SecurID, this
 > array should have one value, 'EAP'. This key is for use with L2TP and
@@ -15861,7 +15861,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.CCPEnabled**
+**profiles.vpn-managed.PPP.CCPEnabled**
 
 > If '1', enables encryption on the connection. This key is for use with
 > PPTP networks.
@@ -15874,7 +15874,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.CCPMPPE128Enabled**
+**profiles.vpn-managed.PPP.CCPMPPE128Enabled**
 
 > If '1' and 'CCPEnabled' is also '1', enables CCPMPPE40 encryption.
 >
@@ -15886,7 +15886,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.CCPMPPE40Enabled**
+**profiles.vpn-managed.PPP.CCPMPPE40Enabled**
 
 > If '1' and 'CCPEnabled' is also '1', enables CCPMPPE128 encryption.
 >
@@ -15898,7 +15898,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.CommRemoteAddress**
+**profiles.vpn-managed.PPP.CommRemoteAddress**
 
 > The IP address or host name of VPN server. This key is for use with
 > L2TP and PPTP networks.
@@ -15911,7 +15911,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.DisconnectOnIdle**
+**profiles.vpn-managed.PPP.DisconnectOnIdle**
 
 > If '1', disconnects after an on demand connection idles.
 >
@@ -15923,7 +15923,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.DisconnectOnIdleTimer**
+**profiles.vpn-managed.PPP.DisconnectOnIdleTimer**
 
 > The length of time to wait before disconnecting an on demand
 > connection
@@ -15936,7 +15936,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PPP.TokenCard**
+**profiles.vpn-managed.PPP.TokenCard**
 
 > If '1', uses a token card such as an RSA SecurID card for connecting.
 > This key is for use with L2TP networks.
@@ -15949,7 +15949,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PayloadDescription**
+**profiles.vpn-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -15962,7 +15962,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PayloadDisplayName**
+**profiles.vpn-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -15975,7 +15975,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PayloadIdentifier**
+**profiles.vpn-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -15989,7 +15989,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.PayloadOrganization**
+**profiles.vpn-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -16003,7 +16003,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.PayloadType**
+**profiles.vpn-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -16012,7 +16012,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.PayloadUUID**
+**profiles.vpn-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -16026,7 +16026,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.PayloadVersion**
+**profiles.vpn-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -16034,7 +16034,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.vpn.managed.Proxies**
+**profiles.vpn-managed.Proxies**
 
 > The dictionary to use to configure 'Proxies' for use with 'VPN'.
 >
@@ -16046,7 +16046,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.HTTPEnable**
+**profiles.vpn-managed.Proxies.HTTPEnable**
 
 > If '1', enables proxy for HTTP traffic.
 >
@@ -16058,7 +16058,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.HTTPPort**
+**profiles.vpn-managed.Proxies.HTTPPort**
 
 > The port number of the HTTP proxy. This field is required if
 > 'HTTPProxy' is specified.
@@ -16071,7 +16071,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.HTTPProxy**
+**profiles.vpn-managed.Proxies.HTTPProxy**
 
 > The host name of the HTTP proxy.
 >
@@ -16083,7 +16083,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.HTTPProxyPassword**
+**profiles.vpn-managed.Proxies.HTTPProxyPassword**
 
 > The password used for authentication.
 >
@@ -16095,7 +16095,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.HTTPProxyUsername**
+**profiles.vpn-managed.Proxies.HTTPProxyUsername**
 
 > The user name used for authentication.
 >
@@ -16107,7 +16107,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.HTTPSEnable**
+**profiles.vpn-managed.Proxies.HTTPSEnable**
 
 > If 'true', enables proxy for HTTPS traffic.
 >
@@ -16119,7 +16119,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.HTTPSPort**
+**profiles.vpn-managed.Proxies.HTTPSPort**
 
 > The port number of the HTTPS proxy. This field is required if
 > 'HTTPSProxy' is specified.
@@ -16132,7 +16132,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.HTTPSProxy**
+**profiles.vpn-managed.Proxies.HTTPSProxy**
 
 > The host name of the HTTPS proxy.
 >
@@ -16144,7 +16144,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.ProxyAutoConfigEnable**
+**profiles.vpn-managed.Proxies.ProxyAutoConfigEnable**
 
 > If 'true', enables automatic proxy configuration.
 >
@@ -16156,7 +16156,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.ProxyAutoConfigURLString**
+**profiles.vpn-managed.Proxies.ProxyAutoConfigURLString**
 
 > The URL to the location of the proxy auto-configuration file. Used
 > only when 'ProxyAutoConfigEnable' is 'true'.
@@ -16169,7 +16169,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.ProxyAutoDiscoveryEnable**
+**profiles.vpn-managed.Proxies.ProxyAutoDiscoveryEnable**
 
 > If 'true', enables proxy auto discovery.
 >
@@ -16181,7 +16181,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.Proxies.SupplementalMatchDomains**
+**profiles.vpn-managed.Proxies.SupplementalMatchDomains**
 
 > An array of domains that defines which hosts use proxy settings for
 > hosts.
@@ -16194,7 +16194,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.UserDefinedName**
+**profiles.vpn-managed.UserDefinedName**
 
 > The description of the VPN connection that the system displays on the
 > device. Not available in watchOS.
@@ -16203,7 +16203,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.VPN**
+**profiles.vpn-managed.VPN**
 
 > The dictionary to use when 'VPNType' is 'VPN'.
 >
@@ -16215,7 +16215,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.AuthName**
+**profiles.vpn-managed.VPN.AuthName**
 
 > The VPN account username.
 >
@@ -16227,7 +16227,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.AuthPassword**
+**profiles.vpn-managed.VPN.AuthPassword**
 
 > The VPN account password. Only use this if 'AuthenticationMethod' is
 > set to 'Password'.
@@ -16240,7 +16240,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.AuthenticationMethod**
+**profiles.vpn-managed.VPN.AuthenticationMethod**
 
 > The authentication method to use.
 >
@@ -16253,7 +16253,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.DisconnectOnIdle**
+**profiles.vpn-managed.VPN.DisconnectOnIdle**
 
 > If '1', disconnects after an on-demand connection idles.
 >
@@ -16265,7 +16265,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.DisconnectOnIdleTimer**
+**profiles.vpn-managed.VPN.DisconnectOnIdleTimer**
 
 > The length of time to wait, in seconds, before disconnecting an
 > on-demand connection. In watchOS, the maximum allowed value is '15'.
@@ -16278,7 +16278,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.EnforceRoutes**
+**profiles.vpn-managed.VPN.EnforceRoutes**
 
 > If '1', all the VPN's non-default routes take precedence over any
 > locally defined routes.
@@ -16297,7 +16297,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.ExcludeAPNs**
+**profiles.vpn-managed.VPN.ExcludeAPNs**
 
 > If '1' and 'IncludeAllNetworks' is '1', then the system excludes the
 > network traffic for the Apple Push Notification service (APNs) from
@@ -16311,7 +16311,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.ExcludeCellularServices**
+**profiles.vpn-managed.VPN.ExcludeCellularServices**
 
 > If '1' and 'IncludeAllNetworks' is '1', then the system excludes
 > internet-routable network traffic for cellular services (VoLTE, Wi-Fi
@@ -16328,7 +16328,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.ExcludeDeviceCommunication**
+**profiles.vpn-managed.VPN.ExcludeDeviceCommunication**
 
 > If set to '1' and 'IncludeAllNetworks' is set to '1', the device
 > excludes network traffic used for communicating with devices connected
@@ -16342,7 +16342,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.ExcludeLocalNetworks**
+**profiles.vpn-managed.VPN.ExcludeLocalNetworks**
 
 > If '1' and 'IncludeAllNetworks' is '1', routes all local network
 > traffic outside the VPN. Not available in watchOS.
@@ -16355,7 +16355,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.IncludeAllNetworks**
+**profiles.vpn-managed.VPN.IncludeAllNetworks**
 
 > If '1\`\`, routes all traffic through the VPN, with some exclusions.
 > Several of the exclusions can be controlled with the
@@ -16385,7 +16385,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandEnabled**
+**profiles.vpn-managed.VPN.OnDemandEnabled**
 
 > If '1', enables VPN On Demand.
 >
@@ -16397,7 +16397,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandMatchDomainsAlways**
+**profiles.vpn-managed.VPN.OnDemandMatchDomainsAlways**
 
 > A list of domain names. The system treats associated domain names as
 > though they're associated with the 'OnDemandMatchDomainsOnRetry' key.
@@ -16418,7 +16418,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandMatchDomainsNever**
+**profiles.vpn-managed.VPN.OnDemandMatchDomainsNever**
 
 > A list of domain names. If the host name ends with one of these domain
 > names, the system doesn't start the VPN automatically. The system uses
@@ -16439,7 +16439,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandMatchDomainsOnRetry**
+**profiles.vpn-managed.VPN.OnDemandMatchDomainsOnRetry**
 
 > A list of domain names. If the host name ends with one of these domain
 > names and a DNS query for that domain name fails, the system starts
@@ -16460,7 +16460,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandRules**
+**profiles.vpn-managed.VPN.OnDemandRules**
 
 > An array of dictionaries defining On Demand Rules.
 >
@@ -16472,7 +16472,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.Action**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.Action**
 
 > The action to take if this dictionary matches the current network.
 > Possible values are:
@@ -16498,7 +16498,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* one of "Allow", "Connect", "Disconnect", "EvaluateConnection",
 > "Ignore"
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.ActionParameters**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.ActionParameters**
 
 > An array of dictionaries that provides rules similar to the
 > 'OnDemandRules' dictionary, but evaluated on each connection instead
@@ -16515,7 +16515,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.ActionParameters.\*.DomainAction**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.ActionParameters.\*.DomainAction**
 
 > Defines the VPN behavior for the specified domains. Allowed values
 > are:
@@ -16532,7 +16532,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* one of "ConnectIfNeeded", "NeverConnect"
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.ActionParameters.\*.Domains**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.ActionParameters.\*.Domains**
 
 > The domains to apply this evaluation.
 >
@@ -16544,7 +16544,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > [ ]
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.ActionParameters.\*.RequiredDNSServers**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.ActionParameters.\*.RequiredDNSServers**
 
 > An array of IP addresses of DNS servers to use for resolving the
 > specified domains. These servers don't need to be part of the device's
@@ -16561,7 +16561,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.ActionParameters.\*.RequiredURLStringProbe**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.ActionParameters.\*.RequiredURLStringProbe**
 
 > An HTTP or HTTPS (preferred) URL to probe, using a GET request. If the
 > URL's hostname can't be resolved, if the server is unreachable, or if
@@ -16577,7 +16577,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.DNSDomainMatch**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.DNSDomainMatch**
 
 > An array of domain names. This rule matches if any of the domain names
 > in the specified list matches any domain in the device's search
@@ -16593,7 +16593,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.DNSServerAddressMatch**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.DNSServerAddressMatch**
 
 > An array of IP addresses. This rule matches if any of the network's
 > specified DNS servers match any entry in the array. The system
@@ -16608,7 +16608,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.InterfaceTypeMatch**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.InterfaceTypeMatch**
 
 > An interface type. If specified, this rule matches only if the primary
 > network interface hardware matches the specified type.
@@ -16621,7 +16621,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.SSIDMatch**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.SSIDMatch**
 
 > An array of SSIDs to match against the current network. If the network
 > isn't a Wi-Fi network or if the SSID doesn't appear in this array, the
@@ -16636,7 +16636,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandRules.\*.URLStringProbe**
+**profiles.vpn-managed.VPN.OnDemandRules.\*.URLStringProbe**
 
 > A URL to probe. This rule matches when this URL is successfully
 > fetched (returns a '200' HTTP status code) without redirection. Not
@@ -16650,7 +16650,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.OnDemandUserOverrideDisabled**
+**profiles.vpn-managed.VPN.OnDemandUserOverrideDisabled**
 
 > If '1', the Connect On Demand toggle in Settings is disabled for this
 > configuration. Available in iOS 14 and later. Not available in
@@ -16664,7 +16664,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.PayloadCertificateUUID**
+**profiles.vpn-managed.VPN.PayloadCertificateUUID**
 
 > The UUID of the certificate payload within the same profile to use for
 > account credentials.
@@ -16677,7 +16677,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.ProviderBundleIdentifier**
+**profiles.vpn-managed.VPN.ProviderBundleIdentifier**
 
 > The bundle identifier for the VPN provider. Not available in watchOS.
 >
@@ -16689,7 +16689,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.ProviderType**
+**profiles.vpn-managed.VPN.ProviderType**
 
 > The type of VPN service. If the value is 'app-proxy', the service
 > tunnels traffic at the app level. If the value is 'packet-tunnel', the
@@ -16703,7 +16703,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPN.RemoteAddress**
+**profiles.vpn-managed.VPN.RemoteAddress**
 
 > The IP address or hostname of the VPN server.
 >
@@ -16711,7 +16711,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed.VPNSubType**
+**profiles.vpn-managed.VPNSubType**
 
 > An identifier for a vendor-specified configuration dictionary when the
 > value for 'VPNType' is 'VPN'.
@@ -16751,7 +16751,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VPNType**
+**profiles.vpn-managed.VPNType**
 
 > The type of the VPN, which defines which settings are appropriate for
 > this VPN payload.
@@ -16770,7 +16770,7 @@ configurations with the ios-configurations.nix flake.
 > *Type:* one of "VPN", "L2TP", "IPSec", "IKEv2", "AlwaysOn",
 > "TransparentProxy"
 
-**profiles.vpn.managed.VendorConfig**
+**profiles.vpn-managed.VendorConfig**
 
 > The vendor-specific configuration dictionary, which the system reads
 > only when 'VPNSubType' has a value. Not available in watchOS.
@@ -16783,7 +16783,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VendorConfig.Group**
+**profiles.vpn-managed.VendorConfig.Group**
 
 > The group to connect to on the head end. Valid for Cisco AnyConnect
 > and Cisco Legacy AnyConnect. Not available in watchOS.
@@ -16796,7 +16796,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VendorConfig.LoginGroupOrDomain**
+**profiles.vpn-managed.VendorConfig.LoginGroupOrDomain**
 
 > The login group or domain. Valid only for SonicWALL Mobile Connect.
 > Not available in watchOS.
@@ -16809,7 +16809,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VendorConfig.Realm**
+**profiles.vpn-managed.VendorConfig.Realm**
 
 > The Kerberos realm name, which needs to be properly capitalized. Valid
 > only for Juniper SSL and Pulse Secure. Not available in watchOS.
@@ -16822,7 +16822,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed.VendorConfig.Role**
+**profiles.vpn-managed.VendorConfig.Role**
 
 > The role to select when connecting to the server. Valid only for
 > Juniper SSL and Pulse Secure. Not available in watchOS.
@@ -16835,7 +16835,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer**
+**profiles.vpn-managed-applayer**
 
 > The payload that configures a per-app VPN.
 >
@@ -16849,7 +16849,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.vpn.managed-applayer.enable**
+**profiles.vpn-managed-applayer.enable**
 
 > Whether to enable Enable the com.apple.vpn.managed.applayer profile.
 >
@@ -16863,7 +16863,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.vpn.managed-applayer.AssociatedDomains**
+**profiles.vpn-managed-applayer.AssociatedDomains**
 
 > An array with entries that must each specify a domain that triggers
 > this VPN. The domains must also be part of the
@@ -16880,7 +16880,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.CalendarDomains**
+**profiles.vpn-managed-applayer.CalendarDomains**
 
 > An array with entries that must each specify a domain that triggers
 > this VPN connection in Calendar. Each entry is in the format
@@ -16898,7 +16898,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.CellularSliceUUID**
+**profiles.vpn-managed-applayer.CellularSliceUUID**
 
 > A string representing the data network name (DNN) or app category
 > identifying a Cellular Slice. The device forces the VPN tunnel to use
@@ -16912,7 +16912,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.ContactsDomains**
+**profiles.vpn-managed-applayer.ContactsDomains**
 
 > An array with entries that must each specify a domain that triggers
 > this VPN connection in Contacts. Each entry is in the format
@@ -16930,7 +16930,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.ExcludedDomains**
+**profiles.vpn-managed-applayer.ExcludedDomains**
 
 > An array with entries that each specify a domain that doesn't trigger
 > this VPN for connections to the domain.
@@ -16945,7 +16945,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.MailDomains**
+**profiles.vpn-managed-applayer.MailDomains**
 
 > An array with entries that must each specify a domain that triggers
 > this VPN connection in Mail. Each entry is in the format
@@ -16963,7 +16963,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.OnDemandMatchAppEnabled**
+**profiles.vpn-managed-applayer.OnDemandMatchAppEnabled**
 
 > If 'true', automatically connects the VPN when associated apps for
 > this per-app VPN service initiate network communication. Otherwise,
@@ -16980,7 +16980,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.PayloadDescription**
+**profiles.vpn-managed-applayer.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -16993,7 +16993,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.PayloadDisplayName**
+**profiles.vpn-managed-applayer.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -17006,7 +17006,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.PayloadIdentifier**
+**profiles.vpn-managed-applayer.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -17020,7 +17020,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed-applayer.PayloadOrganization**
+**profiles.vpn-managed-applayer.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -17034,7 +17034,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.PayloadType**
+**profiles.vpn-managed-applayer.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -17043,7 +17043,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed-applayer.PayloadUUID**
+**profiles.vpn-managed-applayer.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -17057,7 +17057,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.vpn.managed-applayer.PayloadVersion**
+**profiles.vpn-managed-applayer.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -17065,7 +17065,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.vpn.managed-applayer.SMBDomains**
+**profiles.vpn-managed-applayer.SMBDomains**
 
 > An array of SMB domains that's accessible through this VPN connection.
 >
@@ -17079,7 +17079,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.SafariDomains**
+**profiles.vpn-managed-applayer.SafariDomains**
 
 > An array with entries that must each specify a domain that triggers
 > the VPN connection in Safari. Each entry is in the format
@@ -17093,7 +17093,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.vpn.managed-applayer.VPNUUID**
+**profiles.vpn-managed-applayer.VPNUUID**
 
 > A globally unique identifier for this VPN configuration.
 >
@@ -17101,7 +17101,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.webClip.managed**
+**profiles.webClip-managed**
 
 > The profile that configures web clips on the device.
 >
@@ -17122,7 +17122,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* submodule
 
-**profiles.webClip.managed.enable**
+**profiles.webClip-managed.enable**
 
 > Whether to enable Enable the com.apple.webClip.managed profile.
 >
@@ -17136,7 +17136,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.webClip.managed.FullScreen**
+**profiles.webClip-managed.FullScreen**
 
 > If 'true', the system launches the web clip as a full-screen web app.
 >
@@ -17148,7 +17148,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webClip.managed.Icon**
+**profiles.webClip-managed.Icon**
 
 > The PNG icon to show on the Home Screen. If not set, the system
 > displays a white square. For best results, provide a square image
@@ -17168,7 +17168,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webClip.managed.IgnoreManifestScope**
+**profiles.webClip-managed.IgnoreManifestScope**
 
 > If 'true', a full screen web clip can navigate to an external web site
 > without showing Safari UI. Otherwise, Safari UI appears when
@@ -17183,7 +17183,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webClip.managed.IsRemovable**
+**profiles.webClip-managed.IsRemovable**
 
 > If 'true', the system enables removing the web clip.
 >
@@ -17195,7 +17195,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webClip.managed.Label**
+**profiles.webClip-managed.Label**
 
 > The name of the web clip that the system displays on the Home Screen.
 >
@@ -17203,7 +17203,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.webClip.managed.PayloadDescription**
+**profiles.webClip-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -17216,7 +17216,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webClip.managed.PayloadDisplayName**
+**profiles.webClip-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -17229,7 +17229,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webClip.managed.PayloadIdentifier**
+**profiles.webClip-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -17243,7 +17243,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.webClip.managed.PayloadOrganization**
+**profiles.webClip-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -17257,7 +17257,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webClip.managed.PayloadType**
+**profiles.webClip-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -17266,7 +17266,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.webClip.managed.PayloadUUID**
+**profiles.webClip-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -17280,7 +17280,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.webClip.managed.PayloadVersion**
+**profiles.webClip-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -17288,7 +17288,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.webClip.managed.Precomposed**
+**profiles.webClip-managed.Precomposed**
 
 > If 'true', the system prevents SpringBoard from adding shine to the
 > icon.
@@ -17301,7 +17301,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webClip.managed.TargetApplicationBundleIdentifier**
+**profiles.webClip-managed.TargetApplicationBundleIdentifier**
 
 > The application bundle identifier of the application that opens the
 > URL. To use this property, install the profile through MDM. Available
@@ -17315,7 +17315,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.webClip.managed.URL**
+**profiles.webClip-managed.URL**
 
 > The URL of the web clip.
 >
@@ -17872,13 +17872,13 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.wifi.managed**
+**profiles.wifi-managed**
 
 > The payload that configures Wi-Fi settings.
 >
 > *Type:* submodule
 
-**profiles.wifi.managed.enable**
+**profiles.wifi-managed.enable**
 
 > Whether to enable Enable the com.apple.wifi.managed profile.
 >
@@ -17892,7 +17892,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > true
 
-**profiles.wifi.managed.AutoJoin**
+**profiles.wifi-managed.AutoJoin**
 
 > If 'true', the device joins the network automatically.
 >
@@ -17906,7 +17906,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.CaptiveBypass**
+**profiles.wifi-managed.CaptiveBypass**
 
 > If 'true', the system bypasses Captive Network detection when the
 > device connects to the network.
@@ -17919,7 +17919,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.DisableAssociationMACRandomization**
+**profiles.wifi-managed.DisableAssociationMACRandomization**
 
 > If 'true,' disables MAC address randomization for a Wi-Fi network
 > while associated with that network. This feature also shows a privacy
@@ -17941,7 +17941,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.DisplayedOperatorName**
+**profiles.wifi-managed.DisplayedOperatorName**
 
 > The operator name to display when connected to this network. Used only
 > with Wi-Fi Hotspot 2.0 access points.
@@ -17954,7 +17954,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.DomainName**
+**profiles.wifi-managed.DomainName**
 
 > The primary domain of the tunnel.
 >
@@ -17966,7 +17966,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration**
+**profiles.wifi-managed.EAPClientConfiguration**
 
 > The enterprise network configuration.
 >
@@ -17978,7 +17978,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.AcceptEAPTypes**
+**profiles.wifi-managed.EAPClientConfiguration.AcceptEAPTypes**
 
 > The EAP types that the system accepts. Allowed values:
 >
@@ -18010,7 +18010,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > [ ]
 
-**profiles.wifi.managed.EAPClientConfiguration.EAPFASTProvisionPAC**
+**profiles.wifi-managed.EAPClientConfiguration.EAPFASTProvisionPAC**
 
 > If 'true', allows PAC provisioning.
 >
@@ -18026,7 +18026,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.EAPFASTProvisionPACAnonymously**
+**profiles.wifi-managed.EAPClientConfiguration.EAPFASTProvisionPACAnonymously**
 
 > If 'true', provisions the device anonymously. Note that there are
 > known machine-in-the-middle attacks for anonymous provisioning.
@@ -18039,7 +18039,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.EAPFASTUsePAC**
+**profiles.wifi-managed.EAPClientConfiguration.EAPFASTUsePAC**
 
 > If 'true', the device uses an existing PAC if it's present. Otherwise,
 > the server must present its identity using a certificate.
@@ -18052,7 +18052,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.EAPSIMNumberOfRANDs**
+**profiles.wifi-managed.EAPClientConfiguration.EAPSIMNumberOfRANDs**
 
 > The minimum number of RAND values to accept from the server. For use
 > with EAP-SIM only.
@@ -18065,7 +18065,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.OneTimeUserPassword**
+**profiles.wifi-managed.EAPClientConfiguration.OneTimeUserPassword**
 
 > If 'true', the user receives a prompt for a password each time they
 > connect to the network.
@@ -18078,7 +18078,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.OuterIdentity**
+**profiles.wifi-managed.EAPClientConfiguration.OuterIdentity**
 
 > A name that hides the user's true name. The user's actual name appears
 > only inside the encrypted tunnel. For example, you might set this to
@@ -18095,7 +18095,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.PayloadCertificateAnchorUUID**
+**profiles.wifi-managed.EAPClientConfiguration.PayloadCertificateAnchorUUID**
 
 > An array of the UUID of each certificate payload in the same profile
 > to trust for authentication. Use this key to prevent the device from
@@ -18112,7 +18112,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.SystemModeCredentialsSource**
+**profiles.wifi-managed.EAPClientConfiguration.SystemModeCredentialsSource**
 
 > Set this string to 'ActiveDirectory' to use the AD computer name and
 > password credentials. If using this property, you can't use
@@ -18126,7 +18126,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.SystemModeUseOpenDirectoryCredentials**
+**profiles.wifi-managed.EAPClientConfiguration.SystemModeUseOpenDirectoryCredentials**
 
 > If 'true', the system mode connection tries to use the Open Directory
 > credentials. If using this property, you can't use
@@ -18140,7 +18140,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.TLSAllowTrustExceptions**
+**profiles.wifi-managed.EAPClientConfiguration.TLSAllowTrustExceptions**
 
 > If 'true', allows a dynamic trust decision by the user. The dynamic
 > trust is the certificate dialogue that appears when the system doesn't
@@ -18156,7 +18156,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.TLSCertificateIsRequired**
+**profiles.wifi-managed.EAPClientConfiguration.TLSCertificateIsRequired**
 
 > If 'true', allows for two-factor authentication for EAP- TTLS, PEAP,
 > or EAP-FAST. If 'false', allows for zero-factor authentication for
@@ -18171,7 +18171,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.TLSMaximumVersion**
+**profiles.wifi-managed.EAPClientConfiguration.TLSMaximumVersion**
 
 > The maximum TLS version for EAP authentication.
 >
@@ -18183,7 +18183,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.TLSMinimumVersion**
+**profiles.wifi-managed.EAPClientConfiguration.TLSMinimumVersion**
 
 > The minimum TLS version for EAP authentication.
 >
@@ -18195,7 +18195,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.TLSTrustedCertificates**
+**profiles.wifi-managed.EAPClientConfiguration.TLSTrustedCertificates**
 
 > An array of trusted certificates. Each entry in the array must contain
 > certificate data that represents an anchor certificate used for
@@ -18209,7 +18209,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.TLSTrustedServerNames**
+**profiles.wifi-managed.EAPClientConfiguration.TLSTrustedServerNames**
 
 > The list of accepted server certificate common names. If a server
 > presents a certificate that isn't in this list, the system doesn't
@@ -18226,7 +18226,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.TTLSInnerAuthentication**
+**profiles.wifi-managed.EAPClientConfiguration.TTLSInnerAuthentication**
 
 > The inner authentication that the TTLS module uses.
 >
@@ -18238,7 +18238,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.UserName**
+**profiles.wifi-managed.EAPClientConfiguration.UserName**
 
 > The user name for the account. If you don't specify a value, the
 > system prompts the user during login.
@@ -18251,7 +18251,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EAPClientConfiguration.UserPassword**
+**profiles.wifi-managed.EAPClientConfiguration.UserPassword**
 
 > The user's password. If you don't specify a value, the system prompts
 > the user during login.
@@ -18264,7 +18264,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EnableIPv6**
+**profiles.wifi-managed.EnableIPv6**
 
 > If 'true', enables IPv6 on this interface.
 >
@@ -18276,7 +18276,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.EncryptionType**
+**profiles.wifi-managed.EncryptionType**
 
 > The encryption type for the network.
 >
@@ -18308,7 +18308,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.HESSID**
+**profiles.wifi-managed.HESSID**
 
 > The HESSID used for Wi-Fi Hotspot 2.0 negotiation.
 >
@@ -18320,7 +18320,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.HIDDEN_NETWORK**
+**profiles.wifi-managed.HIDDEN_NETWORK**
 
 > If 'true', defines this network as hidden.
 >
@@ -18332,7 +18332,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.IsHotspot**
+**profiles.wifi-managed.IsHotspot**
 
 > If 'true', the device treats the network as a hotspot.
 >
@@ -18344,7 +18344,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.MCCAndMNCs**
+**profiles.wifi-managed.MCCAndMNCs**
 
 > An array of Mobile Country Code/Mobile Network Code (MCC/MNC) pairs
 > used for Wi-Fi Hotspot 2.0 negotiation. Each string must contain
@@ -18358,7 +18358,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.NAIRealmNames**
+**profiles.wifi-managed.NAIRealmNames**
 
 > An array of Network Access Identifier Realm names used for Wi-Fi
 > Hotspot 2.0 negotiation.
@@ -18371,7 +18371,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.Password**
+**profiles.wifi-managed.Password**
 
 > The password for the access point.
 >
@@ -18383,7 +18383,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.PayloadCertificateUUID**
+**profiles.wifi-managed.PayloadCertificateUUID**
 
 > The UUID of the certificate payload within the same profile to use for
 > the client credential.
@@ -18397,7 +18397,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.PayloadDescription**
+**profiles.wifi-managed.PayloadDescription**
 
 > The human-readable description of this payload. This description
 > appears on the Detail screen.
@@ -18410,7 +18410,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.PayloadDisplayName**
+**profiles.wifi-managed.PayloadDisplayName**
 
 > The human-readable name for the profile payload. The name appears on
 > the Detail screen and doesn't need to be unique.
@@ -18423,7 +18423,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.PayloadIdentifier**
+**profiles.wifi-managed.PayloadIdentifier**
 
 > The reverse-DNS-style identifier for the payload. This identifier is
 > usually the same as the 'TopLevel' value, with an additional appended
@@ -18437,7 +18437,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.wifi.managed.PayloadOrganization**
+**profiles.wifi-managed.PayloadOrganization**
 
 > The human-readable string containing the name of the organization that
 > provides the profile. This value doesn't need to match the
@@ -18451,7 +18451,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.PayloadType**
+**profiles.wifi-managed.PayloadType**
 
 > The payload type, which each payload domain's reference page
 > specifies.
@@ -18460,7 +18460,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.wifi.managed.PayloadUUID**
+**profiles.wifi-managed.PayloadUUID**
 
 > The globally unique identifier for the payload. The actual content is
 > unimportant, but must be globally unique. In macOS, use 'uuidgen' to
@@ -18474,7 +18474,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* string
 
-**profiles.wifi.managed.PayloadVersion**
+**profiles.wifi-managed.PayloadVersion**
 
 > The version of this specific payload.
 >
@@ -18482,7 +18482,7 @@ configurations with the ios-configurations.nix flake.
 >
 > *Type:* value 1 (singular enum)
 
-**profiles.wifi.managed.ProxyPACFallbackAllowed**
+**profiles.wifi-managed.ProxyPACFallbackAllowed**
 
 > If 'true', allows connecting directly to the destination if the PAC
 > file is unreachable.
@@ -18495,7 +18495,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.ProxyPACURL**
+**profiles.wifi-managed.ProxyPACURL**
 
 > The URL of the PAC file that defines the proxy configuration.
 >
@@ -18507,7 +18507,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.ProxyPassword**
+**profiles.wifi-managed.ProxyPassword**
 
 > The password used to authenticate to the proxy server.
 >
@@ -18519,7 +18519,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.ProxyServer**
+**profiles.wifi-managed.ProxyServer**
 
 > The proxy server's network address.
 >
@@ -18531,7 +18531,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.ProxyServerPort**
+**profiles.wifi-managed.ProxyServerPort**
 
 > The proxy server's port number.
 >
@@ -18543,7 +18543,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.ProxyType**
+**profiles.wifi-managed.ProxyType**
 
 > The proxy type, if any, to use. If you choose the manual proxy type,
 > you need the proxy server address, including its port and optionally a
@@ -18558,7 +18558,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.ProxyUsername**
+**profiles.wifi-managed.ProxyUsername**
 
 > The user name used to authenticate to the proxy server.
 >
@@ -18570,7 +18570,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.QoSMarkingPolicy**
+**profiles.wifi-managed.QoSMarkingPolicy**
 
 > A dictionary that contains the list of apps that the system allows to
 > benefit from L2 and L3 marking. When this dictionary isn't present,
@@ -18585,7 +18585,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.QoSMarkingPolicy.QoSMarkingAllowListAppIdentifiers**
+**profiles.wifi-managed.QoSMarkingPolicy.QoSMarkingAllowListAppIdentifiers**
 
 > An array of app bundle identifiers that defines the allow list for L2
 > and L3 marking for traffic that goes to the Wi- Fi network. If the
@@ -18600,7 +18600,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.QoSMarkingPolicy.QoSMarkingAppleAudioVideoCalls**
+**profiles.wifi-managed.QoSMarkingPolicy.QoSMarkingAppleAudioVideoCalls**
 
 > If 'true', adds audio and video traffic of built-in audio or video
 > services, such as FaceTime and Wi-Fi Calling, to the allow list for L2
@@ -18614,7 +18614,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.QoSMarkingPolicy.QoSMarkingEnabled**
+**profiles.wifi-managed.QoSMarkingPolicy.QoSMarkingEnabled**
 
 > If 'true', disables L3 marking and only uses L2 marking for traffic
 > that goes to the Wi-Fi network.
@@ -18630,7 +18630,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.QoSMarkingPolicy.QoSMarkingWhitelistedAppIdentifiers**
+**profiles.wifi-managed.QoSMarkingPolicy.QoSMarkingWhitelistedAppIdentifiers**
 
 > Use 'QoSMarkingAllowListAppIdentifiers' instead.
 >
@@ -18643,7 +18643,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.RoamingConsortiumOIs**
+**profiles.wifi-managed.RoamingConsortiumOIs**
 
 > An array of Roaming Consortium Organization Identifiers used for Wi-Fi
 > Hotspot 2.0 negotiation.
@@ -18657,7 +18657,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.SSID_STR**
+**profiles.wifi-managed.SSID_STR**
 
 > The SSID of the Wi-Fi network to use. In iOS 7.0 and later, the SSID
 > is optional if a value exists for 'DomainName' value.
@@ -18670,7 +18670,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.ServiceProviderRoamingEnabled**
+**profiles.wifi-managed.ServiceProviderRoamingEnabled**
 
 > If 'true', allows connection to roaming service providers.
 >
@@ -18682,7 +18682,7 @@ configurations with the ios-configurations.nix flake.
 >
 > > null
 
-**profiles.wifi.managed.TLSCertificateRequired**
+**profiles.wifi-managed.TLSCertificateRequired**
 
 > If 'true', allows for two-factor authentication for EAP- TTLS, PEAP,
 > or EAP-FAST. If 'false', allows for zero-factor authentication for

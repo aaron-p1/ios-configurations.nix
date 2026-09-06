@@ -16,7 +16,7 @@ in
     let
       config = {
         target.version = null;
-        profiles.setupAssistant.managed.enable = true;
+        profiles.setupAssistant-managed.enable = true;
       };
       plist = evalGetPlist config;
     in
@@ -27,7 +27,7 @@ in
     let
       config = {
         target.isSupervised = null;
-        profiles.setupAssistant.managed.enable = true;
+        profiles.setupAssistant-managed.enable = true;
       };
       plist = evalGetPlist config;
     in
@@ -38,7 +38,7 @@ in
     let
       gen-config = version: enable: {
         target.version = version;
-        profiles.setupAssistant.managed.enable = enable;
+        profiles.setupAssistant-managed.enable = enable;
       };
       result1 = tryEvalGetPlist (gen-config "13.0" true);
       result2 = tryEvalGetPlist (gen-config "14.0" true);
@@ -74,7 +74,7 @@ in
     let
       gen-config = isSupervised: enable: {
         target.isSupervised = isSupervised;
-        profiles.setupAssistant.managed.enable = enable;
+        profiles.setupAssistant-managed.enable = enable;
       };
       result1 = tryEvalGetPlist (gen-config false true);
       result2 = tryEvalGetPlist (gen-config true true);

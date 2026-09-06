@@ -39,7 +39,7 @@ in
 
   does-not-gen-disabled-profile =
     let
-      config.profiles.setupAssistant.managed.enable = false;
+      config.profiles.setupAssistant-managed.enable = false;
       plist = evalGetPlist config;
     in
     assert assertDoesNotContain "<string>com.apple.SetupAssistant.managed</string>" plist;
@@ -47,7 +47,7 @@ in
 
   does-not-gen-enable-key =
     let
-      config.profiles.setupAssistant.managed.enable = true;
+      config.profiles.setupAssistant-managed.enable = true;
       plist = evalGetPlist config;
     in
     assert assertDoesNotContain "enable" plist;
@@ -55,7 +55,7 @@ in
 
   can-gen-enabled-empty-profile =
     let
-      config.profiles.setupAssistant.managed.enable = true;
+      config.profiles.setupAssistant-managed.enable = true;
       plist = evalGetPlist config;
     in
     assert assertContains "<string>com.apple.SetupAssistant.managed</string>" plist;
@@ -63,7 +63,7 @@ in
 
   does-not-set-empty-props =
     let
-      config.profiles.setupAssistant.managed = {
+      config.profiles.setupAssistant-managed = {
         enable = true;
         SkipSetupItems = [ ];
       };
@@ -75,7 +75,7 @@ in
 
   empty-list-counts-as-empty-prop =
     let
-      config.profiles.setupAssistant.managed = {
+      config.profiles.setupAssistant-managed = {
         enable = true;
         SkipSetupItems = [ ];
       };
@@ -86,7 +86,7 @@ in
 
   can-gen-setupassistant-managed =
     let
-      config.profiles.setupAssistant.managed = {
+      config.profiles.setupAssistant-managed = {
         enable = true;
         SkipSetupItems = [ "SkipValue" ];
       };
@@ -154,7 +154,7 @@ in
 
   can-gen-apn-managed =
     let
-      config.profiles.apn.managed = {
+      config.profiles.apn-managed = {
         enable = true;
         DefaultsData.apns = [
           {
@@ -179,7 +179,7 @@ in
 
   can-gen-app-lock =
     let
-      config.profiles.app.lock = {
+      config.profiles.app-lock = {
         enable = true;
         App = {
           Identifier = "com.apple.app.lock";
@@ -210,7 +210,7 @@ in
 
   can-gen-caldav-account =
     let
-      config.profiles.caldav.account = {
+      config.profiles.caldav-account = {
         enable = true;
         CalDAVHostName = "caldav.example.com";
       };
@@ -223,7 +223,7 @@ in
 
   can-gen-carddav-account =
     let
-      config.profiles.carddav.account = {
+      config.profiles.carddav-account = {
         enable = true;
         CardDAVHostName = "carddav.example.com";
       };
@@ -250,7 +250,7 @@ in
 
   can-gen-cellularprivatenetwork-managed =
     let
-      config.profiles.cellularprivatenetwork.managed = {
+      config.profiles.cellularprivatenetwork-managed = {
         enable = true;
         DataSetName = "Name";
         VersionNumber = "1.0";
@@ -278,7 +278,7 @@ in
 
   can-gen-dnsProxy-managed =
     let
-      config.profiles.dnsProxy.managed = {
+      config.profiles.dnsProxy-managed = {
         enable = true;
         AppBundleIdentifier = "com.example.dnsproxy";
       };
@@ -291,7 +291,7 @@ in
 
   can-gen-dnsSettings-managed =
     let
-      config.profiles.dnsSettings.managed = {
+      config.profiles.dnsSettings-managed = {
         enable = true;
         PayloadDisplayName = "DNS Settings";
         DNSSettings = {
@@ -320,7 +320,7 @@ in
 
   can-gen-eas-account =
     let
-      config.profiles.eas.account = {
+      config.profiles.eas-account = {
         enable = true;
         EmailAddress = "test@example.com";
       };
@@ -394,7 +394,7 @@ in
 
   can-gen-globalethernet-managed =
     let
-      config.profiles.globalethernet.managed = {
+      config.profiles.globalethernet-managed = {
         enable = true;
         settings.EthernetMACAddress = "00:11:22:33:44:55";
       };
@@ -449,7 +449,7 @@ in
 
   can-gen-ldap-account =
     let
-      config.profiles.ldap.account = {
+      config.profiles.ldap-account = {
         enable = true;
         LDAPAccountHostName = "ldap.example.com";
       };
@@ -462,7 +462,7 @@ in
 
   can-gen-mail-managed =
     let
-      config.profiles.mail.managed = {
+      config.profiles.mail-managed = {
         enable = true;
         EmailAccountType = "EmailTypeIMAP";
         IncomingMailServerAuthentication = "EmailAuthPassword";
@@ -494,7 +494,7 @@ in
 
   can-gen-mobiledevice-passwordpolicy =
     let
-      config.profiles.mobiledevice.passwordpolicy = {
+      config.profiles.mobiledevice-passwordpolicy = {
         enable = true;
         allowSimple = false;
       };
@@ -537,7 +537,7 @@ in
 
   can-gen-osxserver-account =
     let
-      config.profiles.osxserver.account = {
+      config.profiles.osxserver-account = {
         enable = true;
         HostName = "server.example.com";
         UserName = "user";
@@ -564,7 +564,7 @@ in
 
   can-gen-proxy-http-global =
     let
-      config.profiles.proxy.http.global = {
+      config.profiles.proxy-http-global = {
         enable = true;
         ProxyType = "Auto";
       };
@@ -577,7 +577,7 @@ in
 
   can-gen-relay-managed =
     let
-      config.profiles.relay.managed = {
+      config.profiles.relay-managed = {
         enable = true;
         Relays = [ { HTTP3RelayURL = "https://relay.example.com"; } ];
       };
@@ -590,7 +590,7 @@ in
 
   can-gen-security-acme =
     let
-      config.profiles.security.acme = {
+      config.profiles.security-acme = {
         enable = true;
         DirectoryURL = "https://acme.example.com";
         ClientIdentifier = "client-id";
@@ -615,7 +615,7 @@ in
 
   can-gen-security-certificaterevocation =
     let
-      config.profiles.security.certificaterevocation = {
+      config.profiles.security-certificaterevocation = {
         enable = true;
         EnabledForCerts = [
           {
@@ -633,7 +633,7 @@ in
 
   can-gen-security-certificatetransparency =
     let
-      config.profiles.security.certificatetransparency = {
+      config.profiles.security-certificatetransparency = {
         enable = true;
         DisabledForCerts = [
           {
@@ -651,7 +651,7 @@ in
 
   can-gen-security-pem =
     let
-      config.profiles.security.pem = {
+      config.profiles.security-pem = {
         enable = true;
         PayloadCertificateFileName = "cert.pem";
         PayloadContent = "pem-content";
@@ -665,7 +665,7 @@ in
 
   can-gen-security-pkcs1 =
     let
-      config.profiles.security.pkcs1 = {
+      config.profiles.security-pkcs1 = {
         enable = true;
         PayloadContent = "pkcs1-content";
       };
@@ -678,7 +678,7 @@ in
 
   can-gen-security-pkcs12 =
     let
-      config.profiles.security.pkcs12 = {
+      config.profiles.security-pkcs12 = {
         enable = true;
         PayloadContent = "pkcs12-content";
       };
@@ -691,7 +691,7 @@ in
 
   can-gen-security-root =
     let
-      config.profiles.security.root = {
+      config.profiles.security-root = {
         enable = true;
         PayloadContent = "root-content";
       };
@@ -704,7 +704,7 @@ in
 
   can-gen-security-scep =
     let
-      config.profiles.security.scep = {
+      config.profiles.security-scep = {
         enable = true;
         PayloadContent.URL = "https://scep.example.com";
       };
@@ -743,7 +743,7 @@ in
 
   can-gen-subscribedcalendar-account =
     let
-      config.profiles.subscribedcalendar.account = {
+      config.profiles.subscribedcalendar-account = {
         enable = true;
         SubCalAccountHostName = "subcal.example.com";
       };
@@ -769,7 +769,7 @@ in
 
   can-gen-vpn-managed-applayer =
     let
-      config.profiles.vpn.managed-applayer = {
+      config.profiles.vpn-managed-applayer = {
         enable = true;
         VPNUUID = "fdeb9882-f3e1-4d13-8e03-b495eec1e5b7";
       };
@@ -782,7 +782,7 @@ in
 
   can-gen-vpn-managed =
     let
-      config.profiles.vpn.managed = {
+      config.profiles.vpn-managed = {
         enable = true;
         VPNType = "L2TP";
         UserDefinedName = "My VPN";
@@ -796,7 +796,7 @@ in
 
   can-gen-webclip-managed =
     let
-      config.profiles.webClip.managed = {
+      config.profiles.webClip-managed = {
         enable = true;
         URL = "https://example.com";
         Label = "Example Web Clip";
@@ -823,7 +823,7 @@ in
 
   can-gen-wifi-managed =
     let
-      config.profiles.wifi.managed = {
+      config.profiles.wifi-managed = {
         enable = true;
         SSID_STR = "MyWiFi";
       };

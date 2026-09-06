@@ -51,7 +51,7 @@ in
   checks-if-float-in-range =
     let
       gen-config = value: {
-        profiles.cellularprivatenetwork.managed = {
+        profiles.cellularprivatenetwork-managed = {
           enable = true;
           Geofences = [
             {
@@ -94,7 +94,7 @@ in
   checks-enum-values =
     let
       gen-config = name: {
-        profiles.apn.managed = {
+        profiles.apn-managed = {
           enable = true;
           DefaultsDomainName = name;
         };
@@ -108,7 +108,7 @@ in
 
   supports-any-attrs =
     let
-      config.profiles.dnsProxy.managed = {
+      config.profiles.dnsProxy-managed = {
         enable = true;
         AppBundleIdentifier = "com.example.dnsproxy";
         ProviderConfiguration = {
@@ -125,7 +125,7 @@ in
 
   can-output-string =
     let
-      config.profiles.apn.managed = {
+      config.profiles.apn-managed = {
         enable = true;
         DefaultsDomainName = "com.apple.managedCarrier";
       };
@@ -185,7 +185,7 @@ in
 
   can-output-array =
     let
-      config.profiles.setupAssistant.managed = {
+      config.profiles.setupAssistant-managed = {
         enable = true;
         SkipSetupItems = [
           "Device1"
@@ -209,7 +209,7 @@ in
 
   can-output-data =
     let
-      config.profiles.apn.managed = {
+      config.profiles.apn-managed = {
         enable = true;
         DefaultsData.apns = [
           {
@@ -228,7 +228,7 @@ in
 
   can-output-file-as-data =
     let
-      config.profiles.apn.managed = {
+      config.profiles.apn-managed = {
         enable = true;
         DefaultsData.apns = [
           {
@@ -251,7 +251,7 @@ in
 
   can-output-dictionary =
     let
-      config.profiles.apn.managed = {
+      config.profiles.apn-managed = {
         enable = true;
         DefaultsData.apns = [
           {
@@ -270,7 +270,7 @@ in
 
   can-define-custom-attributes-with-settings =
     let
-      config.profiles.globalethernet.managed = {
+      config.profiles.globalethernet-managed = {
         enable = true;
         settings.EthernetMACAddress = "00:11:22:33:44:55";
       };
@@ -283,11 +283,11 @@ in
 
   can-merge-custom-attributes-with-settings =
     let
-      config1.profiles.globalethernet.managed = {
+      config1.profiles.globalethernet-managed = {
         enable = true;
         settings.EthernetMACAddress = "00:11:22:33:44:55";
       };
-      config2.profiles.globalethernet.managed = {
+      config2.profiles.globalethernet-managed = {
         settings.EthernetMTU = 1500;
         settings.nested.subkey = true;
       };

@@ -34,7 +34,7 @@ in
   checks-dnssettings-managed-payloaddisplayname-required =
     let
       gen-config = payloadDisplayName: {
-        profiles.dnsSettings.managed = {
+        profiles.dnsSettings-managed = {
           enable = true;
           PayloadDisplayName = payloadDisplayName;
           DNSSettings = {
