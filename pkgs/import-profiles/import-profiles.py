@@ -392,8 +392,8 @@ def key_type_to_nix_type(
                         return ret_type(
                             f"(types.ints.between {intRange['min']} {intRange['max']})"
                         )
-                    return ret_type(f"(types.ints.min {intRange['min']})")
-                return ret_type(f"(types.ints.max {intRange['max']})")
+                    return ret_type(f"(utils.intMin {intRange['min']})")
+                return ret_type(f"(utils.intMax {intRange['max']})")
 
             return ret_type("types.int")
         case "<real>":
@@ -804,17 +804,21 @@ def profile_to_module(profile, module_name):
             PayloadType = mkOption {
               type = types.str;
               default = "$payload_type";
+              description = "The payload type for this profile";
             };
             PayloadIdentifier = mkOption {
               type = types.str;
               default = "$identifier";
+              description = "The payload identifier for this profile";
             };
             PayloadUUID = mkOption {
               type = types.str;
+              description = "The payload UUID for this profile";
             };
             PayloadVersion = mkOption {
               type = types.int;
               default = 1;
+              description = "The payload version for this profile";
             };
             $options
           };

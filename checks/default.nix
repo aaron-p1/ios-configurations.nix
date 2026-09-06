@@ -6,7 +6,7 @@
 let
   eval =
     modules:
-    self.lib.mkIosConfig {
+    self.lib.iosConfig {
       inherit pkgs;
       modules = lib.toList modules;
     };

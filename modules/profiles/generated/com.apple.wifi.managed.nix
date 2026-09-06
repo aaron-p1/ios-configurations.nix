@@ -12,17 +12,21 @@ in
     PayloadType = mkOption {
       type = types.str;
       default = "com.apple.wifi.managed";
+      description = "The payload type for this profile";
     };
     PayloadIdentifier = mkOption {
       type = types.str;
       default = "com.example.manage-ios.wifi.managed";
+      description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {
       type = types.str;
+      description = "The payload UUID for this profile";
     };
     PayloadVersion = mkOption {
       type = types.int;
       default = 1;
+      description = "The payload version for this profile";
     };
     "AutoJoin" = mkProfileOpt {
       type = types.bool;

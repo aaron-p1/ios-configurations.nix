@@ -10,17 +10,21 @@ in
     PayloadType = mkOption {
       type = types.str;
       default = "com.apple.webcontent-filter";
+      description = "The payload type for this profile";
     };
     PayloadIdentifier = mkOption {
       type = types.str;
       default = "com.example.manage-ios.webcontent-filter";
+      description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {
       type = types.str;
+      description = "The payload UUID for this profile";
     };
     PayloadVersion = mkOption {
       type = types.int;
       default = 1;
+      description = "The payload version for this profile";
     };
     "FilterType" = mkProfileOpt {
       type = (
@@ -380,7 +384,7 @@ in
             required = false;
           };
           "URLPrefilterFetchFrequency" = mkProfileOpt {
-            type = (types.ints.min 2700);
+            type = (utils.intMin 2700);
             description = ''
               The time interval in seconds that the system uses to
               periodically run the `NEURLFilterControlProvider` app

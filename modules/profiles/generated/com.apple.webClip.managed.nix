@@ -10,17 +10,21 @@ in
     PayloadType = mkOption {
       type = types.str;
       default = "com.apple.webClip.managed";
+      description = "The payload type for this profile";
     };
     PayloadIdentifier = mkOption {
       type = types.str;
       default = "com.example.manage-ios.webClip.managed";
+      description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {
       type = types.str;
+      description = "The payload UUID for this profile";
     };
     PayloadVersion = mkOption {
       type = types.int;
       default = 1;
+      description = "The payload version for this profile";
     };
     "Precomposed" = mkProfileOpt {
       type = types.bool;

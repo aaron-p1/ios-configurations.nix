@@ -1,5 +1,5 @@
 { lib }: {
-  mkIosConfig =
+  iosConfig =
     {
       pkgs,
       modules ? [ ],
