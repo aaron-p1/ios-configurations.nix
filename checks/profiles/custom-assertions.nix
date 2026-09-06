@@ -30,4 +30,22 @@ in
     assert result3.success == true;
     assert result4.success == true;
     pkgs.runCommand "checks-webcontent-filter-contentfilteruuid-required" { } "touch $out";
+
+  checks-dnssettings-managed-payloaddisplayname-required =
+    let
+      gen-config = payloadDisplayName: {
+        profiles.dnsSettings.managed = {
+          enable = true;
+          PayloadDisplayName = payloadDisplayName;
+          DNSSettings = {
+            DNSProtocol = "HTTPS";
+          };
+        };
+      };
+      result1 = tryEvalGetPlist (gen-config null);
+      result2 = tryEvalGetPlist (gen-config "DNS Settings");
+    in
+    assert result1.success == false;
+    assert result2.success == true;
+    pkgs.runCommand "checks-dnssettings-managed-payloaddisplayname-required" { } "touch $out";
 }

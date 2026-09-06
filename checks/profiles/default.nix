@@ -293,6 +293,7 @@ in
     let
       config.profiles.dnsSettings.managed = {
         enable = true;
+        PayloadDisplayName = "DNS Settings";
         DNSSettings = {
           DNSProtocol = "HTTPS";
         };
