@@ -1,6 +1,5 @@
 { ... }: {
-  # keys are PayloadType
-  "com.apple.webcontent-filter" = {
+  webcontent-filter = {
     assertions = { target, cfg, ... }: [
       {
         assertion = !(target.isSupervised == false && cfg.ContentFilterUUID == null);
@@ -8,11 +7,11 @@
       }
     ];
   };
-  "com.apple.dnsSettings.managed" = {
+  dnsSettings-managed = {
     assertions = { cfg, ... }: [
       {
         assertion = cfg.PayloadDisplayName != null;
-        message = "Profile `dnsSettings.managed` requires `PayloadDisplayName` to be set.";
+        message = "Profile `dnsSettings-managed` requires `PayloadDisplayName` to be set.";
       }
     ];
   };

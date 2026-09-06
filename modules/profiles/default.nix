@@ -290,7 +290,7 @@ let
     {
       inherit name meta;
     }
-    // (loadWithCommon meta.name)
+    // (loadWithCommon name meta.name)
   ) generatedConfigs;
 
   toProfileOption =
@@ -406,10 +406,11 @@ let
   loadGenerated = name: import ./generated/${name}.nix { inherit lib ios-config-utils; };
 
   loadWithCommon =
-    name:
+    attrName: name:
     let
       rawConfig = loadGenerated name;
-      config = if overrides ? ${name} then applyOverride rawConfig overrides.${name} else rawConfig;
+      config =
+        if overrides ? ${attrName} then applyOverride rawConfig overrides.${attrName} else rawConfig;
     in
     config
     // {
