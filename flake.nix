@@ -53,7 +53,7 @@
         {
           default = pkgs.mkShell {
             shellHook = ''
-              export MANPATH="${self.packages.${system}.manpage}/share/man:$MANPATH"
+              export PATH="${self.packages.${system}.manpage}:$PATH"
             '';
           };
         }

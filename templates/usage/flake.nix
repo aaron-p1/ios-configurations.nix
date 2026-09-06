@@ -52,13 +52,19 @@
       packages = forAllSystems ({ pkgs, ... }: deployPkgs { inherit self pkgs; });
 
       # DevShell for making man page available:
-      # nix develop
-      # man ios-configurations
+      # $ nix develop
+      # $ man ios-configurations
       devShells = forAllSystems (
         { pkgs, system, ... }: {
           default = pkgs.mkShell {
+            # info about connected iOS devices:
+            # (idevice commands need "-n" for devices accessed via WiFi)
+            # $ idevice_id -nl
+            # $ ideviceinfo -n
+            buildInputs = [ pkgs.libimobiledevice ];
+
             shellHook = ''
-              export MANPATH="${ios-config.packages.${system}.manpage}/share/man:$MANPATH"
+              export PATH="${ios-config.packages.${system}.manpage}:$PATH"
             '';
           };
         }
