@@ -17,7 +17,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.tvremote";
+      default = "ios-configurations.tvremote";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

@@ -17,7 +17,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.osxserver.account";
+      default = "ios-configurations.osxserver.account";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

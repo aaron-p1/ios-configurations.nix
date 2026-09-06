@@ -22,7 +22,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.cellularprivatenetwork.managed";
+      default = "ios-configurations.cellularprivatenetwork.managed";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

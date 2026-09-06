@@ -17,7 +17,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.carddav.account";
+      default = "ios-configurations.carddav.account";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

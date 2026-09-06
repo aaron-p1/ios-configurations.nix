@@ -28,7 +28,7 @@ in
     assert hasInfix "PayloadContent" plist;
     assert hasInfix "PayloadDisplayName" plist;
     assert hasInfix "PayloadIdentifier" plist;
-    assert hasInfix "<string>com.example.manage-ios</string>" plist;
+    assert hasInfix "<string>ios-configurations</string>" plist;
     assert hasInfix "PayloadUUID" plist;
     assert hasInfix "PayloadType" plist;
     assert hasInfix "PayloadVersion" plist;
@@ -86,7 +86,7 @@ in
     assert hasInfix "<string>com.apple.SetupAssistant.managed</string>" plist;
     assert hasInfix "        <key>PayloadVersion</key>" plist;
     assert hasInfix "        <key>PayloadIdentifier</key>" plist;
-    assert hasInfix "<string>com.example.manage-ios.SetupAssistant.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.SetupAssistant.managed</string>" plist;
     assert hasInfix "        <key>PayloadUUID</key>" plist;
     assert hasInfix "<string>SkipValue</string>" plist;
     pkgs.runCommand "can-gen-setupassistant-managed" { } "touch $out";
@@ -111,7 +111,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.airplay</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.airplay</string>" plist;
+    assert hasInfix "<string>ios-configurations.airplay</string>" plist;
     assert hasInfix "<string>00:11:22:33:44:55</string>" plist;
     assert hasInfix "<string>My AirPlay Device</string>" plist;
     assert hasInfix "<string>My AirPlay Device Password</string>" plist;
@@ -134,7 +134,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.airprint</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.airprint</string>" plist;
+    assert hasInfix "<string>ios-configurations.airprint</string>" plist;
     assert hasInfix "<string>127.0.0.1</string>" plist;
     assert hasInfix "<string>ipp/print</string>" plist;
     assert hasInfix "<integer>631</integer>" plist;
@@ -159,7 +159,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.apn.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.apn.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.apn.managed</string>" plist;
     assert hasInfix "<string>internet</string>" plist;
     assert hasInfix "<data>" plist;
     assert hasInfix "cGFzc3dvcmQ=" plist;
@@ -178,7 +178,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.app.lock</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.app.lock</string>" plist;
+    assert hasInfix "<string>ios-configurations.app.lock</string>" plist;
     assert hasInfix "<key>App</key>" plist;
     assert hasInfix "<key>Identifier</key>" plist;
     assert hasInfix "<key>EnableZoom</key>" plist;
@@ -193,7 +193,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.applicationaccess</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.applicationaccess</string>" plist;
+    assert hasInfix "<string>ios-configurations.applicationaccess</string>" plist;
     assert hasInfix "<key>allowAccountModification</key>" plist;
     pkgs.runCommand "can-gen-applicationaccess" { } "touch $out";
 
@@ -206,7 +206,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.caldav.account</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.caldav.account</string>" plist;
+    assert hasInfix "<string>ios-configurations.caldav.account</string>" plist;
     assert hasInfix "<key>CalDAVHostName</key>" plist;
     pkgs.runCommand "can-gen-caldav-account" { } "touch $out";
 
@@ -219,7 +219,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.carddav.account</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.carddav.account</string>" plist;
+    assert hasInfix "<string>ios-configurations.carddav.account</string>" plist;
     assert hasInfix "<key>CardDAVHostName</key>" plist;
     pkgs.runCommand "can-gen-carddav-account" { } "touch $out";
 
@@ -232,7 +232,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.cellular</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.cellular</string>" plist;
+    assert hasInfix "<string>ios-configurations.cellular</string>" plist;
     assert hasInfix "<key>AttachAPN</key>" plist;
     assert hasInfix "<key>Name</key>" plist;
     pkgs.runCommand "can-gen-cellular" { } "touch $out";
@@ -247,7 +247,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.cellularprivatenetwork.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.cellularprivatenetwork.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.cellularprivatenetwork.managed</string>" plist;
     assert hasInfix "<key>DataSetName</key>" plist;
     assert hasInfix "<key>VersionNumber</key>" plist;
     pkgs.runCommand "can-gen-cellularprivatenetwork-managed" { } "touch $out";
@@ -261,7 +261,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.declarations</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.declarations</string>" plist;
+    assert hasInfix "<string>ios-configurations.declarations</string>" plist;
     assert hasInfix "<key>Declarations</key>" plist;
     pkgs.runCommand "can-gen-declarations" { } "touch $out";
 
@@ -274,7 +274,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.dnsProxy.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.dnsProxy.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.dnsProxy.managed</string>" plist;
     assert hasInfix "<key>AppBundleIdentifier</key>" plist;
     pkgs.runCommand "can-gen-dnsProxy-managed" { } "touch $out";
 
@@ -289,7 +289,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.dnsSettings.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.dnsSettings.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.dnsSettings.managed</string>" plist;
     assert hasInfix "<key>DNSSettings</key>" plist;
     pkgs.runCommand "can-gen-dnsSettings-managed" { } "touch $out";
 
@@ -302,7 +302,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.domains</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.domains</string>" plist;
+    assert hasInfix "<string>ios-configurations.domains</string>" plist;
     assert hasInfix "<key>EmailDomains</key>" plist;
     pkgs.runCommand "can-gen-domains" { } "touch $out";
 
@@ -315,7 +315,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.eas.account</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.eas.account</string>" plist;
+    assert hasInfix "<string>ios-configurations.eas.account</string>" plist;
     assert hasInfix "<key>EmailAddress</key>" plist;
     pkgs.runCommand "can-gen-eas-account" { } "touch $out";
 
@@ -332,7 +332,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.education</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.education</string>" plist;
+    assert hasInfix "<string>ios-configurations.education</string>" plist;
     assert hasInfix "<key>OrganizationUUID</key>" plist;
     pkgs.runCommand "can-gen-education" { } "touch $out";
 
@@ -348,7 +348,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.extensiblesso</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.extensiblesso(kerberos)</string>" plist;
+    assert hasInfix "<string>ios-configurations.extensiblesso(kerberos)</string>" plist;
     assert hasInfix "<key>ExtensionIdentifier</key>" plist;
     pkgs.runCommand "can-gen-extensionsso-kerberos" { } "touch $out";
 
@@ -362,7 +362,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.extensiblesso</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.extensiblesso</string>" plist;
+    assert hasInfix "<string>ios-configurations.extensiblesso</string>" plist;
     assert hasInfix "<key>ExtensionIdentifier</key>" plist;
     pkgs.runCommand "can-gen-extensionsso" { } "touch $out";
 
@@ -376,7 +376,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.font</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.font</string>" plist;
+    assert hasInfix "<string>ios-configurations.font</string>" plist;
     assert hasInfix "<key>Name</key>" plist;
     pkgs.runCommand "can-gen-font" { } "touch $out";
 
@@ -389,7 +389,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.globalethernet.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.globalethernet.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.globalethernet.managed</string>" plist;
     assert hasInfix "<key>EthernetMACAddress</key>" plist;
     pkgs.runCommand "can-gen-globalethernet-managed" { } "touch $out";
 
@@ -402,7 +402,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.google-oauth</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.google-oauth</string>" plist;
+    assert hasInfix "<string>ios-configurations.google-oauth</string>" plist;
     assert hasInfix "<key>EmailAddress</key>" plist;
     pkgs.runCommand "can-gen-google-oauth" { } "touch $out";
 
@@ -416,7 +416,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.homescreenlayout</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.homescreenlayout</string>" plist;
+    assert hasInfix "<string>ios-configurations.homescreenlayout</string>" plist;
     assert hasInfix "<key>Dock</key>" plist;
     pkgs.runCommand "can-gen-homescreenlayout" { } "touch $out";
 
@@ -444,7 +444,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.ldap.account</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.ldap.account</string>" plist;
+    assert hasInfix "<string>ios-configurations.ldap.account</string>" plist;
     assert hasInfix "<key>LDAPAccountHostName</key>" plist;
     pkgs.runCommand "can-gen-ldap-account" { } "touch $out";
 
@@ -461,7 +461,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.mail.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.mail.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.mail.managed</string>" plist;
     assert hasInfix "<key>IncomingMailServerHostName</key>" plist;
     pkgs.runCommand "can-gen-mail-managed" { } "touch $out";
 
@@ -476,7 +476,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.mdm</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.mdm</string>" plist;
+    assert hasInfix "<string>ios-configurations.mdm</string>" plist;
     assert hasInfix "<key>IdentityCertificateUUID</key>" plist;
     pkgs.runCommand "can-gen-mdm" { } "touch $out";
 
@@ -489,7 +489,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.mobiledevice.passwordpolicy</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.mobiledevice.passwordpolicy</string>" plist;
+    assert hasInfix "<string>ios-configurations.mobiledevice.passwordpolicy</string>" plist;
     assert hasInfix "<key>allowSimple</key>" plist;
     pkgs.runCommand "can-gen-mobiledevice-passwordpolicy" { } "touch $out";
 
@@ -506,7 +506,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.networkusagerules</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.networkusagerules</string>" plist;
+    assert hasInfix "<string>ios-configurations.networkusagerules</string>" plist;
     assert hasInfix "<key>ApplicationRules</key>" plist;
     pkgs.runCommand "can-gen-networkusagerules" { } "touch $out";
 
@@ -519,7 +519,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.notificationsettings</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.notificationsettings</string>" plist;
+    assert hasInfix "<string>ios-configurations.notificationsettings</string>" plist;
     assert hasInfix "<key>NotificationSettings</key>" plist;
     pkgs.runCommand "can-gen-notificationsettings" { } "touch $out";
 
@@ -533,7 +533,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.osxserver.account</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.osxserver.account</string>" plist;
+    assert hasInfix "<string>ios-configurations.osxserver.account</string>" plist;
     assert hasInfix "<key>HostName</key>" plist;
     pkgs.runCommand "can-gen-osxserver-account" { } "touch $out";
 
@@ -546,7 +546,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.profileRemovalPassword</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.profileRemovalPassword</string>" plist;
+    assert hasInfix "<string>ios-configurations.profileRemovalPassword</string>" plist;
     assert hasInfix "<key>RemovalPassword</key>" plist;
     pkgs.runCommand "can-gen-profileRemovalPassword" { } "touch $out";
 
@@ -559,7 +559,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.proxy.http.global</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.proxy.http.global</string>" plist;
+    assert hasInfix "<string>ios-configurations.proxy.http.global</string>" plist;
     assert hasInfix "<key>ProxyType</key>" plist;
     pkgs.runCommand "can-gen-proxy-http-global" { } "touch $out";
 
@@ -572,7 +572,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.relay.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.relay.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.relay.managed</string>" plist;
     assert hasInfix "<key>Relays</key>" plist;
     pkgs.runCommand "can-gen-relay-managed" { } "touch $out";
 
@@ -597,7 +597,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.security.acme</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.security.acme</string>" plist;
+    assert hasInfix "<string>ios-configurations.security.acme</string>" plist;
     assert hasInfix "<key>DirectoryURL</key>" plist;
     pkgs.runCommand "can-gen-security-acme" { } "touch $out";
 
@@ -615,7 +615,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.security.certificaterevocation</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.security.certificaterevocation</string>" plist;
+    assert hasInfix "<string>ios-configurations.security.certificaterevocation</string>" plist;
     assert hasInfix "<key>EnabledForCerts</key>" plist;
     pkgs.runCommand "can-gen-security-certificaterevocation" { } "touch $out";
 
@@ -633,7 +633,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.security.certificatetransparency</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.security.certificatetransparency</string>" plist;
+    assert hasInfix "<string>ios-configurations.security.certificatetransparency</string>" plist;
     assert hasInfix "<key>DisabledForCerts</key>" plist;
     pkgs.runCommand "can-gen-security-certificatetransparency" { } "touch $out";
 
@@ -647,7 +647,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.security.pem</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.security.pem</string>" plist;
+    assert hasInfix "<string>ios-configurations.security.pem</string>" plist;
     assert hasInfix "<key>PayloadCertificateFileName</key>" plist;
     pkgs.runCommand "can-gen-security-pem" { } "touch $out";
 
@@ -660,7 +660,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.security.pkcs1</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.security.pkcs1</string>" plist;
+    assert hasInfix "<string>ios-configurations.security.pkcs1</string>" plist;
     assert hasInfix "<key>PayloadContent</key>" plist;
     pkgs.runCommand "can-gen-security-pkcs1" { } "touch $out";
 
@@ -673,7 +673,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.security.pkcs12</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.security.pkcs12</string>" plist;
+    assert hasInfix "<string>ios-configurations.security.pkcs12</string>" plist;
     assert hasInfix "<key>PayloadContent</key>" plist;
     pkgs.runCommand "can-gen-security-pkcs12" { } "touch $out";
 
@@ -686,7 +686,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.security.root</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.security.root</string>" plist;
+    assert hasInfix "<string>ios-configurations.security.root</string>" plist;
     assert hasInfix "<key>PayloadContent</key>" plist;
     pkgs.runCommand "can-gen-security-root" { } "touch $out";
 
@@ -699,7 +699,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.security.scep</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.security.scep</string>" plist;
+    assert hasInfix "<string>ios-configurations.security.scep</string>" plist;
     assert hasInfix "<key>PayloadContent</key>" plist;
     pkgs.runCommand "can-gen-security-scep" { } "touch $out";
 
@@ -712,7 +712,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.shareddeviceconfiguration</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.shareddeviceconfiguration</string>" plist;
+    assert hasInfix "<string>ios-configurations.shareddeviceconfiguration</string>" plist;
     assert hasInfix "<key>AssetTagInformation</key>" plist;
     pkgs.runCommand "can-gen-shareddeviceconfiguration" { } "touch $out";
 
@@ -725,7 +725,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.sso</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.sso</string>" plist;
+    assert hasInfix "<string>ios-configurations.sso</string>" plist;
     assert hasInfix "<key>Name</key>" plist;
     pkgs.runCommand "can-gen-sso" { } "touch $out";
 
@@ -738,7 +738,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.subscribedcalendar.account</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.subscribedcalendar.account</string>" plist;
+    assert hasInfix "<string>ios-configurations.subscribedcalendar.account</string>" plist;
     assert hasInfix "<key>SubCalAccountHostName</key>" plist;
     pkgs.runCommand "can-gen-subscribedcalendar-account" { } "touch $out";
 
@@ -751,7 +751,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.tvremote</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.tvremote</string>" plist;
+    assert hasInfix "<string>ios-configurations.tvremote</string>" plist;
     assert hasInfix "<key>AllowedTVs</key>" plist;
     pkgs.runCommand "can-gen-tvremote" { } "touch $out";
 
@@ -764,7 +764,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.vpn.managed.applayer</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.vpn.managed.applayer</string>" plist;
+    assert hasInfix "<string>ios-configurations.vpn.managed.applayer</string>" plist;
     assert hasInfix "<key>VPNUUID</key>" plist;
     pkgs.runCommand "can-gen-vpn-managed-applayer" { } "touch $out";
 
@@ -778,7 +778,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.vpn.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.vpn.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.vpn.managed</string>" plist;
     assert hasInfix "<key>VPNType</key>" plist;
     pkgs.runCommand "can-gen-vpn-managed" { } "touch $out";
 
@@ -792,7 +792,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.webClip.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.webClip.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.webClip.managed</string>" plist;
     assert hasInfix "<key>URL</key>" plist;
     pkgs.runCommand "can-gen-webClip-managed" { } "touch $out";
 
@@ -805,7 +805,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.webcontent-filter</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.webcontent-filter</string>" plist;
+    assert hasInfix "<string>ios-configurations.webcontent-filter</string>" plist;
     assert hasInfix "<key>FilterType</key>" plist;
     pkgs.runCommand "can-gen-webcontent-filter" { } "touch $out";
 
@@ -818,7 +818,7 @@ in
       plist = evalGetPlist config;
     in
     assert hasInfix "<string>com.apple.wifi.managed</string>" plist;
-    assert hasInfix "<string>com.example.manage-ios.wifi.managed</string>" plist;
+    assert hasInfix "<string>ios-configurations.wifi.managed</string>" plist;
     assert hasInfix "<key>SSID_STR</key>" plist;
     pkgs.runCommand "can-gen-wifi-managed" { } "touch $out";
 }

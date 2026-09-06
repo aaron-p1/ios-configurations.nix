@@ -37,7 +37,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.webcontent-filter";
+      default = "ios-configurations.webcontent-filter";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

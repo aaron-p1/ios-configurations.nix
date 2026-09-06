@@ -22,7 +22,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.applicationaccess";
+      default = "ios-configurations.applicationaccess";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

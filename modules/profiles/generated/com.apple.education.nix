@@ -43,7 +43,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.education";
+      default = "ios-configurations.education";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

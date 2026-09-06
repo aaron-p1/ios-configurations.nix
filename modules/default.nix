@@ -3,7 +3,7 @@ let
   inherit (lib) mkOption types;
 in
 {
-  _class = "manage-ios";
+  _class = "ios";
 
   imports = [
     ./build.nix

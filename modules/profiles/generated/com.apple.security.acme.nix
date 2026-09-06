@@ -40,7 +40,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.security.acme";
+      default = "ios-configurations.security.acme";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

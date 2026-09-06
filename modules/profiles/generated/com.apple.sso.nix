@@ -19,7 +19,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.sso";
+      default = "ios-configurations.sso";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

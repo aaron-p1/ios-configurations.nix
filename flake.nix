@@ -1,4 +1,6 @@
 {
+  description = "Use the Nix module system to configure iOS devices";
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
   outputs =
@@ -20,9 +22,10 @@
     in
     {
       lib = import ./lib { inherit lib; };
-      manageiosModules = import ./modules;
 
-      checks = forAllSystems ({ pkgs, ... }: import ./checks { inherit self pkgs lib; });
+      iosModules = {
+        default = ./modules;
+      };
 
       packages = forAllSystems (
         { pkgs, ... }: {
@@ -36,21 +39,23 @@
                 }
               );
             in
-            pkgs.runCommand "manage-ios.5" { } ''
+            pkgs.runCommand "ios-configurations.5" { } ''
               mkdir -p $out/share/man/man5
               ${pkgs.nixos-render-docs}/bin/nixos-render-docs -j $NIX_BUILD_CORES \
                 options manpage \
                 --revision ${self.rev or "dirty"} \
                 ${optionsDoc.optionsJSON}/share/doc/nixos/options.json \
-                $out/share/man/man5/manage-ios.5
+                $out/share/man/man5/ios-configurations.5
 
               # for some reason it does not render Required: and Deprecated in on separate lines
-              sed -i "s| Deprecated in|\n.br\nDeprecated in|g" $out/share/man/man5/manage-ios.5
+              sed -i "s| Deprecated in|\n.br\nDeprecated in|g" $out/share/man/man5/ios-configurations.5
             '';
 
           import-profiles = import ./pkgs/import-profiles { inherit pkgs; };
         }
       );
+
+      checks = forAllSystems ({ pkgs, ... }: import ./checks { inherit self pkgs lib; });
 
       devShells = forAllSystems (
         { system, pkgs, ... }:

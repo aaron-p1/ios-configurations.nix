@@ -6,7 +6,7 @@
       specialArgs ? { },
     }:
     lib.evalModules {
-      class = "manage-ios";
+      class = "ios";
       specialArgs = specialArgs // {
         inherit pkgs;
         utils = import ./utils.nix { inherit lib; };

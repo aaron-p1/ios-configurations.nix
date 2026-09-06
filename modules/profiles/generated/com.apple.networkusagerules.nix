@@ -25,7 +25,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.networkusagerules";
+      default = "ios-configurations.networkusagerules";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

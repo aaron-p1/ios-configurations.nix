@@ -17,7 +17,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.subscribedcalendar.account";
+      default = "ios-configurations.subscribedcalendar.account";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

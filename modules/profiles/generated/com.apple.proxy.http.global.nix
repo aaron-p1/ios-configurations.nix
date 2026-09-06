@@ -21,7 +21,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.proxy.http.global";
+      default = "ios-configurations.proxy.http.global";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

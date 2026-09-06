@@ -62,7 +62,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.airplay";
+      default = "ios-configurations.airplay";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

@@ -26,7 +26,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.extensiblesso(kerberos)";
+      default = "ios-configurations.extensiblesso(kerberos)";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

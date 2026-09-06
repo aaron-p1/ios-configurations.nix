@@ -135,7 +135,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.homescreenlayout";
+      default = "ios-configurations.homescreenlayout";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

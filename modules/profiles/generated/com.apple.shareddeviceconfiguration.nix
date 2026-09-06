@@ -24,7 +24,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.shareddeviceconfiguration";
+      default = "ios-configurations.shareddeviceconfiguration";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

@@ -22,7 +22,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.profileRemovalPassword";
+      default = "ios-configurations.profileRemovalPassword";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

@@ -19,7 +19,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.security.pem";
+      default = "ios-configurations.security.pem";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

@@ -358,7 +358,7 @@ let
   cfg = config.profiles;
 in
 {
-  _class = "manage-ios";
+  _class = "ios";
 
   options.profiles = {
     plist = mkOption {
@@ -407,9 +407,9 @@ in
             <plist version="1.0">
               <dict>
                 <key>PayloadDisplayName</key>
-                <string>Config from manage-ios.nix</string>
+                <string>Config from iosConfigurations.nix</string>
                 <key>PayloadIdentifier</key>
-                <string>com.example.manage-ios</string>
+                <string>ios-configurations</string>
                 <key>PayloadUUID</key>
                 <string>7bbadd94-97f8-4c3e-82e1-9ac51cb23ae6</string>
                 <key>PayloadType</key>

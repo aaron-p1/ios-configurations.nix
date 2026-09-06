@@ -8,7 +8,7 @@ REF = "release"
 TARBALL = f"https://codeload.github.com/apple/device-management/tar.gz/refs/heads/{REF}"
 
 MODULE_PATH = "modules/profiles/generated"
-PROFILE_IDENTIFIER_PREFIX = "com.example.manage-ios."
+PROFILE_IDENTIFIER_PREFIX = "ios-configurations."
 
 CACHE_DIR = "tmp"
 

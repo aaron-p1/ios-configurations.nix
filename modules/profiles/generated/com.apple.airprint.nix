@@ -18,7 +18,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.airprint";
+      default = "ios-configurations.airprint";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

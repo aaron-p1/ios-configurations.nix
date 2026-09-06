@@ -36,7 +36,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.mdm";
+      default = "ios-configurations.mdm";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

@@ -18,7 +18,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.ldap.account";
+      default = "ios-configurations.ldap.account";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

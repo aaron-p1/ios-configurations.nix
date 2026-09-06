@@ -19,7 +19,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.wifi.managed";
+      default = "ios-configurations.wifi.managed";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

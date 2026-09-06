@@ -29,7 +29,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.mobiledevice.passwordpolicy";
+      default = "ios-configurations.mobiledevice.passwordpolicy";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

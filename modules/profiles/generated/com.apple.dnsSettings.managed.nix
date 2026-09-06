@@ -21,7 +21,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.dnsSettings.managed";
+      default = "ios-configurations.dnsSettings.managed";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

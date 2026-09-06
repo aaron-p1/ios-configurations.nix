@@ -1,5 +1,5 @@
 { lib, ... }: {
-  _class = "manage-ios";
+  _class = "ios";
 
   options.build = {
     package = lib.mkOption {

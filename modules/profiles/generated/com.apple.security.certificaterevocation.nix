@@ -19,7 +19,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.security.certificaterevocation";
+      default = "ios-configurations.security.certificaterevocation";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

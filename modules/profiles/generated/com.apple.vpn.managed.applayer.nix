@@ -24,7 +24,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.vpn.managed.applayer";
+      default = "ios-configurations.vpn.managed.applayer";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

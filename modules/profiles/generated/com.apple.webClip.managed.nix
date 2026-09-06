@@ -31,7 +31,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.webClip.managed";
+      default = "ios-configurations.webClip.managed";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

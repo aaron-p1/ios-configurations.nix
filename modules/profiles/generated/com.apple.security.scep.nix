@@ -23,7 +23,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.security.scep";
+      default = "ios-configurations.security.scep";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {

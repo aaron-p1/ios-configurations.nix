@@ -318,7 +318,7 @@ in
     };
     PayloadIdentifier = mkOption {
       type = types.str;
-      default = "com.example.manage-ios.vpn.managed";
+      default = "ios-configurations.vpn.managed";
       description = "The payload identifier for this profile";
     };
     PayloadUUID = mkOption {
