@@ -36,6 +36,10 @@ Most profiles were not tested.
 
 ## Usage
 
+On linux this project requires a usbmuxd service running ([usbmuxd](https://github.com/libimobiledevice/usbmuxd),
+[usbmuxd2](https://github.com/tihmstar/usbmuxd2) or
+[netmuxd](https://github.com/jkcoxson/netmuxd))
+
 Init with:
 
 ```bash
@@ -116,7 +120,7 @@ nix run .#deploy-iphone
 
 ## Validation
 
-Profile property types (and sometimes ranges and formats) are validated (of course).
+Profile property types (and sometimes ranges and formats) are validated.
 Most of these validations are taken from the
 [official source](https://github.com/apple/device-management/tree/release/mdm/profiles).
 
